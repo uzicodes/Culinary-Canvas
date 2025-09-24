@@ -25,7 +25,7 @@ const testimonials = [
     name: 'Emily Rodriguez',
     role: 'Busy Mom',
     rating: 5,
-    comment: 'Convenient, fresh, and organic! Perfect for my family\'s healthy lifestyle. The delivery is always on time and the packaging is eco-friendly.',
+    comment: 'Convenient, fresh, and organic! Perfect for my family&apos;s healthy lifestyle. The delivery is always on time and the packaging is eco-friendly.',
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80'
   }
 ]
@@ -40,8 +40,8 @@ const Testimonials = () => {
             Why Customer <span className="text-primary-600">Love Us</span> ?
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our customers say about their 
-            experience with Delicacy's fresh and organic products.
+            Don&apos;t just take our word for it. Here&apos;s what our customers say about their 
+            experience with Delicacy&apos;s fresh and organic products.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ const Testimonials = () => {
 
               {/* Comment */}
               <p className="text-gray-700 mb-6 leading-relaxed">
-                "{testimonial.comment}"
+                &ldquo;{testimonial.comment}&rdquo;
               </p>
 
               {/* Customer Info */}
