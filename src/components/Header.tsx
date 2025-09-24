@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ShoppingCart, Search, Menu, X, User, Heart } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -14,8 +15,13 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">D</span>
+              <div className="w-10 h-10 relative">
+                <Image
+                  src="/without_BG_logo.png"
+                  alt="Delicacy Logo"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <span className="text-xl font-bold text-gray-900">Delicacy</span>
             </Link>
