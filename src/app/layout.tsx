@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Culinary Canvas - Fresh & Healthy Food Delivery',
-  description: 'Choose delicacy the best healthy way to life. Order fresh, organic, and healthy food delivered to your doorstep.',
+  description: 'Choose Culinary Canvas the best healthy way to life. Order fresh, organic, and healthy food delivered to your doorstep.',
   keywords: 'food delivery, healthy food, organic, fresh vegetables, fruits, grocery delivery',
 }
 

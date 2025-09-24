@@ -12,9 +12,9 @@ const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">D</span>
+                <span className="text-white font-bold text-sm">CC</span>
               </div>
-              <span className="text-xl font-bold">Delicacy</span>
+              <span className="text-xl font-bold">Culinary Canvas</span>
             </div>
             <p className="text-gray-400 leading-relaxed">
               Your trusted partner for fresh, organic, and healthy food delivery. 
@@ -116,7 +116,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                <span className="text-gray-400">hello@delicacy.com</span>
+                <span className="text-gray-400">hello@culinarycanvas.com</span>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2024 Delicacy. All rights reserved.
+              © 2024 Culinary Canvas. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">

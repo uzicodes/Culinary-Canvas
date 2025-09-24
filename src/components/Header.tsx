@@ -18,12 +18,12 @@ const Header = () => {
               <div className="w-10 h-10 relative">
                 <Image
                   src="/without_BG_logo.png"
-                  alt="Delicacy Logo"
+                  alt="Culinary Canvas Logo"
                   fill
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold text-gray-900">Delicacy</span>
+              <span className="text-xl font-bold text-gray-900">Culinary Canvas</span>
             </Link>
           </div>
 

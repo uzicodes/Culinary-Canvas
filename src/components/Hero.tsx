@@ -10,7 +10,8 @@ const Hero = () => {
     { src: '/1.png', name: 'File 1.png' },
     { src: '/2.png', name: 'File 2.png' }, 
     { src: '/3.png', name: 'File 3.png' },
-    { src: '/4.png', name: 'File 4.png' }
+    { src: '/4.png', name: 'File 4.png' },
+    { src: '/5.png', name: 'File 5.png' }
   ]
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Hero = () => {
           <div className="space-y-8 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
               <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Choose delicacy{' '}
+                Choose Culinary Canvas{' '}
                 <span className="text-primary-600">the best healthy</span>{' '}
                 way to life
               </h1>
@@ -105,10 +106,6 @@ const Hero = () => {
           `}</style>
         </div>
       </div>
-
-      {/* Background Decorative Elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-primary-200 rounded-full opacity-50 animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-16 h-16 bg-orange-200 rounded-full opacity-50 animate-pulse delay-1000"></div>
     </section>
   )
 }

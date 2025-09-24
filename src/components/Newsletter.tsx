@@ -11,7 +11,7 @@ const Newsletter = () => {
           {/* Left Content */}
           <div className="text-white space-y-6">
             <h2 className="text-3xl lg:text-4xl font-bold leading-tight">
-              Download Delicacy <br />
+              Download Culinary Canvas <br />
               <span className="text-primary-100">Mobile App</span>
             </h2>
             <p className="text-lg text-primary-100">
