@@ -16,11 +16,7 @@ const Hero = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % images.length
-        console.log(`Switching from image ${prevIndex} (${images[prevIndex]}) to image ${nextIndex} (${images[nextIndex]})`)
-        return nextIndex
-      })
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
     }, 3000) // Change image every 3 seconds
 
     return () => clearInterval(interval)
@@ -78,37 +74,22 @@ const Hero = () => {
 
           {/* Right Content - Rotating Hero Images */}
           <div className="relative w-full h-[500px] overflow-hidden">
-            {/* Debug indicator */}
-            <div className="absolute top-4 left-4 z-20 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
-              {images[currentImageIndex].name}: {images[currentImageIndex].src}
-            </div>
-            
-            {/* Test all images simultaneously for debugging */}
-            <div className="absolute top-4 right-4 z-20 bg-white bg-opacity-90 p-2 rounded text-xs">
-              <div>1.png: <img src="/1.png" alt="test1" className="inline w-8 h-8 object-contain" /></div>
-              <div>2.png: <img src="/2.png" alt="test2" className="inline w-8 h-8 object-contain" /></div>
-              <div>3.png: <img src="/3.png" alt="test3" className="inline w-8 h-8 object-contain" /></div>
-            </div>
-            
             {images.map((imageObj, index) => (
               <div
                 key={imageObj.src}
                 className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
                   index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
                 }`}
+                style={{
+                  animation: index === currentImageIndex ? 'merryGoRound 3s ease-in-out infinite' : 'none'
+                }}
               >
                 <Image
                   src={imageObj.src}
-                  alt={`${imageObj.name} - Fresh healthy food`}
+                  alt="Fresh healthy food"
                   fill
                   className="object-contain w-full h-full scale-80"
                   priority={index === 0}
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${imageObj.src}`, e)
-                  }}
-                  onLoad={() => {
-                    console.log(`Successfully loaded image: ${imageObj.src}`)
-                  }}
                 />
               </div>
             ))}
