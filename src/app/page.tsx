@@ -5,7 +5,6 @@ import BestSelling from '@/components/BestSelling'
 import About from '@/components/About'
 import PopularProducts from '@/components/PopularProducts'
 import Stats from '@/components/Stats'
-import Newsletter from '@/components/Newsletter'
 import Blog from '@/components/Blog'
 import Footer from '@/components/Footer'
 
@@ -19,7 +18,6 @@ export default function Home() {
       <About />
       <PopularProducts />
       <Stats />
-      <Newsletter />
       <Blog />
       <Footer />
     </main>

@@ -12,7 +12,8 @@ const Hero = () => {
     { src: '/3.png', name: 'File 3.png' },
     { src: '/4.png', name: 'File 4.png' },
     { src: '/5.png', name: 'File 5.png' },
-    { src: '/6.png', name: 'File 6.png' }
+    { src: '/6.png', name: 'File 6.png' },
+    { src: '/7.png', name: 'File 7.png' }
   ]
 
   useEffect(() => {

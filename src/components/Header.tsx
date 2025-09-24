@@ -35,9 +35,6 @@ const Header = () => {
             <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
               Categories
             </Link>
-            <Link href="/useful-links" className="text-gray-700 hover:text-primary-600 font-medium">
-              Useful Links
-            </Link>
             <Link href="/accessories" className="text-gray-700 hover:text-primary-600 font-medium">
               Accessories
             </Link>
@@ -95,13 +92,6 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Categories
-              </Link>
-              <Link
-                href="/useful-links"
-                className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Useful Links
               </Link>
               <Link
                 href="/accessories"
