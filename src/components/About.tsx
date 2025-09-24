@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const About = () => {
   return (
-    <section className="py-16 bg-gray-800">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content - Image */}
@@ -31,11 +31,11 @@ const About = () => {
           {/* Right Content */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white leading-tight">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                 We Believe In Working With{' '}
-                <span className="text-primary-400">Accredited Farmers</span>
+                <span className="text-primary-600">Accredited Farmers</span>
               </h2>
-              <p className="text-gray-300 text-lg">
+              <p className="text-gray-600 text-lg">
                 We partner with certified organic farmers who share our commitment to sustainable 
                 agriculture and environmental responsibility. Every product is carefully selected 
                 to ensure the highest quality reaches your table.

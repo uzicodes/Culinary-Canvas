@@ -49,14 +49,14 @@ const categories = [
 
 const Categories = () => {
   return (
-    <section className="py-16 bg-gray-800">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            Browser Our Hottest <span className="text-primary-400">Categories</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Browser Our Hottest <span className="text-primary-600">Categories</span>
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto">
             Discover fresh and organic products from our carefully curated categories. 
             Each item is sourced from trusted local farmers and suppliers.
           </p>
