@@ -6,12 +6,11 @@ import { useState, useEffect } from 'react'
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  // Based on your files: 1.png=salad, 2.png=salad(?), 3.png=burger
-  // Let's test each file individually to see what they actually contain
   const images = [
     { src: '/1.png', name: 'File 1.png' },
     { src: '/2.png', name: 'File 2.png' }, 
-    { src: '/3.png', name: 'File 3.png' }
+    { src: '/3.png', name: 'File 3.png' },
+    { src: '/4.png', name: 'File 4.png' }
   ]
 
   useEffect(() => {
