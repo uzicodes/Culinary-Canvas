@@ -23,18 +23,18 @@ const Hero = () => {
   }, [images.length])
 
   return (
-    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[600px] flex items-center">
+    <section className="relative bg-gradient-to-br from-gray-800 to-gray-900 min-h-[600px] flex items-center">
       <div className="w-full">
         <div className="grid lg:grid-cols-2 items-center">
           {/* Left Content */}
           <div className="space-y-8 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
                 Choose Culinary Canvas{' '}
-                <span className="text-primary-600">the best healthy</span>{' '}
+                <span className="text-primary-400">the best healthy</span>{' '}
                 way to life
               </h1>
-              <p className="text-lg text-gray-600 max-w-md">
+              <p className="text-lg text-gray-300 max-w-md">
                 Discover fresh, organic, and nutritious food delivered straight to your doorstep. 
                 Start your healthy journey today.
               </p>
@@ -58,16 +58,16 @@ const Hero = () => {
             {/* Stats */}
             <div className="flex space-x-8 pt-4">
               <div>
-                <div className="text-2xl font-bold text-gray-900">100+</div>
-                <div className="text-sm text-gray-600">Healthy Dishes</div>
+                <div className="text-2xl font-bold text-white">100+</div>
+                <div className="text-sm text-gray-300">Healthy Dishes</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">50k+</div>
-                <div className="text-sm text-gray-600">Happy Customers</div>
+                <div className="text-2xl font-bold text-white">50k+</div>
+                <div className="text-sm text-gray-300">Happy Customers</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600">Fast Delivery</div>
+                <div className="text-2xl font-bold text-white">24/7</div>
+                <div className="text-sm text-gray-300">Fast Delivery</div>
               </div>
             </div>
           </div>
