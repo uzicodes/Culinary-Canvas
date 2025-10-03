@@ -26,12 +26,13 @@ const Hero = () => {
 
   return (
     <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[600px] flex items-center">
+      {/* Inject Nalinak font-face */}
       <div className="w-full">
         <div className="grid lg:grid-cols-2 items-center">
           {/* Left Content */}
           <div className="space-y-8 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight" style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>
                 Choose Culinary Canvas{' '}
                 <span className="text-primary-600">the best healthy</span>{' '}
                 way to life
