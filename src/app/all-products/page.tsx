@@ -131,8 +131,8 @@ export default function AllProductsPage() {
               </div>
               <div className="p-4 flex flex-col flex-1 justify-between">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-800">{item.name}</h3>
-                  <p className="text-slate-600 text-sm mt-1 mb-3">{item.description}</p>
+                  <h3 className="text-lg font-bold text-slate-800 text-center">{item.name}</h3>
+                  <p className="text-slate-600 text-sm mt-1 mb-3 text-center">{item.description}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t">
                   <span className="text-base font-bold text-[#F1F604]">${item.price.toFixed(2)}</span>
