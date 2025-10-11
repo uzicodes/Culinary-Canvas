@@ -34,7 +34,7 @@ export default function AllProductsPage() {
   ];
 
   const menuItems: MenuItem[] = [
-    { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese and fresh veggies', price: 8.99, category: 'burger', image: '🍔' },
+    { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 8.99, category: 'burger', image: '🍔' },
     { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 9.99, category: 'burger', image: '🍔' },
     { id: 3, name: 'Double Cheese Burger', description: 'Double patty with double cheese', price: 10.99, category: 'burger', image: '🍔' },
     { id: 4, name: 'Margherita Pizza', description: 'Fresh mozzarella, tomato, and basil', price: 12.99, category: 'pizza', image: '🍕' },
@@ -124,9 +124,9 @@ export default function AllProductsPage() {
           {filteredItems.map(item => (
             <div
               key={item.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-96"
+              className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-96"
             >
-              <div className="bg-gradient-to-r from-orange-400 to-orange-500 h-48 flex items-center justify-center text-6xl">
+              <div className="bg-[#19b368] h-48 flex items-center justify-center text-6xl">
                 {item.image}
               </div>
               <div className="p-4 flex flex-col flex-1 justify-between">
@@ -135,10 +135,10 @@ export default function AllProductsPage() {
                   <p className="text-slate-600 text-sm mt-1 mb-3">{item.description}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t">
-                  <span className="text-2xl font-bold text-orange-600">${item.price.toFixed(2)}</span>
+                  <span className="text-base font-bold text-[#F1F604]">${item.price.toFixed(2)}</span>
                   <button
                     onClick={() => addToCart(item)}
-                    className="bg-orange-500 hover:bg-orange-600 text-white px-2 py-1 rounded text-xs transition-colors"
+                    className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-2 py-1 rounded text-xs font-bold transition-colors"
                   >
                     Add to Cart
                   </button>
