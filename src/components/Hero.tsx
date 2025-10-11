@@ -55,11 +55,11 @@ const Hero = () => {
             {/* Stats */}
             <div className="flex space-x-8 pt-4">
               <div>
-                <div className="text-2xl font-bold text-gray-900">100+</div>
+                <div className="text-2xl font-bold text-gray-900">50+</div>
                 <div className="text-sm text-gray-600">Healthy Dishes</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">50k+</div>
+                <div className="text-2xl font-bold text-gray-900">10k+</div>
                 <div className="text-sm text-gray-600">Happy Customers</div>
               </div>
               <div>
