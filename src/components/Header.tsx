@@ -27,22 +27,20 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Navigation Menu - Desktop */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-primary-600 font-medium">
-              All Product
-            </Link>
-            <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
-              Categories
-            </Link>
-            <Link href="/accessories" className="text-gray-700 hover:text-primary-600 font-medium">
-              Accessories
-            </Link>
-          </nav>
 
 
-          {/* Right Side Actions */}
+
+          {/* Right Side Actions with Search and Nav Links */}
           <div className="flex items-center space-x-4">
+            {/* Nav Links left of Search */}
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link href="/" className="text-gray-700 hover:text-primary-600 font-medium">
+                All Product
+              </Link>
+              <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
+                Categories
+              </Link>
+            </nav>
             {/* Search Box */}
             <form className="relative hidden md:block">
               <input
@@ -100,13 +98,6 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Categories
-              </Link>
-              <Link
-                href="/accessories"
-                className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Accessories
               </Link>
             </div>
           </div>
