@@ -9,7 +9,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+  <header className="shadow-sm sticky top-0 z-50" style={{ backgroundColor: '#FCCA46' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
