@@ -34,8 +34,8 @@ const Header = () => {
           <div className="flex items-center space-x-4">
             {/* Nav Links left of Search */}
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/all-products" className="text-gray-700 hover:text-primary-600 font-medium">
-                All Product
+              <Link href="/all-items" className="text-gray-700 hover:text-primary-600 font-medium">
+                All Items
               </Link>
               <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
                 Categories
