@@ -18,6 +18,7 @@ interface MenuItem {
   image: string;
 }
 
+
 export default function AllProductsPage() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams?.get('category') || 'all';
