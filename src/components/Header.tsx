@@ -40,6 +40,9 @@ const Header = () => {
               <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
                 Categories
               </Link>
+              <Link href="/our-menu" className="text-gray-700 hover:text-primary-600 font-medium">
+                Menu
+              </Link>
             </nav>
             {/* Search Box */}
             <form className="relative hidden md:block">
@@ -90,7 +93,7 @@ const Header = () => {
                 className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
-                All Product
+                All Items
               </Link>
               <Link
                 href="/categories"
