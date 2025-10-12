@@ -6,7 +6,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
   <header className="shadow-sm sticky top-0 z-50" style={{ backgroundColor: '#FCCA46' }}>
@@ -33,13 +34,36 @@ const Header = () => {
           {/* Right Side Actions with Search and Nav Links */}
           <div className="flex items-center space-x-4">
             {/* Nav Links left of Search */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-8 relative">
               <Link href="/all-items" className="text-gray-700 hover:text-primary-600 font-medium">
                 All Items
               </Link>
-              <Link href="/categories" className="text-gray-700 hover:text-primary-600 font-medium">
-                Categories
-              </Link>
+              <div className="relative">
+                <button
+                  type="button"
+                  className="text-gray-700 hover:text-primary-600 font-medium focus:outline-none"
+                  onClick={() => setIsCategoriesOpen((prev) => !prev)}
+                >
+                  Categories
+                </button>
+                {isCategoriesOpen && (
+                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                    <div className="py-1">
+                      <Link href="/all-items" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">All Items</Link>
+                      <Link href="/categories/burger" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Burgers</Link>
+                      <Link href="/categories/pizza" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Pizza</Link>
+                      <Link href="/categories/fastfood" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Fast-Food</Link>
+                      <Link href="/categories/setmenu" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Set Menus</Link>
+                      <Link href="/categories/appetizers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appetizers</Link>
+                      <Link href="/categories/chinese" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Chinese</Link>
+                      <Link href="/categories/italian" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Italian</Link>
+                      <Link href="/categories/traditional" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Traditional</Link>
+                      <Link href="/categories/coffee" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Coffee</Link>
+                      <Link href="/categories/drinks" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Drinks & Beverages</Link>
+                    </div>
+                  </div>
+                )}
+              </div>
               <Link href="/our-menu" className="text-gray-700 hover:text-primary-600 font-medium">
                 Menu
               </Link>
@@ -77,28 +101,28 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               className="md:hidden p-2 text-gray-600 hover:text-primary-600"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
+        {isMobileMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
               <Link
                 href="/"
                 className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 All Items
               </Link>
               <Link
                 href="/categories"
                 className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 Categories
               </Link>
