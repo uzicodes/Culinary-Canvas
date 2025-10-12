@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ShoppingCart, Search } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
 
 interface MenuItem {
   id: number;
@@ -15,7 +17,14 @@ interface MenuItem {
 }
 
 export default function AllProductsPage() {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams?.get('category') || 'all';
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  // Update activeCategory if the URL changes (e.g., user navigates from dropdown)
+  useEffect(() => {
+    setActiveCategory(searchParams?.get('category') || 'all');
+  }, [searchParams]);
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState<MenuItem[]>([]);
 

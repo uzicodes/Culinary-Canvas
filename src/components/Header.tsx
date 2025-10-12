@@ -49,17 +49,17 @@ const Header = () => {
                 {isCategoriesOpen && (
                   <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                     <div className="py-1">
-                      <Link href="/all-items" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">All Items</Link>
-                      <Link href="/categories/burger" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Burgers</Link>
-                      <Link href="/categories/pizza" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Pizza</Link>
-                      <Link href="/categories/fastfood" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Fast-Food</Link>
-                      <Link href="/categories/setmenu" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Set Menus</Link>
-                      <Link href="/categories/appetizers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Appetizers</Link>
-                      <Link href="/categories/chinese" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Chinese</Link>
-                      <Link href="/categories/italian" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Italian</Link>
-                      <Link href="/categories/traditional" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Traditional</Link>
-                      <Link href="/categories/coffee" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Coffee</Link>
-                      <Link href="/categories/drinks" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">Drinks & Beverages</Link>
+                      <Link href="/all-items" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>All Items</Link>
+                      <Link href="/all-items?category=burger" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Burgers</Link>
+                      <Link href="/all-items?category=pizza" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Pizza</Link>
+                      <Link href="/all-items?category=fastfood" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Fast-Food</Link>
+                      <Link href="/all-items?category=setmenu" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Set Menus</Link>
+                      <Link href="/all-items?category=appetizers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Appetizers</Link>
+                      <Link href="/all-items?category=chinese" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Chinese</Link>
+                      <Link href="/all-items?category=italian" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Italian</Link>
+                      <Link href="/all-items?category=traditional" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Traditional</Link>
+                      <Link href="/all-items?category=coffee" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Coffee</Link>
+                      <Link href="/all-items?category=drinks" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Drinks & Beverages</Link>
                     </div>
                   </div>
                 )}
