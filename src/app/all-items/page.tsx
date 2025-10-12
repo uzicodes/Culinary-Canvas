@@ -1,12 +1,8 @@
-'use client';
-export const dynamic = "force-dynamic";
 
-
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { ShoppingCart, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+
 
 
 interface MenuItem {
@@ -19,17 +15,12 @@ interface MenuItem {
 }
 
 
-export default function AllProductsPage() {
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams?.get('category') || 'all';
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
 
-  // Update activeCategory if the URL changes (e.g., user navigates from dropdown)
-  useEffect(() => {
-    setActiveCategory(searchParams?.get('category') || 'all');
-  }, [searchParams]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [cart, setCart] = useState<MenuItem[]>([]);
+// Server Component with searchParams argument
+export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
+  const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
+  // Cart state and addToCart logic removed for SSR/static compatibility
 
   const categories = [
     { id: 'all', label: 'All Items' },
@@ -77,18 +68,13 @@ export default function AllProductsPage() {
     { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 3.49, category: 'drinks', image: '🧋' },
   ];
 
+
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         item.description.toLowerCase().includes(searchTerm.toLowerCase());
+      item.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
-  const addToCart = (item: MenuItem) => {
-    setCart([...cart, item]);
-  };
-
-  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -98,13 +84,19 @@ export default function AllProductsPage() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="relative">
             <Search className="absolute left-3 top-3 text-slate-400" size={20} />
-            <input
-              type="text"
-              placeholder="Search for food items..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-            />
+            <form method="get" action="/all-items">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search for food items..."
+                defaultValue={searchTerm}
+                className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+              {/* Hidden input for category to preserve filter on search */}
+              {activeCategory !== 'all' && (
+                <input type="hidden" name="category" value={activeCategory} />
+              )}
+            </form>
           </div>
         </div>
       </div>
@@ -113,19 +105,26 @@ export default function AllProductsPage() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex gap-2 overflow-x-auto pb-2">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full whitespace-nowrap transition-all ${
-                  activeCategory === cat.id
-                    ? 'bg-orange-500 text-white shadow-lg'
-                    : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                }`}
-              >
-                {cat.label}
-              </button>
-            ))}
+            {categories.map(cat => {
+              // Build URL with category and current search term
+              const params = new URLSearchParams();
+              if (cat.id !== 'all') params.set('category', cat.id);
+              if (searchTerm) params.set('search', searchTerm);
+              const href = params.toString() ? `/all-items?${params}` : '/all-items';
+              return (
+                <a
+                  key={cat.id}
+                  href={href}
+                  className={`px-4 py-2 rounded-full whitespace-nowrap transition-all ${
+                    activeCategory === cat.id
+                      ? 'bg-orange-500 text-white shadow-lg'
+                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                  }`}
+                >
+                  {cat.label}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -148,12 +147,6 @@ export default function AllProductsPage() {
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t">
                   <span className="text-base font-bold text-[#F1F604]">${item.price.toFixed(2)}</span>
-                  <button
-                    onClick={() => addToCart(item)}
-                    className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-2 py-1 rounded text-xs font-bold transition-colors"
-                  >
-                    Add to Cart
-                  </button>
                 </div>
               </div>
             </div>
@@ -167,16 +160,6 @@ export default function AllProductsPage() {
         )}
       </main>
 
-      {/* Cart Summary */}
-      {cart.length > 0 && (
-        <div className="fixed bottom-4 right-4 bg-orange-500 text-white p-4 rounded-lg shadow-lg">
-          <p className="text-sm">Items in cart: {cart.length}</p>
-          <p className="text-lg font-bold">Total: ${cartTotal.toFixed(2)}</p>
-          <button className="w-full mt-2 bg-white text-orange-600 font-bold py-2 rounded hover:bg-slate-100 transition-colors">
-            Checkout
-          </button>
-        </div>
-      )}
       <Footer />
     </div>
   );
