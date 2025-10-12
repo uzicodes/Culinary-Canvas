@@ -31,11 +31,11 @@ const Hero = () => {
           {/* Left Content */}
           <div className="space-y-8 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-bold text-primary-600 leading-tight" style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>
-                Culinary Canvas
+              <h1 className="text-5xl lg:text-6xl font-bold text-primary-600 leading-tight">
+                <span style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>Culinary Canvas</span>
                 <br />
                 <span className="text-black text-3xl lg:text-4xl font-semibold" style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>
-                  the best healthy way to life
+                  art your healthy way to life
                 </span>
               </h1>
               <p className="text-lg text-gray-600 max-w-md">

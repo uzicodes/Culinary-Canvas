@@ -24,7 +24,7 @@ const Header = () => {
                   className="object-contain"
                 />
               </div>
-              <span className="text-xl font-bold text-gray-900">Culinary Canvas</span>
+              <span className="text-xl font-bold text-gray-900" style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>Culinary Canvas</span>
             </Link>
           </div>
 
