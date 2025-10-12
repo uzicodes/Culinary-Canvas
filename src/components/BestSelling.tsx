@@ -52,13 +52,9 @@ const BestSelling = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Best Selling <span className="text-primary-600">Products</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
+            Best Sellers <Star className="inline-block text-yellow-400 w-7 h-7" fill="#facc15" />
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Our most popular items loved by customers. Fresh, organic, and delivered with care 
-            to ensure the highest quality reaches your table.
-          </p>
         </div>
 
         {/* Products Grid */}

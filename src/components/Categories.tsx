@@ -56,10 +56,6 @@ const Categories = () => {
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Browser Our Hottest <span className="text-primary-600">Categories</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover fresh and organic products from our carefully curated categories. 
-            Each item is sourced from trusted local farmers and suppliers.
-          </p>
         </div>
 
         {/* Categories Grid */}
