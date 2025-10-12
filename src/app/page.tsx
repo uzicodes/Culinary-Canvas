@@ -5,6 +5,7 @@ import BestSelling from '@/components/BestSelling'
 import About from '@/components/About'
 import Stats from '@/components/Stats'
 import Blog from '@/components/Blog'
+import DeliveryPartners from '@/components/DeliveryPartners'
 import Footer from '@/components/Footer'
 
 export default function Home() {
@@ -15,8 +16,9 @@ export default function Home() {
       <Categories />
       <BestSelling />
       <About />
-      <Stats />
-      <Blog />
+  <Stats />
+  <DeliveryPartners />
+  <Blog />
       <Footer />
     </main>
   )
