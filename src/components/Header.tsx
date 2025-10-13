@@ -64,7 +64,6 @@ const Header = () => {
                 {isCategoriesOpen && (
                   <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                     <div className="py-1">
-                      <Link href="/all-items" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>All Items</Link>
                       <Link href="/all-items?category=burger" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Burgers</Link>
                       <Link href="/all-items?category=pizza" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Pizza</Link>
                       <Link href="/all-items?category=fastfood" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Fast-Food</Link>
