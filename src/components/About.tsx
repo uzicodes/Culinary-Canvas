@@ -33,13 +33,9 @@ const About = () => {
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight">
                 We Believe In Working With{' '}
-                <span className="text-primary-600">Accredited Farmers</span>
+                <span className="text-primary-600">Experienced Chefs</span>
               </h2>
-              <p className="text-gray-600 text-lg">
-                We partner with certified organic farmers who share our commitment to sustainable 
-                agriculture and environmental responsibility. Every product is carefully selected 
-                to ensure the highest quality reaches your table.
-              </p>
+
             </div>
 
             {/* Features */}
