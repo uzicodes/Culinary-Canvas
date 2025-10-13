@@ -170,7 +170,7 @@ export default function CartPage() {
                       <div className="flex items-center space-x-2">
                         <button
                           onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                          className="bg-gray-200 px-2 py-1 rounded-l"
+                          className="bg-red-200 text-red-700 px-2 py-1 rounded-l font-bold"
                         >
                           -
                         </button>
@@ -181,11 +181,11 @@ export default function CartPage() {
                           onChange={(e) =>
                             updateQuantity(item._id, parseInt(e.target.value) || 1)
                           }
-                          className="w-12 text-center border-t border-b"
+                          className="w-12 text-center border-t border-b bg-gray-800 text-white"
                         />
                         <button
                           onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                          className="bg-gray-200 px-2 py-1 rounded-r"
+                          className="bg-green-200 text-green-700 px-2 py-1 rounded-r font-bold"
                         >
                           +
                         </button>
