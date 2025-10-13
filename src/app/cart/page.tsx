@@ -238,7 +238,7 @@ export default function CartPage() {
 
               <div className="text-center">
                 <Link
-                  href="/products"
+                  href="/all-items"
                   className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-6 rounded"
                 >
                   ← Continue Shopping
