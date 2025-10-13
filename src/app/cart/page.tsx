@@ -213,9 +213,9 @@ export default function CartPage() {
                 </button>
 
                 <div className="bg-gray-100 p-6 rounded-lg w-full md:w-96 mt-6 md:mt-0 border border-black">
-                  <h2 className="text-lg font-bold mb-4">Order Summary</h2>
+                  <h2 className="text-lg font-bold mb-4 text-black">Order Summary</h2>
                   {cartItems.map((item) => (
-                    <div className="flex justify-between mb-2" key={item._id}>
+                    <div className="flex justify-between mb-2 text-black" key={item._id}>
                       <span>{item.name}</span>
                       <span>
                         {item.quantity} × {item.price.toFixed(2)} ={" "}
@@ -223,7 +223,7 @@ export default function CartPage() {
                       </span>
                     </div>
                   ))}
-                  <div className="border-t pt-2 mt-2 flex justify-between font-bold">
+                  <div className="border-t pt-2 mt-2 flex justify-between font-bold text-black">
                     <span>Total</span>
                     <span>৳{totalPrice.toFixed(2)}</span> {/* Total with "৳" sign here */}
                   </div>
