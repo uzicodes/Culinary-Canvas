@@ -141,10 +141,10 @@ export default function CartPage() {
                 {cartItems.map((item) => (
                   <div
                     key={item._id}
-                    className="flex justify-between items-center bg-white shadow-lg rounded-lg p-4"
+                    className="flex flex-wrap md:flex-nowrap justify-between items-center bg-white shadow-lg rounded-lg p-4 w-full min-w-0"
                   >
-                    <div className="flex items-center space-x-4 w-full">
-                      <div className="w-20 h-20 relative">
+                    <div className="flex items-center space-x-4 w-full min-w-0">
+                      <div className="w-20 h-20 relative flex-shrink-0">
                         <Image
                           src={item.image}
                           alt={item.name}
@@ -152,19 +152,19 @@ export default function CartPage() {
                           className="object-cover rounded-md"
                         />
                       </div>
-                      <div className="w-full">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                      <div className="w-0 flex-1 min-w-0">
+                        <h3 className="text-lg font-semibold text-gray-900 truncate">
                           {item.name}
                         </h3>
-                        <p className="text-sm text-gray-600 capitalize">
+                        <p className="text-sm text-gray-600 capitalize truncate">
                           {item.category}
                         </p>
                       </div>
                     </div>
 
                     {/* Column for price, quantity, and total */}
-                    <div className="flex items-center space-x-8 w-full justify-between">
-                      <div className="text-sm text-gray-900">
+                    <div className="flex items-center space-x-2 md:space-x-8 w-auto md:w-full justify-between mt-4 md:mt-0">
+                      <div className="text-sm text-gray-900 min-w-[48px] text-center">
                         {item.price.toFixed(2)}
                       </div>
                       <div className="flex items-center space-x-2">
@@ -190,7 +190,7 @@ export default function CartPage() {
                           +
                         </button>
                       </div>
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-gray-900 min-w-[48px] text-center">
                         {(item.price * item.quantity).toFixed(2)}
                       </div>
                       <button
