@@ -61,12 +61,13 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 22, name: 'Tandoori Chicken', description: 'Grilled chicken with traditional spices', price: 13.99, category: 'traditional', image: '/items/traditional/tandoori.png' },
     { id: 23, name: 'Dal Curry', description: 'Lentil curry with traditional spices', price: 8.99, category: 'traditional', image: '/items/traditional/dal.png' },
     { id: 34, name: 'Butter Chicken', description: 'Rich and creamy tomato-based curry with tender chicken', price: 14.49, category: 'traditional', image: '/items/traditional/butter.png' },
-    { id: 24, name: 'Espresso', description: 'Strong concentrated coffee', price: 3.99, category: 'coffee', image: '☕' },
-    { id: 25, name: 'Cappuccino', description: 'Coffee with steamed milk and foam', price: 4.99, category: 'coffee', image: '☕' },
-    { id: 26, name: 'Iced Coffee', description: 'Chilled coffee with ice', price: 4.49, category: 'coffee', image: '☕' },
-    { id: 27, name: 'Fresh Orange Juice', description: 'Freshly squeezed orange juice', price: 4.99, category: 'drinks', image: '🧃' },
-    { id: 28, name: 'Coca Cola', description: 'Classic soft drink', price: 2.99, category: 'drinks', image: '🥤' },
-    { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 3.49, category: 'drinks', image: '🧋' },
+    { id: 24, name: 'Espresso', description: 'Strong concentrated coffee', price: 3.99, category: 'coffee', image: '/items/coffee/espresso.png' },
+    { id: 25, name: 'Cappuccino', description: 'Coffee with steamed milk and foam', price: 4.99, category: 'coffee', image: '/items/coffee/cappuccino.png' },
+    { id: 26, name: 'Iced Coffee', description: 'Chilled coffee with ice', price: 4.49, category: 'coffee', image: '/items/coffee/iced_coffee.png' },
+    { id: 27, name: 'Fresh Orange Juice', description: 'Freshly squeezed orange juice', price: 4.99, category: 'drinks', image: '/items/drinks/orange.png' },
+    { id: 28, name: 'Coca Cola', description: 'Classic soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/coke.png' },
+  { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 3.49, category: 'drinks', image: '/items/drinks/iced_tea.png' },
+  { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/sprite.png' },
   ];
 
 
