@@ -42,10 +42,6 @@ const Blog = () => {
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Latest News & <span className="text-primary-600">Blogs</span>
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Stay updated with the latest insights on healthy eating, organic farming, 
-            and sustainable living from our expert contributors.
-          </p>
         </div>
 
         {/* Blog Grid */}

@@ -12,7 +12,7 @@ const About = () => {
           <div className="relative">
             <div className="relative w-full h-[500px] rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="/chef.jpg"
                 alt="Fresh vegetables and farmers"
                 fill
                 className="object-cover"
