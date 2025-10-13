@@ -140,14 +140,19 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
               className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-96"
             >
               <div className="bg-[#19b368] h-48 flex items-center justify-center text-6xl">
-                {item.image.endsWith('.png') || item.image.endsWith('.jpg') || item.image.endsWith('.jpeg') || item.image.endsWith('.webp') ? (
+                {item.image.startsWith('/') ? (
                   <img
                     src={item.image}
                     alt={item.name}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    onError={e => { e.currentTarget.src = '/items/fallback.png'; }}
                   />
                 ) : (
-                  <span>{item.image}</span>
+                  <img
+                    src={'/items/fallback.png'}
+                    alt="No image"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
                 )}
               </div>
               <div className="p-4 flex flex-col flex-1 justify-between">
