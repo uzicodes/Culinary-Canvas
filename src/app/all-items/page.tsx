@@ -1,9 +1,10 @@
+"use client";
 
 import { Search } from 'lucide-react';
 import Header from '@/components/Header';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Footer from '@/components/Footer';
-
-
 
 interface MenuItem {
   id: number;
@@ -13,11 +14,8 @@ interface MenuItem {
   category: string;
   image: string;
 }
-
-
-
-// Server Component with searchParams argument
 export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+  const router = useRouter();
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
   // Cart state and addToCart logic removed for SSR/static compatibility
@@ -150,7 +148,23 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   <button
                     className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-2 py-1 rounded text-xs font-bold transition-colors"
                     type="button"
-                    disabled
+                    onClick={() => {
+                      const cartItem = { ...item, _id: String(item.id), quantity: 1 };
+                      let cart = [];
+                      if (typeof window !== 'undefined') {
+                        const saved = localStorage.getItem('cart');
+                        cart = saved ? JSON.parse(saved) : [];
+                        const existing = cart.find((i: any) => i._id === cartItem._id);
+                        if (existing) {
+                          existing.quantity += 1;
+                        } else {
+                          cart.push(cartItem);
+                        }
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        window.dispatchEvent(new Event('storage'));
+                        router.push('/cart');
+                      }
+                    }}
                   >
                     Add to Cart
                   </button>

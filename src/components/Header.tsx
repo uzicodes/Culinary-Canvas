@@ -1,13 +1,28 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ShoppingCart, Search, Menu, X, User, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
 const Header = () => {
+
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const updateCartCount = () => {
+        const saved = localStorage.getItem('cart');
+        const cart = saved ? JSON.parse(saved) : [];
+        setCartCount(cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0));
+      };
+      updateCartCount();
+      window.addEventListener('storage', updateCartCount);
+      return () => window.removeEventListener('storage', updateCartCount);
+    }
+  }, []);
 
   return (
   <header className="shadow-sm sticky top-0 z-50" style={{ backgroundColor: '#CBE060' }}>
@@ -91,12 +106,12 @@ const Header = () => {
             </button>
 
             {/* Shopping Cart */}
-            <button className="relative p-2 text-gray-600 hover:text-primary-600">
+            <Link href="/cart" className="relative p-2 text-gray-600 hover:text-primary-600">
               <ShoppingCart className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                0
+                {cartCount}
               </span>
-            </button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button
