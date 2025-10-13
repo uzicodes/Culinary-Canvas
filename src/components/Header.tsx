@@ -95,10 +95,6 @@ const Header = () => {
               </span>
             </form>
 
-            {/* Wishlist */}
-            <button className="p-2 text-gray-600 hover:text-primary-600">
-              <Heart className="w-5 h-5" />
-            </button>
 
             {/* User Account */}
             <button className="p-2 text-gray-600 hover:text-primary-600">

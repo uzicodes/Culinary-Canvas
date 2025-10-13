@@ -66,8 +66,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 26, name: 'Iced Coffee', description: 'Chilled coffee with ice', price: 4.49, category: 'coffee', image: '/items/coffee/iced_coffee.png' },
     { id: 27, name: 'Fresh Orange Juice', description: 'Freshly squeezed orange juice', price: 4.99, category: 'drinks', image: '/items/drinks/orange.png' },
     { id: 28, name: 'Coca Cola', description: 'Classic soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/coke.png' },
-  { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 3.49, category: 'drinks', image: '/items/drinks/iced_tea.png' },
-  { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/sprite.png' },
+    { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 3.49, category: 'drinks', image: '/items/drinks/iced_tea.png' },
+    { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/sprite.png' },
   ];
 
 
