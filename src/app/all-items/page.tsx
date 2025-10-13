@@ -35,15 +35,15 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   ];
 
   const menuItems: MenuItem[] = [
-    { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 8.99, category: 'burger', image: '🍔' },
-    { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 9.99, category: 'burger', image: '🍔' },
-    { id: 3, name: 'Double Cheese Burger', description: 'Double patty with double cheese', price: 10.99, category: 'burger', image: '🍔' },
-    { id: 4, name: 'Margherita Pizza', description: 'Fresh mozzarella, tomato, and basil', price: 12.99, category: 'pizza', image: '🍕' },
-    { id: 5, name: 'Pepperoni Pizza', description: 'Classic pepperoni with mozzarella cheese', price: 13.99, category: 'pizza', image: '🍕' },
-    { id: 6, name: 'Deluxe Pizza', description: 'Loaded with vegetables and meat', price: 14.99, category: 'pizza', image: '🍕' },
-    { id: 7, name: 'Fried Chicken Wings', description: 'Crispy wings with special sauce', price: 7.99, category: 'fastfood', image: '🍗' },
-    { id: 8, name: 'French Fries', description: 'Crispy golden fries with salt', price: 3.99, category: 'fastfood', image: '🍟' },
-    { id: 9, name: 'Chicken Tenders', description: 'Breaded chicken strips', price: 8.49, category: 'fastfood', image: '🍗' },
+    { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 8.99, category: 'burger', image: '/items/burger/classic.png' },
+    { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 9.99, category: 'burger', image: '/items/burger/bacon.png' },
+    { id: 3, name: 'Double Cheese Burger', description: 'Double patty with double cheese', price: 10.99, category: 'burger', image: '/items/burger/double.png' },
+    { id: 4, name: 'Margherita Pizza', description: 'Fresh mozzarella, tomato, and basil', price: 12.99, category: 'pizza', image: '/items/pizza/margherita.png' },
+    { id: 5, name: 'Pepperoni Pizza', description: 'Classic pepperoni with mozzarella cheese', price: 13.99, category: 'pizza', image: '/items/pizza/pepperoni.png' },
+    { id: 6, name: 'Deluxe Pizza', description: 'Loaded with vegetables and meat', price: 14.99, category: 'pizza', image: '/items/pizza/deluxe.png' },
+    { id: 7, name: 'Fried Chicken Wings', description: 'Crispy wings with special sauce', price: 7.99, category: 'fastfood', image: '/items/fastfood/fried_chicken.png' },
+    { id: 8, name: 'French Fries', description: 'Crispy golden fries with salt', price: 3.99, category: 'fastfood', image: '/items/fastfood/fries.png' },
+    { id: 9, name: 'Chicken Tenders', description: 'Breaded chicken strips', price: 8.49, category: 'fastfood', image: '/items/fastfood/tenders.png' },
     { id: 10, name: 'Family Combo', description: '2 burgers, 2 pizzas, fries and drink', price: 34.99, category: 'setmenu', image: '🍽️' },
     { id: 11, name: 'Lunch Special', description: 'Burger, fries and beverage', price: 11.99, category: 'setmenu', image: '🍽️' },
     { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 5.99, category: 'appetizers', image: '🥟' },
@@ -136,7 +136,15 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
               className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-96"
             >
               <div className="bg-[#19b368] h-48 flex items-center justify-center text-6xl">
-                {item.image}
+                {item.image.endsWith('.png') || item.image.endsWith('.jpg') || item.image.endsWith('.jpeg') || item.image.endsWith('.webp') ? (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <span>{item.image}</span>
+                )}
               </div>
               <div className="p-4 flex flex-col flex-1 justify-between">
                 <div>
