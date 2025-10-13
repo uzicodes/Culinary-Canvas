@@ -147,6 +147,13 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t">
                   <span className="text-base font-bold text-[#F1F604]">${item.price.toFixed(2)}</span>
+                  <button
+                    className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-2 py-1 rounded text-xs font-bold transition-colors"
+                    type="button"
+                    disabled
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
