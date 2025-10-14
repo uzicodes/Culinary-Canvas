@@ -11,9 +11,12 @@ const LoginPage = () => {
 				<div className="fixed inset-0 w-full h-full -z-10">
 					<img src="/login_gradient.png" alt="Login Gradient Background" className="w-full h-full object-cover" />
 				</div>
-				<div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 relative">
+				<div className="w-full max-w-md rounded-2xl shadow-2xl p-8 relative" style={{ backgroundColor: '#BBEDCF' }}>
+				<div className="flex justify-center mb-4">
+					<img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
+				</div>
 				<h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Login</h2>
-				<p className="text-center text-gray-500 mb-8">Welcome back! Please enter your details.</p>
+				<p className="text-center text-gray-500 mb-8">Welcome back Foodie !</p>
 				<form className="space-y-6">
 					<div>
 						<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
@@ -72,15 +75,10 @@ const LoginPage = () => {
 				</form>
 				<div className="flex items-center my-6">
 					<hr className="flex-grow border-t border-gray-300" />
-					<span className="mx-4 text-sm text-gray-400">Or sign in with</span>
+	
 					<hr className="flex-grow border-t border-gray-300" />
 				</div>
-				<div className="flex justify-center space-x-4">
-					<button aria-label="Sign in with Google" className="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-110">
-						<img src="https://www.google.com/favicon.ico" alt="Google" className="h-5 w-5" />
-					</button>
 
-				</div>
 				<p className="mt-8 text-center text-gray-600">
 					Don't have an account?{' '}
 					<a href="#" className="text-sky-600 hover:underline font-semibold">Register Now !</a>
