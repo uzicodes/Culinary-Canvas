@@ -70,14 +70,9 @@ const LoginPage = () => {
 						type="submit"
 						className="w-full py-3 px-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition"
 					>
-						Sign In
+						Login
 					</button>
 				</form>
-				<div className="flex items-center my-6">
-					<hr className="flex-grow border-t border-gray-300" />
-	
-					<hr className="flex-grow border-t border-gray-300" />
-				</div>
 
 				<p className="mt-8 text-center text-gray-600">
 					Don't have an account?{' '}
