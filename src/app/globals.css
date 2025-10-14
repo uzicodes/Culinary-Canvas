@@ -3,9 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px;
+  padding: 1px 15px;
   gap: 15px;
-  background-color: #007ACC;
+  background-color: #B1BF19;
   outline: 3px #007ACC solid;
   outline-offset: -3px;
   border-radius: 5px;
