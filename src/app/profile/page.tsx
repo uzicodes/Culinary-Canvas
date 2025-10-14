@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Header from "@/components/Header";
 
 const user = {
   name: "Jane Doe",
@@ -17,7 +18,9 @@ const user = {
 
 const ProfilePage = () => {
   return (
-    <section className="relative min-h-screen py-10 px-4 flex items-center justify-center">
+    <>
+      <Header />
+      <section className="relative min-h-screen py-10 px-4 flex items-center justify-center">
       {/* Full-page Gradient background */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <img src="/gradient.png" alt="Gradient background" className="w-full h-full object-cover" />
@@ -71,7 +74,8 @@ const ProfilePage = () => {
           </button>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 };
 
