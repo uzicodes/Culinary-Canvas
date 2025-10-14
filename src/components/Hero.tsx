@@ -66,8 +66,8 @@ const Hero = () => {
                 <div className="text-sm text-gray-600">Fast Delivery</div>
               </div>
             </div>
-            {/* Login Button from Uiverse */}
-            <div className="pt-6">
+            {/* Login and Register Buttons */}
+            <div className="pt-6 flex gap-4">
               <button className="user-profile">
                 <span className="user-profile-inner">
                   {/* SVG user icon */}
@@ -77,6 +77,13 @@ const Hero = () => {
                   </svg>
                   Login
                 </span>
+              </button>
+              <button className="register-button">
+                <span className="text">Register</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 12C15.3137 12 18 9.31371 18 6C18 2.68629 15.3137 0 12 0C8.68629 0 6 2.68629 6 6C6 9.31371 8.68629 12 12 12Z" fill="white"/>
+                  <path d="M0 22C0 17.0294 4.02944 13 9 13H15C19.9706 13 24 17.0294 24 22V24H0V22Z" fill="white"/>
+                </svg>
               </button>
             </div>
           </div>

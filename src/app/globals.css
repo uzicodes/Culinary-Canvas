@@ -1,3 +1,36 @@
+/* Uiverse Register Button Styles */
+.register-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 15px;
+  gap: 15px;
+  background-color: #007ACC;
+  outline: 3px #007ACC solid;
+  outline-offset: -3px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 400ms;
+}
+.register-button .text {
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+  transition: 400ms;
+}
+.register-button svg path {
+  transition: 400ms;
+}
+.register-button:hover {
+  background-color: transparent;
+}
+.register-button:hover .text {
+  color: #007ACC;
+}
+.register-button:hover svg path {
+  fill: #007ACC;
+}
 @import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
 .marcellus-regular {
@@ -87,7 +120,7 @@ a {
   width: 127px;
   height: 47px;
   border-radius: 13px;
-  background-color: #B3579C;
+  background-color: #B1BF19;
   display: flex;
   align-items: center;
   justify-content: center;
