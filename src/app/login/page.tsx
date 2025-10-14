@@ -25,7 +25,7 @@ const LoginPage = () => {
 							type="email"
 							autoComplete="email"
 							required
-							className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+							  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-yellow-500"
 							placeholder="you@email.com"
 						/>
 					</div>
@@ -37,7 +37,7 @@ const LoginPage = () => {
 								type={showPassword ? "text" : "password"}
 								autoComplete="current-password"
 								required
-								className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
+								className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-yellow-500 pr-12"
 								placeholder="Your password"
 							/>
 							<button
