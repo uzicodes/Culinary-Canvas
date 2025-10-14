@@ -17,8 +17,12 @@ const user = {
 
 const ProfilePage = () => {
   return (
-    <section className="max-w-2xl mx-auto py-10 px-4">
-      <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
+    <section className="relative min-h-screen py-10 px-4 flex items-center justify-center">
+      {/* Full-page Gradient background */}
+      <div className="fixed inset-0 w-full h-full -z-10">
+        <img src="/gradient.png" alt="Gradient background" className="w-full h-full object-cover" />
+      </div>
+      <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
         <div className="relative w-28 h-28 mb-4">
           <Image
             src={user.avatar}
