@@ -5,22 +5,22 @@ import Image from "next/image";
 import Header from "@/components/Header";
 
 const user = {
-  name: "Jane Doe",
-  email: "jane.doe@email.com",
+  name: "Utsho Heaven Chowdhury",
+  email: "utshozi11@email.com",
   avatar: "/profile-avatar.png", // Place a default avatar in public/
   phone: "+1 234 567 8901",
   address: "123 Main St, Springfield, USA",
   joined: "March 2024",
   orders: 12,
   favorites: 5,
-  loyaltyPoints: 320,
+  loyaltyPoints: 20,
 };
 
 const ProfilePage = () => {
   return (
     <>
       <Header />
-      <section className="relative min-h-screen py-10 px-4 flex items-center justify-center">
+  <section className="relative min-h-screen pt-16 pb-10 px-4 flex items-start justify-center">
       {/* Full-page Gradient background */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <img src="/gradient.png" alt="Gradient background" className="w-full h-full object-cover" />
@@ -35,7 +35,7 @@ const ProfilePage = () => {
             priority
           />
         </div>
-        <h2 className="text-2xl font-bold mb-1">{user.name}</h2>
+  <h2 className="text-2xl font-bold mb-1 text-black">{user.name}</h2>
         <p className="text-gray-500 mb-2">{user.email}</p>
         <div className="flex gap-4 mb-4">
           <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
