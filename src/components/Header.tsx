@@ -96,9 +96,9 @@ const Header = () => {
 
 
             {/* User Account */}
-            <button className="p-2 text-gray-600 hover:text-primary-600">
+            <Link href="/profile" className="p-2 text-gray-600 hover:text-primary-600">
               <User className="w-5 h-5" />
-            </button>
+            </Link>
 
             {/* Shopping Cart */}
             <Link href="/cart" className="relative p-2 text-gray-600 hover:text-primary-600">
