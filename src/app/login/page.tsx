@@ -15,7 +15,7 @@ const LoginPage = () => {
 						   src="/login_bg.jpg"
 						   alt="Login Background"
 						   fill
-						   className="object-cover w-full h-full"
+						   className="object-cover w-full h-full blur-md"
 						   priority
 					   />
 				   </div>
