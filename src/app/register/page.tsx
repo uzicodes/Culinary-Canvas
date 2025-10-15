@@ -2,13 +2,14 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-  <div className="relative min-h-screen flex items-center justify-start px-9">
+  <div className="relative min-h-screen flex items-center justify-start px-32">
       {/* Full-page background image */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <Image
@@ -109,10 +110,10 @@ export default function RegisterPage() {
               </button>
             </div>
           </div>
-          <div className="flex justify-start">
+          <div className="flex justify-center">
             <button
               type="submit"
-              className="py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-fuchsia-500 hover:from-yellow-500 hover:to-fuchsia-600 text-white text-lg tracking-wide"
+              className="py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 hover:from-green-500 hover:to-lime-600 text-white text-lg tracking-wide"
               style={{ minWidth: '160px' }}
             >
               <span>Register</span>
@@ -122,9 +123,9 @@ export default function RegisterPage() {
             </button>
           </div>
         </form>
-  <p className="mt-4 text-center text-gray-600">
+        <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
-          <a href="/login" className="text-sky-600 hover:underline font-semibold">Login</a>
+          <Link href="/login" className="text-sky-600 hover:underline font-semibold">Login</Link>
         </p>
       </div>
     </div>
