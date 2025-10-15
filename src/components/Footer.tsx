@@ -11,8 +11,8 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CC</span>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden bg-white">
+                <img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="w-7 h-7 object-contain" />
               </div>
               <span className="text-xl font-bold">Culinary Canvas</span>
             </div>
@@ -68,37 +68,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Categories */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Categories</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/fruits" className="text-gray-400 hover:text-white transition-colors">
-                  Fresh Fruits
-                </Link>
-              </li>
-              <li>
-                <Link href="/vegetables" className="text-gray-400 hover:text-white transition-colors">
-                  Vegetables
-                </Link>
-              </li>
-              <li>
-                <Link href="/dairy" className="text-gray-400 hover:text-white transition-colors">
-                  Dairy Products
-                </Link>
-              </li>
-              <li>
-                <Link href="/meat" className="text-gray-400 hover:text-white transition-colors">
-                  Meat & Fish
-                </Link>
-              </li>
-              <li>
-                <Link href="/beverages" className="text-gray-400 hover:text-white transition-colors">
-                  Beverages
-                </Link>
-              </li>
-            </ul>
-          </div>
+
 
           {/* Contact Info */}
           <div className="space-y-4">
@@ -126,7 +96,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2024 Culinary Canvas. All rights reserved.
+              © 2025 Culinary Canvas. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">

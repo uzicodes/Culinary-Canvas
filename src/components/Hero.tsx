@@ -3,6 +3,7 @@
 import { ArrowRight, Play } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -78,14 +79,16 @@ const Hero = () => {
                   Login
                 </span>
               </button>
-              <button className="user-profile">
-                <span className="user-profile-inner">
-                  Register
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-0.5">
-                    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </span>
-              </button>
+              <Link href="/register" passHref legacyBehavior>
+                <button className="user-profile">
+                  <span className="user-profile-inner">
+                    Register
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-0.5">
+                      <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
 
