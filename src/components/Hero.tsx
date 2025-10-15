@@ -97,34 +97,55 @@ const Hero = () => {
 
           {/* Right Content - Rotating Hero Images */}
           <div className="relative w-full h-[500px] overflow-hidden">
-            {images.map((imageObj, index) => (
-              <div
-                key={imageObj.src}
-                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                  index === currentImageIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                }`}
-                style={{
-                  animation: index === currentImageIndex ? 'merryGoRound 3s ease-in-out infinite' : 'none'
-                }}
-              >
-                <Image
-                  src={imageObj.src}
-                  alt="Fresh healthy food"
-                  fill
-                  className="object-contain w-full h-full scale-80"
-                  priority={index === 0}
-                />
-              </div>
-            ))}
+            {images.map((imageObj, index) => {
+              let position = '';
+              if (index === currentImageIndex) {
+                position = 'carousel-center';
+              } else if (index === (currentImageIndex + 1) % images.length) {
+                position = 'carousel-right';
+              } else if (index === (currentImageIndex - 1 + images.length) % images.length) {
+                position = 'carousel-far-right';
+              } else {
+                position = 'carousel-hidden';
+              }
+              return (
+                <div
+                  key={imageObj.src}
+                  className={`absolute inset-0 transition-transform duration-700 ease-in-out ${position}`}
+                  style={{ zIndex: index === currentImageIndex ? 10 : 0 }}
+                >
+                  <Image
+                    src={imageObj.src}
+                    alt="Fresh healthy food"
+                    fill
+                    className="object-contain w-full h-full scale-80"
+                    priority={index === 0}
+                  />
+                </div>
+              );
+            })}
           </div>
 
           <style jsx>{`
-            @keyframes merryGoRound {
-              0% { transform: translateY(0) rotate(0deg) scale(0.8); }
-              25% { transform: translateY(-10px) rotate(5deg) scale(0.85); }
-              50% { transform: translateY(0) rotate(0deg) scale(0.8); }
-              75% { transform: translateY(10px) rotate(-5deg) scale(0.75); }
-              100% { transform: translateY(0) rotate(0deg) scale(0.8); }
+            .carousel-center {
+              opacity: 1;
+              transform: translateX(0) scale(0.9);
+              transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s;
+            }
+            .carousel-right {
+              opacity: 1;
+              transform: translateX(100%) scale(0.8) rotate(10deg);
+              transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s;
+            }
+            .carousel-far-right {
+              opacity: 0;
+              transform: translateX(200%) scale(0.7) rotate(20deg);
+              transition: transform 0.7s cubic-bezier(0.4,0,0.2,1), opacity 0.7s;
+            }
+            .carousel-hidden {
+              opacity: 0;
+              transform: translateX(200%) scale(0.7);
+              pointer-events: none;
             }
           `}</style>
         </div>
