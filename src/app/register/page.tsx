@@ -1,18 +1,26 @@
+
 "use client";
-
 import React, { useState } from "react";
+import Image from "next/image";
 
-const RegisterPage = () => {
+export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4">
-      {/* Full-page gradient background image */}
+  <div className="relative min-h-screen flex items-center justify-start px-9">
+      {/* Full-page background image */}
       <div className="fixed inset-0 w-full h-full -z-10">
-        <img src="/login_gradient.png" alt="Register Gradient Background" className="w-full h-full object-cover" />
+        <Image
+          src="/register_bg.jpg"
+          alt="Register background"
+          fill
+          className="object-cover w-full h-full"
+          priority
+        />
+  <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
       </div>
-      <div className="w-full max-w-md rounded-2xl shadow-2xl py-6 px-8 relative" style={{ backgroundColor: '#F2C2CF' }}>
+  <div className="w-full max-w-md rounded-2xl shadow-2xl py-6 px-8 relative bg-white/60">
         <div className="flex justify-center mb-4">
           <img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
         </div>
@@ -101,17 +109,19 @@ const RegisterPage = () => {
               </button>
             </div>
           </div>
-          <button
-            type="submit"
-            className="w-full py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-fuchsia-500 hover:from-yellow-500 hover:to-fuchsia-600 text-white text-lg tracking-wide"
-          >
-            <span>Register</span>
-            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </button>
+          <div className="flex justify-start">
+            <button
+              type="submit"
+              className="py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-fuchsia-500 hover:from-yellow-500 hover:to-fuchsia-600 text-white text-lg tracking-wide"
+              style={{ minWidth: '160px' }}
+            >
+              <span>Register</span>
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+          </div>
         </form>
-
         <p className="mt-8 text-center text-gray-600">
           Already have an account?{' '}
           <a href="/login" className="text-sky-600 hover:underline font-semibold">Login</a>
@@ -119,6 +129,5 @@ const RegisterPage = () => {
       </div>
     </div>
   );
-};
+}
 
-export default RegisterPage;
