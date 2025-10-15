@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 const LoginPage = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -8,9 +10,15 @@ const LoginPage = () => {
 		return (
 			<div className="relative min-h-screen flex items-center justify-center px-4">
 				{/* Full-page gradient background image */}
-				<div className="fixed inset-0 w-full h-full -z-10">
-					<img src="/login_gradient.png" alt="Login Gradient Background" className="w-full h-full object-cover" />
-				</div>
+				   <div className="fixed inset-0 w-full h-full -z-10">
+					   <Image
+						   src="/login_bg.jpg"
+						   alt="Login Background"
+						   fill
+						   className="object-cover w-full h-full"
+						   priority
+					   />
+				   </div>
 				<div className="w-full max-w-md rounded-2xl shadow-2xl p-8 relative" style={{ backgroundColor: '#BBEDCF' }}>
 				<div className="flex justify-center mb-4">
 					<img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
@@ -74,10 +82,10 @@ const LoginPage = () => {
 					</button>
 				</form>
 
-				<p className="mt-8 text-center text-gray-600">
-					Don't have an account?{' '}
-					<a href="#" className="text-sky-600 hover:underline font-semibold">Register Now !</a>
-				</p>
+				   <p className="mt-8 text-center text-gray-600">
+					   Don't have an account?{' '}
+					   <Link href="/register" className="text-sky-600 hover:underline font-semibold">Register Now !</Link>
+				   </p>
 			</div>
 		</div>
 	);
