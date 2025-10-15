@@ -103,34 +103,18 @@ const RegisterPage = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 px-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition"
+            className="w-full py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 via-pink-400 to-fuchsia-500 hover:from-yellow-500 hover:to-fuchsia-600 text-white text-lg tracking-wide"
           >
-            Register
+            <span>Register</span>
+            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </button>
         </form>
-        <div className="flex items-center my-6">
-          <hr className="flex-grow border-t border-gray-300" />
-          <span className="mx-4 text-sm text-gray-400">Or sign up with</span>
-          <hr className="flex-grow border-t border-gray-300" />
-        </div>
-        <div className="flex justify-center space-x-4">
-          <button aria-label="Sign up with Google" className="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-110">
-            <img src="https://www.google.com/favicon.ico" alt="Google" className="h-5 w-5" />
-          </button>
-          <button aria-label="Sign up with Facebook" className="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-            </svg>
-          </button>
-          <button aria-label="Sign up with Apple" className="w-12 h-12 flex items-center justify-center bg-white border border-gray-300 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-110">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 20.94c1.5 0 2.75-.81 3.5-2.06 1.25-1.25.75-3.44-.94-4.13-1.69-.69-2.81.5-3.56 1.31-.81.88-1.81 2.88-1.81 2.88s-1.06-2.06-2.56-2.06c-1.5 0-2.88 1.31-2.88 3.19 0 1.88 1.38 3.19 2.88 3.19.44 0 1.06-.19 1.5-.5.5.31 1.06.5 1.81.5zM12 2.5c-1.5 0-2.81.69-3.56 1.88-1.25 1.25-.75 3.44.94 4.13 1.69.69 2.81-.5 3.56-1.31.81-.88 1.81-2.88 1.81-2.88s1.06 2.06 2.56 2.06c1.5 0 2.88-1.31 2.88-3.19C20.75 4.5 19.38 3.19 17.88 3.19c-.44 0-1.06.19-1.5.5-.5-.31-1.06-.5-1.81-.5z" />
-            </svg>
-          </button>
-        </div>
+
         <p className="mt-8 text-center text-gray-600">
           Already have an account?{' '}
-          <a href="/login" className="text-sky-600 hover:underline font-semibold">Sign in</a>
+          <a href="/login" className="text-sky-600 hover:underline font-semibold">Login</a>
         </p>
       </div>
     </div>
