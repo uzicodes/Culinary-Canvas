@@ -20,13 +20,13 @@ export default function RegisterPage() {
         />
   <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
       </div>
-  <div className="w-full max-w-md rounded-2xl shadow-2xl py-6 px-8 relative bg-white/60">
-        <div className="flex justify-center mb-4">
+  <div className="w-full max-w-md rounded-2xl shadow-2xl py-3 px-8 relative bg-white/60">
+    <div className="flex justify-center mb-2">
           <img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
         </div>
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Create your account</h2>
-        <p className="text-center text-gray-500 mb-8">Join Culinary Canvas and start your healthy food journey!</p>
-        <form className="space-y-5">
+  <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Create your account</h2>
+  <p className="text-center text-gray-500 mb-4">Join Culinary Canvas and start your healthy food journey!</p>
+  <form className="space-y-3">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input
@@ -34,7 +34,7 @@ export default function RegisterPage() {
               type="text"
               autoComplete="name"
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
               placeholder="Your name"
             />
           </div>
@@ -45,7 +45,7 @@ export default function RegisterPage() {
               type="email"
               autoComplete="email"
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
               placeholder="you@email.com"
             />
           </div>
@@ -57,7 +57,7 @@ export default function RegisterPage() {
                 type={showPassword ? "text" : "password"}
                 autoComplete="new-password"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
                 placeholder="Create a password"
               />
               <button
@@ -87,7 +87,7 @@ export default function RegisterPage() {
                 type={showConfirmPassword ? "text" : "password"}
                 autoComplete="new-password"
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
                 placeholder="Confirm your password"
               />
               <button
@@ -122,7 +122,7 @@ export default function RegisterPage() {
             </button>
           </div>
         </form>
-        <p className="mt-8 text-center text-gray-600">
+  <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
           <a href="/login" className="text-sky-600 hover:underline font-semibold">Login</a>
         </p>
