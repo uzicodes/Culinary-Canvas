@@ -96,7 +96,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       {/* Categories */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 py-3">
-          <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="flex gap-3 flex-wrap pb-2">
             {categories.map(cat => {
               // Build URL with category and current search term
               const params = new URLSearchParams();
@@ -107,7 +107,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 <a
                   key={cat.id}
                   href={href}
-                  className={`px-4 py-2 rounded-full whitespace-nowrap transition-all ${
+                  className={`px-3 py-1.5 text-sm rounded-full whitespace-nowrap transition-all ${
                     activeCategory === cat.id
                       ? 'bg-orange-500 text-white shadow-lg'
                       : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
