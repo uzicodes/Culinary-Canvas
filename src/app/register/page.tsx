@@ -32,8 +32,8 @@ export default function RegisterPage() {
         priority
       />
     </div>
-  <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Create your account</h2>
-  <p className="text-center text-gray-500 mb-4">Join Culinary Canvas and start your healthy food journey!</p>
+  <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Register Now </h2>
+  <p className="text-center text-gray-500 mb-4">Let us take you to the voyage of healthy food !</p>
   <form className="space-y-3">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>

@@ -78,9 +78,6 @@ const Header = () => {
                   </div>
                 )}
               </div>
-              <Link href="/our-menu" className="text-gray-700 hover:text-primary-600 font-medium">
-                Menu
-              </Link>
             </nav>
             {/* Search Box */}
             <form className="relative hidden md:block">
@@ -128,13 +125,6 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 All Items
-              </Link>
-              <Link
-                href="/categories"
-                className="block px-3 py-2 text-gray-700 hover:text-primary-600 font-medium"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Categories
               </Link>
             </div>
           </div>
