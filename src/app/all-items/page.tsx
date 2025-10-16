@@ -28,7 +28,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 'fastfood', label: 'Fast-Food' },
     { id: 'setmenu', label: 'Set Menus' },
     { id: 'appetizers', label: 'Appetizers' },
-  { id: 'desserts', label: 'Desserts' },
+    { id: 'desserts', label: 'Desserts' },
     { id: 'chinese', label: 'Chinese' },
     { id: 'italian', label: 'Italian' },
     { id: 'traditional', label: 'Traditional' },
@@ -49,7 +49,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 10, name: 'Jamaican Chicken', description: 'Jamaican styled chicken with sauce', price: 1200, category: 'setmenu', image: '/items/setmenu/1.png' },
   { id: 11, name: 'Beef Blaster', description: 'Striped Beef with fried rice', price: 500, category: 'setmenu', image: '/items/setmenu/2.png' },
   { id: 30, name: 'Steak Salad', description: 'Includes a beef stake with salad with rice', price: 900, category: 'setmenu', image: '/items/setmenu/3.png' },
-    { id: 41, name: 'Chicken Carnival', description: 'Festive chicken platter with sides', price: 1100, category: 'setmenu', image: '/items/setmenu/chicken carnival.png' },
+  { id: 41, name: 'Chicken Carnival', description: 'Festive chicken platter with sides', price: 1100, category: 'setmenu', image: '/items/setmenu/chicken carnival.png' },
   { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 180, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
   { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 150, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
   { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 220, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
@@ -57,7 +57,24 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 38, name: 'Strawberry Donut', description: 'Sweet donut with strawberry glaze', price: 140, category: 'desserts', image: '/items/desserts/strawberry_donut.png' },
   { id: 39, name: 'Chocolate Donut', description: 'Rich chocolate glazed donut', price: 140, category: 'desserts', image: '/items/desserts/chocolate_donut.png' },
   { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'desserts', image: '/items/desserts/tiramisu.png' },
-  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' }
+  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' },
+  { id: 50, name: 'Kung Pao Chicken', description: 'Spicy stir-fried chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
+  { id: 51, name: 'Sweet and Sour Pork', description: 'Pork in a tangy sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
+  { id: 52, name: 'Basil Fried Rice', description: 'Egg fried rice with fresh basil and vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
+  { id: 60, name: 'Fettuccine Alfredo', description: 'Pasta with creamy Alfredo sauce', price: 600, category: 'italian', image: '/items/italian/alfredo.png' },
+  { id: 61, name: 'Margherita Pizza', description: 'Classic pizza with tomato, mozzarella, and basil', price: 700, category: 'pizza', image: '/items/pizza/margherita.png' },
+  { id: 62, name: 'Lasagna', description: 'Classic Italian layered pasta with meat and cheese', price: 650, category: 'italian', image: '/items/italian/lasagna.png' },
+  { id: 63, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
+  { id: 64, name: 'Spaghetti', description: 'Traditional Italian spaghetti with herbs', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
+  { id: 70, name: 'Chicken Biryani', description: 'Spiced rice with chicken and herbs', price: 500, category: 'traditional', image: '/items/traditional/biryani.png' },
+  { id: 71, name: 'Dal Tadka', description: 'Yellow lentils cooked with spices', price: 250, category: 'traditional', image: '/items/traditional/dal.png' },
+  { id: 80, name: 'Espresso', description: 'Strong and rich coffee shot', price: 120, category: 'coffee', image: '/items/coffee/espresso.png' },
+  { id: 81, name: 'Cappuccino', description: 'Espresso with steamed milk and foam', price: 180, category: 'coffee', image: '/items/coffee/cappuccino.png' },
+  { id: 90, name: 'Coca Cola', description: 'Classic soft drink', price: 60, category: 'drinks', image: '/items/drinks/coke.png' },
+  { id: 91, name: 'Sprite', description: 'Lemon-lime flavored soda', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
+  { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 60, category: 'drinks', image: '/items/drinks/orange.png' },
+  { id: 93, name: 'Lemonade', description: 'Freshly squeezed lemonade', price: 80, category: 'drinks', image: '/items/drinks/lemonade.png' },
+  { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 70, category: 'drinks', image: '/items/drinks/iced_tea.png' }
   ];
 
 
