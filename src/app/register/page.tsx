@@ -23,8 +23,15 @@ export default function RegisterPage() {
       </div>
   <div className="w-full max-w-md rounded-2xl shadow-2xl py-3 px-8 relative bg-white/60">
     <div className="flex justify-center mb-2">
-          <img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
-        </div>
+      <Image
+        src="/without_BG_logo.png"
+        alt="Culinary Canvas Logo"
+        width={64}
+        height={64}
+        className="h-16 w-16 object-contain"
+        priority
+      />
+    </div>
   <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Create your account</h2>
   <p className="text-center text-gray-500 mb-4">Join Culinary Canvas and start your healthy food journey!</p>
   <form className="space-y-3">
