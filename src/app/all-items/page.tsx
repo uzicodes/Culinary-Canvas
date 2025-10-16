@@ -67,14 +67,17 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 63, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
   { id: 64, name: 'Spaghetti', description: 'Traditional Italian spaghetti with herbs', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
   { id: 70, name: 'Chicken Biryani', description: 'Spiced rice with chicken and herbs', price: 500, category: 'traditional', image: '/items/traditional/biryani.png' },
-  { id: 71, name: 'Dal Tadka', description: 'Yellow lentils cooked with spices', price: 250, category: 'traditional', image: '/items/traditional/dal.png' },
+  { id: 71, name: 'Dal Tadka', description: 'Yellow lentils cooked with spices', price: 120, category: 'traditional', image: '/items/traditional/dal.png' },
+  { id: 72, name: 'BIG Wrap', description: 'Large wrap filled with fresh veggies and meat', price: 220, category: 'appetizers', image: '/items/appetizers/BIG Wrap.png' },
+  { id: 73, name: 'Cheezy Nachos', description: 'Nachos topped with melted cheese and dips', price: 200, category: 'appetizers', image: '/items/appetizers/Cheezy Nachos.png' },
+  { id: 74, name: 'Dual Tacos', description: 'Two tacos with assorted fillings', price: 240, category: 'appetizers', image: '/items/appetizers/Dual Tacos.png' },
   { id: 80, name: 'Espresso', description: 'Strong and rich coffee shot', price: 120, category: 'coffee', image: '/items/coffee/espresso.png' },
   { id: 81, name: 'Cappuccino', description: 'Espresso with steamed milk and foam', price: 180, category: 'coffee', image: '/items/coffee/cappuccino.png' },
   { id: 90, name: 'Coca Cola', description: 'Classic soft drink', price: 60, category: 'drinks', image: '/items/drinks/coke.png' },
   { id: 91, name: 'Sprite', description: 'Lemon-lime flavored soda', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
-  { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 60, category: 'drinks', image: '/items/drinks/orange.png' },
+  { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 100, category: 'drinks', image: '/items/drinks/orange.png' },
   { id: 93, name: 'Lemonade', description: 'Freshly squeezed lemonade', price: 80, category: 'drinks', image: '/items/drinks/lemonade.png' },
-  { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 70, category: 'drinks', image: '/items/drinks/iced_tea.png' }
+  { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 90, category: 'drinks', image: '/items/drinks/iced_tea.png' }
   ];
 
 
