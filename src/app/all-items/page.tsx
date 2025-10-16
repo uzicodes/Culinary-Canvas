@@ -52,6 +52,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 180, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
   { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 150, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
   { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 220, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
+  { id: 36, name: 'Croissant', description: 'Buttery, flaky French pastry', price: 160, category: 'appetizers', image: '/items/appetizers/croissant.png' },
   { id: 15, name: 'Kung Pao Chicken', description: 'Spicy chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
   { id: 16, name: 'Basil Fried Rice', description: 'Egg fried rice with vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
   { id: 17, name: 'Sweet and Sour Pork', description: 'Tender pork in sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
