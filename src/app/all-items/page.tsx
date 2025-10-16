@@ -37,29 +37,29 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   ];
 
   const menuItems: MenuItem[] = [
-    { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 8.99, category: 'burger', image: '/items/burger/classic.png' },
-    { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 9.99, category: 'burger', image: '/items/burger/bacon.png' },
-    { id: 3, name: 'Double Cheese Burger', description: 'Double patty with double cheese', price: 10.99, category: 'burger', image: '/items/burger/double.png' },
-    { id: 4, name: 'Margherita Pizza', description: 'Fresh mozzarella, tomato, and basil', price: 12.99, category: 'pizza', image: '/items/pizza/margherita.png' },
-    { id: 5, name: 'Pepperoni Pizza', description: 'Classic pepperoni with mozzarella cheese', price: 13.99, category: 'pizza', image: '/items/pizza/pepperoni.png' },
-    { id: 6, name: 'Deluxe Pizza', description: 'Loaded with vegetables and meat', price: 14.99, category: 'pizza', image: '/items/pizza/deluxe.png' },
-    { id: 7, name: 'Fried Wings', description: 'Crispy wings with special sauce', price: 7.99, category: 'fastfood', image: '/items/fastfood/fried_chicken.png' },
-    { id: 8, name: 'French Fries', description: 'Crispy golden fries with ketchup & Mustard Sauce', price: 3.99, category: 'fastfood', image: '/items/fastfood/fries.png' },
-    { id: 9, name: 'Chicken Tenders', description: 'Breaded chicken strips', price: 8.49, category: 'fastfood', image: '/items/fastfood/tenders.png' },
-    { id: 10, name: 'Jamaican Chicken', description: 'Jamaican styled chicken with sauce', price: 34.99, category: 'setmenu', image: '/items/setmenu/1.png' },
-    { id: 11, name: 'Beef Blaster', description: 'Striped Beef with fried rice', price: 11.99, category: 'setmenu', image: '/items/setmenu/2.png' },
-    { id: 30, name: 'Steak Salad', description: 'Includes a beef stake with salad with rice', price: 24.99, category: 'setmenu', image: '/items/setmenu/3.png' },
-    { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 5.99, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
-    { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 4.99, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
-    { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 6.99, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
-    { id: 15, name: 'Kung Pao Chicken', description: 'Spicy chicken with peanuts and vegetables', price: 11.99, category: 'chinese', image: '/items/chinese/kung_pao.png' },
-    { id: 16, name: 'Basil Fried Rice', description: 'Egg fried rice with vegetables', price: 9.99, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
-    { id: 17, name: 'Sweet and Sour Pork', description: 'Tender pork in sweet and sour sauce', price: 10.99, category: 'chinese', image: '/items/chinese/pork.png' },
-    { id: 18, name: 'Fettuccine Alfredo', description: 'Pasta with creamy alfredo sauce', price: 12.99, category: 'italian', image: '/items/italian/alfredo.png' },
-    { id: 19, name: 'Spaghetti Carbonara', description: 'Classic Italian pasta with eggs and bacon', price: 11.99, category: 'italian', image: '/items/italian/spaghetti.png' },
-    { id: 20, name: 'Lasagna', description: 'Layers of pasta and meat sauce', price: 13.99, category: 'italian', image: '/items/italian/lasagna.png' },
-    { id: 32, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 12.49, category: 'italian', image: '/items/italian/risotto.png' },
-    { id: 21, name: 'Biryani', description: 'Fragrant rice with spiced meat', price: 12.99, category: 'traditional', image: '/items/traditional/biriyani.png' },
+  { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 350, category: 'burger', image: '/items/burger/classic.png' },
+  { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 400, category: 'burger', image: '/items/burger/bacon.png' },
+  { id: 3, name: 'Double Cheese Burger', description: 'Double patty with double cheese', price: 450, category: 'burger', image: '/items/burger/double.png' },
+  { id: 4, name: 'Margherita Pizza', description: 'Fresh mozzarella, tomato, and basil', price: 700, category: 'pizza', image: '/items/pizza/margherita.png' },
+  { id: 5, name: 'Pepperoni Pizza', description: 'Classic pepperoni with mozzarella cheese', price: 750, category: 'pizza', image: '/items/pizza/pepperoni.png' },
+  { id: 6, name: 'Deluxe Pizza', description: 'Loaded with vegetables and meat', price: 800, category: 'pizza', image: '/items/pizza/deluxe.png' },
+  { id: 7, name: 'Fried Wings', description: 'Crispy wings with special sauce', price: 320, category: 'fastfood', image: '/items/fastfood/fried_chicken.png' },
+  { id: 8, name: 'French Fries', description: 'Crispy golden fries with ketchup & Mustard Sauce', price: 120, category: 'fastfood', image: '/items/fastfood/fries.png' },
+  { id: 9, name: 'Chicken Tenders', description: 'Breaded chicken strips', price: 350, category: 'fastfood', image: '/items/fastfood/tenders.png' },
+  { id: 10, name: 'Jamaican Chicken', description: 'Jamaican styled chicken with sauce', price: 1200, category: 'setmenu', image: '/items/setmenu/1.png' },
+  { id: 11, name: 'Beef Blaster', description: 'Striped Beef with fried rice', price: 500, category: 'setmenu', image: '/items/setmenu/2.png' },
+  { id: 30, name: 'Steak Salad', description: 'Includes a beef stake with salad with rice', price: 900, category: 'setmenu', image: '/items/setmenu/3.png' },
+  { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 180, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
+  { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 150, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
+  { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 220, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
+  { id: 15, name: 'Kung Pao Chicken', description: 'Spicy chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
+  { id: 16, name: 'Basil Fried Rice', description: 'Egg fried rice with vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
+  { id: 17, name: 'Sweet and Sour Pork', description: 'Tender pork in sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
+  { id: 18, name: 'Fettuccine Alfredo', description: 'Pasta with creamy alfredo sauce', price: 600, category: 'italian', image: '/items/italian/alfredo.png' },
+  { id: 19, name: 'Spaghetti Carbonara', description: 'Classic Italian pasta with eggs and bacon', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
+  { id: 20, name: 'Lasagna', description: 'Layers of pasta and meat sauce', price: 650, category: 'italian', image: '/items/italian/lasagna.png' },
+  { id: 32, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
+  { id: 21, name: 'Biryani', description: 'Fragrant rice with spiced meat', price: 500, category: 'traditional', image: '/items/traditional/biriyani.png' },
     { id: 22, name: 'Tandoori Chicken', description: 'Grilled chicken with traditional spices', price: 13.99, category: 'traditional', image: '/items/traditional/tandoori.png' },
     { id: 23, name: 'Dal Curry', description: 'Lentil curry with traditional spices', price: 8.99, category: 'traditional', image: '/items/traditional/dal.png' },
     { id: 34, name: 'Butter Chicken', description: 'Rich and creamy tomato-based curry with tender chicken', price: 14.49, category: 'traditional', image: '/items/traditional/butter.png' },
@@ -168,7 +168,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   <p className="text-slate-600 text-sm mt-1 mb-3 text-center">{item.description}</p>
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t">
-                  <span className="text-base font-bold text-[#F1F604]">${item.price.toFixed(2)}</span>
+                  <span className="text-base font-bold text-[#F1F604]">৳{item.price}</span>
                   <button
                     className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-2 py-1 rounded text-xs font-bold transition-colors"
                     type="button"
