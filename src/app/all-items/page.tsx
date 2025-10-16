@@ -49,13 +49,14 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 10, name: 'Jamaican Chicken', description: 'Jamaican styled chicken with sauce', price: 1200, category: 'setmenu', image: '/items/setmenu/1.png' },
   { id: 11, name: 'Beef Blaster', description: 'Striped Beef with fried rice', price: 500, category: 'setmenu', image: '/items/setmenu/2.png' },
   { id: 30, name: 'Steak Salad', description: 'Includes a beef stake with salad with rice', price: 900, category: 'setmenu', image: '/items/setmenu/3.png' },
+    { id: 41, name: 'Chicken Carnival', description: 'Festive chicken platter with sides', price: 1100, category: 'setmenu', image: '/items/setmenu/chicken carnival.png' },
   { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 180, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
   { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 150, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
   { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 220, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
   { id: 36, name: 'Croissant', description: 'Buttery, flaky French pastry', price: 160, category: 'appetizers', image: '/items/appetizers/croissant.png' },
   { id: 38, name: 'Strawberry Donut', description: 'Sweet donut with strawberry glaze', price: 140, category: 'appetizers', image: '/items/appetizers/strawberry_donut.png' },
   { id: 39, name: 'Chocolate Donut', description: 'Rich chocolate glazed donut', price: 140, category: 'appetizers', image: '/items/appetizers/chocolate_donut.png' },
-  { id: 36, name: 'Croissant', description: 'Buttery, flaky French pastry', price: 160, category: 'appetizers', image: '/items/appetizers/croissant.png' },
+  { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'appetizers', image: '/items/appetizers/tiramisu.png' },
   { id: 15, name: 'Kung Pao Chicken', description: 'Spicy chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
   { id: 16, name: 'Basil Fried Rice', description: 'Egg fried rice with vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
   { id: 17, name: 'Sweet and Sour Pork', description: 'Tender pork in sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
@@ -75,7 +76,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 120, category: 'drinks', image: '/items/drinks/iced_tea.png' },
   { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
   { id: 37, name: 'Matcha', description: 'Refreshing Japanese green tea', price: 200, category: 'drinks', image: '/items/drinks/matcha.png' },
-  { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 2.99, category: 'drinks', image: '/items/drinks/sprite.png' },
+  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'appetizers', image: '/items/appetizers/brownie.png' }
   ];
 
 
