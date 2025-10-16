@@ -20,9 +20,9 @@ const LoginPage = () => {
 					   />
 				   </div>
 				<div className="w-full max-w-md rounded-2xl shadow-2xl p-8 relative" style={{ backgroundColor: '#BBEDCF' }}>
-				<div className="flex justify-center mb-4">
-					<img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="h-16 w-16 object-contain" />
-				</div>
+				   <div className="flex justify-center mb-4">
+					   <Image src="/without_BG_logo.png" alt="Culinary Canvas Logo" width={64} height={64} className="h-16 w-16 object-contain" priority />
+				   </div>
 				<h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Login</h2>
 				<p className="text-center text-gray-500 mb-8">Welcome back Foodie !</p>
 				<form className="space-y-6">
@@ -83,7 +83,7 @@ const LoginPage = () => {
 				</form>
 
 				   <p className="mt-8 text-center text-gray-600">
-					   Don't have an account?{' '}
+					   Don&apos;t have an account?{' '}
 					   <Link href="/register" className="text-sky-600 hover:underline font-semibold">Register Now !</Link>
 				   </p>
 			</div>

@@ -1,4 +1,6 @@
+
 "use client";
+import Image from 'next/image';
 
 import { Search } from 'lucide-react';
 import Header from '@/components/Header';
@@ -141,17 +143,22 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
             >
               <div className="bg-[#19b368] h-48 flex items-center justify-center text-6xl">
                 {item.image.startsWith('/') ? (
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={e => { e.currentTarget.src = '/items/fallback.png'; }}
+                    width={192}
+                    height={192}
+                    className="object-cover w-full h-full"
+                    priority={false}
                   />
                 ) : (
-                  <img
+                  <Image
                     src={'/items/fallback.png'}
                     alt="No image"
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    width={192}
+                    height={192}
+                    className="object-cover w-full h-full"
+                    priority={false}
                   />
                 )}
               </div>

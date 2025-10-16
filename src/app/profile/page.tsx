@@ -23,7 +23,7 @@ const ProfilePage = () => {
   <section className="relative min-h-screen pt-16 pb-10 px-4 flex items-start justify-center">
       {/* Full-page Gradient background */}
       <div className="fixed inset-0 w-full h-full -z-10">
-        <img src="/gradient.png" alt="Gradient background" className="w-full h-full object-cover" />
+        <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
       </div>
       <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
         <div className="relative w-28 h-28 mb-4">
