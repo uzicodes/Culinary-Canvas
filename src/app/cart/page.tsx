@@ -97,12 +97,11 @@ export default function CartPage() {
       <div className="container mx-auto px-4 py-8 min-h-screen relative">
         {/* Background Image Container (only blurred image) */}
         <div
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+          className="absolute top-0 left-0 w-full h-full bg-cover bg-center blur-md"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1920&q=80')`,
+            backgroundImage: `url('/cart.jpg')`,
             backgroundPosition: "center",
-            backgroundAttachment: "fixed", // Keep the background fixed as you scroll
-            filter: "blur(5px)", // Apply blur only to the background image
+            backgroundAttachment: "fixed"
           }}
         ></div>
 
