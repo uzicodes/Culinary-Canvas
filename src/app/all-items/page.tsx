@@ -1,4 +1,3 @@
-
 "use client";
 import Image from 'next/image';
 
@@ -29,6 +28,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 'fastfood', label: 'Fast-Food' },
     { id: 'setmenu', label: 'Set Menus' },
     { id: 'appetizers', label: 'Appetizers' },
+  { id: 'desserts', label: 'Desserts' },
     { id: 'chinese', label: 'Chinese' },
     { id: 'italian', label: 'Italian' },
     { id: 'traditional', label: 'Traditional' },
@@ -53,30 +53,11 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 12, name: 'Spring Rolls', description: 'Crispy spring rolls with dipping sauce', price: 180, category: 'appetizers', image: '/items/appetizers/spring_rolls.png' },
   { id: 13, name: 'Garlic Bread', description: 'Toasted bread with garlic butter', price: 150, category: 'appetizers', image: '/items/appetizers/garlic_bread.png' },
   { id: 14, name: 'Chicken Dumplings', description: 'Steamed dumplings with sauce', price: 220, category: 'appetizers', image: '/items/appetizers/dumplings.png' },
-  { id: 36, name: 'Croissant', description: 'Buttery, flaky French pastry', price: 160, category: 'appetizers', image: '/items/appetizers/croissant.png' },
-  { id: 38, name: 'Strawberry Donut', description: 'Sweet donut with strawberry glaze', price: 140, category: 'appetizers', image: '/items/appetizers/strawberry_donut.png' },
-  { id: 39, name: 'Chocolate Donut', description: 'Rich chocolate glazed donut', price: 140, category: 'appetizers', image: '/items/appetizers/chocolate_donut.png' },
-  { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'appetizers', image: '/items/appetizers/tiramisu.png' },
-  { id: 15, name: 'Kung Pao Chicken', description: 'Spicy chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
-  { id: 16, name: 'Basil Fried Rice', description: 'Egg fried rice with vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
-  { id: 17, name: 'Sweet and Sour Pork', description: 'Tender pork in sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
-  { id: 18, name: 'Fettuccine Alfredo', description: 'Pasta with creamy alfredo sauce', price: 600, category: 'italian', image: '/items/italian/alfredo.png' },
-  { id: 19, name: 'Spaghetti Carbonara', description: 'Classic Italian pasta with eggs and bacon', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
-  { id: 20, name: 'Lasagna', description: 'Layers of pasta and meat sauce', price: 650, category: 'italian', image: '/items/italian/lasagna.png' },
-  { id: 32, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
-  { id: 21, name: 'Biryani', description: 'Fragrant rice with spiced meat', price: 500, category: 'traditional', image: '/items/traditional/biriyani.png' },
-  { id: 22, name: 'Tandoori Chicken', description: 'Grilled chicken with traditional spices', price: 550, category: 'traditional', image: '/items/traditional/tandoori.png' },
-  { id: 23, name: 'Dal Curry', description: 'Lentil curry with traditional spices', price: 250, category: 'traditional', image: '/items/traditional/dal.png' },
-  { id: 34, name: 'Butter Chicken', description: 'Rich and creamy tomato-based curry with tender chicken', price: 600, category: 'traditional', image: '/items/traditional/butter.png' },
-  { id: 24, name: 'Espresso', description: 'Strong concentrated coffee', price: 120, category: 'coffee', image: '/items/coffee/espresso.png' },
-  { id: 25, name: 'Cappuccino', description: 'Coffee with steamed milk and foam', price: 180, category: 'coffee', image: '/items/coffee/cappuccino.png' },
-  { id: 26, name: 'Iced Coffee', description: 'Chilled coffee with ice', price: 160, category: 'coffee', image: '/items/coffee/iced_coffee.png' },
-  { id: 27, name: 'Fresh Orange Juice', description: 'Freshly squeezed orange juice', price: 180, category: 'drinks', image: '/items/drinks/orange.png' },
-  { id: 28, name: 'Coca Cola', description: 'Classic soft drink', price: 60, category: 'drinks', image: '/items/drinks/coke.png' },
-  { id: 29, name: 'Iced Tea', description: 'Refreshing iced tea', price: 120, category: 'drinks', image: '/items/drinks/iced_tea.png' },
-  { id: 35, name: 'Sprite', description: 'Lemon-lime flavored soft drink', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
-  { id: 37, name: 'Matcha', description: 'Refreshing Japanese green tea', price: 200, category: 'drinks', image: '/items/drinks/matcha.png' },
-  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'appetizers', image: '/items/appetizers/brownie.png' }
+  { id: 36, name: 'Croissant', description: 'Buttery, flaky French pastry', price: 160, category: 'desserts', image: '/items/desserts/croissant.png' },
+  { id: 38, name: 'Strawberry Donut', description: 'Sweet donut with strawberry glaze', price: 140, category: 'desserts', image: '/items/desserts/strawberry_donut.png' },
+  { id: 39, name: 'Chocolate Donut', description: 'Rich chocolate glazed donut', price: 140, category: 'desserts', image: '/items/desserts/chocolate_donut.png' },
+  { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'desserts', image: '/items/desserts/tiramisu.png' },
+  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' }
   ];
 
 
