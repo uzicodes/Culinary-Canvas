@@ -5,15 +5,15 @@ import Image from 'next/image'
 const categories = [
   {
     id: 1,
-    name: 'Fruits',
-    image: 'https://images.unsplash.com/photo-1610832958506-aa56368176cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    name: 'Burgers',
+    image: '/items/burger/classic.png',
     color: 'bg-red-100',
     textColor: 'text-red-600'
   },
   {
     id: 2,
-    name: 'Vegetables',
-    image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    name: 'Pizza',
+    image: '/items/pizza/deluxe.png',
     color: 'bg-green-100',
     textColor: 'text-green-600'
   },
