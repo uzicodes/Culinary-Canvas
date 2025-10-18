@@ -1,9 +1,31 @@
 'use client'
 
+import React from 'react'
 import { ArrowRight, Play } from 'lucide-react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+
+const useCountUp = (end: number, duration: number, suffix = '') => {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    let start = 0;
+    const increment = end / (duration / 16);
+    let raf: number;
+    const step = () => {
+      start += increment;
+      if (start < end) {
+        setCount(Math.floor(start));
+        raf = requestAnimationFrame(step);
+      } else {
+        setCount(end);
+      }
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [end, duration]);
+  return suffix ? `${count}${suffix}` : count;
+};
 
 const Hero = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -19,6 +41,9 @@ const Hero = () => {
     { src: '/9.png', name: 'File 9.png' },
     { src: '/10.png', name: 'File 10.png' }
   ]
+
+  const dishes = useCountUp(50, 1200, '+')
+  const customers = useCountUp(10000, 1200, )
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,11 +83,11 @@ const Hero = () => {
             {/* Stats */}
             <div className="flex space-x-8 pt-4">
               <div>
-                <div className="text-2xl font-bold text-gray-900">50+</div>
+                <div className="text-2xl font-bold text-gray-900">{dishes}</div>
                 <div className="text-sm text-gray-600">Healthy Dishes</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">10k+</div>
+                <div className="text-2xl font-bold text-gray-900">{customers}</div>
                 <div className="text-sm text-gray-600">Happy Customers</div>
               </div>
               <div>
