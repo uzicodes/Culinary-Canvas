@@ -66,7 +66,7 @@ const BestSelling = () => {
 					{bestSellingProducts.map((product) => (
 						<div
 							key={product.id}
-							className="bg-[#4D78A8] rounded-2xl shadow-sm hover:shadow-lg transition-shadow p-4 group text-center"
+							className="bg-[#C5D5EB] rounded-2xl shadow-sm hover:shadow-lg transition-shadow p-4 group text-center"
 						>
 							{/* Product Image */}
 							<div className="relative mb-4">
@@ -104,7 +104,7 @@ const BestSelling = () => {
 												key={i}
 												className={`w-4 h-4 ${
 													i < Math.floor(product.rating)
-														? 'text-yellow-400 fill-current'
+														? 'text-[#919E08] fill-current'
 														: 'text-gray-300'
 												}`}
 											/>
