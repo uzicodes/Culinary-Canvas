@@ -6,42 +6,42 @@ import Image from 'next/image'
 const bestSellingProducts = [
   {
     id: 1,
-    name: 'Fresh Tomato',
-    price: '$26.00',
-    originalPrice: '$30.00',
-    rating: 4.5,
+    name: 'Tiramisu',
+    price: '220',
+    originalPrice: '250',
+    rating: 4.8,
     reviews: 15,
-    image: 'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    image: '/items/desserts/tiramisu.png',
     badge: 'SALE'
   },
   {
     id: 2,
-    name: 'Fresh Apple',
-    price: '$20.00',
-    originalPrice: '$25.00',
+    name: 'Double Cheese Burger',
+    price: '450',
+    originalPrice: '480',
     rating: 4.8,
     reviews: 35,
-    image: 'https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    image: '/items/burger/double.png',
     badge: 'SALE'
   },
   {
     id: 3,
-    name: 'Big Potatoes',
-    price: '$15.00',
-    originalPrice: '$18.00',
+    name: 'Croissant',
+    price: '160',
+    originalPrice: '220',
     rating: 4.3,
     reviews: 28,
-    image: 'https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    image: '/items/desserts/croissant.png',
     badge: 'SALE'
   },
   {
     id: 4,
-    name: 'Orange Fruit',
-    price: '$22.00',
-    originalPrice: '$26.00',
+    name: 'Spaghetti',
+    price: '550',
+    originalPrice: '580',
     rating: 4.6,
     reviews: 42,
-    image: 'https://images.unsplash.com/photo-1547514701-42782101795e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    image: '/items/italian/spaghetti.png',
     badge: 'SALE'
   }
 ]

@@ -77,7 +77,7 @@ const categories = [
     id: 11,
     name: 'Drinks & Beverages',
     image: '/items/drinks/matcha.png',
-    color: 'bg-purple-100',
+    color: 'bg-red-100',
     textColor: 'text-purple-600'
   },
 
