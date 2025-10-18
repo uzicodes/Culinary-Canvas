@@ -73,6 +73,7 @@ const Header = () => {
                       <Link href="/all-items?category=italian" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Italian</Link>
                       <Link href="/all-items?category=traditional" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Traditional</Link>
                       <Link href="/all-items?category=coffee" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Coffee</Link>
+                      <Link href="/all-items?category=desserts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Desserts</Link>
                       <Link href="/all-items?category=drinks" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Drinks & Beverages</Link>
                     </div>
                   </div>

@@ -47,32 +47,43 @@ const categories = [
   },
   {
     id: 7,
+    name: 'Desserts',
+    image: '/items/desserts/brownie.png',
+    color: 'bg-pink-100',
+    textColor: 'text-pink-600'
+  },
+  {
+    id: 8,
     name: 'Italian',
     image: '/items/italian/spaghetti.png',
     color: 'bg-purple-100',
     textColor: 'text-orange-600'
   },
   {
-    id: 8,
+    id: 9,
     name: 'Traditional',
     image: '/items/traditional/butter.png',
     color: 'bg-red-100',
     textColor: 'text-green-600'
   },
   {
-    id: 9,
+    id: 10,
     name: 'Coffee',
     image: '/items/coffee/espresso.png',
     color: 'bg-green-100',
     textColor: 'text-purple-600'
   },
   {
-    id: 10,
+    id: 11,
     name: 'Drinks & Beverages',
     image: '/items/drinks/matcha.png',
     color: 'bg-purple-100',
     textColor: 'text-purple-600'
   },
+
+
+
+
 
 
 
