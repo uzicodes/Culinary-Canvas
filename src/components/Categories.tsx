@@ -33,48 +33,41 @@ const categories = [
   },
   {
     id: 5,
-    name: 'Fruit Juice',
-    image: 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
-    color: 'bg-orange-100',
-    textColor: 'text-orange-600'
-  },
-  {
-    id: 6,
     name: 'Appetizers',
     image: '/items/appetizers/Dual Tacos.png',
     color: 'bg-purple-100',
     textColor: 'text-purple-600'
   },
   {
-    id: 7,
+    id: 6,
     name: 'Chinese',
     image: '/items/chinese/kung_pao.png',
-    color: 'bg-purple-100',
+    color: 'bg-blue-100',
     textColor: 'text-purple-600'
   },
   {
-    id: 8,
+    id: 7,
     name: 'Italian',
     image: '/items/italian/spaghetti.png',
     color: 'bg-purple-100',
-    textColor: 'text-purple-600'
+    textColor: 'text-orange-600'
+  },
+  {
+    id: 8,
+    name: 'Traditional',
+    image: '/items/traditional/butter.png',
+    color: 'bg-red-100',
+    textColor: 'text-green-600'
   },
   {
     id: 9,
-    name: 'Traditional',
-    image: '/items/traditional/butter.png',
-    color: 'bg-purple-100',
+    name: 'Coffee',
+    image: '/items/coffee/espresso.png',
+    color: 'bg-green-100',
     textColor: 'text-purple-600'
   },
   {
     id: 10,
-    name: 'Coffee',
-    image: '/items/coffee/espresso.png',
-    color: 'bg-purple-100',
-    textColor: 'text-purple-600'
-  },
-  {
-    id: 11,
     name: 'Drinks & Beverages',
     image: '/items/drinks/matcha.png',
     color: 'bg-purple-100',
