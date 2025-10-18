@@ -43,7 +43,7 @@ const Hero = () => {
   ]
 
   const dishes = useCountUp(50, 1200, '+')
-  const customers = useCountUp(10000, 1200, )
+  const customers = useCountUp(10000, 1200 )
 
   useEffect(() => {
     const interval = setInterval(() => {
