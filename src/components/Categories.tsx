@@ -19,15 +19,15 @@ const categories = [
   },
   {
     id: 3,
-    name: 'Fish',
-    image: 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    name: 'Fast Foods',
+    image: '/items/fastfood/fried_chicken.png',
     color: 'bg-blue-100',
     textColor: 'text-blue-600'
   },
   {
     id: 4,
-    name: 'Drinks',
-    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    name: 'Set Menus',
+    image: '/items/setmenu/1.png',
     color: 'bg-yellow-100',
     textColor: 'text-yellow-600'
   },
@@ -40,11 +40,68 @@ const categories = [
   },
   {
     id: 6,
-    name: 'Spices',
-    image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+    name: 'Appetizers',
+    image: '/items/appetizers/Dual Tacos.png',
     color: 'bg-purple-100',
     textColor: 'text-purple-600'
-  }
+  },
+  {
+    id: 7,
+    name: 'Chinese',
+    image: '/items/chinese/kung_pao.png',
+    color: 'bg-purple-100',
+    textColor: 'text-purple-600'
+  },
+  {
+    id: 8,
+    name: 'Italian',
+    image: '/items/italian/spaghetti.png',
+    color: 'bg-purple-100',
+    textColor: 'text-purple-600'
+  },
+  {
+    id: 9,
+    name: 'Traditional',
+    image: '/items/traditional/butter.png',
+    color: 'bg-purple-100',
+    textColor: 'text-purple-600'
+  },
+  {
+    id: 10,
+    name: 'Coffee',
+    image: '/items/coffee/espresso.png',
+    color: 'bg-purple-100',
+    textColor: 'text-purple-600'
+  },
+  {
+    id: 11,
+    name: 'Drinks & Beverages',
+    image: '/items/drinks/matcha.png',
+    color: 'bg-purple-100',
+    textColor: 'text-purple-600'
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ]
 
 const Categories = () => {
