@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 
@@ -17,6 +17,25 @@ const user = {
 };
 
 const ProfilePage = () => {
+  const [editing, setEditing] = useState(false);
+  const [profile, setProfile] = useState(user);
+  const [form, setForm] = useState({
+    name: profile.name,
+    phone: profile.phone,
+    address: profile.address,
+  });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const handleSave = () => {
+    setProfile({ ...profile, ...form });
+    setEditing(false);
+  };
+  const handleCancel = () => {
+    setForm({ name: profile.name, phone: profile.phone, address: profile.address });
+    setEditing(false);
+  };
+
   return (
     <>
       <Header />
@@ -35,7 +54,19 @@ const ProfilePage = () => {
             priority
           />
         </div>
-  <h2 className="text-2xl font-bold mb-1 text-black">{user.name}</h2>
+  <h2 className="text-2xl font-bold mb-1 text-black">
+    {editing ? (
+      <input
+        type="text"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        className="border rounded px-2 py-1 w-full max-w-xs"
+      />
+    ) : (
+      profile.name
+    )}
+  </h2>
         <p className="text-gray-500 mb-2">{user.email}</p>
         <div className="flex gap-4 mb-4">
           <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
@@ -51,11 +82,31 @@ const ProfilePage = () => {
         <div className="w-full border-t pt-4 mt-4">
           <div className="mb-2 flex items-center justify-between">
             <span className="font-medium text-gray-700">Phone:</span>
-            <span className="text-gray-900">{user.phone}</span>
+            {editing ? (
+              <input
+                type="text"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                className="border rounded px-2 py-1 w-full max-w-xs"
+              />
+            ) : (
+              <span className="text-gray-900">{profile.phone}</span>
+            )}
           </div>
           <div className="mb-2 flex items-center justify-between">
             <span className="font-medium text-gray-700">Address:</span>
-            <span className="text-gray-900 text-right max-w-[60%] truncate">{user.address}</span>
+            {editing ? (
+              <input
+                type="text"
+                name="address"
+                value={form.address}
+                onChange={handleChange}
+                className="border rounded px-2 py-1 w-full max-w-xs"
+              />
+            ) : (
+              <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address}</span>
+            )}
           </div>
           <div className="mb-2 flex items-center justify-between">
             <span className="font-medium text-gray-700">Member Since:</span>
@@ -63,15 +114,18 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-3 mt-6">
-          <button className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">
-            Edit Profile
-          </button>
-          <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">
-            View Order History
-          </button>
-          <button className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">
-            Log Out
-          </button>
+          {editing ? (
+            <>
+              <button onClick={handleSave} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Save</button>
+              <button onClick={handleCancel} className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Cancel</button>
+            </>
+          ) : (
+            <>
+              <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
+              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">View Order History</button>
+              <button className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Log Out</button>
+            </>
+          )}
         </div>
       </div>
       </section>
