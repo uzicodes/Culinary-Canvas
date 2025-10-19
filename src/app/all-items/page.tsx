@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { Search } from 'lucide-react';
 import Header from '@/components/Header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Footer from '@/components/Footer';
 
@@ -17,6 +17,7 @@ interface MenuItem {
 }
 export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const router = useRouter();
+  const [showToast, setShowToast] = useState(false);
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
   // Cart state and addToCart logic removed for SSR/static compatibility
@@ -194,7 +195,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                         }
                         localStorage.setItem('cart', JSON.stringify(cart));
                         window.dispatchEvent(new Event('storage'));
-                        router.push('/cart');
+                        setShowToast(true);
+                        setTimeout(() => setShowToast(false), 1500);
                       }
                     }}
                   >
@@ -214,6 +216,11 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       </main>
 
       <Footer />
+      {showToast && (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50 transition-all">
+          Item added to cart!
+        </div>
+      )}
     </div>
   );
 }
