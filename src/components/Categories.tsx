@@ -49,7 +49,7 @@ const categories = [
     id: 7,
     name: 'Desserts',
     image: '/items/desserts/brownie.png',
-    color: 'bg-pink-100',
+    color: 'bg-blue-100',
     textColor: 'text-pink-600'
   },
   {
