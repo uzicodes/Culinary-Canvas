@@ -49,7 +49,7 @@ const Blog = () => {
           {blogPosts.map((post) => (
             <article
               key={post.id}
-              className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
+              className="bg-[#E3DCB1] rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
             >
               {/* Featured Image */}
               <div className="relative h-48 overflow-hidden">
