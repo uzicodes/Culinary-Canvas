@@ -128,16 +128,6 @@ const BestSelling = () => {
 						</div>
 					))}
 				</div>
-
-				{/* View All Button */}
-				<div className="text-center mt-10">
-					<button
-						className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-colors"
-						onClick={() => (window.location.href = '/all-items')}
-					>
-						View All Products
-					</button>
-				</div>
 			</div>
 		</section>
 	)
