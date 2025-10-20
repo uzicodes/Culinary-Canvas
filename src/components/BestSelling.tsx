@@ -118,10 +118,10 @@ const BestSelling = () => {
 								{/* Price */}
 								<div className="flex items-center space-x-2 justify-center">
 									<span className="text-xl font-bold text-primary-600">
-										{product.price}
+										৳{product.price}
 									</span>
 									<span className="text-sm text-gray-400 line-through">
-										{product.originalPrice}
+										৳{product.originalPrice}
 									</span>
 								</div>
 							</div>
