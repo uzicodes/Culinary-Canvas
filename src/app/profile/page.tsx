@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
+import { useRouter } from "next/navigation";
 
 const user = {
   name: "Utsho Heaven Chowdhury",
@@ -17,6 +18,7 @@ const user = {
 };
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [profile, setProfile] = useState(user);
   const [form, setForm] = useState({
@@ -121,7 +123,10 @@ const ProfilePage = () => {
             <>
               <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
               <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">View Order History</button>
-              <button className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Log Out</button>
+              <button onClick={() => {
+                /* Log out logic here if needed */
+                router.push('/');
+              }} className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Log Out</button>
             </>
           )}
         </div>
