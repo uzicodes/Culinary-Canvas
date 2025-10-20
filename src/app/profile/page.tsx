@@ -61,7 +61,7 @@ const ProfilePage = () => {
         name="name"
         value={form.name}
         onChange={handleChange}
-        className="border rounded px-2 py-1 w-full max-w-xs"
+        className="border rounded px-2 py-1 w-full max-w-xs bg-white"
       />
     ) : (
       profile.name
@@ -75,9 +75,7 @@ const ProfilePage = () => {
           <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
             {user.orders} Orders
           </span>
-          <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold">
-            {user.favorites} Favorites
-          </span>
+
         </div>
         <div className="w-full border-t pt-4 mt-4">
           <div className="mb-2 flex items-center justify-between">
@@ -88,7 +86,7 @@ const ProfilePage = () => {
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
-                className="border rounded px-2 py-1 w-full max-w-xs"
+                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
               />
             ) : (
               <span className="text-gray-900">{profile.phone}</span>
@@ -102,7 +100,7 @@ const ProfilePage = () => {
                 name="address"
                 value={form.address}
                 onChange={handleChange}
-                className="border rounded px-2 py-1 w-full max-w-xs"
+                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
               />
             ) : (
               <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address}</span>
