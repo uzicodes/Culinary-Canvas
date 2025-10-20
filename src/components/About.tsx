@@ -45,8 +45,8 @@ const About = () => {
                   <CheckCircle className="w-5 h-5 text-primary-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">100% Organic</h4>
-                  <p className="text-sm text-gray-600">Certified organic products from trusted farms</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">100% Quality Ensured</h4>
+                  <p className="text-sm text-gray-600">Made with love by experienced chefs</p>
                 </div>
               </div>
 
