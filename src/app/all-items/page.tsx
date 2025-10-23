@@ -68,6 +68,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 63, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
   { id: 64, name: 'Spaghetti', description: 'Traditional Italian spaghetti with herbs', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
   { id: 70, name: 'Chicken Biryani', description: 'Spiced rice with chicken and herbs', price: 500, category: 'traditional', image: '/items/traditional/biryani.png' },
+  { id: 75, name: 'Butter Naan', description: 'Soft naan brushed with butter', price: 60, category: 'traditional', image: '/items/traditional/butter.png' },
+  { id: 76, name: 'Tandoori Chicken', description: 'Smoky tandoor-roasted marinated chicken', price: 550, category: 'traditional', image: '/items/traditional/tandoori.png' },
   { id: 71, name: 'Dal Tadka', description: 'Yellow lentils cooked with spices', price: 120, category: 'traditional', image: '/items/traditional/dal.png' },
   { id: 72, name: 'BIG Wrap', description: 'Large wrap filled with fresh veggies and meat', price: 220, category: 'appetizers', image: '/items/appetizers/BIG Wrap.png' },
   { id: 73, name: 'Cheezy Nachos', description: 'Nachos topped with melted cheese and dips', price: 200, category: 'appetizers', image: '/items/appetizers/Cheezy Nachos.png' },
