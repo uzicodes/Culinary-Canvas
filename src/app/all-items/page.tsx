@@ -63,7 +63,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 51, name: 'Sweet and Sour Pork', description: 'Pork in a tangy sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
   { id: 52, name: 'Basil Fried Rice', description: 'Egg fried rice with fresh basil and vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
   { id: 60, name: 'Fettuccine Alfredo', description: 'Pasta with creamy Alfredo sauce', price: 600, category: 'italian', image: '/items/italian/alfredo.png' },
-  { id: 61, name: 'Margherita Pizza', description: 'Classic pizza with tomato, mozzarella, and basil', price: 700, category: 'pizza', image: '/items/pizza/margherita.png' },
+  
   { id: 62, name: 'Lasagna', description: 'Classic Italian layered pasta with meat and cheese', price: 650, category: 'italian', image: '/items/italian/lasagna.png' },
   { id: 63, name: 'Risotto', description: 'Creamy Italian rice dish with parmesan and mushrooms', price: 600, category: 'italian', image: '/items/italian/risotto.png' },
   { id: 64, name: 'Spaghetti', description: 'Traditional Italian spaghetti with herbs', price: 550, category: 'italian', image: '/items/italian/spaghetti.png' },
