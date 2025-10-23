@@ -79,7 +79,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 91, name: 'Sprite', description: 'Lemon-lime flavored soda', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
   { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 100, category: 'drinks', image: '/items/drinks/orange.png' },
   { id: 93, name: 'Lemonade', description: 'Freshly squeezed lemonade', price: 80, category: 'drinks', image: '/items/drinks/lemonade.png' },
-  { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 90, category: 'drinks', image: '/items/drinks/iced_tea.png' }
+  { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 90, category: 'drinks', image: '/items/drinks/iced_tea.png' },
+  { id: 95, name: 'Matcha', description: 'Refreshing Japanese green tea', price: 200, category: 'drinks', image: '/items/drinks/matcha.png' }
   ];
 
 
