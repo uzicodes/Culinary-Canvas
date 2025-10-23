@@ -58,7 +58,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 38, name: 'Strawberry Donut', description: 'Sweet donut with strawberry glaze', price: 140, category: 'desserts', image: '/items/desserts/strawberry_donut.png' },
   { id: 39, name: 'Chocolate Donut', description: 'Rich chocolate glazed donut', price: 140, category: 'desserts', image: '/items/desserts/chocolate_donut.png' },
   { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'desserts', image: '/items/desserts/tiramisu.png' },
-  { id: 36, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' },
+  { id: 37, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' },
   { id: 50, name: 'Kung Pao Chicken', description: 'Spicy stir-fried chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
   { id: 51, name: 'Sweet and Sour Pork', description: 'Pork in a tangy sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
   { id: 52, name: 'Basil Fried Rice', description: 'Egg fried rice with fresh basil and vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
