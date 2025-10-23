@@ -74,6 +74,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   { id: 74, name: 'Dual Tacos', description: 'Two tacos with assorted fillings', price: 240, category: 'appetizers', image: '/items/appetizers/Dual Tacos.png' },
   { id: 80, name: 'Espresso', description: 'Strong and rich coffee shot', price: 120, category: 'coffee', image: '/items/coffee/espresso.png' },
   { id: 81, name: 'Cappuccino', description: 'Espresso with steamed milk and foam', price: 180, category: 'coffee', image: '/items/coffee/cappuccino.png' },
+  { id: 82, name: 'Iced Coffee', description: 'Chilled coffee with ice', price: 160, category: 'coffee', image: '/items/coffee/iced_coffee.png' },
   { id: 90, name: 'Coca Cola', description: 'Classic soft drink', price: 60, category: 'drinks', image: '/items/drinks/coke.png' },
   { id: 91, name: 'Sprite', description: 'Lemon-lime flavored soda', price: 60, category: 'drinks', image: '/items/drinks/sprite.png' },
   { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 100, category: 'drinks', image: '/items/drinks/orange.png' },
