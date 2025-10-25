@@ -25,17 +25,32 @@ const ProfilePage = () => {
     name: profile.name,
     phone: profile.phone,
     address: profile.address,
+    avatar: profile.avatar,
   });
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string);
+        setForm({ ...form, avatar: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
   };
   const handleSave = () => {
     setProfile({ ...profile, ...form });
     setEditing(false);
+    setAvatarPreview(null);
   };
   const handleCancel = () => {
-    setForm({ name: profile.name, phone: profile.phone, address: profile.address });
+    setForm({ name: profile.name, phone: profile.phone, address: profile.address, avatar: profile.avatar });
     setEditing(false);
+    setAvatarPreview(null);
   };
 
   return (
@@ -47,14 +62,27 @@ const ProfilePage = () => {
         <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
       </div>
       <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
-        <div className="relative w-28 h-28 mb-4">
-          <Image
-            src={user.avatar}
-            alt="Profile Avatar"
-            fill
-            className="rounded-full object-cover border-4 border-primary-500"
-            priority
-          />
+        <div className="flex items-center mb-4">
+          <div className="relative w-28 h-28">
+            <Image
+              src={avatarPreview || profile.avatar}
+              alt="Profile Avatar"
+              fill
+              className="rounded-full object-cover border-4 border-primary-500"
+              priority
+            />
+          </div>
+          {editing && (
+            <div className="ml-6 flex flex-col items-start">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="mt-2 text-xs"
+              />
+              <span className="text-xs text-gray-500 mt-1">Change profile picture</span>
+            </div>
+          )}
         </div>
   <h2 className="text-2xl font-bold mb-1 text-black">
     {editing ? (
