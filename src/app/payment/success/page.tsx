@@ -23,9 +23,8 @@ export default function SuccessPage() {
             <path d="M16 24L22 30L32 18" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <h2 className="text-lg font-semibold text-white mb-2 text-center">THANK YOU</h2>
         <h1 className="text-2xl md:text-3xl font-bold text-[#395C39] text-center mb-2">YOUR ORDER IS CONFIRMED !</h1>
-        <p className="text-white text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
+        <p className="text-[#394DAD] text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
         {/* Progress tracker */}
         <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-2xl mb-8">
           <p className="text-gray-700 text-center mb-4">Order <span className="font-bold">#2059666</span> was placed on <span className="font-bold">January 13, 2021</span> and is currently in progress</p>
@@ -35,7 +34,7 @@ export default function SuccessPage() {
               <div className="bg-[#6fcf97] rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><path d="M5 10l3 3 7-7" stroke="#fff" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-[#6fcf97]">ORDER CONFIRMED</span>
+              <span className="text-xs font-bold text-[#c72525]">ORDER CONFIRMED</span>
             </div>
             <div className="flex-1 h-1 bg-gray-300 mx-1"></div>
             <div className="flex flex-col items-center flex-1">
@@ -70,7 +69,7 @@ export default function SuccessPage() {
         </div>
       </div>
       {/* Sidebar */}
-      <aside className="w-full md:w-96 bg-white shadow-lg p-8 flex flex-col gap-6 border-l border-gray-200 min-h-screen">
+  <aside className="w-full md:w-96 shadow-lg p-8 flex flex-col gap-6 border-l border-gray-200 min-h-screen" style={{backgroundColor:'#9DAD39'}}>
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="font-bold text-lg">ORDER DETAIL</span>
