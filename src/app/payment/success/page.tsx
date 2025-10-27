@@ -71,7 +71,11 @@ export default function SuccessPage() {
               <span className="text-xs font-bold text-[#c72525] text-center block">PRODUCT DELIVERED</span>
             </div>
           </div>
-          <div className="text-xs text-gray-600 text-center mt-2">Expected Delivery Date: <span className="font-bold">16 January 2021</span> <a href="#" className="text-blue-600 underline ml-2">Track Your Order</a></div>
+          <div className="text-xs text-gray-600 text-center mt-2">
+            Expected Delivery Time: <span className="font-bold"> 09:30 AM </span>
+            <br />
+            <a href="#" className="text-blue-600 underline mt-1 inline-block">Track Your Order</a>
+          </div>
         </div>
       </div>
       {/* Sidebar */}
