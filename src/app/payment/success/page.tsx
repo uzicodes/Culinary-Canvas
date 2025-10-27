@@ -9,6 +9,56 @@ export default function SuccessPage() {
     const saved = localStorage.getItem("orderData");
     if (saved) setOrder(JSON.parse(saved));
   }, []);
+
+  // Download invoice as PDF
+  const handleDownloadInvoice = async () => {
+    if (!order) return;
+    const { default: jsPDF } = await import("jspdf");
+    const doc = new jsPDF();
+    let y = 15;
+    doc.setFontSize(18);
+    doc.text("ORDER DETAIL", 15, y);
+    y += 10;
+    doc.setFontSize(14);
+    doc.text("#" + (order.orderId || "2059666"), 15, y);
+    y += 12;
+    doc.setFontSize(12);
+    doc.text("DELIVERY ADDRESS", 15, y);
+    y += 7;
+    var address = order.customerAddress || "Vvip Addresses, Raj Nagar Extension Road\nRaj Nagar Extension Ghaziabad\nlondon 201001 India";
+    var addressLines = address.split("\n");
+    for (let i = 0; i < addressLines.length; i++) {
+      doc.text(addressLines[i], 15, y);
+      y += 7;
+    }
+    doc.text("BILLING ADDRESS", 15, y);
+    y += 7;
+    for (let i = 0; i < addressLines.length; i++) {
+      doc.text(addressLines[i], 15, y);
+      y += 7;
+    }
+    doc.text("CONTACT DETAILS", 15, y);
+    y += 7;
+    doc.text((order.customerEmail || "email@company.com"), 15, y);
+    y += 7;
+    doc.text((order.customerPhone || "+91-987 000 0000"), 15, y);
+    y += 10;
+    doc.text("ORDER SUMMARY", 15, y);
+    y += 7;
+    doc.text("Sub Total: ৳" + (order.subtotal ? order.subtotal.toFixed(2) : "-"), 15, y);
+    y += 7;
+    let delivery = "-";
+    if (order.deliveryMethod === "Priority") delivery = "60.00";
+    else if (order.deliveryMethod === "Standard") delivery = "45.00";
+    doc.text("Delivery: ৳" + delivery, 15, y);
+    y += 7;
+    doc.text("Tip: ৳" + (order.tip ? order.tip.toFixed(2) : "0.00"), 15, y);
+    y += 7;
+    doc.text("Coupon Discount: ৳" + (order.couponDiscount ? order.couponDiscount.toFixed(2) : "0.00"), 15, y);
+    y += 7;
+    doc.text("Total: ৳" + (order.total ? order.total.toFixed(2) : "-"), 15, y);
+    doc.save("invoice.pdf");
+  };
   return (
     <div className="min-h-screen bg-[#6fcf97] flex flex-col md:flex-row items-start justify-center">
       {/* Main confirmation section */}
@@ -83,7 +133,7 @@ export default function SuccessPage() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="font-bold text-lg">ORDER DETAIL</span>
-            <button className="bg-gray-100 px-3 py-1 rounded text-xs font-semibold border border-gray-300">Download Invoice</button>
+            <button onClick={handleDownloadInvoice} className="bg-gray-100 px-3 py-1 rounded text-xs font-semibold border border-gray-300">Download Invoice</button>
           </div>
           <span className="text-2xl font-bold text-gray-800">#2059666</span>
         </div>
