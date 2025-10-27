@@ -1,8 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function SuccessPage() {
+  const [order, setOrder] = useState<any>(null);
+  useEffect(() => {
+    const saved = localStorage.getItem("orderData");
+    if (saved) setOrder(JSON.parse(saved));
+  }, []);
   return (
     <div className="min-h-screen bg-[#6fcf97] flex flex-col md:flex-row items-start justify-center">
       {/* Main confirmation section */}
@@ -90,10 +96,12 @@ export default function SuccessPage() {
           <div className="text-sm text-gray-700">email@company.com<br/>+91-987 000 0000<br/>+91-987 000 0000</div>
         </div>
         <div>
-          <div className="font-bold mb-1">ORDER SUMMARY (3)</div>
-          <div className="flex justify-between text-sm mb-1"><span>Sub Total</span><span>£15.00</span></div>
-          <div className="flex justify-between text-sm mb-1"><span>Delivery</span><span>£16.00</span></div>
-          <div className="flex justify-between text-base font-bold mt-2"><span>Total</span><span>£31.00</span></div>
+          <div className="font-bold mb-1">ORDER SUMMARY{order?.orderItems ? ` (${order.orderItems.length})` : ""}</div>
+          <div className="flex justify-between text-sm mb-1"><span>Sub Total</span><span>৳{order?.subtotal?.toFixed(2) ?? "-"}</span></div>
+          <div className="flex justify-between text-sm mb-1"><span>Delivery</span><span>৳{order?.deliveryMethod === "Priority" ? "60.00" : order?.deliveryMethod === "Standard" ? "45.00" : "-"}</span></div>
+          <div className="flex justify-between text-sm mb-1"><span>Tip</span><span>৳{order?.tip?.toFixed(2) ?? "0.00"}</span></div>
+          <div className="flex justify-between text-sm mb-1"><span>Coupon Discount</span><span>৳{order?.couponDiscount?.toFixed(2) ?? "0.00"}</span></div>
+          <div className="flex justify-between text-base font-bold mt-2"><span>Total</span><span>৳{order?.total?.toFixed(2) ?? "-"}</span></div>
         </div>
       </aside>
     </div>
