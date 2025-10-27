@@ -57,7 +57,8 @@ export default function SuccessPage() {
     doc.text("Coupon Discount: ৳" + (order.couponDiscount ? order.couponDiscount.toFixed(2) : "0.00"), 15, y);
     y += 7;
     doc.text("Total: ৳" + (order.total ? order.total.toFixed(2) : "-"), 15, y);
-    doc.save("invoice.pdf");
+  const pdfName = `#${order.orderId || "2059666"} invoice.pdf`;
+  doc.save(pdfName);
   };
   return (
     <div className="min-h-screen bg-[#6fcf97] flex flex-col md:flex-row items-start justify-center">
