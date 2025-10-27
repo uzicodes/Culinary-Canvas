@@ -24,8 +24,8 @@ export default function SuccessPage() {
           </svg>
         </div>
         <h2 className="text-lg font-semibold text-white mb-2 text-center">THANK YOU</h2>
-        <h1 className="text-2xl md:text-3xl font-bold text-white text-center mb-2">YOUR ORDER IS CONFIRMED</h1>
-        <p className="text-white text-center mb-8 max-w-md">We will be sending you an email confirmation to <span className="font-semibold">example@email.com</span> shortly</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-[#395C39] text-center mb-2">YOUR ORDER IS CONFIRMED !</h1>
+        <p className="text-white text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
         {/* Progress tracker */}
         <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-2xl mb-8">
           <p className="text-gray-700 text-center mb-4">Order <span className="font-bold">#2059666</span> was placed on <span className="font-bold">January 13, 2021</span> and is currently in progress</p>
@@ -81,7 +81,6 @@ export default function SuccessPage() {
         <div>
           <div className="font-bold mb-1">DELIVERY ADDRESS</div>
           <div className="text-sm text-gray-700">Vvip Addresses, Raj Nagar Extension Road<br/>Raj Nagar Extension Ghaziabad<br/>london 201001 India</div>
-          <a href="#" className="text-xs text-blue-600 underline mt-1 inline-block">Change Details</a>
         </div>
         <div>
           <div className="font-bold mb-1">BILLING ADDRESS</div>
