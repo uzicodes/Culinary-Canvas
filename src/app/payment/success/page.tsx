@@ -40,35 +40,35 @@ export default function SuccessPage() {
               <div className="bg-[#6fcf97] rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><path d="M5 10l3 3 7-7" stroke="#fff" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-[#c72525]">ORDER CONFIRMED</span>
+              <span className="text-xs font-bold text-[#c72525] text-center block">ORDER CONFIRMED</span>
             </div>
             <div className="flex-1 h-1 bg-gray-300 mx-1"></div>
             <div className="flex flex-col items-center flex-1">
               <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#bbb" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-gray-400">START PRODUCTION</span>
+              <span className="text-xs font-bold text-[#c72525] text-center block">START PRODUCTION</span>
             </div>
             <div className="flex-1 h-1 bg-gray-300 mx-1"></div>
             <div className="flex flex-col items-center flex-1">
               <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#bbb" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-gray-400">QUALITY CHECK</span>
+              <span className="text-xs font-bold text-[#c72525] text-center block">QUALITY CHECK</span>
             </div>
             <div className="flex-1 h-1 bg-gray-300 mx-1"></div>
             <div className="flex flex-col items-center flex-1">
               <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#bbb" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-gray-400">DISPATCHED ITEM</span>
+              <span className="text-xs font-bold text-[#c72525] text-center block">DISPATCHED ITEM</span>
             </div>
             <div className="flex-1 h-1 bg-gray-300 mx-1"></div>
             <div className="flex flex-col items-center flex-1">
               <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mb-1">
                 <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" stroke="#bbb" strokeWidth="2" fill="none"/></svg>
               </div>
-              <span className="text-xs font-bold text-gray-400">PRODUCT DELIVERED</span>
+              <span className="text-xs font-bold text-[#c72525] text-center block">PRODUCT DELIVERED</span>
             </div>
           </div>
           <div className="text-xs text-gray-600 text-center mt-2">Expected Delivery Date: <span className="font-bold">16 January 2021</span> <a href="#" className="text-blue-600 underline ml-2">Track Your Order</a></div>
