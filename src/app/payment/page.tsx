@@ -199,7 +199,7 @@ export default function PaymentPage() {
 							value={mobileNumber}
 							onChange={(e) => setMobileNumber(e.target.value)}
 							placeholder={`Enter your ${paymentMethod} number (+880XXXXXXXXXX)`}
-							className="w-full border-2 border-black p-2 rounded"
+							className="w-full border-2 border-black p-2 rounded text-black bg-white"
 						/>
 						<small className="text-gray-500">
 							{`Please enter your ${paymentMethod} Number`}
@@ -215,7 +215,7 @@ export default function PaymentPage() {
 							value={cardNumber}
 							onChange={(e) => setCardNumber(formatCardInput(e.target.value))}
 							placeholder="Enter your 16-digit card number"
-							className="w-full border-2 border-black p-2 rounded"
+							className="w-full border-2 border-black p-2 rounded text-black bg-white"
 						/>
 					</div>
 				)}
@@ -249,7 +249,7 @@ export default function PaymentPage() {
 										onChange={(e) => setCustomTip(e.target.value)}
 										onBlur={() => setTip(parseFloat(customTip) || 0)}
 										placeholder="Other amount"
-										className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
+										className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs text-black bg-white"
 									/>
 
 								</div>
@@ -264,7 +264,7 @@ export default function PaymentPage() {
 														value={couponCode}
 														onChange={(e) => setCouponCode(e.target.value)}
 														placeholder="Enter your coupon code"
-														className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
+														className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs text-black bg-white"
 													/>
 													<button
 														type="button"
