@@ -142,13 +142,6 @@ export default function PaymentPage() {
 				backgroundColor: 'rgba(0,0,0,0.3)',  // Slight dark overlay for text visibility
 			}}
 		>
-			<Image
-				src="/images/rider-cartoon.png"
-				alt="Rider delivering food"
-				width={192}
-				height={192}
-				className="absolute bottom-0 left-4 opacity-20 pointer-events-none"
-			/>
 
 			<form
 				onSubmit={handleSubmit}
