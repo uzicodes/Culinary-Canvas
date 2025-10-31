@@ -156,12 +156,12 @@ export default function PaymentPage() {
 					<label className="font-semibold block mb-2 text-black">
 						Delivery Options
 					</label>
-					<select
-						value={deliveryMethod}
-						onChange={(e) => setDeliveryMethod(e.target.value)}
-						required
-						className="w-full border-2 border-black p-2 rounded"
-					>
+								<select
+									value={deliveryMethod}
+									onChange={(e) => setDeliveryMethod(e.target.value)}
+									required
+									className="w-full p-2 rounded text-black bg-white"
+								>
 						<option value="">-- Select --</option>            
 						<option value="Standard">Standard (30 – 40 min)</option>
 						<option value="Priority">Priority (20 – 30 min)</option>
@@ -173,16 +173,16 @@ export default function PaymentPage() {
 					<label className="font-semibold block mb-2 text-black">
 						Payment Methods
 					</label>
-					<select
-						value={paymentMethod}
-						onChange={(e) => {
-							setPaymentMethod(e.target.value);
-							setMobileNumber('+880');
-							setCardNumber('');
-						}}
-						required
-						className="w-full border-2 border-black p-2 rounded"
-					>
+								<select
+									value={paymentMethod}
+									onChange={(e) => {
+										setPaymentMethod(e.target.value);
+										setMobileNumber('+880');
+										setCardNumber('');
+									}}
+									required
+									className="w-full p-2 rounded  text-black bg-white"
+								>
 						<option value="">-- Select --</option>
 						<option value="Cash on Delivery">Cash on Delivery</option>
 						<option value="Bkash">Bkash</option>
