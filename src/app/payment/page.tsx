@@ -232,7 +232,7 @@ export default function PaymentPage() {
 									setTip(amt);
 									setCustomTip('');
 								}}
-								className={`py-2 px-4 rounded ${tip === amt ? 'bg-green-700 text-white' : 'bg-green-500 text-white'} hover:bg-green-600`}
+								  className={`py-1 px-2 rounded text-xs ${tip === amt ? 'bg-green-700 text-white' : 'bg-green-500 text-white'} hover:bg-green-600`}
 							>
 								৳{amt}
 							</button>
@@ -246,7 +246,7 @@ export default function PaymentPage() {
 							onChange={(e) => setCustomTip(e.target.value)}
 							onBlur={() => setTip(parseFloat(customTip) || 0)}
 							placeholder="Other amount"
-							className="flex-1 border-2 border-black p-2 rounded"
+							className="w-32 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
 						/>
 						<span className="ml-2 text-black">Tk</span>
 					</div>
