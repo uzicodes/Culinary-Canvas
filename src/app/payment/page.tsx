@@ -220,67 +220,72 @@ export default function PaymentPage() {
 					</div>
 				)}
 
-				{/* Tip Your Rider */}
-				<div className="mb-6">
-					<label className="font-semibold block mb-2 text-black">Tip Your Rider</label>
-					<div className="flex items-center space-x-2 mb-2">
-						{[10, 20, 30].map((amt) => (
-							<button
-								key={amt}
-								type="button"
-								onClick={() => {
-									setTip(amt);
-									setCustomTip('');
-								}}
-								  className={`py-1 px-2 rounded text-xs ${tip === amt ? 'bg-green-700 text-white' : 'bg-green-500 text-white'} hover:bg-green-600`}
-							>
-								৳{amt}
-							</button>
-						))}
-					</div>
-					<div className="flex items-center">
-						<input
-							type="number"
-							min="0"
-							value={customTip}
-							onChange={(e) => setCustomTip(e.target.value)}
-							onBlur={() => setTip(parseFloat(customTip) || 0)}
-							placeholder="Other amount"
-							className="w-32 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
-						/>
-						<span className="ml-2 text-black">Tk</span>
-					</div>
-				</div>
 
-				{/* Coupon Code Section */}
-				<div className="mb-4">
-					<label className="font-semibold block mb-2 text-black">
-						Apply Coupon
-					</label>
-					<input
-						type="text"
-						value={couponCode}
-						onChange={(e) => setCouponCode(e.target.value)}
-						placeholder="Enter your coupon code"
-						className="w-full border-2 border-black p-2 rounded"
-					/>
-					<button
-						type="button"
-						onClick={() => {
-							// Add coupon validation or discount logic here
-							if (couponCode === 'BITE10') {
-								setCouponDiscount(subtotal * 0.10);  // Apply 10% discount
-								alert('Coupon applied successfully!');
-							} else {
-								setCouponDiscount(0);
-								alert('Invalid coupon!');
-							}
-						}}
-						className="mt-2 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-					>
-						Apply Coupon
-					</button>
-				</div>
+						{/* Tip and Coupon Side by Side */}
+						<div className="mb-6 flex flex-row gap-4">
+							{/* Tip Your Rider */}
+							<div className="flex-1">
+								<label className="font-semibold block mb-2 text-black">Tip Your Rider</label>
+								<div className="flex items-center space-x-2 mb-2">
+									{[10, 20, 30].map((amt) => (
+										<button
+											key={amt}
+											type="button"
+											onClick={() => {
+												setTip(amt);
+												setCustomTip('');
+											}}
+											className={`py-1 px-2 rounded text-xs ${tip === amt ? 'bg-green-700 text-white' : 'bg-green-500 text-white'} hover:bg-green-600`}
+										>
+											৳{amt}
+										</button>
+									))}
+								</div>
+								<div className="flex items-center">
+									<input
+										type="number"
+										min="0"
+										value={customTip}
+										onChange={(e) => setCustomTip(e.target.value)}
+										onBlur={() => setTip(parseFloat(customTip) || 0)}
+										placeholder="Other amount"
+										className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
+									/>
+
+								</div>
+							</div>
+							{/* Coupon Code Section */}
+										<div className="flex flex-col items-start justify-end">
+											<div className="flex flex-col">
+												<label className="font-semibold block mb-2 text-black mt-7">Do You Have a Coupon ?</label>
+												<div className="flex items-center gap-2">
+													<input
+														type="text"
+														value={couponCode}
+														onChange={(e) => setCouponCode(e.target.value)}
+														placeholder="Enter your coupon code"
+														className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs"
+													/>
+													<button
+														type="button"
+														onClick={() => {
+															// Add coupon validation or discount logic here
+															if (couponCode === 'BITE10') {
+																setCouponDiscount(subtotal * 0.10);  // Apply 10% discount
+																alert('Coupon applied successfully!');
+															} else {
+																setCouponDiscount(0);
+																alert('Invalid coupon!');
+															}
+														}}
+														className="bg-green-500 text-white py-1 px-2 rounded text-xs hover:bg-green-600"
+													>
+														Apply 
+													</button>
+												</div>
+											</div>
+										</div>
+						</div>
 
 				<div className="mb-6 space-y-2 text-black text-center">
 					<h3 className="font-bold text-xl">Order Summary</h3>
