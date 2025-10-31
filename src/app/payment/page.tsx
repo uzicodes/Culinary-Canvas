@@ -62,13 +62,16 @@ export default function PaymentPage() {
 		// Handle coupon discount logic
 		let finalCouponDiscount = couponDiscount;
 
-		if (couponCode === 'BITE10') {
-			finalCouponDiscount = subtotal * 0.10; // Apply 10% discount
-			alert('Coupon applied successfully!');
-		} else {
-			finalCouponDiscount = 0;
-			alert('Invalid coupon!');
-		}
+			if (couponCode === '') {
+				finalCouponDiscount = 0;
+			} else if (couponCode === 'BITE10') {
+				finalCouponDiscount = subtotal * 0.10; // Apply 10% discount
+				alert('Coupon applied successfully!');
+			} else {
+				finalCouponDiscount = 0;
+				alert('Invalid coupon!');
+				return;
+			}
 
 		// Collect order data to send to the backend API
 		const orderData = {
