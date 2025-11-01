@@ -47,6 +47,17 @@ const bestSellingProducts = [
 ]
 
 const BestSelling = () => {
+	// Add to cart handler
+	const handleAddToCart = (product: typeof bestSellingProducts[0]) => {
+		const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+		const existing = cart.find((i: any) => i.id === product.id);
+		if (existing) {
+			existing.quantity = (existing.quantity || 1) + 1;
+		} else {
+			cart.push({ ...product, quantity: 1 });
+		}
+		localStorage.setItem('cart', JSON.stringify(cart));
+	};
 	return (
 		<section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,10 +95,14 @@ const BestSelling = () => {
 									{product.badge}
 								</span>
 
-								{/* Add to Cart Button */}
-								<button className="absolute bottom-3 right-3 bg-primary-500 hover:bg-primary-600 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-									<ShoppingCart className="w-4 h-4" />
-								</button>
+												{/* Add to Cart Button */}
+												<button
+													className="absolute bottom-3 right-3 bg-primary-500 hover:bg-primary-600 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+													onClick={() => handleAddToCart(product)}
+													aria-label={`Add ${product.name} to cart`}
+												>
+													<ShoppingCart className="w-4 h-4" />
+												</button>
 							</div>
 
 							{/* Product Info */}

@@ -164,7 +164,7 @@ export default function CartPage() {
                     {/* Column for price, quantity, and total */}
                     <div className="flex items-center space-x-2 md:space-x-8 w-auto md:w-full justify-between mt-4 md:mt-0">
                       <div className="text-sm text-gray-900 min-w-[48px] text-center">
-                        {item.price.toFixed(2)}
+                        {Number(item.price).toFixed(2)}
                       </div>
                       <div className="flex items-center space-x-2">
                         <button
@@ -217,8 +217,8 @@ export default function CartPage() {
                     <div className="flex justify-between mb-2 text-black" key={item._id}>
                       <span>{item.name}</span>
                       <span>
-                        {item.quantity} × {item.price.toFixed(2)} ={" "}
-                        {(item.quantity * item.price).toFixed(2)}
+                        {item.quantity} × {Number(item.price).toFixed(2)} ={" "}
+                        {(item.quantity * Number(item.price)).toFixed(2)}
                       </span>
                     </div>
                   ))}
