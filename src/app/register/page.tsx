@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
@@ -7,6 +6,42 @@ import Link from "next/link";
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.name, email: form.email, password: form.password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || "Registration failed");
+      } else {
+        setSuccess("Registration successful! You can now log in.");
+        setForm({ name: "", email: "", password: "", confirmPassword: "" });
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    }
+    setLoading(false);
+  };
 
   return (
   <div className="relative min-h-screen flex items-center justify-start px-32">
@@ -34,12 +69,14 @@ export default function RegisterPage() {
     </div>
   <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Register Now </h2>
   <p className="text-center text-gray-500 mb-4">Let us take you to the voyage of healthy food !</p>
-  <form className="space-y-3">
+  <form className="space-y-3" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input
               id="name"
               type="text"
+              value={form.name}
+              onChange={handleChange}
               autoComplete="name"
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
@@ -51,6 +88,8 @@ export default function RegisterPage() {
             <input
               id="email"
               type="email"
+              value={form.email}
+              onChange={handleChange}
               autoComplete="email"
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
@@ -63,6 +102,8 @@ export default function RegisterPage() {
               <input
                 id="password"
                 type={showPassword ? "text" : "password"}
+                value={form.password}
+                onChange={handleChange}
                 autoComplete="new-password"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
@@ -93,6 +134,8 @@ export default function RegisterPage() {
               <input
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
+                value={form.confirmPassword}
+                onChange={handleChange}
                 autoComplete="new-password"
                 required
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
@@ -122,13 +165,16 @@ export default function RegisterPage() {
               type="submit"
               className="py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 hover:from-green-500 hover:to-lime-600 text-white text-lg tracking-wide"
               style={{ minWidth: '160px' }}
+              disabled={loading}
             >
-              <span>Register</span>
+              <span>{loading ? "Registering..." : "Register"}</span>
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </button>
           </div>
+          {error && <p className="text-red-600 text-center mt-2">{error}</p>}
+          {success && <p className="text-green-600 text-center mt-2">{success}</p>}
         </form>
         <p className="mt-4 text-center text-gray-600">
           Already have an account?{' '}
