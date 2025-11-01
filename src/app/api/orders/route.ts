@@ -1,9 +1,10 @@
-import dbConnect from '@/lib/mongodb';
-import Order from '@/models/order';
+import clientPromise from '@/lib/mongodb';
 
 export async function POST(req: Request) {
-  await dbConnect();
+  const client = await clientPromise;
+  const db = client.db();
   const data = await req.json();
-  const order = await Order.create(data);
-  return new Response(JSON.stringify(order), { status: 201 });
+  const result = await db.collection('orders').insertOne(data);
+  const insertedOrder = { ...data, _id: result.insertedId };
+  return new Response(JSON.stringify(insertedOrder), { status: 201 });
 }
