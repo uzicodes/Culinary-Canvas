@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb"; // Adjust path if needed
-import { findUserByEmail, validPassword } from "./utils/userAuth";
+import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -17,9 +17,9 @@ export const authOptions = {
         if (!credentials?.email || !credentials?.password) return null;
         const user = await findUserByEmail(credentials.email);
         if (user && await validPassword(credentials.password, user.password)) {
-          // Remove password from returned user object
-          const { password, ...userWithoutPassword } = user;
-          return userWithoutPassword;
+          // Remove password and convert _id to id
+          const { password, _id, ...userWithoutPassword } = user;
+          return { ...userWithoutPassword, id: _id.toString() };
         }
         return null;
       }
