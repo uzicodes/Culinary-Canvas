@@ -4,7 +4,9 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb"; // Adjust path if needed
 import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
 
-export const authOptions = {
+// Do NOT export authOptions
+// Only export the handler
+const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({
@@ -31,7 +33,6 @@ export const authOptions = {
     signOut: "/auth/signout",
     error: "/auth/error"
   }
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
