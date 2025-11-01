@@ -46,7 +46,9 @@ const bestSellingProducts = [
 	},
 ]
 
+import { useState } from 'react';
 const BestSelling = () => {
+	const [successMsg, setSuccessMsg] = useState<string | null>(null);
 	// Add to cart handler
 	const handleAddToCart = (product: typeof bestSellingProducts[0]) => {
 		const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -57,9 +59,16 @@ const BestSelling = () => {
 			cart.push({ ...product, quantity: 1 });
 		}
 		localStorage.setItem('cart', JSON.stringify(cart));
+		setSuccessMsg(`${product.name} added to cart!`);
+		setTimeout(() => setSuccessMsg(null), 1500);
 	};
 	return (
-		<section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
+			<section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
+				{successMsg && (
+					<div className="fixed top-8 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-2 rounded shadow-lg z-50 transition-all">
+						{successMsg}
+					</div>
+				)}
 			<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 				{/* Section Header */}
 				<div className="text-center mb-12">
