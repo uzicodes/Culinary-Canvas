@@ -1,31 +1,51 @@
 "use client";
-
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
 	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
+	const router = useRouter();
 
-		return (
-			<div className="relative min-h-screen flex items-center justify-center px-4">
-				{/* Full-page gradient background image */}
-				   <div className="fixed inset-0 w-full h-full -z-10">
-					   <Image
-						   src="/login_bg.jpg"
-						   alt="Login Background"
-						   fill
-						   className="object-cover w-full h-full blur-md"
-						   priority
-					   />
-				   </div>
-				<div className="w-full max-w-md rounded-2xl shadow-2xl p-8 relative" style={{ backgroundColor: '#BBEDCF' }}>
-				   <div className="flex justify-center mb-4">
-					   <Image src="/without_BG_logo.png" alt="Culinary Canvas Logo" width={64} height={64} className="h-16 w-16 object-contain" priority />
-				   </div>
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setError("");
+		const res = await signIn("credentials", {
+			email,
+			password,
+			redirect: false,
+		});
+		if (res?.ok) {
+			router.push("/");
+		} else {
+			setError("Invalid email or password");
+		}
+	};
+
+	return (
+		<div className="relative min-h-screen flex items-center justify-center px-4">
+			{/* Full-page gradient background image */}
+			<div className="fixed inset-0 w-full h-full -z-10">
+				<Image
+					src="/login_bg.jpg"
+					alt="Login Background"
+					fill
+					className="object-cover w-full h-full blur-md"
+					priority
+				/>
+			</div>
+			<div className="w-full max-w-md rounded-2xl shadow-2xl p-8 relative" style={{ backgroundColor: '#BBEDCF' }}>
+				<div className="flex justify-center mb-4">
+					<Image src="/without_BG_logo.png" alt="Culinary Canvas Logo" width={64} height={64} className="h-16 w-16 object-contain" priority />
+				</div>
 				<h2 className="text-3xl font-bold text-center text-gray-900 mb-2">Login</h2>
 				<p className="text-center text-gray-500 mb-8">Welcome back Foodie !</p>
-				<form className="space-y-6">
+				<form className="space-y-6" onSubmit={handleSubmit}>
 					<div>
 						<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
 						<input
@@ -33,8 +53,10 @@ const LoginPage = () => {
 							type="email"
 							autoComplete="email"
 							required
-							  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-yellow-500"
+							className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-yellow-500"
 							placeholder="you@email.com"
+							value={email}
+							onChange={e => setEmail(e.target.value)}
 						/>
 					</div>
 					<div>
@@ -47,6 +69,8 @@ const LoginPage = () => {
 								required
 								className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-yellow-500 pr-12"
 								placeholder="Your password"
+								value={password}
+								onChange={e => setPassword(e.target.value)}
 							/>
 							<button
 								type="button"
@@ -80,15 +104,15 @@ const LoginPage = () => {
 					>
 						Login
 					</button>
+					{error && <p className="text-red-500 text-center mt-2">{error}</p>}
 				</form>
+				<p className="mt-8 text-center text-gray-600">
+					Don&apos;t have an account?{' '}
+					<Link href="/register" className="text-sky-600 hover:underline font-semibold">Register Now !</Link>
+				</p>
+					</div>
+				</div>
+			);
+		};
 
-				   <p className="mt-8 text-center text-gray-600">
-					   Don&apos;t have an account?{' '}
-					   <Link href="/register" className="text-sky-600 hover:underline font-semibold">Register Now !</Link>
-				   </p>
-			</div>
-		</div>
-	);
-};
-
-export default LoginPage;
+		export default LoginPage;
