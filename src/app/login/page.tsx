@@ -32,7 +32,7 @@ const LoginPage = () => {
 			{/* Full-page gradient background image */}
 			<div className="fixed inset-0 w-full h-full -z-10">
 				<Image
-					src="/login_bg.jpg"
+					src="/gradient.png"
 					alt="Login Background"
 					fill
 					className="object-cover w-full h-full blur-md"

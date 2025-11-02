@@ -4,28 +4,30 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
-
-const user = {
-  name: "Utsho Heaven Chowdhury",
-  email: "utshozi11@email.com",
-  avatar: "/profile-avatar.png", // Place a default avatar in public/
-  phone: "+1 234 567 8901",
-  address: "123 Main St, Springfield, USA",
-  joined: "March 2024",
-  orders: 12,
-  favorites: 5,
-  loyaltyPoints: 20,
-};
+import { useSession } from "next-auth/react";
 
 const ProfilePage = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+  const defaultUser = {
+    name: session?.user?.name || "",
+    email: session?.user?.email || "",
+    avatar: session?.user?.image || "/profile-avatar.png",
+    phone: "",
+    address: "",
+    joined: "",
+    orders: 0,
+    favorites: 0,
+    loyaltyPoints: 0,
+  };
   const [editing, setEditing] = useState(false);
-  const [profile, setProfile] = useState(user);
+  const [profile, setProfile] = useState(defaultUser);
   const [form, setForm] = useState({
-    name: profile.name,
-    phone: profile.phone,
-    address: profile.address,
-    avatar: profile.avatar,
+    name: defaultUser.name,
+    phone: defaultUser.phone,
+    address: defaultUser.address,
+    avatar: defaultUser.avatar,
+    email: defaultUser.email,
   });
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +50,7 @@ const ProfilePage = () => {
     setAvatarPreview(null);
   };
   const handleCancel = () => {
-    setForm({ name: profile.name, phone: profile.phone, address: profile.address, avatar: profile.avatar });
+    setForm({ name: profile.name, phone: profile.phone, address: profile.address, avatar: profile.avatar, email: profile.email });
     setEditing(false);
     setAvatarPreview(null);
   };
@@ -56,8 +58,8 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-  <section className="relative min-h-screen pt-16 pb-10 px-4 flex items-start justify-center">
-      {/* Full-page Gradient background */}
+      <section className="relative min-h-screen pt-16 pb-10 px-4 flex items-start justify-center">
+        {/* Full-page Gradient background */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
       </div>
@@ -97,15 +99,11 @@ const ProfilePage = () => {
       profile.name
     )}
   </h2>
-        <p className="text-gray-500 mb-2">{user.email}</p>
+        <p className="text-gray-500 mb-2">{profile.email}</p>
         <div className="flex gap-4 mb-4">
-          <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
-            {user.loyaltyPoints} Loyalty Points
-          </span>
           <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-            {user.orders} Orders
+            {profile.orders} Orders
           </span>
-
         </div>
         <div className="w-full border-t pt-4 mt-4">
           <div className="mb-2 flex items-center justify-between">
@@ -123,6 +121,10 @@ const ProfilePage = () => {
             )}
           </div>
           <div className="mb-2 flex items-center justify-between">
+            <span className="font-medium text-gray-700">Email:</span>
+            <span className="text-gray-900">{profile.email}</span>
+          </div>
+          <div className="mb-2 flex items-center justify-between">
             <span className="font-medium text-gray-700">Address:</span>
             {editing ? (
               <input
@@ -133,12 +135,12 @@ const ProfilePage = () => {
                 className="border rounded px-2 py-1 w-full max-w-xs bg-white"
               />
             ) : (
-              <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address}</span>
+              <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address || ""}</span>
             )}
           </div>
           <div className="mb-2 flex items-center justify-between">
             <span className="font-medium text-gray-700">Member Since:</span>
-            <span className="text-gray-900">{user.joined}</span>
+            <span className="text-gray-900">{profile.joined}</span>
           </div>
         </div>
         <div className="w-full flex flex-col sm:flex-row gap-3 mt-6">
