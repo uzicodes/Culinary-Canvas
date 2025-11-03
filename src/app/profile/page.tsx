@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import { useRouter } from "next/navigation";
@@ -8,7 +9,7 @@ import { useSession, signOut } from "next-auth/react";
 
 const ProfilePage = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const defaultUser = {
     name: session?.user?.name || "",
     email: session?.user?.email || "",
@@ -55,6 +56,24 @@ const ProfilePage = () => {
     setAvatarPreview(null);
   };
 
+  if (status === "loading") {
+    return <div className="min-h-screen flex items-center justify-center text-lg">Loading...</div>;
+  }
+  if (!session) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+        <Header />
+        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+          <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to view your profile</h2>
+          <p className="mb-6 text-gray-700">If you don't have an account, please register below.</p>
+          <div className="flex gap-4 justify-center">
+            <Link href="/login" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
+            <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <Header />
