@@ -4,8 +4,32 @@ import { useState, useEffect } from 'react'
 import { ShoppingCart, Search, Menu, X, User, Heart } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRef } from 'react'
+import menuItems, { MenuItem } from '@/data/menuItems'
 
 const Header = () => {
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showResults, setShowResults] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Filter items whose name starts with the search query
+  const filteredItems = searchQuery
+    ? menuItems.filter((item: MenuItem) =>
+        item.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+      )
+    : [];
+
+  // Hide results when clicking outside
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
+        setShowResults(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
 
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -81,16 +105,48 @@ const Header = () => {
               </div>
             </nav>
             {/* Search Box */}
-            <form className="relative hidden md:block">
+
+            <div className="relative hidden md:block w-64">
               <input
+                ref={inputRef}
                 type="text"
                 placeholder="Search..."
-                className="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm bg-gray-100 text-black"
+                value={searchQuery}
+                onChange={e => {
+                  setSearchQuery(e.target.value);
+                  setShowResults(true);
+                }}
+                className="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm bg-gray-100 text-black w-full"
+                onFocus={() => setShowResults(true)}
               />
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                 <Search className="w-5 h-5" />
               </span>
-            </form>
+              {showResults && searchQuery && (
+                <div className="absolute left-0 mt-2 w-full bg-white border rounded-lg shadow-lg z-50">
+                  {filteredItems.length > 0 ? (
+                    filteredItems.map(item => (
+                      <Link
+                        href={`/all-items/${item.id}`}
+                        key={item.id}
+                        className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 border-b last:border-b-0"
+                        onClick={() => setShowResults(false)}
+                      >
+                        <div className="w-10 h-10 relative">
+                          <Image src={item.image} alt={item.name} fill className="object-cover rounded" />
+                        </div>
+                        <div>
+                          <div className="font-medium text-gray-900 text-sm">{item.name}</div>
+                          <div className="text-xs text-gray-500">৳{item.price}</div>
+                        </div>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="px-4 py-3 text-gray-500 text-sm">Sorry, no items found</div>
+                  )}
+                </div>
+              )}
+            </div>
 
 
             {/* User Account */}
