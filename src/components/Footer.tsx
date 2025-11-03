@@ -77,12 +77,12 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-500 flex-shrink-0 mt-1" />
                 <span className="text-gray-400">
-                  123 Organic Street, Fresh City, FC 12345
+                  Dhaka Bangladesh 1212
                 </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary-500 flex-shrink-0" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">+880170000000</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary-500 flex-shrink-0" />
