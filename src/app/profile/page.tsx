@@ -62,7 +62,6 @@ const ProfilePage = () => {
   if (!session) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <Header />
         <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
           <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to view your profile</h2>
           <p className="mb-6 text-gray-700">If you don't have an account, please register below.</p>
