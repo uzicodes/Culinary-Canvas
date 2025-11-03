@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaTrashAlt } from "react-icons/fa"; // Trash icon for Remove Item
-import Header from "@/components/Header"; // Import the Header component
+import Header from "@/components/Header";
+import { useSession } from "next-auth/react";
 
 interface CartItem {
   _id: string;
@@ -20,6 +21,50 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const { data: session, status } = useSession();
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  // Calculate total price
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // Cart item quantity handlers
+  const decreaseQuantity = (id: string) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item._id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
+  const increaseQuantity = (id: string) => {
+    setCartItems((prev) =>
+      prev.map((item) =>
+        item._id === id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  const removeFromCart = (id: string) => {
+    setCartItems((prev) => prev.filter((item) => item._id !== id));
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem("cart");
+  };
+
+  // Checkout handler
+  const handleCheckout = () => {
+    if (!session) {
+      setShowAuthPrompt(true);
+      return;
+    }
+    // Proceed to checkout page (replace with your checkout route)
+    router.push("/checkout");
+  };
 
   // Load cart items from localStorage
   useEffect(() => {
@@ -35,44 +80,24 @@ export default function CartPage() {
         setIsLoading(false);
       }
     };
-
     loadCart();
   }, []);
 
-  // Update localStorage when cart changes
-  useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("cart", JSON.stringify(cartItems));
-    }
-  }, [cartItems, isLoading]);
-
-  // Handle quantity change
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity < 1) return;
-
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item._id === id ? { ...item, quantity: newQuantity } : item
-      )
+  // Main return block for the page
+  if (showAuthPrompt) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+          <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to proceed to checkout</h2>
+          <p className="mb-6 text-gray-700">If you don't have an account, please register below.</p>
+          <div className="flex gap-4 justify-center">
+            <Link href="/login" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
+            <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
+          </div>
+        </div>
+      </div>
     );
-  };
-
-  // Remove item from cart
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item._id !== id));
-  };
-
-  // Clear entire cart
-  const clearCart = () => {
-    if (confirm("Are you sure you want to clear your cart?")) {
-      setCartItems([]);
-    }
-  };
-
-  // Proceed to checkout
-  const checkout = () => {
-    router.push("/checkout");
-  };
+  }
 
   if (isLoading) {
     return (
@@ -84,12 +109,6 @@ export default function CartPage() {
       </>
     );
   }
-
-  // Calculate total price
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
 
   return (
     <>
@@ -160,88 +179,69 @@ export default function CartPage() {
                         </p>
                       </div>
                     </div>
-
-                    {/* Column for price, quantity, and total */}
                     <div className="flex items-center space-x-2 md:space-x-8 w-auto md:w-full justify-between mt-4 md:mt-0">
                       <div className="text-sm text-gray-900 min-w-[48px] text-center">
                         {Number(item.price).toFixed(2)}
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center gap-2">
                         <button
-                          onClick={() => updateQuantity(item._id, item.quantity - 1)}
-                          className="bg-red-200 text-red-700 px-2 py-1 rounded-l font-bold"
+                          onClick={() => decreaseQuantity(item._id)}
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full px-2 py-1 font-bold"
                         >
                           -
                         </button>
-                        <input
-                          type="number"
-                          min="1"
-                          value={item.quantity}
-                          onChange={(e) =>
-                            updateQuantity(item._id, parseInt(e.target.value) || 1)
-                          }
-                          className="w-12 text-center border-t border-b bg-gray-800 text-white"
-                        />
+                        <span className="font-semibold text-lg mx-2">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item._id, item.quantity + 1)}
-                          className="bg-green-200 text-green-700 px-2 py-1 rounded-r font-bold"
+                          onClick={() => increaseQuantity(item._id)}
+                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full px-2 py-1 font-bold"
                         >
                           +
                         </button>
                       </div>
-                      <div className="text-sm text-gray-900 min-w-[48px] text-center">
-                        {(item.price * item.quantity).toFixed(2)}
-                      </div>
                       <button
-                        onClick={() => removeItem(item._id)}
-                        className="text-red-600 hover:text-red-900"
+                        onClick={() => removeFromCart(item._id)}
+                        className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 font-bold"
                       >
-                        <FaTrashAlt className="inline-block" /> Remove Item
+                        Remove
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-8">
-                <button
-                  onClick={clearCart}
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mb-4 md:mb-0"
-                >
-                  Clear Cart
-                </button>
-
-                <div className="bg-gray-100 p-6 rounded-lg w-full md:w-96 mt-6 md:mt-0 border border-black">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-8 gap-8">
+                {/* Order Summary Box */}
+                <div className="bg-gray-50 p-6 rounded-lg border w-full md:w-96 mb-6 md:mb-0">
                   <h2 className="text-lg font-bold mb-4 text-black">Order Summary</h2>
                   {cartItems.map((item) => (
                     <div className="flex justify-between mb-2 text-black" key={item._id}>
                       <span>{item.name}</span>
                       <span>
-                        {item.quantity} × {Number(item.price).toFixed(2)} ={" "}
-                        {(item.quantity * Number(item.price)).toFixed(2)}
+                        {item.quantity} × {Number(item.price).toFixed(2)} = { (item.quantity * Number(item.price)).toFixed(2) }
                       </span>
                     </div>
                   ))}
-                  <div className="border-t pt-2 mt-2 flex justify-between font-bold text-black">
+                  <hr className="my-2 border-gray-300" />
+                  <div className="flex justify-between font-bold text-black text-lg mt-2">
                     <span>Total</span>
-                    <span>৳{totalPrice.toFixed(2)}</span> {/* Total with "৳" sign here */}
+                    <span>৳{totalPrice.toFixed(2)}</span>
                   </div>
+                </div>
+                {/* Cart Actions */}
+                <div className="flex flex-col gap-4 items-start w-full md:w-auto">
                   <button
-                    onClick={checkout}
-                    className="mt-4 w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                    onClick={clearCart}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded"
+                  >
+                    Clear Cart
+                  </button>
+                  <button
+                    onClick={handleCheckout}
+                    className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-6 rounded"
                   >
                     Proceed to Checkout
                   </button>
                 </div>
-              </div>
-
-              <div className="text-center">
-                <Link
-                  href="/all-items"
-                  className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-6 rounded"
-                >
-                  ← Continue Shopping
-                </Link>
               </div>
             </>
           )}
