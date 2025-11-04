@@ -28,11 +28,6 @@ const handler = NextAuth({
     })
   ],
   session: { strategy: "jwt"  as const },
-  pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error"
-  }
 });
 
 export { handler as GET, handler as POST };
