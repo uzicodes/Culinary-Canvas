@@ -28,32 +28,40 @@ export default function CartPage() {
 
   // Cart item quantity handlers
   const decreaseQuantity = (id: string) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
+    setCartItems((prev) => {
+      const updated = prev.map((item) =>
         item._id === id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
-      )
-    );
+      );
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const increaseQuantity = (id: string) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
+    setCartItems((prev) => {
+      const updated = prev.map((item) =>
         item._id === id
           ? { ...item, quantity: item.quantity + 1 }
           : item
-      )
-    );
+      );
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item._id !== id));
+    setCartItems((prev) => {
+      const updated = prev.filter((item) => item._id !== id);
+      localStorage.setItem("cart", JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const clearCart = () => {
     setCartItems([]);
-    localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify([]));
   };
 
   // Checkout handler
