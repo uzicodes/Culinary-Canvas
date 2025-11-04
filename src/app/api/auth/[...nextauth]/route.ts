@@ -16,14 +16,20 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
-        const user = await findUserByEmail(credentials.email);
-        if (user && await validPassword(credentials.password, user.password)) {
-          // Remove password and convert _id to id
-          const { password, _id, ...userWithoutPassword } = user;
-          return { ...userWithoutPassword, id: _id.toString() };
+        try {
+          if (!credentials?.email || !credentials?.password) return null;
+          const user = await findUserByEmail(credentials.email);
+          if (user && await validPassword(credentials.password, user.password)) {
+            // Remove password and convert _id to id
+            const { password, _id, ...userWithoutPassword } = user;
+            return { ...userWithoutPassword, id: _id.toString() };
+          }
+          return null;
+        } catch (err) {
+          // Log error for debugging
+          console.error('Authorize error:', err);
+          return null;
         }
-        return null;
       }
     })
   ],
