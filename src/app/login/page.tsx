@@ -6,11 +6,20 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-	const [showPassword, setShowPassword] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [error, setError] = useState("");
-	const router = useRouter();
+		const [showPassword, setShowPassword] = useState(false);
+		const [email, setEmail] = useState("");
+		const [password, setPassword] = useState("");
+		const [error, setError] = useState("");
+		const router = useRouter();
+
+		// Get redirect query from URL
+		let redirectTo = "/";
+		if (typeof window !== "undefined") {
+			const params = new URLSearchParams(window.location.search);
+			if (params.get("redirect") === "cart") {
+				redirectTo = "/cart";
+			}
+		}
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -20,11 +29,11 @@ const LoginPage = () => {
 			password,
 			redirect: false,
 		});
-		if (res?.ok) {
-			router.push("/");
-		} else {
-			setError("Invalid email or password");
-		}
+			if (res?.ok) {
+				router.push(redirectTo);
+			} else {
+				setError("Invalid email or password");
+			}
 	};
 
 	return (

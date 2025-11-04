@@ -99,7 +99,7 @@ export default function CartPage() {
           <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to proceed to checkout</h2>
           <p className="mb-6 text-gray-700">If you don&apos;t have an account, please register below.</p>
           <div className="flex gap-4 justify-center">
-            <Link href="/login" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
+            <Link href="/login?redirect=cart" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
             <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
           </div>
         </div>
