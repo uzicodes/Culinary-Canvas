@@ -6,8 +6,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRef } from 'react'
 import menuItems, { MenuItem } from '@/data/menuItems'
+import { useAutoLogout } from '@/hooks/useAutoLogout'
 
 const Header = () => {
+  // Initialize auto-logout hook
+  useAutoLogout();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
