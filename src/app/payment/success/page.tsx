@@ -147,12 +147,9 @@ export default function SuccessPage() {
         </div>
         <div>
           <div className="font-bold mb-1">DELIVERY ADDRESS</div>
-          <div className="text-sm text-gray-700">Vvip Addresses, Raj Nagar Extension Road<br/>Raj Nagar Extension Ghaziabad<br/>london 201001 India</div>
+          <div className="text-sm text-gray-700">{order?.address || order?.customerAddress || "-"}</div>
         </div>
-        <div>
-          <div className="font-bold mb-1">BILLING ADDRESS</div>
-          <div className="text-sm text-gray-700">Vvip Addresses, Raj Nagar Extension Road<br/>Raj Nagar Extension Ghaziabad<br/>london 201001 India</div>
-        </div>
+
         <div>
           <div className="font-bold mb-1">CONTACT DETAILS</div>
           <div className="text-sm text-gray-700">email@company.com<br/>+91-987 000 0000<br/>+91-987 000 0000</div>
