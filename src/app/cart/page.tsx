@@ -194,14 +194,14 @@ export default function CartPage() {
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => decreaseQuantity(item._id)}
-                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full px-2 py-1 font-bold"
+                          className="bg-red-500 hover:bg-red-600 text-white rounded-full px-2 py-1 font-bold"
                         >
                           -
                         </button>
                         <span className="font-semibold text-lg mx-2">{item.quantity}</span>
                         <button
                           onClick={() => increaseQuantity(item._id)}
-                          className="bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full px-2 py-1 font-bold"
+                          className="bg-green-500 hover:bg-green-600 text-white rounded-full px-2 py-1 font-bold"
                         >
                           +
                         </button>
