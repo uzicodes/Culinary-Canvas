@@ -10,8 +10,9 @@ export async function POST(req: Request) {
   const email = data.email || data.customerEmail;
   const itemsOrdered = data.itemsOrdered || data.orderItems;
   const totalCost = data.totalCost || data.total;
+  const address = data.address || data.customerAddress;
 
-  if (!name || !email || !itemsOrdered || !totalCost) {
+  if (!name || !email || !itemsOrdered || !totalCost || !address) {
     return new Response(JSON.stringify({ message: 'Missing required fields.' }), { status: 400 });
   }
 
@@ -25,6 +26,7 @@ export async function POST(req: Request) {
   const order = {
     name,
     email,
+    address,
     orderTime: new Date(),
     itemsOrdered: formattedItems,
     totalCost,
