@@ -5,6 +5,10 @@ export async function POST(req: Request) {
   const db = client.db();
   const data = await req.json();
 
+  // Get the next order number for custom orderId
+  const orderCount = await db.collection('orders').countDocuments();
+  const orderId = `CC-${(orderCount + 1).toString().padStart(4, '0')}`;
+
   // Accept both frontend and backend field names
   const name = data.name || data.customerName;
   const email = data.email || data.customerEmail;
@@ -33,6 +37,7 @@ export async function POST(req: Request) {
   }
 
   const order = {
+    order_id: orderId,
     name,
     email,
     address,
