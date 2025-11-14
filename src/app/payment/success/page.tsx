@@ -6,8 +6,15 @@ import { useEffect, useState } from "react";
 export default function SuccessPage() {
   const [order, setOrder] = useState<any>(null);
   useEffect(() => {
-    const saved = localStorage.getItem("orderData");
-    if (saved) setOrder(JSON.parse(saved));
+    // Try to get the latest order from sessionStorage (set after order POST response)
+    const backendOrder = sessionStorage.getItem("lastOrderResponse");
+    if (backendOrder) {
+      setOrder(JSON.parse(backendOrder));
+    } else {
+      // fallback to localStorage (may not have order_id)
+      const saved = localStorage.getItem("orderData");
+      if (saved) setOrder(JSON.parse(saved));
+    }
   }, []);
 
   // Download invoice as PDF
@@ -20,7 +27,7 @@ export default function SuccessPage() {
     doc.text("ORDER DETAIL", 15, y);
     y += 10;
     doc.setFontSize(14);
-    doc.text("#" + (order.orderId || "2059666"), 15, y);
+    doc.text("#" + (order.order_id || order.orderId || "2059666"), 15, y);
     y += 12;
     doc.setFontSize(12);
     doc.text("DELIVERY ADDRESS", 15, y);
@@ -84,7 +91,7 @@ export default function SuccessPage() {
         <p className="text-[#394DAD] text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
         {/* Progress tracker */}
         <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-2xl mb-8">
-          <p className="text-gray-700 text-center mb-4">Order <span className="font-bold">#2059666</span> was placed on <span className="font-bold">January 13, 2021</span> and is currently in progress</p>
+          <p className="text-gray-700 text-center mb-4">Order <span className="font-bold">#{order?.order_id || order?.orderId || "2059666"}</span> was placed on <span className="font-bold">{order?.orderTime ? new Date(order.orderTime).toLocaleDateString() : "-"}</span> and is currently in progress</p>
           <div className="flex items-center justify-between mb-2">
             {/* Steps */}
             <div className="flex flex-col items-center flex-1">
@@ -136,7 +143,7 @@ export default function SuccessPage() {
             <span className="font-bold text-lg">ORDER DETAIL</span>
             <button onClick={handleDownloadInvoice} className="bg-gray-100 px-3 py-1 rounded text-xs font-semibold border border-gray-300">Download Invoice</button>
           </div>
-          <span className="text-2xl font-bold text-gray-800">#2059666</span>
+          <span className="text-2xl font-bold text-gray-800">#{order?.order_id || order?.orderId || "2059666"}</span>
         </div>
         <div>
           <div className="font-bold mb-1">DELIVERY ADDRESS</div>
