@@ -15,11 +15,18 @@ export async function POST(req: Request) {
     return new Response(JSON.stringify({ message: 'Missing required fields.' }), { status: 400 });
   }
 
+
+  // Transform itemsOrdered to only include the name of each item
+  let formattedItems = itemsOrdered;
+  if (Array.isArray(itemsOrdered) && itemsOrdered.length > 0 && typeof itemsOrdered[0] === 'object') {
+    formattedItems = itemsOrdered.map((item: any) => item.name || item._id || item);
+  }
+
   const order = {
     name,
     email,
     orderTime: new Date(),
-    itemsOrdered,
+    itemsOrdered: formattedItems,
     totalCost,
   };
 
