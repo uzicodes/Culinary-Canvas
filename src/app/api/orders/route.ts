@@ -11,8 +11,17 @@ export async function POST(req: Request) {
   const itemsOrdered = data.itemsOrdered || data.orderItems;
   const totalCost = data.totalCost || data.total;
   const address = data.address || data.customerAddress;
+  let paymentType = data.paymentType || data.paymentMethod;
+  // Normalize paymentType to match required values
+  if (paymentType) {
+    paymentType = paymentType.toLowerCase();
+    if (paymentType === 'cash on delivery') paymentType = 'cod';
+    if (paymentType === 'bkash') paymentType = 'bkash';
+    if (paymentType === 'nagad') paymentType = 'nagad';
+    if (paymentType === 'card/debit card') paymentType = 'card';
+  }
 
-  if (!name || !email || !itemsOrdered || !totalCost || !address) {
+  if (!name || !email || !itemsOrdered || !totalCost || !address || !paymentType) {
     return new Response(JSON.stringify({ message: 'Missing required fields.' }), { status: 400 });
   }
 
@@ -30,6 +39,7 @@ export async function POST(req: Request) {
     orderTime: new Date(),
     itemsOrdered: formattedItems,
     totalCost,
+    paymentType,
   };
 
   const result = await db.collection('orders').insertOne(order);
