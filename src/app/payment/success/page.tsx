@@ -85,26 +85,22 @@ export default function SuccessPage() {
       doc.setFontSize(12);
       doc.text("Summary:", 15, y);
       y += 7;
-      let summaryX = 15;
-      // Delivery
-      let deliveryText = "";
-      if (order.deliveryMethod) {
-        let delivery = order.deliveryMethod === "Priority" ? 60 : order.deliveryMethod === "Standard" ? 45 : 0;
-        deliveryText = `Delivery: Tk ${delivery.toFixed(2)}`;
-      }
-      // Tip
+      // Print all summary fields in a single aligned row
+      let delivery = order.deliveryMethod === "Priority" ? 60 : order.deliveryMethod === "Standard" ? 45 : 0;
+      let deliveryText = order.deliveryMethod ? `Delivery: Tk ${delivery.toFixed(2)}` : "";
       let tipText = order.tip !== undefined ? `Tip: Tk ${order.tip.toFixed(2)}` : "";
-      // Coupon Discount
       let couponText = order.couponDiscount !== undefined ? `Coupon Discount: Tk ${order.couponDiscount.toFixed(2)}` : "";
-      // Sub Total
       let subTotalText = order.subtotal !== undefined ? `Sub Total: Tk ${order.subtotal.toFixed(2)}` : "";
-      // Print all in one row in requested order
-      doc.text([
-        deliveryText,
-        tipText,
-        couponText,
-        subTotalText
-      ].filter(Boolean).join("    "), summaryX, y);
+      // Set x positions for each field for alignment
+      let xStart = 15;
+      let xDelivery = xStart;
+      let xTip = xDelivery + 60;
+      let xCoupon = xTip + 60;
+      let xSubTotal = xCoupon + 70;
+      if (deliveryText) doc.text(deliveryText, xDelivery, y);
+      if (tipText) doc.text(tipText, xTip, y);
+      if (couponText) doc.text(couponText, xCoupon, y);
+      if (subTotalText) doc.text(subTotalText, xSubTotal, y);
       y += 7;
       if (order.total !== undefined) doc.text(`Total: Tk ${order.total.toFixed(2)}`, 15, y);
       y += 10;
