@@ -19,49 +19,84 @@ export default function SuccessPage() {
 
   // Download invoice as PDF
   const handleDownloadInvoice = async () => {
-    if (!order) return;
-    const { default: jsPDF } = await import("jspdf");
-    const doc = new jsPDF();
-    let y = 15;
-    doc.setFontSize(18);
-    doc.text("ORDER DETAIL", 15, y);
-    y += 10;
-    doc.setFontSize(14);
-    doc.text("#" + (order.order_id || order.orderId || "-"), 15, y);
-    y += 12;
-    doc.setFontSize(12);
-    doc.text("DELIVERY ADDRESS", 15, y);
-    y += 7;
-    var address = order.address || order.customerAddress || "";
-    if (address) {
-      var addressLines = address.split("\n");
+      if (!order) return;
+      const { default: jsPDF } = await import("jspdf");
+      const doc = new jsPDF();
+      let y = 15;
+      doc.setFontSize(20);
+      doc.text("INVOICE", 105, y, { align: "center" });
+      y += 10;
+      doc.setFontSize(12);
+      doc.text(`Order ID: ${order.order_id || order.orderId || "-"}`, 15, y);
+      doc.text(`Date: ${order.orderTime ? new Date(order.orderTime).toLocaleString() : "-"}`, 140, y);
+      y += 10;
+      doc.text(`Customer: ${order.name || "-"}`, 15, y);
+      y += 7;
+      doc.text(`Email: ${order.email || order.customerEmail || "-"}`, 15, y);
+      y += 7;
+      doc.text(`Phone: ${order.customerPhone || order.phone || order.mobileNumber || "-"}`, 15, y);
+      y += 7;
+      doc.text("Delivery Address:", 15, y);
+      y += 7;
+      const address = order.address || order.customerAddress || "-";
+      const addressLines = address.split("\n");
       for (let i = 0; i < addressLines.length; i++) {
-        doc.text(addressLines[i], 15, y);
+        doc.text(addressLines[i], 20, y);
         y += 7;
       }
-    }
-    doc.text("CONTACT DETAILS", 15, y);
-    y += 7;
-    doc.text((order.email || order.customerEmail || "-"), 15, y);
-    y += 7;
-    doc.text((order.customerPhone || order.phone || order.mobileNumber || "-"), 15, y);
-    y += 10;
-    doc.text("ORDER SUMMARY", 15, y);
-    y += 7;
-    doc.text("Sub Total: ৳" + (order.subtotal ? order.subtotal.toFixed(2) : "-"), 15, y);
-    y += 7;
-    let delivery = "-";
-    if (order.deliveryMethod === "Priority") delivery = "60.00";
-    else if (order.deliveryMethod === "Standard") delivery = "45.00";
-    doc.text("Delivery: ৳" + delivery, 15, y);
-    y += 7;
-    doc.text("Tip: ৳" + (order.tip ? order.tip.toFixed(2) : "-"), 15, y);
-    y += 7;
-    doc.text("Coupon Discount: ৳" + (order.couponDiscount ? order.couponDiscount.toFixed(2) : "-"), 15, y);
-    y += 7;
-    doc.text("Total: ৳" + (order.total ? order.total.toFixed(2) : "-"), 15, y);
-  const pdfName = `#${order.orderId || "2059666"} invoice.pdf`;
-  doc.save(pdfName);
+      y += 3;
+      // Table header
+      doc.setFontSize(13);
+      doc.text("Items Ordered:", 15, y);
+      y += 7;
+      doc.setFontSize(11);
+      doc.setFillColor(230, 230, 230);
+      doc.rect(15, y - 5, 180, 8, 'F');
+      doc.text("Item", 18, y);
+      doc.text("Qty", 90, y);
+      doc.text("Price", 120, y);
+      doc.text("Total", 160, y);
+      y += 7;
+      // Table rows
+      if (order.orderItems && Array.isArray(order.orderItems)) {
+        order.orderItems.forEach((item: any) => {
+          doc.text(item.name || "-", 18, y);
+          doc.text(item.quantity ? String(item.quantity) : "-", 90, y);
+          doc.text(item.price ? `৳${item.price.toFixed(2)}` : "-", 120, y);
+          doc.text(item.price && item.quantity ? `৳${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
+          y += 7;
+        });
+      } else if (order.itemsOrdered && Array.isArray(order.itemsOrdered)) {
+        order.itemsOrdered.forEach((item: any) => {
+          if (typeof item === 'object') {
+            doc.text(item.name || "-", 18, y);
+            doc.text(item.quantity ? String(item.quantity) : "-", 90, y);
+            doc.text(item.price ? `৳${item.price.toFixed(2)}` : "-", 120, y);
+            doc.text(item.price && item.quantity ? `৳${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
+          } else {
+            doc.text(String(item), 18, y);
+          }
+          y += 7;
+        });
+      }
+      y += 5;
+      doc.setFontSize(12);
+      doc.text("Summary:", 15, y);
+      y += 7;
+      if (order.subtotal !== undefined) doc.text(`Sub Total: ৳${order.subtotal.toFixed(2)}`, 15, y);
+      if (order.deliveryMethod) {
+        let delivery = order.deliveryMethod === "Priority" ? 60 : order.deliveryMethod === "Standard" ? 45 : 0;
+        doc.text(`Delivery: ৳${delivery.toFixed(2)}`, 70, y);
+      }
+      if (order.tip !== undefined) doc.text(`Tip: ৳${order.tip.toFixed(2)}`, 120, y);
+      if (order.couponDiscount !== undefined) doc.text(`Coupon Discount: ৳${order.couponDiscount.toFixed(2)}`, 160, y);
+      y += 7;
+      if (order.total !== undefined) doc.text(`Total: ৳${order.total.toFixed(2)}`, 15, y);
+      y += 10;
+      doc.setFontSize(10);
+      doc.text("Thank you for your order!", 105, y, { align: "center" });
+      const pdfName = `#${order.order_id || order.orderId || "invoice"}.pdf`;
+      doc.save(pdfName);
   };
   return (
     <div className="min-h-screen bg-[#6fcf97] flex flex-col md:flex-row items-start justify-center">
