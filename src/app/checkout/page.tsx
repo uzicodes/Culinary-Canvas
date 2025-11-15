@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export default function CheckoutPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     address: '',
     phone: ''  // Full phone number including the country code (+880)
   });
+
+  // Prefill name and email from session (profile)
+  useEffect(() => {
+    if (session && session.user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: session.user?.name || '',
+        email: session.user?.email || '',
+      }));
+    }
+  }, [session]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -65,9 +78,9 @@ export default function CheckoutPage() {
               name="name"
               placeholder="Your Name"
               value={formData.name}
-              onChange={handleChange}
+              readOnly
               required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white bg-gray-200 text-gray-500 cursor-not-allowed"
             />
           </div>
 
@@ -78,9 +91,9 @@ export default function CheckoutPage() {
               name="email"
               placeholder="Your Email"
               value={formData.email}
-              onChange={handleChange}
+              readOnly
               required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white bg-gray-200 text-gray-500 cursor-not-allowed"
             />
           </div>
 
@@ -125,4 +138,4 @@ export default function CheckoutPage() {
       </motion.div>
     </div>
   );
-}
+
