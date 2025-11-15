@@ -22,6 +22,7 @@ export default function SuccessPage() {
       if (!order) return;
       const { default: jsPDF } = await import("jspdf");
       const doc = new jsPDF();
+      doc.setFont('helvetica', 'normal');
       let y = 15;
       doc.setFontSize(20);
       doc.text("INVOICE", 105, y, { align: "center" });
@@ -62,8 +63,9 @@ export default function SuccessPage() {
         order.orderItems.forEach((item: any) => {
           doc.text(item.name || "-", 18, y);
           doc.text(item.quantity ? String(item.quantity) : "-", 90, y);
-          doc.text(item.price ? `৳${item.price.toFixed(2)}` : "-", 120, y);
-          doc.text(item.price && item.quantity ? `৳${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
+          // Use 'Tk' instead of '৳' to avoid font issues
+          doc.text(item.price ? `Tk ${item.price.toFixed(2)}` : "-", 120, y);
+          doc.text(item.price && item.quantity ? `Tk ${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
           y += 7;
         });
       } else if (order.itemsOrdered && Array.isArray(order.itemsOrdered)) {
@@ -71,8 +73,8 @@ export default function SuccessPage() {
           if (typeof item === 'object') {
             doc.text(item.name || "-", 18, y);
             doc.text(item.quantity ? String(item.quantity) : "-", 90, y);
-            doc.text(item.price ? `৳${item.price.toFixed(2)}` : "-", 120, y);
-            doc.text(item.price && item.quantity ? `৳${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
+            doc.text(item.price ? `Tk ${item.price.toFixed(2)}` : "-", 120, y);
+            doc.text(item.price && item.quantity ? `Tk ${(item.price * item.quantity).toFixed(2)}` : "-", 160, y);
           } else {
             doc.text(String(item), 18, y);
           }
@@ -83,15 +85,28 @@ export default function SuccessPage() {
       doc.setFontSize(12);
       doc.text("Summary:", 15, y);
       y += 7;
-      if (order.subtotal !== undefined) doc.text(`Sub Total: ৳${order.subtotal.toFixed(2)}`, 15, y);
+      let summaryX = 15;
+      // Delivery
+      let deliveryText = "";
       if (order.deliveryMethod) {
         let delivery = order.deliveryMethod === "Priority" ? 60 : order.deliveryMethod === "Standard" ? 45 : 0;
-        doc.text(`Delivery: ৳${delivery.toFixed(2)}`, 70, y);
+        deliveryText = `Delivery: Tk ${delivery.toFixed(2)}`;
       }
-      if (order.tip !== undefined) doc.text(`Tip: ৳${order.tip.toFixed(2)}`, 120, y);
-      if (order.couponDiscount !== undefined) doc.text(`Coupon Discount: ৳${order.couponDiscount.toFixed(2)}`, 160, y);
+      // Tip
+      let tipText = order.tip !== undefined ? `Tip: Tk ${order.tip.toFixed(2)}` : "";
+      // Coupon Discount
+      let couponText = order.couponDiscount !== undefined ? `Coupon Discount: Tk ${order.couponDiscount.toFixed(2)}` : "";
+      // Sub Total
+      let subTotalText = order.subtotal !== undefined ? `Sub Total: Tk ${order.subtotal.toFixed(2)}` : "";
+      // Print all in one row in requested order
+      doc.text([
+        deliveryText,
+        tipText,
+        couponText,
+        subTotalText
+      ].filter(Boolean).join("    "), summaryX, y);
       y += 7;
-      if (order.total !== undefined) doc.text(`Total: ৳${order.total.toFixed(2)}`, 15, y);
+      if (order.total !== undefined) doc.text(`Total: Tk ${order.total.toFixed(2)}`, 15, y);
       y += 10;
       doc.setFontSize(10);
       doc.text("Thank you for your order!", 105, y, { align: "center" });
