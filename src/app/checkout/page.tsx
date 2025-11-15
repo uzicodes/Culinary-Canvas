@@ -119,7 +119,7 @@ export default function CheckoutPage() {
             type="submit"
             className="w-full bg-white hover:bg-gray-100 text-[#c78e28] font-semibold py-3 rounded-lg shadow-lg"
           >
-              Place Order
+              Proceed To Payements
           </motion.button>
         </form>
       </motion.div>
