@@ -27,28 +27,24 @@ export default function SuccessPage() {
     doc.text("ORDER DETAIL", 15, y);
     y += 10;
     doc.setFontSize(14);
-    doc.text("#" + (order.order_id || order.orderId || "2059666"), 15, y);
+    doc.text("#" + (order.order_id || order.orderId || "-"), 15, y);
     y += 12;
     doc.setFontSize(12);
     doc.text("DELIVERY ADDRESS", 15, y);
     y += 7;
-    var address = order.customerAddress || "Vvip Addresses, Raj Nagar Extension Road\nRaj Nagar Extension Ghaziabad\nlondon 201001 India";
-    var addressLines = address.split("\n");
-    for (let i = 0; i < addressLines.length; i++) {
-      doc.text(addressLines[i], 15, y);
-      y += 7;
-    }
-    doc.text("BILLING ADDRESS", 15, y);
-    y += 7;
-    for (let i = 0; i < addressLines.length; i++) {
-      doc.text(addressLines[i], 15, y);
-      y += 7;
+    var address = order.address || order.customerAddress || "";
+    if (address) {
+      var addressLines = address.split("\n");
+      for (let i = 0; i < addressLines.length; i++) {
+        doc.text(addressLines[i], 15, y);
+        y += 7;
+      }
     }
     doc.text("CONTACT DETAILS", 15, y);
     y += 7;
-    doc.text((order.customerEmail || "email@company.com"), 15, y);
+    doc.text((order.email || order.customerEmail || "-"), 15, y);
     y += 7;
-    doc.text((order.customerPhone || "+91-987 000 0000"), 15, y);
+    doc.text((order.customerPhone || order.phone || order.mobileNumber || "-"), 15, y);
     y += 10;
     doc.text("ORDER SUMMARY", 15, y);
     y += 7;
@@ -59,9 +55,9 @@ export default function SuccessPage() {
     else if (order.deliveryMethod === "Standard") delivery = "45.00";
     doc.text("Delivery: ৳" + delivery, 15, y);
     y += 7;
-    doc.text("Tip: ৳" + (order.tip ? order.tip.toFixed(2) : "0.00"), 15, y);
+    doc.text("Tip: ৳" + (order.tip ? order.tip.toFixed(2) : "-"), 15, y);
     y += 7;
-    doc.text("Coupon Discount: ৳" + (order.couponDiscount ? order.couponDiscount.toFixed(2) : "0.00"), 15, y);
+    doc.text("Coupon Discount: ৳" + (order.couponDiscount ? order.couponDiscount.toFixed(2) : "-"), 15, y);
     y += 7;
     doc.text("Total: ৳" + (order.total ? order.total.toFixed(2) : "-"), 15, y);
   const pdfName = `#${order.orderId || "2059666"} invoice.pdf`;
@@ -91,7 +87,7 @@ export default function SuccessPage() {
         <p className="text-[#394DAD] text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
         {/* Progress tracker */}
         <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-2xl mb-8">
-          <p className="text-gray-700 text-center mb-4">Order <span className="font-bold">#{order?.order_id || order?.orderId || "2059666"}</span> was placed on <span className="font-bold">{order?.orderTime ? new Date(order.orderTime).toLocaleDateString() : "-"}</span> and is currently in progress</p>
+          <p className="text-gray-700 text-center mb-4">{order?.order_id || order?.orderId ? (<span>Order <span className="font-bold">#{order.order_id || order.orderId}</span> was placed on <span className="font-bold">{order.orderTime ? new Date(order.orderTime).toLocaleDateString() : "-"}</span> and is currently in progress</span>) : null}</p>
           <div className="flex items-center justify-between mb-2">
             {/* Steps */}
             <div className="flex flex-col items-center flex-1">
@@ -143,28 +139,28 @@ export default function SuccessPage() {
             <span className="font-bold text-lg">ORDER DETAIL</span>
             <button onClick={handleDownloadInvoice} className="bg-gray-100 px-3 py-1 rounded text-xs font-semibold border border-gray-300">Download Invoice</button>
           </div>
-          <span className="text-2xl font-bold text-gray-800">#{order?.order_id || order?.orderId || "2059666"}</span>
+          {order?.order_id || order?.orderId ? (<span className="text-2xl font-bold text-gray-800">#{order.order_id || order.orderId}</span>) : null}
         </div>
         <div>
           <div className="font-bold mb-1">DELIVERY ADDRESS</div>
-          <div className="text-sm text-gray-700">{order?.address || order?.customerAddress || "-"}</div>
+          <div className="text-sm text-gray-700">{order?.address || order?.customerAddress || ""}</div>
         </div>
 
         <div>
           <div className="font-bold mb-1">CONTACT DETAILS</div>
           <div className="text-sm text-gray-700">
-            {order?.email || order?.customerEmail || "-"}<br/>
-            {order?.customerPhone || order?.phone || order?.mobileNumber || "-"}
+            {order?.email || order?.customerEmail || ""}<br/>
+            {order?.customerPhone || order?.phone || order?.mobileNumber || ""}
           </div>
         </div>
         <div>
           <div className="font-bold mb-1">ORDER SUMMARY</div>
-          <div className="flex justify-between text-sm mb-1"><span>Sub Total</span><span>৳{order?.subtotal?.toFixed(2) ?? "-"}</span></div>
-          <div className="flex justify-between text-sm mb-1"><span>Delivery</span><span>৳{order?.deliveryMethod === "Priority" ? "60.00" : order?.deliveryMethod === "Standard" ? "45.00" : "-"}</span></div>
-          <div className="flex justify-between text-sm mb-1"><span>Tip</span><span>৳{order?.tip?.toFixed(2) ?? "0.00"}</span></div>
-          <div className="flex justify-between text-sm mb-1"><span>Coupon Discount</span><span>৳{order?.couponDiscount?.toFixed(2) ?? "0.00"}</span></div>
+          {order?.subtotal !== undefined && <div className="flex justify-between text-sm mb-1"><span>Sub Total</span><span>৳{order.subtotal.toFixed(2)}</span></div>}
+          {order?.deliveryMethod && <div className="flex justify-between text-sm mb-1"><span>Delivery</span><span>৳{order.deliveryMethod === "Priority" ? "60.00" : order.deliveryMethod === "Standard" ? "45.00" : "-"}</span></div>}
+          {order?.tip !== undefined && <div className="flex justify-between text-sm mb-1"><span>Tip</span><span>৳{order.tip.toFixed(2)}</span></div>}
+          {order?.couponDiscount !== undefined && <div className="flex justify-between text-sm mb-1"><span>Coupon Discount</span><span>৳{order.couponDiscount.toFixed(2)}</span></div>}
           <hr className="border-t-2 border-black my-3" />
-          <div className="flex justify-between text-base font-bold mt-2"><span>Total</span><span>৳{order?.total?.toFixed(2) ?? "-"}</span></div>
+          {order?.total !== undefined && <div className="flex justify-between text-base font-bold mt-2"><span>Total</span><span>৳{order.total.toFixed(2)}</span></div>}
         </div>
       </aside>
     </div>
