@@ -173,7 +173,17 @@ export default function SuccessPage() {
         </div>
       </div>
       {/* Sidebar */}
-  <aside className="w-full md:w-96 shadow-lg p-8 flex flex-col gap-6 border-l border-gray-200 min-h-screen" style={{backgroundColor:'#9DAD39'}}>
+  <aside className="w-full md:w-96 shadow-lg p-8 flex flex-col gap-4 border-l border-gray-200 min-h-screen" style={{backgroundColor:'#9DAD39'}}>
+    <div className="flex justify-center mt-0 mb-2" style={{marginTop: '-24px'}}>
+      <Image
+        src="/without_BG_logo.png"
+        alt="Logo"
+        width={100}
+        height={100}
+        style={{objectFit: 'contain'}}
+        priority
+      />
+    </div>
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="font-bold text-lg">ORDER DETAIL</span>
