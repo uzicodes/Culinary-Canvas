@@ -114,23 +114,17 @@ export default function SuccessPage() {
       {/* Main confirmation section */}
       <div className="flex-1 flex flex-col items-center justify-center py-12 px-4">
         <div className="bg-white rounded-full w-24 h-24 flex items-center justify-center mb-6 shadow-lg relative">
-          {/* Animated confetti (simple dots) */}
-          <div className="absolute inset-0 flex flex-wrap items-center justify-center">
-            {/* Dots for confetti */}
-            <span className="absolute top-2 left-6 w-2 h-2 bg-yellow-400 rounded-full"></span>
-            <span className="absolute top-8 left-2 w-2 h-2 bg-pink-400 rounded-full"></span>
-            <span className="absolute top-16 left-10 w-2 h-2 bg-blue-400 rounded-full"></span>
-            <span className="absolute top-4 right-6 w-2 h-2 bg-purple-400 rounded-full"></span>
-            <span className="absolute bottom-2 right-8 w-2 h-2 bg-orange-400 rounded-full"></span>
-          </div>
-          {/* Checkmark */}
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="24" fill="#6fcf97" />
-            <path d="M16 24L22 30L32 18" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          <Image
+            src="https://img.icons8.com/3d-fluency/94/take-away-food.png"
+            alt="take-away-food"
+            width={65}
+            height={65}
+            className="rounded-full"
+            priority
+          />
         </div>
         <h1 className="text-2xl md:text-3xl font-bold text-[#395C39] text-center mb-2">YOUR ORDER IS CONFIRMED !</h1>
-        <p className="text-[#394DAD] text-center mb-8 max-w-md">We will be sending you an email confirmation shortly</p>
+        <p className="text-[#394DAD] text-xs text-center mb-5 max-w-md">We will be sending you an email confirmation shortly</p>
         {/* Progress tracker */}
         <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-2xl mb-8">
           <p className="text-gray-700 text-center mb-4">{order?.order_id || order?.orderId ? (<span>Order <span className="font-bold">#{order.order_id || order.orderId}</span> was placed on <span className="font-bold">{order.orderTime ? new Date(order.orderTime).toLocaleDateString() : "-"}</span> and is currently in progress</span>) : null}</p>
