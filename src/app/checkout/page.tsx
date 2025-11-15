@@ -138,4 +138,5 @@ export default function CheckoutPage() {
       </motion.div>
     </div>
   );
+}
 
