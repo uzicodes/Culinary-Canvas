@@ -152,7 +152,10 @@ export default function SuccessPage() {
 
         <div>
           <div className="font-bold mb-1">CONTACT DETAILS</div>
-          <div className="text-sm text-gray-700">email@company.com<br/>+91-987 000 0000<br/>+91-987 000 0000</div>
+          <div className="text-sm text-gray-700">
+            {order?.email || order?.customerEmail || "-"}<br/>
+            {order?.customerPhone || order?.phone || order?.mobileNumber || "-"}
+          </div>
         </div>
         <div>
           <div className="font-bold mb-1">ORDER SUMMARY</div>
