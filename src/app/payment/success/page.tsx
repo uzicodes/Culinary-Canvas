@@ -191,16 +191,18 @@ export default function SuccessPage() {
           </div>
           {order?.order_id || order?.orderId ? (<span className="text-2xl font-bold text-gray-800">#{order.order_id || order.orderId}</span>) : null}
         </div>
-        <div>
-          <div className="font-bold mb-1">DELIVERY ADDRESS</div>
-          <div className="text-sm text-gray-700">{order?.address || order?.customerAddress || ""}</div>
-        </div>
-
-        <div>
-          <div className="font-bold mb-1">CONTACT DETAILS</div>
-          <div className="text-sm text-gray-700">
-            {order?.email || order?.customerEmail || ""}<br/>
-            {order?.customerPhone || order?.phone || order?.mobileNumber || ""}
+        <div className="flex flex-row gap-6 w-full items-stretch">
+          <div className="flex-1">
+            <div className="font-bold mb-1">DELIVERY ADDRESS</div>
+            <div className="text-sm text-gray-700 break-words">{order?.address || order?.customerAddress || ""}</div>
+          </div>
+          <div className="w-px bg-black mx-2" style={{minHeight: '48px', alignSelf: 'stretch'}}></div>
+          <div className="flex-1">
+            <div className="font-bold mb-1">CONTACT DETAILS</div>
+            <div className="text-sm text-gray-700 break-words">
+              {order?.email || order?.customerEmail || ""}<br/>
+              {order?.customerPhone || order?.phone || order?.mobileNumber || ""}
+            </div>
           </div>
         </div>
         <div>
