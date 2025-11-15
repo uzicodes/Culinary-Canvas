@@ -186,19 +186,19 @@ export default function SuccessPage() {
     </div>
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="font-bold text-lg">ORDER DETAIL</span>
+              <span className="font-bold text-lg underline">ORDER DETAIL</span>
             <button onClick={handleDownloadInvoice} className="bg-gray-100 px-3 py-1 rounded text-xs font-semibold border border-gray-300">Download Invoice</button>
           </div>
           {order?.order_id || order?.orderId ? (<span className="text-2xl font-bold text-gray-800">#{order.order_id || order.orderId}</span>) : null}
         </div>
         <div className="flex flex-row gap-6 w-full items-stretch">
           <div className="flex-1">
-            <div className="font-bold mb-1 text-xs">DELIVERY ADDRESS</div>
+              <div className="font-bold mb-1 text-xs underline">DELIVERY ADDRESS</div>
             <div className="text-sm text-gray-700 break-words">{order?.address || order?.customerAddress || ""}</div>
           </div>
           <div className="w-px bg-black mx-2" style={{minHeight: '48px', alignSelf: 'stretch'}}></div>
           <div className="flex-1">
-            <div className="font-bold mb-1 text-xs">CONTACT DETAILS</div>
+              <div className="font-bold mb-1 text-xs underline">CONTACT DETAILS</div>
             <div className="text-sm text-gray-700 break-words">
               {order?.email || order?.customerEmail || ""}<br/>
               {order?.customerPhone || order?.phone || order?.mobileNumber || ""}
@@ -206,7 +206,7 @@ export default function SuccessPage() {
           </div>
         </div>
         <div>
-          <div className="font-bold mb-1">ORDER SUMMARY</div>
+            <div className="font-bold mb-1 underline">ORDER SUMMARY</div>
           {order?.subtotal !== undefined && <div className="flex justify-between text-sm mb-1"><span>Sub Total</span><span>৳{order.subtotal.toFixed(2)}</span></div>}
           {order?.deliveryMethod && <div className="flex justify-between text-sm mb-1"><span>Delivery</span><span>৳{order.deliveryMethod === "Priority" ? "60.00" : order.deliveryMethod === "Standard" ? "45.00" : "-"}</span></div>}
           {order?.tip !== undefined && <div className="flex justify-between text-sm mb-1"><span>Tip</span><span>৳{order.tip.toFixed(2)}</span></div>}
