@@ -31,6 +31,34 @@ const ProfilePage = () => {
     email: defaultUser.email,
   });
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  // Order history state
+  const [showOrderHistory, setShowOrderHistory] = useState(false);
+  const [orderHistory, setOrderHistory] = useState<any[]>([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [ordersError, setOrdersError] = useState<string | null>(null);
+
+  const fetchOrderHistory = async () => {
+    if (!profile.email) return;
+    setLoadingOrders(true);
+    setOrdersError(null);
+    try {
+      const res = await fetch(`/api/orders/history?email=${encodeURIComponent(profile.email)}`);
+      if (!res.ok) throw new Error('Failed to fetch order history');
+      const data = await res.json();
+      setOrderHistory(data);
+    } catch (err: any) {
+      setOrdersError(err.message || 'Error fetching orders');
+    } finally {
+      setLoadingOrders(false);
+    }
+  };
+
+  const handleToggleOrderHistory = () => {
+    if (!showOrderHistory) {
+      fetchOrderHistory();
+    }
+    setShowOrderHistory((prev) => !prev);
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -170,7 +198,13 @@ const ProfilePage = () => {
           ) : (
             <>
               <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
-              <button className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">View Order History</button>
+              <button
+                type="button"
+                onClick={handleToggleOrderHistory}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
+              >
+                {showOrderHistory ? 'Hide Order History' : 'View Order History'}
+              </button>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
@@ -181,6 +215,47 @@ const ProfilePage = () => {
           )}
         </div>
       </div>
+      {/* Order History Section */}
+      {showOrderHistory && (
+        <div className="w-full mt-6 bg-white bg-opacity-95 rounded-xl shadow p-6">
+          <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
+          {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
+          {ordersError && <div className="text-red-500">{ordersError}</div>}
+          {!loadingOrders && !ordersError && orderHistory.length === 0 && (
+            <div className="text-gray-500">No orders found.</div>
+          )}
+          {!loadingOrders && !ordersError && orderHistory.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm border">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-3 py-2 border">Order ID</th>
+                    <th className="px-3 py-2 border">Date</th>
+                    <th className="px-3 py-2 border">Items</th>
+                    <th className="px-3 py-2 border">Payment</th>
+                    <th className="px-3 py-2 border">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orderHistory.map((order) => (
+                    <tr key={order._id} className="border-b">
+                      <td className="px-3 py-2 border font-mono">{order.order_id || order._id}</td>
+                      <td className="px-3 py-2 border">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
+                      <td className="px-3 py-2 border">
+                        {Array.isArray(order.itemsOrdered)
+                          ? order.itemsOrdered.join(', ')
+                          : (order.itemsOrdered || '')}
+                      </td>
+                      <td className="px-3 py-2 border capitalize">{order.paymentType}</td>
+                      <td className="px-3 py-2 border font-semibold">৳{order.totalCost}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
       </section>
     </>
   );
