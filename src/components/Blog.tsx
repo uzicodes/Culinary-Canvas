@@ -6,30 +6,22 @@ import Image from 'next/image'
 const blogPosts = [
   {
     id: 1,
-    title: 'The Benefits of Eating Organic Food',
-    excerpt: 'Discover why organic food is better for your health and the environment. Learn about the key differences and benefits.',
+    title: '25 Favorite Thanksgiving Sides',
+    excerpt: 'Discover 25 of the best Thanksgiving side dishes to make your holiday meal unforgettable.',
     date: 'March 15, 2024',
-    category: 'Health',
-    image: 'https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-    author: 'Dr. Sarah Smith'
-  },
-  {
-    id: 2,
-    title: 'Seasonal Vegetables: A Complete Guide',
-    excerpt: 'Learn which vegetables are in season and how to make the most of fresh, seasonal produce in your cooking.',
-    date: 'March 12, 2024',
-    category: 'Cooking',
-    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-    author: 'Chef Michael'
+    category: 'Occasional',
+    image: '/blog-1.png',
+    author: 'Lindsay',
+    link: 'https://pinchofyum.com/25-favorite-thanksgiving-sides'
   },
   {
     id: 3,
-    title: '10 Tips for a Healthy Lifestyle',
-    excerpt: 'Simple and practical tips to maintain a healthy lifestyle with fresh food and proper nutrition habits.',
+    title: 'Cinnabon Cinnamon Rolls',
+    excerpt: 'soft, gooey, and dripping with cream cheese icing, this is the cinnamon roll that ruined all others for me.',
     date: 'March 10, 2024',
-    category: 'Lifestyle',
-    image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-    author: 'Emily Johnson'
+    category: 'Dessert',
+    image: '/blog-2.png',
+    author: 'Jo cooks ( Joanna )'
   }
 ]
 
@@ -90,10 +82,22 @@ const Blog = () => {
 
                 {/* Read More Link */}
                 <div className="pt-2">
-                  <button className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors">
-                    <span>Read More</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  {post.link ? (
+                    <a
+                      href={post.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                    >
+                      <span>Read More</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  ) : (
+                    <span className="flex items-center space-x-2 text-primary-600 font-semibold opacity-60 cursor-not-allowed">
+                      <span>Read More</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </span>
+                  )}
                 </div>
               </div>
             </article>
