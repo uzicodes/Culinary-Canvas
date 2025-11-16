@@ -30,6 +30,24 @@ const ProfilePage = () => {
     avatar: defaultUser.avatar,
     email: defaultUser.email,
   });
+
+  // Sync profile state with session on reload or session change
+  React.useEffect(() => {
+    if (session?.user) {
+      setProfile((prev) => ({
+        ...prev,
+        name: session.user.name || "",
+        email: session.user.email || "",
+        avatar: session.user.image || "/profile-avatar.png",
+      }));
+      setForm((prev) => ({
+        ...prev,
+        name: session.user.name || "",
+        email: session.user.email || "",
+        avatar: session.user.image || "/profile-avatar.png",
+      }));
+    }
+  }, [session]);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   // Order history state
   const [showOrderHistory, setShowOrderHistory] = useState(false);
