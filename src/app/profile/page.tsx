@@ -33,18 +33,18 @@ const ProfilePage = () => {
 
   // Sync profile state with session on reload or session change
   React.useEffect(() => {
-    if (session?.user) {
+    if (session && session.user) {
       setProfile((prev) => ({
         ...prev,
-        name: session.user.name || "",
-        email: session.user.email || "",
-        avatar: session.user.image || "/profile-avatar.png",
+        name: session.user?.name || "",
+        email: session.user?.email || "",
+        avatar: session.user?.image || "/profile-avatar.png",
       }));
       setForm((prev) => ({
         ...prev,
-        name: session.user.name || "",
-        email: session.user.email || "",
-        avatar: session.user.image || "/profile-avatar.png",
+        name: session.user?.name || "",
+        email: session.user?.email || "",
+        avatar: session.user?.image || "/profile-avatar.png",
       }));
     }
   }, [session]);
