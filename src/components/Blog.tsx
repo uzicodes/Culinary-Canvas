@@ -21,91 +21,100 @@ const blogPosts = [
     date: 'March 10, 2024',
     category: 'Dessert',
     image: '/blog-2.png',
-    author: 'Jo cooks ( Joanna )'
+    author: 'Jo cooks ( Joanna )',
+    link : 'https://www.jocooks.com/recipes/cinnabons-cinnamon-rolls/'
+  },
+  {
+    id: 2,
+    title: 'Brown Sugar Salmon Rub',
+    excerpt: `Perfect combination of sweet, spicy and savory flavors that complement the flavor of grilled salmon but don't overpower it. You only need brown sugar, pepper flakes, oregano, garlic powder, salt and pepper to make it.`,
+    date: 'March 14, 2024',
+    category: 'Recipe',
+    image: '/blog-3.png',
+    author: 'Nicole',
+    link: 'https://thespicetrain.com/salmon-dry-rub/'
   }
-]
+];
 
-const Blog = () => {
-  return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Latest News & <span className="text-primary-600">Blogs</span>
-          </h2>
-        </div>
-
-        {/* Blog Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
-            <article
-              key={post.id}
-              className="bg-[#E3DCB1] rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
-            >
-              {/* Featured Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                    {post.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6 space-y-4">
-                {/* Date and Author */}
-                <div className="flex items-center text-sm text-gray-500 space-x-4">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>{post.date}</span>
-                  </div>
-                  <span>•</span>
-                  <span>{post.author}</span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
-                  {post.title}
-                </h3>
-
-                {/* Excerpt */}
-                <p className="text-gray-600 leading-relaxed">
-                  {post.excerpt}
-                </p>
-
-                {/* Read More Link */}
-                <div className="pt-2">
-                  {post.link ? (
-                    <a
-                      href={post.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
-                    >
-                      <span>Read More</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
-                  ) : (
-                    <span className="flex items-center space-x-2 text-primary-600 font-semibold opacity-60 cursor-not-allowed">
-                      <span>Read More</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </span>
-                  )}
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+const Blog = () => (
+  <section className="py-16 bg-gray-50">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          Latest News & <span className="text-primary-600">Blogs</span>
+        </h2>
       </div>
-    </section>
-  )
-}
 
-export default Blog
+      {/* Blog Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {blogPosts.map((post) => (
+          <article
+            key={post.id}
+            className="bg-[#E3DCB1] rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
+          >
+            {/* Featured Image */}
+            <div className="relative h-48 overflow-hidden">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute top-4 left-4">
+                <span className="bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  {post.category}
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-4">
+              {/* Date and Author */}
+              <div className="flex items-center text-sm text-gray-500 space-x-4">
+                <div className="flex items-center space-x-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>{post.date}</span>
+                </div>
+                <span>•</span>
+                <span>{post.author}</span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+                {post.title}
+              </h3>
+
+              {/* Excerpt */}
+              <p className="text-gray-600 leading-relaxed">
+                {post.excerpt}
+              </p>
+
+              {/* Read More Link */}
+              <div className="pt-2">
+                {post.link ? (
+                  <a
+                    href={post.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                  >
+                    <span>Read More</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span className="flex items-center space-x-2 text-primary-600 font-semibold opacity-60 cursor-not-allowed">
+                    <span>Read More</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+export default Blog;
