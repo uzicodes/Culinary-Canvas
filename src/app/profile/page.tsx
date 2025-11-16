@@ -217,43 +217,45 @@ const ProfilePage = () => {
       </div>
       {/* Order History Section */}
       {showOrderHistory && (
-        <div className="w-full mt-6 bg-white bg-opacity-95 rounded-xl shadow p-6">
-          <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
-          {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
-          {ordersError && <div className="text-red-500">{ordersError}</div>}
-          {!loadingOrders && !ordersError && orderHistory.length === 0 && (
-            <div className="text-gray-500">No orders found.</div>
-          )}
-          {!loadingOrders && !ordersError && orderHistory.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm border">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="px-3 py-2 border">Order ID</th>
-                    <th className="px-3 py-2 border">Date</th>
-                    <th className="px-3 py-2 border">Items</th>
-                    <th className="px-3 py-2 border">Payment</th>
-                    <th className="px-3 py-2 border">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orderHistory.map((order) => (
-                    <tr key={order._id} className="border-b">
-                      <td className="px-3 py-2 border font-mono">{order.order_id || order._id}</td>
-                      <td className="px-3 py-2 border">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
-                      <td className="px-3 py-2 border">
-                        {Array.isArray(order.itemsOrdered)
-                          ? order.itemsOrdered.join(', ')
-                          : (order.itemsOrdered || '')}
-                      </td>
-                      <td className="px-3 py-2 border capitalize">{order.paymentType}</td>
-                      <td className="px-3 py-2 border font-semibold">৳{order.totalCost}</td>
+        <div className="w-full mt-6 flex flex-col items-center">
+          <div className="w-full max-w-2xl bg-white bg-opacity-95 rounded-xl shadow p-4 sm:p-6">
+            <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
+            {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
+            {ordersError && <div className="text-red-500">{ordersError}</div>}
+            {!loadingOrders && !ordersError && orderHistory.length === 0 && (
+              <div className="text-gray-500">No orders found.</div>
+            )}
+            {!loadingOrders && !ordersError && orderHistory.length > 0 && (
+              <div className="overflow-x-auto w-full">
+                <table className="min-w-[600px] w-full text-sm border border-gray-200">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="px-2 py-2 border">Order ID</th>
+                      <th className="px-2 py-2 border">Date</th>
+                      <th className="px-2 py-2 border">Items</th>
+                      <th className="px-2 py-2 border">Payment</th>
+                      <th className="px-2 py-2 border">Total</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody>
+                    {orderHistory.map((order) => (
+                      <tr key={order._id} className="border-b">
+                        <td className="px-2 py-2 border font-mono whitespace-nowrap">{order.order_id || order._id}</td>
+                        <td className="px-2 py-2 border whitespace-nowrap">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
+                        <td className="px-2 py-2 border">
+                          {Array.isArray(order.itemsOrdered)
+                            ? order.itemsOrdered.join(', ')
+                            : (order.itemsOrdered || '')}
+                        </td>
+                        <td className="px-2 py-2 border capitalize whitespace-nowrap">{order.paymentType}</td>
+                        <td className="px-2 py-2 border font-semibold whitespace-nowrap">৳{order.totalCost}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </div>
       )}
       </section>
