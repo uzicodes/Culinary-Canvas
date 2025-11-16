@@ -55,7 +55,7 @@ const ProfilePage = () => {
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [ordersError, setOrdersError] = useState<string | null>(null);
 
-  const fetchOrderHistory = async () => {
+  const fetchOrderHistory = async (updateOnlyCount = false) => {
     if (!profile.email) return;
     setLoadingOrders(true);
     setOrdersError(null);
@@ -63,15 +63,26 @@ const ProfilePage = () => {
       const res = await fetch(`/api/orders/history?email=${encodeURIComponent(profile.email)}`);
       if (!res.ok) throw new Error('Failed to fetch order history');
       const data = await res.json();
-      setOrderHistory(data);
-      // Update profile order count in real time
-      setProfile((prev) => ({ ...prev, orders: data.length }));
+      if (updateOnlyCount) {
+        setProfile((prev) => ({ ...prev, orders: data.length }));
+      } else {
+        setOrderHistory(data);
+        setProfile((prev) => ({ ...prev, orders: data.length }));
+      }
     } catch (err: any) {
       setOrdersError(err.message || 'Error fetching orders');
     } finally {
       setLoadingOrders(false);
     }
   };
+
+  // Fetch order count on profile load (when email is available)
+  React.useEffect(() => {
+    if (profile.email) {
+      fetchOrderHistory(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile.email]);
 
   const handleToggleOrderHistory = () => {
     if (!showOrderHistory) {
