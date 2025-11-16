@@ -46,6 +46,8 @@ const ProfilePage = () => {
       if (!res.ok) throw new Error('Failed to fetch order history');
       const data = await res.json();
       setOrderHistory(data);
+      // Update profile order count in real time
+      setProfile((prev) => ({ ...prev, orders: data.length }));
     } catch (err: any) {
       setOrdersError(err.message || 'Error fetching orders');
     } finally {
