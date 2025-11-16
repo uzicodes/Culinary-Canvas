@@ -104,7 +104,7 @@ const ProfilePage = () => {
   return (
     <>
       <Header />
-      <section className="relative min-h-screen pt-16 pb-10 px-4 flex items-start justify-center">
+      <section className="relative min-h-screen pt-16 pb-10 px-4 flex flex-col items-center justify-start gap-0">
         {/* Full-page Gradient background */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
