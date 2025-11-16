@@ -220,7 +220,7 @@ const ProfilePage = () => {
             <span className="text-gray-900">{profile.joined}</span>
           </div>
         </div>
-        <div className="w-full flex flex-col sm:flex-row gap-3 mt-6">
+        <div className="w-full flex flex-col sm:flex-row gap-3 mt-6 justify-center items-center">
           {editing ? (
             <>
               <button onClick={handleSave} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Save</button>
@@ -232,9 +232,18 @@ const ProfilePage = () => {
               <button
                 type="button"
                 onClick={handleToggleOrderHistory}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
+                className="font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto text-white flex items-center gap-2"
+                style={{ backgroundColor: '#1267E5' }}
+                onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0f53b6')}
+                onMouseOut={e => (e.currentTarget.style.backgroundColor = '#1267E5')}
               >
-                {showOrderHistory ? 'Hide Order History' : 'View Order History'}
+                {showOrderHistory ? 'Order History' : 'Order History'}
+                <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: showOrderHistory ? 'rotate(180deg)' : 'rotate(0deg)', verticalAlign: 'middle' }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" fill="none" />
+                    <polyline points="8 12 12 16 16 12" stroke="currentColor" strokeWidth="2.2" fill="none" />
+                  </svg>
+                </span>
               </button>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
@@ -249,7 +258,7 @@ const ProfilePage = () => {
       {/* Order History Section */}
       {showOrderHistory && (
         <div className="w-full mt-6 flex flex-col items-center">
-          <div className="w-full max-w-2xl bg-white bg-opacity-95 rounded-xl shadow p-4 sm:p-6">
+          <div className="w-full max-w-2xl bg-white rounded-xl shadow p-4 sm:p-6">
             <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
             {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
             {ordersError && <div className="text-red-500">{ordersError}</div>}
