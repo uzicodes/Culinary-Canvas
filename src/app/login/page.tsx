@@ -5,36 +5,37 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
+
 const LoginPage = () => {
-		const [showPassword, setShowPassword] = useState(false);
-		const [email, setEmail] = useState("");
-		const [password, setPassword] = useState("");
-		const [error, setError] = useState("");
-		const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-		// Get redirect query from URL
-		let redirectTo = "/";
-		if (typeof window !== "undefined") {
-			const params = new URLSearchParams(window.location.search);
-			if (params.get("redirect") === "cart") {
-				redirectTo = "/cart";
-			}
-		}
+  // Get callbackUrl from query string (default to /)
+  let callbackUrl = "/";
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("callbackUrl")) {
+      callbackUrl = params.get("callbackUrl")!;
+    }
+  }
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
-		setError("");
-		const res = await signIn("credentials", {
-			email,
-			password,
-			redirect: false,
-		});
+		const handleSubmit = async (e: React.FormEvent) => {
+			e.preventDefault();
+			setError("");
+			const res = await signIn("credentials", {
+				email,
+				password,
+				redirect: false,
+			});
 			if (res?.ok) {
-				router.push(redirectTo);
+				router.push(callbackUrl);
 			} else {
 				setError("Invalid email or password");
 			}
-	};
+		};
 
 	return (
 		<div className="relative min-h-screen flex items-center justify-center px-4">

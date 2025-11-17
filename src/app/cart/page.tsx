@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FaTrashAlt } from "react-icons/fa"; // Trash icon for Remove Item
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
@@ -25,6 +25,7 @@ export default function CartPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const pathname = usePathname();
   // Calculate total price
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -71,7 +72,7 @@ export default function CartPage() {
     if (!session) {
       toast.info("Please login to proceed to checkout", { position: "top-center", autoClose: 2000 });
       setTimeout(() => {
-        router.push("/login?callbackUrl=/checkout");
+        router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
       }, 2000);
       return;
     }
