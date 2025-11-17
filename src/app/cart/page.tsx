@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -67,10 +69,13 @@ export default function CartPage() {
   // Checkout handler
   const handleCheckout = () => {
     if (!session) {
-      setShowAuthPrompt(true);
+      toast.info("Please login to proceed to checkout", { position: "top-center", autoClose: 2000 });
+      setTimeout(() => {
+        router.push("/login?callbackUrl=/checkout");
+      }, 2000);
       return;
     }
-    // Proceed to checkout page (replace with your checkout route)
+    // Proceed to checkout page
     router.push("/checkout");
   };
 
@@ -255,6 +260,7 @@ export default function CartPage() {
           )}
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 }
