@@ -52,7 +52,13 @@ const menuItems: MenuItem[] = [
   { id: 92, name: 'Orange Juice', description: 'Freshly squeezed orange juice', price: 100, category: 'drinks', image: '/items/drinks/orange.png' },
   { id: 93, name: 'Lemonade', description: 'Freshly squeezed lemonade', price: 80, category: 'drinks', image: '/items/drinks/lemonade.png' },
   { id: 94, name: 'Iced Tea', description: 'Chilled tea with lemon', price: 90, category: 'drinks', image: '/items/drinks/iced_tea.png' },
-  { id: 95, name: 'Matcha', description: 'Refreshing Japanese green tea', price: 200, category: 'drinks', image: '/items/drinks/matcha.png' }
+  { id: 95, name: 'Matcha', description: 'Refreshing Japanese green tea', price: 200, category: 'drinks', image: '/items/drinks/matcha.png' },
+  { id: 100, name: 'Chicken Karahi', description: 'Spicy Pakistani chicken karahi with tomatoes', price: 650, category: 'pakistani', image: '/items/pakistani/karahi.png' },
+  { id: 101, name: 'Nihari', description: 'Slow-cooked beef stew with aromatic spices', price: 550, category: 'pakistani', image: '/items/pakistani/nihari.png' },
+  { id: 102, name: 'Haleem', description: 'Traditional meat and lentil stew', price: 450, category: 'pakistani', image: '/items/pakistani/haleem.png' },
+  { id: 103, name: 'Seekh Kebab', description: 'Grilled spiced minced meat skewers', price: 400, category: 'pakistani', image: '/items/pakistani/seekh_kebab.png' },
+  { id: 104, name: 'Chapli Kebab', description: 'Flat spiced meat patties from Peshawar', price: 420, category: 'pakistani', image: '/items/pakistani/chapli_kebab.png' },
+  { id: 105, name: 'Paya', description: 'Traditional trotters curry', price: 500, category: 'pakistani', image: '/items/pakistani/paya.png' }
 ];
 
 export default menuItems;

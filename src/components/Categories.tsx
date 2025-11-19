@@ -90,6 +90,14 @@ const categories = [
 		image: '/items/drinks/matcha.png',
 		color: 'bg-red-100',
 		textColor: 'text-purple-600'
+	},
+	{
+		id: 12,
+		name: 'Pakistani',
+		slug: 'pakistani',
+		image: '/items/pakistani/biryani.png',
+		color: 'bg-green-100',
+		textColor: 'text-green-700'
 	}
 ]
 
