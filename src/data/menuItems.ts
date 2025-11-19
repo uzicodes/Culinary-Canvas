@@ -58,7 +58,9 @@ const menuItems: MenuItem[] = [
   { id: 102, name: 'Haleem', description: 'Traditional meat and lentil stew', price: 450, category: 'pakistani', image: '/items/pakistani/haleem.png' },
   { id: 103, name: 'Seekh Kebab', description: 'Grilled spiced minced meat skewers', price: 400, category: 'pakistani', image: '/items/pakistani/seekh_kebab.png' },
   { id: 104, name: 'Chapli Kebab', description: 'Flat spiced meat patties from Peshawar', price: 420, category: 'pakistani', image: '/items/pakistani/chapli_kebab.png' },
-  { id: 105, name: 'Paya', description: 'Traditional trotters curry', price: 500, category: 'pakistani', image: '/items/pakistani/paya.png' }
+  { id: 105, name: 'Paya', description: 'Traditional trotters curry', price: 500, category: 'pakistani', image: '/items/pakistani/paya.png' },
+  { id: 106, name: 'Nalli Nihari', description: 'Premium slow-cooked beef shank with bone marrow and spices', price: 650, category: 'pakistani', image: '/items/pakistani/nihari.png' },
+  { id: 107, name: 'Mutton Paya', description: 'Rich mutton trotters curry cooked overnight', price: 600, category: 'pakistani', image: '/items/pakistani/paya.png' }
 ];
 
 export default menuItems;

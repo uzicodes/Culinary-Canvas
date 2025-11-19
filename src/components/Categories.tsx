@@ -95,7 +95,7 @@ const categories = [
 		id: 12,
 		name: 'Pakistani',
 		slug: 'pakistani',
-		image: '/items/pakistani/biryani.png',
+		image: '/items/pakistani/nihari.png',
 		color: 'bg-green-100',
 		textColor: 'text-green-700'
 	}
