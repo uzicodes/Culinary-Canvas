@@ -33,7 +33,31 @@ const handler = NextAuth({
       }
     })
   ],
-  session: { strategy: "jwt"  as const },
+  session: { 
+    strategy: "jwt" as const,
+    maxAge: 30 * 60, // 30 minutes in seconds
+    updateAge: 5 * 60, // Update session every 5 minutes
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: '/login',
+  },
 });
 
 export { handler as GET, handler as POST };
