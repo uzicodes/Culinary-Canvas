@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
-import sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 import crypto from 'crypto';
 
 const uri = process.env.MONGODB_URI!;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
@@ -45,13 +46,10 @@ export async function POST(request: NextRequest) {
     // Create reset URL
     const resetUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
 
-    // Configure SendGrid
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
-
-    // Send email
-    const msg = {
+    // Send email with Resend
+    await resend.emails.send({
+      from: 'Culinary Canvas <onboarding@resend.dev>',
       to: email,
-      from: process.env.SENDGRID_FROM_EMAIL!, // Verified sender email in SendGrid
       subject: 'Password Reset Request - Culinary Canvas',
       html: `
         <!DOCTYPE html>
@@ -89,9 +87,8 @@ export async function POST(request: NextRequest) {
         </body>
         </html>
       `,
-    };
+    });
 
-    await sgMail.send(msg);
     await client.close();
 
     return NextResponse.json({ 
