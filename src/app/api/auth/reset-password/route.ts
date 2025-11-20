@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await MongoClient.connect(uri);
-    const db = client.db('culinary_canvas');
+    const db = client.db('culinary-canvas');
     
     // Find user with valid reset token
-    const user = await db.collection('users').findOne({
+    const user = await db.collection('members').findOne({
       resetToken: token,
       resetTokenExpiry: { $gt: new Date() } // Token must not be expired
     });
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     // Update password and remove reset token
-    await db.collection('users').updateOne(
+    await db.collection('members').updateOne(
       { _id: user._id },
       { 
         $set: { 

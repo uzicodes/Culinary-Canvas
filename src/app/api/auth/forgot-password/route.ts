@@ -15,10 +15,10 @@ export async function POST(request: NextRequest) {
     }
 
     const client = await MongoClient.connect(uri);
-    const db = client.db('culinary_canvas');
+    const db = client.db('culinary-canvas');
     
     // Check if user exists
-    const user = await db.collection('users').findOne({ email });
+    const user = await db.collection('members').findOne({ email });
     
     if (!user) {
       await client.close();
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
 
     // Save reset token to database
-    await db.collection('users').updateOne(
+    await db.collection('members').updateOne(
       { email },
       { 
         $set: { 
@@ -46,10 +46,13 @@ export async function POST(request: NextRequest) {
     // Create reset URL
     const resetUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/reset-password?token=${resetToken}`;
 
+    // In development, Resend free tier only sends to verified email
+    const sendToEmail = process.env.NODE_ENV === 'production' ? email : 'utshozi11@gmail.com';
+    
     // Send email with Resend
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'Culinary Canvas <onboarding@resend.dev>',
-      to: email,
+      to: sendToEmail,
       subject: 'Password Reset Request - Culinary Canvas',
       html: `
         <!DOCTYPE html>
@@ -71,6 +74,7 @@ export async function POST(request: NextRequest) {
             </div>
             <div class="content">
               <h2>Password Reset Request</h2>
+              ${process.env.NODE_ENV !== 'production' ? `<div style="background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-bottom: 15px; border-radius: 5px;"><strong>⚠️ Development Mode:</strong> This reset was requested for ${email}</div>` : ''}
               <p>Hi there,</p>
               <p>We received a request to reset your password. Click the button below to create a new password:</p>
               <a href="${resetUrl}" class="button">Reset Password</a>
