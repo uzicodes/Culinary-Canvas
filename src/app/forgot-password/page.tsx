@@ -73,7 +73,7 @@ export default function ForgotPasswordPage() {
                   Forgot Password?
                 </h1>
                 <p className="text-slate-600">
-                  No worries! Enter your email and we'll send you reset instructions.
+                  No worries! Enter your email and we&apos;ll send you reset instructions.
                 </p>
               </div>
 
@@ -158,7 +158,7 @@ export default function ForgotPasswordPage() {
                 If an account exists with <strong>{email}</strong>, you will receive a password reset link shortly.
               </p>
               <p className="text-sm text-slate-500 mb-6">
-                Didn't receive the email? Check your spam folder or{" "}
+                Didn&apos;t receive the email? Check your spam folder or{" "}
                 <button
                   onClick={() => {
                     setSubmitted(false);
