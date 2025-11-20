@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
 import { Resend } from 'resend';
-import crypto from 'crypto';
+import { randomBytes } from 'crypto';
 
 const uri = process.env.MONGODB_URI!;
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetToken = randomBytes(32).toString('hex');
     const resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour from now
 
     // Save reset token to database
