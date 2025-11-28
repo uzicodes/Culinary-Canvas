@@ -162,6 +162,8 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             autoComplete="email"
                             required
+                            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+                            title="Please enter a valid email address with exactly one @ symbol"
                             className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
                             style={{ color: '#ABA907' }}
                             placeholder="you@email.com"
@@ -195,7 +197,6 @@ export default function RegisterPage() {
                                 maxLength={15}
                             />
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5">Max 15 digits (including country code)</p>
                     </div>
                     <div>
                         <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-0.5">Password</label>
