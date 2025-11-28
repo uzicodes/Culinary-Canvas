@@ -33,7 +33,7 @@ const handler = NextAuth({
       }
     })
   ],
-  session: { 
+  session: {
     strategy: "jwt" as const,
     maxAge: 30 * 60, // 30 minutes in seconds
     updateAge: 5 * 60, // Update session every 5 minutes
@@ -44,6 +44,7 @@ const handler = NextAuth({
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
+        token.createdAt = (user as any).createdAt;
       }
       return token;
     },
@@ -51,6 +52,7 @@ const handler = NextAuth({
       if (token && session.user) {
         session.user.name = token.name as string;
         session.user.email = token.email as string;
+        (session.user as any).createdAt = token.createdAt;
       }
       return session;
     },

@@ -34,11 +34,24 @@ const ProfilePage = () => {
   // Sync profile state with session on reload or session change
   React.useEffect(() => {
     if (session && session.user) {
+      const createdAt = (session.user as any).createdAt;
+      let formattedDate = "";
+
+      if (createdAt) {
+        const date = new Date(createdAt);
+        const monthNames = [
+          "January", "February", "March", "April", "May", "June",
+          "July", "August", "September", "October", "November", "December"
+        ];
+        formattedDate = `${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
+      }
+
       setProfile((prev) => ({
         ...prev,
         name: session.user?.name || "",
         email: session.user?.email || "",
         avatar: session.user?.image || "/profile-avatar.png",
+        joined: formattedDate,
       }));
       setForm((prev) => ({
         ...prev,
@@ -137,167 +150,167 @@ const ProfilePage = () => {
       <Header />
       <section className="relative min-h-screen pt-16 pb-10 px-4 flex flex-col items-center justify-start gap-0">
         {/* Full-page Gradient background */}
-      <div className="fixed inset-0 w-full h-full -z-10">
-        <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
-      </div>
-      <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
-        <div className="flex items-center mb-4">
-          <div className="relative w-28 h-28">
-            <Image
-              src={avatarPreview || profile.avatar}
-              alt="Profile Avatar"
-              fill
-              className="rounded-full object-cover border-4 border-primary-500"
-              priority
-            />
-          </div>
-          {editing && (
-            <div className="ml-6 flex flex-col items-start">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarChange}
-                className="mt-2 text-xs"
+        <div className="fixed inset-0 w-full h-full -z-10">
+          <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
+        </div>
+        <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
+          <div className="flex items-center mb-4">
+            <div className="relative w-28 h-28">
+              <Image
+                src={avatarPreview || profile.avatar}
+                alt="Profile Avatar"
+                fill
+                className="rounded-full object-cover border-4 border-primary-500"
+                priority
               />
-              <span className="text-xs text-gray-500 mt-1">Change profile picture</span>
             </div>
-          )}
-        </div>
-  <h2 className="text-2xl font-bold mb-1 text-black">
-    {editing ? (
-      <input
-        type="text"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-      />
-    ) : (
-      profile.name
-    )}
-  </h2>
-        <p className="text-gray-500 mb-2">{profile.email}</p>
-        <div className="flex gap-4 mb-4">
-          <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-            {profile.orders} Orders
-          </span>
-        </div>
-        <div className="w-full border-t pt-4 mt-4">
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-medium text-gray-700">Phone:</span>
-            {editing ? (
-              <input
-                type="text"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-              />
-            ) : (
-              <span className="text-gray-900">{profile.phone}</span>
-            )}
-          </div>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-medium text-gray-700">Email:</span>
-            <span className="text-gray-900">{profile.email}</span>
-          </div>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-medium text-gray-700">Address:</span>
-            {editing ? (
-              <input
-                type="text"
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-              />
-            ) : (
-              <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address || ""}</span>
-            )}
-          </div>
-          <div className="mb-2 flex items-center justify-between">
-            <span className="font-medium text-gray-700">Member Since:</span>
-            <span className="text-gray-900">{profile.joined}</span>
-          </div>
-        </div>
-        <div className="w-full flex flex-col sm:flex-row gap-3 mt-6 justify-center items-center">
-          {editing ? (
-            <>
-              <button onClick={handleSave} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Save</button>
-              <button onClick={handleCancel} className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Cancel</button>
-            </>
-          ) : (
-            <>
-              <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
-              <button
-                type="button"
-                onClick={handleToggleOrderHistory}
-                className="font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto text-white flex items-center gap-2"
-                style={{ backgroundColor: '#1267E5' }}
-                onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0f53b6')}
-                onMouseOut={e => (e.currentTarget.style.backgroundColor = '#1267E5')}
-              >
-                {showOrderHistory ? 'Order History' : 'Order History'}
-                <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: showOrderHistory ? 'rotate(180deg)' : 'rotate(0deg)', verticalAlign: 'middle' }}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" fill="none" />
-                    <polyline points="8 12 12 16 16 12" stroke="currentColor" strokeWidth="2.2" fill="none" />
-                  </svg>
-                </span>
-              </button>
-              <button
-                onClick={() => signOut({ callbackUrl: '/' })}
-                className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
-              >
-                Log Out
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-      {/* Order History Section */}
-      {showOrderHistory && (
-        <div className="w-full mt-6 flex flex-col items-center">
-          <div className="w-full max-w-2xl bg-white rounded-xl shadow p-4 sm:p-6">
-            <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
-            {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
-            {ordersError && <div className="text-red-500">{ordersError}</div>}
-            {!loadingOrders && !ordersError && orderHistory.length === 0 && (
-              <div className="text-gray-500">No orders found.</div>
-            )}
-            {!loadingOrders && !ordersError && orderHistory.length > 0 && (
-              <div className="overflow-x-auto w-full">
-                <table className="min-w-[600px] w-full text-sm border border-gray-200">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="px-2 py-2 border">Order ID</th>
-                      <th className="px-2 py-2 border">Date</th>
-                      <th className="px-2 py-2 border">Items</th>
-                      <th className="px-2 py-2 border">Payment</th>
-                      <th className="px-2 py-2 border">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orderHistory.map((order) => (
-                      <tr key={order._id} className="border-b">
-                        <td className="px-2 py-2 border font-mono whitespace-nowrap">{order.order_id || order._id}</td>
-                        <td className="px-2 py-2 border whitespace-nowrap">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
-                        <td className="px-2 py-2 border">
-                          {Array.isArray(order.itemsOrdered)
-                            ? order.itemsOrdered.join(', ')
-                            : (order.itemsOrdered || '')}
-                        </td>
-                        <td className="px-2 py-2 border capitalize whitespace-nowrap">{order.paymentType}</td>
-                        <td className="px-2 py-2 border font-semibold whitespace-nowrap">৳{order.totalCost}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+            {editing && (
+              <div className="ml-6 flex flex-col items-start">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="mt-2 text-xs"
+                />
+                <span className="text-xs text-gray-500 mt-1">Change profile picture</span>
               </div>
             )}
           </div>
+          <h2 className="text-2xl font-bold mb-1 text-black">
+            {editing ? (
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
+              />
+            ) : (
+              profile.name
+            )}
+          </h2>
+          <p className="text-gray-500 mb-2">{profile.email}</p>
+          <div className="flex gap-4 mb-4">
+            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
+              {profile.orders} Orders
+            </span>
+          </div>
+          <div className="w-full border-t pt-4 mt-4">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-medium text-gray-700">Phone:</span>
+              {editing ? (
+                <input
+                  type="text"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  className="border rounded px-2 py-1 w-full max-w-xs bg-white"
+                />
+              ) : (
+                <span className="text-gray-900">{profile.phone}</span>
+              )}
+            </div>
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-medium text-gray-700">Email:</span>
+              <span className="text-gray-900">{profile.email}</span>
+            </div>
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-medium text-gray-700">Address:</span>
+              {editing ? (
+                <input
+                  type="text"
+                  name="address"
+                  value={form.address}
+                  onChange={handleChange}
+                  className="border rounded px-2 py-1 w-full max-w-xs bg-white"
+                />
+              ) : (
+                <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address || ""}</span>
+              )}
+            </div>
+            <div className="mb-2 flex items-center justify-between">
+              <span className="font-medium text-gray-700">Member Since:</span>
+              <span className="text-gray-900">{profile.joined}</span>
+            </div>
+          </div>
+          <div className="w-full flex flex-col sm:flex-row gap-3 mt-6 justify-center items-center">
+            {editing ? (
+              <>
+                <button onClick={handleSave} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Save</button>
+                <button onClick={handleCancel} className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Cancel</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
+                <button
+                  type="button"
+                  onClick={handleToggleOrderHistory}
+                  className="font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto text-white flex items-center gap-2"
+                  style={{ backgroundColor: '#1267E5' }}
+                  onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0f53b6')}
+                  onMouseOut={e => (e.currentTarget.style.backgroundColor = '#1267E5')}
+                >
+                  {showOrderHistory ? 'Order History' : 'Order History'}
+                  <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: showOrderHistory ? 'rotate(180deg)' : 'rotate(0deg)', verticalAlign: 'middle' }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" fill="none" />
+                      <polyline points="8 12 12 16 16 12" stroke="currentColor" strokeWidth="2.2" fill="none" />
+                    </svg>
+                  </span>
+                </button>
+                <button
+                  onClick={() => signOut({ callbackUrl: '/' })}
+                  className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
+                >
+                  Log Out
+                </button>
+              </>
+            )}
+          </div>
         </div>
-      )}
+        {/* Order History Section */}
+        {showOrderHistory && (
+          <div className="w-full mt-6 flex flex-col items-center">
+            <div className="w-full max-w-2xl bg-white rounded-xl shadow p-4 sm:p-6">
+              <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
+              {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
+              {ordersError && <div className="text-red-500">{ordersError}</div>}
+              {!loadingOrders && !ordersError && orderHistory.length === 0 && (
+                <div className="text-gray-500">No orders found.</div>
+              )}
+              {!loadingOrders && !ordersError && orderHistory.length > 0 && (
+                <div className="overflow-x-auto w-full">
+                  <table className="min-w-[600px] w-full text-sm border border-gray-200">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="px-2 py-2 border">Order ID</th>
+                        <th className="px-2 py-2 border">Date</th>
+                        <th className="px-2 py-2 border">Items</th>
+                        <th className="px-2 py-2 border">Payment</th>
+                        <th className="px-2 py-2 border">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orderHistory.map((order) => (
+                        <tr key={order._id} className="border-b">
+                          <td className="px-2 py-2 border font-mono whitespace-nowrap">{order.order_id || order._id}</td>
+                          <td className="px-2 py-2 border whitespace-nowrap">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
+                          <td className="px-2 py-2 border">
+                            {Array.isArray(order.itemsOrdered)
+                              ? order.itemsOrdered.join(', ')
+                              : (order.itemsOrdered || '')}
+                          </td>
+                          <td className="px-2 py-2 border capitalize whitespace-nowrap">{order.paymentType}</td>
+                          <td className="px-2 py-2 border font-semibold whitespace-nowrap">৳{order.totalCost}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </section>
     </>
   );
