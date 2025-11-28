@@ -95,22 +95,22 @@ export default function RegisterPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
             </div>
-            <div className="w-full max-w-md rounded-2xl shadow-2xl py-3 px-8 relative bg-white/60">
-                <div className="flex justify-center mb-2">
+            <div className="w-full max-w-md rounded-2xl shadow-2xl py-2 px-6 relative bg-white/60">
+                <div className="flex justify-center mb-1">
                     <Image
                         src="/without_BG_logo.png"
                         alt="Culinary Canvas Logo"
-                        width={64}
-                        height={64}
-                        className="h-16 w-16 object-contain"
+                        width={48}
+                        height={48}
+                        className="h-12 w-12 object-contain"
                         priority
                     />
                 </div>
-                <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Register Now </h2>
-                <p className="text-center text-gray-500 mb-3">Let us take you to the voyage of healthy food !</p>
-                <form className="space-y-2.5" onSubmit={handleSubmit}>
+                <h2 className="text-2xl font-bold text-center text-gray-900 mb-0.5">Register Now </h2>
+                <p className="text-center text-gray-500 text-sm mb-2">Let us take you to the voyage of healthy food !</p>
+                <form className="space-y-2" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-0.5">Full Name</label>
                         <input
                             id="name"
                             type="text"
@@ -118,12 +118,12 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             autoComplete="name"
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
                             placeholder="Your name"
                         />
                     </div>
                     <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-0.5">Email</label>
                         <input
                             id="email"
                             type="email"
@@ -131,18 +131,18 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             autoComplete="email"
                             required
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
                             placeholder="you@email.com"
                         />
                     </div>
                     <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Mobile Phone</label>
-                        <div className="flex gap-2">
+                        <label htmlFor="phone" className="block text-xs font-medium text-gray-700 mb-0.5">Mobile Phone</label>
+                        <div className="flex gap-1.5">
                             <select
                                 value={countryCode}
                                 onChange={(e) => setCountryCode(e.target.value)}
-                                className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-gray-900 bg-white"
-                                style={{ width: '110px' }}
+                                className="px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-gray-900 bg-white"
+                                style={{ width: '100px' }}
                             >
                                 {countryCodes.map((item) => (
                                     <option key={item.code} value={item.code}>
@@ -157,15 +157,15 @@ export default function RegisterPage() {
                                 onChange={handlePhoneChange}
                                 autoComplete="tel"
                                 required
-                                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                                className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
                                 placeholder="1234567890"
                                 maxLength={15}
                             />
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">Max 15 digits (including country code)</p>
+
                     </div>
                     <div>
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-0.5">Password</label>
                         <div className="relative">
                             <input
                                 id="password"
@@ -174,7 +174,7 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 autoComplete="new-password"
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
+                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-10"
                                 placeholder="Create a password"
                             />
                             <button
@@ -197,7 +197,7 @@ export default function RegisterPage() {
                         </div>
                     </div>
                     <div>
-                        <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                        <label htmlFor="confirmPassword" className="block text-xs font-medium text-gray-700 mb-0.5">Confirm Password</label>
                         <div className="relative">
                             <input
                                 id="confirmPassword"
@@ -206,7 +206,7 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 autoComplete="new-password"
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-12"
+                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-10"
                                 placeholder="Confirm your password"
                             />
                             <button
@@ -228,23 +228,23 @@ export default function RegisterPage() {
                             </button>
                         </div>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center mt-1">
                         <button
                             type="submit"
-                            className="py-3 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 hover:from-green-500 hover:to-lime-600 text-white text-lg tracking-wide"
-                            style={{ minWidth: '160px' }}
+                            className="py-2 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 hover:from-green-500 hover:to-lime-600 text-white text-base tracking-wide"
+                            style={{ minWidth: '140px' }}
                             disabled={loading}
                         >
                             <span>{loading ? "Registering..." : "Register"}</span>
-                            <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
                         </button>
                     </div>
-                    {error && <p className="text-red-600 text-center mt-2">{error}</p>}
-                    {success && <p className="text-green-600 text-center mt-2">{success}</p>}
+                    {error && <p className="text-red-600 text-center text-sm mt-1">{error}</p>}
+                    {success && <p className="text-green-600 text-center text-sm mt-1">{success}</p>}
                 </form>
-                <p className="mt-4 text-center text-gray-600">
+                <p className="mt-3 text-center text-gray-600 text-sm">
                     Already have an account?{' '}
                     <Link href="/login" className="text-sky-600 hover:underline font-semibold">Login</Link>
                 </p>
