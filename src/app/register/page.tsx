@@ -26,6 +26,36 @@ export default function RegisterPage() {
         { code: "+971", country: "AE" },
         { code: "+966", country: "SA" },
         { code: "+92", country: "PK" },
+        { code: "+7", country: "RU" },
+        { code: "+82", country: "KR" },
+        { code: "+39", country: "IT" },
+        { code: "+34", country: "ES" },
+        { code: "+31", country: "NL" },
+        { code: "+46", country: "SE" },
+        { code: "+47", country: "NO" },
+        { code: "+41", country: "CH" },
+        { code: "+32", country: "BE" },
+        { code: "+43", country: "AT" },
+        { code: "+45", country: "DK" },
+        { code: "+48", country: "PL" },
+        { code: "+90", country: "TR" },
+        { code: "+20", country: "EG" },
+        { code: "+27", country: "ZA" },
+        { code: "+234", country: "NG" },
+        { code: "+254", country: "KE" },
+        { code: "+55", country: "BR" },
+        { code: "+52", country: "MX" },
+        { code: "+54", country: "AR" },
+        { code: "+56", country: "CL" },
+        { code: "+57", country: "CO" },
+        { code: "+60", country: "MY" },
+        { code: "+62", country: "ID" },
+        { code: "+63", country: "PH" },
+        { code: "+65", country: "SG" },
+        { code: "+66", country: "TH" },
+        { code: "+84", country: "VN" },
+        { code: "+977", country: "NP" },
+        { code: "+94", country: "LK" },
     ];
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +148,8 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             autoComplete="name"
                             required
-                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
+                            style={{ color: '#ABA907' }}
                             placeholder="Your name"
                         />
                     </div>
@@ -131,7 +162,8 @@ export default function RegisterPage() {
                             onChange={handleChange}
                             autoComplete="email"
                             required
-                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
+                            style={{ color: '#ABA907' }}
                             placeholder="you@email.com"
                         />
                     </div>
@@ -141,7 +173,7 @@ export default function RegisterPage() {
                             <select
                                 value={countryCode}
                                 onChange={(e) => setCountryCode(e.target.value)}
-                                className="px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition text-gray-900 bg-white"
+                                className="px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition bg-white text-gray-900"
                                 style={{ width: '100px' }}
                             >
                                 {countryCodes.map((item) => (
@@ -157,12 +189,13 @@ export default function RegisterPage() {
                                 onChange={handlePhoneChange}
                                 autoComplete="tel"
                                 required
-                                className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+                                className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
+                                style={{ color: '#ABA907' }}
                                 placeholder="1234567890"
                                 maxLength={15}
                             />
                         </div>
-
+                        <p className="text-xs text-gray-500 mt-0.5">Max 15 digits (including country code)</p>
                     </div>
                     <div>
                         <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-0.5">Password</label>
@@ -174,7 +207,8 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 autoComplete="new-password"
                                 required
-                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-10"
+                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 pr-10"
+                                style={{ color: '#ABA907' }}
                                 placeholder="Create a password"
                             />
                             <button
@@ -206,7 +240,8 @@ export default function RegisterPage() {
                                 onChange={handleChange}
                                 autoComplete="new-password"
                                 required
-                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900 pr-10"
+                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 pr-10"
+                                style={{ color: '#ABA907' }}
                                 placeholder="Confirm your password"
                             />
                             <button
@@ -252,4 +287,3 @@ export default function RegisterPage() {
         </div>
     );
 }
-
