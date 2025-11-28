@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirmPassword: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -28,14 +28,14 @@ export default function RegisterPage() {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.name, email: form.email, password: form.password })
+        body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, password: form.password })
       });
       const data = await res.json();
       if (!res.ok) {
         setError(data.error || "Registration failed");
       } else {
         setSuccess("Registration successful! You can now log in.");
-        setForm({ name: "", email: "", password: "", confirmPassword: "" });
+        setForm({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -44,7 +44,7 @@ export default function RegisterPage() {
   };
 
   return (
-  <div className="relative min-h-screen flex items-center justify-start px-32">
+    <div className="relative min-h-screen flex items-center justify-start px-32">
       {/* Full-page background image */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <Image
@@ -54,22 +54,22 @@ export default function RegisterPage() {
           className="object-cover w-full h-full"
           priority
         />
-  <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
       </div>
-  <div className="w-full max-w-md rounded-2xl shadow-2xl py-3 px-8 relative bg-white/60">
-    <div className="flex justify-center mb-2">
-      <Image
-        src="/without_BG_logo.png"
-        alt="Culinary Canvas Logo"
-        width={64}
-        height={64}
-        className="h-16 w-16 object-contain"
-        priority
-      />
-    </div>
-  <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Register Now </h2>
-  <p className="text-center text-gray-500 mb-4">Let us take you to the voyage of healthy food !</p>
-  <form className="space-y-3" onSubmit={handleSubmit}>
+      <div className="w-full max-w-md rounded-2xl shadow-2xl py-3 px-8 relative bg-white/60">
+        <div className="flex justify-center mb-2">
+          <Image
+            src="/without_BG_logo.png"
+            alt="Culinary Canvas Logo"
+            width={64}
+            height={64}
+            className="h-16 w-16 object-contain"
+            priority
+          />
+        </div>
+        <h2 className="text-3xl font-bold text-center text-gray-900 mb-1">Register Now </h2>
+        <p className="text-center text-gray-500 mb-3">Let us take you to the voyage of healthy food !</p>
+        <form className="space-y-2.5" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input
@@ -94,6 +94,19 @@ export default function RegisterPage() {
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
               placeholder="you@email.com"
+            />
+          </div>
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Mobile Phone</label>
+            <input
+              id="phone"
+              type="tel"
+              value={form.phone}
+              onChange={handleChange}
+              autoComplete="tel"
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 text-gray-900"
+              placeholder="+1234567890"
             />
           </div>
           <div>

@@ -7,35 +7,35 @@ import { useRouter } from "next/navigation";
 
 
 const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+	const [showPassword, setShowPassword] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [error, setError] = useState("");
+	const router = useRouter();
 
-  // Get callbackUrl from query string (default to /)
-  let callbackUrl = "/";
-  if (typeof window !== "undefined") {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get("callbackUrl")) {
-      callbackUrl = params.get("callbackUrl")!;
-    }
-  }
+	// Get callbackUrl from query string (default to /)
+	let callbackUrl = "/";
+	if (typeof window !== "undefined") {
+		const params = new URLSearchParams(window.location.search);
+		if (params.get("callbackUrl")) {
+			callbackUrl = params.get("callbackUrl")!;
+		}
+	}
 
-		const handleSubmit = async (e: React.FormEvent) => {
-			e.preventDefault();
-			setError("");
-			const res = await signIn("credentials", {
-				email,
-				password,
-				redirect: false,
-			});
-			if (res?.ok) {
-				router.push(callbackUrl);
-			} else {
-				setError("Invalid email or password");
-			}
-		};
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setError("");
+		const res = await signIn("credentials", {
+			email,
+			password,
+			redirect: false,
+		});
+		if (res?.ok) {
+			router.push(callbackUrl);
+		} else {
+			setError("Invalid email or password");
+		}
+	};
 
 	return (
 		<div className="relative min-h-screen flex items-center justify-center px-4">
@@ -117,9 +117,9 @@ const LoginPage = () => {
 					Don&apos;t have an account?{' '}
 					<Link href="/register" className="text-sky-600 hover:underline font-semibold">Register Now !</Link>
 				</p>
-					</div>
-				</div>
-			);
-		};
+			</div>
+		</div>
+	);
+};
 
-		export default LoginPage;
+export default LoginPage;

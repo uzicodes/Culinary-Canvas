@@ -3,8 +3,8 @@ import bcrypt from "bcryptjs";
 import clientPromise from "@/lib/mongodb";
 
 export async function POST(req: Request) {
-  const { name, email, password } = await req.json();
-  if (!name || !email || !password) {
+  const { name, email, phone, password } = await req.json();
+  if (!name || !email || !phone || !password) {
     return NextResponse.json({ error: "Missing fields" }, { status: 400 });
   }
 
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
   const result = await db.collection("members").insertOne({
     name,
     email,
+    phone,
     password: hashedPassword,
     createdAt: new Date()
   });
