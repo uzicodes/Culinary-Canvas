@@ -20,6 +20,7 @@ interface CartItem {
 }
 
 export default function CartPage() {
+  
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
