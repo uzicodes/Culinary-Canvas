@@ -63,7 +63,7 @@ const RegisterPage = () => {
                             type="text"
                             required
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
-                            placeholder="John Doe"
+                            placeholder="Enter Full Name Here"
                             value={name}
                             onChange={e => setName(e.target.value)}
                         />

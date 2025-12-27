@@ -4,8 +4,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb"; // Adjust path if needed
 import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
 
-// Do NOT export authOptions
-// Only export the handler
+
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -20,13 +19,12 @@ const handler = NextAuth({
           if (!credentials?.email || !credentials?.password) return null;
           const user = await findUserByEmail(credentials.email);
           if (user && await validPassword(credentials.password, user.password)) {
-            // Remove password and convert _id to id
+
             const { password, _id, ...userWithoutPassword } = user;
             return { ...userWithoutPassword, id: _id.toString() };
           }
           return null;
         } catch (err) {
-          // Log error for debugging
           console.error('Authorize error:', err);
           return null;
         }
