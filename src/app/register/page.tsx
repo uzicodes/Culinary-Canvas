@@ -1,290 +1,158 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-export default function RegisterPage() {
+const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [countryCode, setCountryCode] = useState("+880");
-    const [form, setForm] = useState({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
-    const [loading, setLoading] = useState(false);
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-
-    // Popular country codes
-    const countryCodes = [
-        { code: "+880", country: "BD" },
-        { code: "+1", country: "US/CA" },
-        { code: "+44", country: "UK" },
-        { code: "+91", country: "IN" },
-        { code: "+86", country: "CN" },
-        { code: "+81", country: "JP" },
-        { code: "+49", country: "DE" },
-        { code: "+33", country: "FR" },
-        { code: "+61", country: "AU" },
-        { code: "+971", country: "AE" },
-        { code: "+966", country: "SA" },
-        { code: "+92", country: "PK" },
-        { code: "+7", country: "RU" },
-        { code: "+82", country: "KR" },
-        { code: "+39", country: "IT" },
-        { code: "+34", country: "ES" },
-        { code: "+31", country: "NL" },
-        { code: "+46", country: "SE" },
-        { code: "+47", country: "NO" },
-        { code: "+41", country: "CH" },
-        { code: "+32", country: "BE" },
-        { code: "+43", country: "AT" },
-        { code: "+45", country: "DK" },
-        { code: "+48", country: "PL" },
-        { code: "+90", country: "TR" },
-        { code: "+20", country: "EG" },
-        { code: "+27", country: "ZA" },
-        { code: "+234", country: "NG" },
-        { code: "+254", country: "KE" },
-        { code: "+55", country: "BR" },
-        { code: "+52", country: "MX" },
-        { code: "+54", country: "AR" },
-        { code: "+56", country: "CL" },
-        { code: "+57", country: "CO" },
-        { code: "+60", country: "MY" },
-        { code: "+62", country: "ID" },
-        { code: "+63", country: "PH" },
-        { code: "+65", country: "SG" },
-        { code: "+66", country: "TH" },
-        { code: "+84", country: "VN" },
-        { code: "+977", country: "NP" },
-        { code: "+94", country: "LK" },
-    ];
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.id]: e.target.value });
-    };
-
-    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, ""); // Only allow digits
-        const fullPhone = countryCode + value;
-
-        // Validate max length of 15 characters (country code + phone number)
-        if (fullPhone.length <= 15) {
-            setForm({ ...form, phone: value });
-        }
-    };
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
-        setSuccess("");
-        if (form.password !== form.confirmPassword) {
+        if (password !== confirmPassword) {
             setError("Passwords do not match");
             return;
         }
-
-        // Validate phone number
-        const fullPhone = countryCode + form.phone;
-        if (fullPhone.length > 15) {
-            setError("Phone number is too long (max 15 digits including country code)");
-            return;
-        }
-        if (form.phone.length < 5) {
-            setError("Phone number is too short");
-            return;
-        }
         setLoading(true);
-        try {
-            const res = await fetch("/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: form.name, email: form.email, phone: countryCode + form.phone, password: form.password })
-            });
-            const data = await res.json();
-            if (!res.ok) {
-                setError(data.error || "Registration failed");
-            } else {
-                setSuccess("Registration successful! You can now log in.");
-                setForm({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
-                setCountryCode("+880");
-            }
-        } catch (err) {
-            setError("Something went wrong. Please try again.");
-        }
+        // Registration logic here
         setLoading(false);
     };
 
     return (
-        <div className="relative min-h-screen flex items-center justify-start px-32">
-            {/* Full-page background image */}
+        <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
             <div className="fixed inset-0 w-full h-full -z-10">
                 <Image
-                    src="/register_bg.jpg"
-                    alt="Register background"
+                    src="/gradient.png"
+                    alt="Register Background"
                     fill
-                    className="object-cover w-full h-full"
+                    className="object-cover w-full h-full blur-md"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#f8fafc]/40 to-[#e0e7ef]/40" />
             </div>
-            <div className="w-full max-w-md rounded-2xl shadow-2xl py-2 px-6 relative bg-white/60">
-                <div className="flex justify-center mb-1">
-                    <Image
-                        src="/without_BG_logo.png"
-                        alt="Culinary Canvas Logo"
-                        width={48}
-                        height={48}
-                        className="h-12 w-12 object-contain"
-                        priority
+
+            {/* Reduced max-width to sm for a tighter look */}
+            <div className="w-full max-w-sm rounded-2xl shadow-2xl p-6 relative" style={{ backgroundColor: '#BBEDCF' }}>
+                <div className="flex justify-center mb-2">
+                    <Image 
+                        src="/without_BG_logo.png" 
+                        alt="Culinary Canvas Logo" 
+                        width={48} 
+                        height={48} 
+                        className="h-12 w-12 object-contain" 
+                        priority 
                     />
                 </div>
-                <h2 className="text-2xl font-bold text-center text-gray-900 mb-0.5">Register Now </h2>
-                <p className="text-center text-gray-500 text-sm mb-2">Let us take you to the voyage of healthy food !</p>
-                <form className="space-y-2" onSubmit={handleSubmit}>
+                
+                <h2 className="text-2xl font-bold text-center text-gray-900 mb-1">Create Account</h2>
+                <p className="text-center text-sm text-gray-500 mb-6">Join our community of Foodies!</p>
+
+                {/* Reduced space-y from 4 to 3 */}
+                <form className="space-y-3" onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name" className="block text-xs font-medium text-gray-700 mb-0.5">Full Name</label>
+                        <label htmlFor="name" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Full Name</label>
                         <input
                             id="name"
                             type="text"
-                            value={form.name}
-                            onChange={handleChange}
-                            autoComplete="name"
                             required
-                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
-                            style={{ color: '#ABA907' }}
-                            placeholder="Your name"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
+                            placeholder="John Doe"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
                         />
                     </div>
+
                     <div>
-                        <label htmlFor="email" className="block text-xs font-medium text-gray-700 mb-0.5">Email</label>
+                        <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Email</label>
                         <input
                             id="email"
                             type="email"
-                            value={form.email}
-                            onChange={handleChange}
-                            autoComplete="email"
                             required
-                            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                            title="Please enter a valid email address with exactly one @ symbol"
-                            className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
-                            style={{ color: '#ABA907' }}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
                             placeholder="you@email.com"
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </div>
-                    <div>
-                        <label htmlFor="phone" className="block text-xs font-medium text-gray-700 mb-0.5">Mobile Phone</label>
-                        <div className="flex gap-1.5">
-                            <select
-                                value={countryCode}
-                                onChange={(e) => setCountryCode(e.target.value)}
-                                className="px-2 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition bg-white text-gray-900"
-                                style={{ width: '100px' }}
-                            >
-                                {countryCodes.map((item) => (
-                                    <option key={item.code} value={item.code}>
-                                        {item.code} {item.country}
-                                    </option>
-                                ))}
-                            </select>
-                            <input
-                                id="phone"
-                                type="tel"
-                                value={form.phone}
-                                onChange={handlePhoneChange}
-                                autoComplete="tel"
-                                required
-                                className="flex-1 px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400"
-                                style={{ color: '#ABA907' }}
-                                placeholder="1234567890"
-                                maxLength={15}
-                            />
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div>
+                            <label htmlFor="password" university-className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Password</label>
+                            <div className="relative">
+                                <input
+                                    id="password"
+                                    type={showPassword ? "text" : "password"}
+                                    required
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900 pr-8"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword((v) => !v)}
+                                    className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400"
+                                >
+                                    {showPassword ? (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09" /></svg>
+                                    ) : (
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm7 0s-3 7-10 7S2 12 2 12s3-7 10-7 10 7 10 7z" /></svg>
+                                    )}
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <label htmlFor="password" className="block text-xs font-medium text-gray-700 mb-0.5">Password</label>
-                        <div className="relative">
-                            <input
-                                id="password"
-                                type={showPassword ? "text" : "password"}
-                                value={form.password}
-                                onChange={handleChange}
-                                autoComplete="new-password"
-                                required
-                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 pr-10"
-                                style={{ color: '#ABA907' }}
-                                placeholder="Create a password"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword((v) => !v)}
-                                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600"
-                                tabIndex={-1}
-                                aria-label={showPassword ? "Hide password" : "Show password"}
-                            >
-                                {showPassword ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09" />
-                                    </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm7 0s-3 7-10 7S2 12 2 12s3-7 10-7 10 7 10 7z" />
-                                    </svg>
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <label htmlFor="confirmPassword" className="block text-xs font-medium text-gray-700 mb-0.5">Confirm Password</label>
-                        <div className="relative">
+                        <div>
+                            <label htmlFor="confirmPassword" university-className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Confirm</label>
                             <input
                                 id="confirmPassword"
-                                type={showConfirmPassword ? "text" : "password"}
-                                value={form.confirmPassword}
-                                onChange={handleChange}
-                                autoComplete="new-password"
+                                type="password"
                                 required
-                                className="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-400 outline-none transition placeholder-gray-400 pr-10"
-                                style={{ color: '#ABA907' }}
-                                placeholder="Confirm your password"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
+                                placeholder="Repeat"
+                                value={confirmPassword}
+                                onChange={e => setConfirmPassword(e.target.value)}
                             />
-                            <button
-                                type="button"
-                                onClick={() => setShowConfirmPassword((v) => !v)}
-                                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600"
-                                tabIndex={-1}
-                                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                            >
-                                {showConfirmPassword ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09" />
-                                    </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm7 0s-3 7-10 7S2 12 2 12s3-7 10-7 10 7 10 7z" />
-                                    </svg>
-                                )}
-                            </button>
                         </div>
                     </div>
-                    <div className="flex justify-center mt-1">
-                        <button
-                            type="submit"
-                            className="py-2 px-4 font-semibold rounded-full shadow-lg transition flex items-center gap-2 bg-gradient-to-r from-green-400 via-emerald-500 to-lime-500 hover:from-green-500 hover:to-lime-600 text-white text-base tracking-wide"
-                            style={{ minWidth: '140px' }}
-                            disabled={loading}
-                        >
-                            <span>{loading ? "Registering..." : "Register"}</span>
-                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" className="ml-1">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
-                            </svg>
-                        </button>
-                    </div>
-                    {error && <p className="text-red-600 text-center text-sm mt-1">{error}</p>}
-                    {success && <p className="text-green-600 text-center text-sm mt-1">{success}</p>}
+
+                    {error && <p className="text-red-500 text-[11px] text-center font-bold">{error}</p>}
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-lg transition mt-2"
+                    >
+                        {loading ? "Creating..." : "Register"}
+                    </button>
                 </form>
-                <p className="mt-3 text-center text-gray-600 text-sm">
+
+                <p className="mt-4 text-center text-xs text-gray-600">
                     Already have an account?{' '}
-                    <Link href="/login" className="text-sky-600 hover:underline font-semibold">Login</Link>
+                    <Link href="/login" className="text-sky-600 hover:underline font-bold">Login</Link>
                 </p>
+
+                {/* --- Compact Home Icon Section --- */}
+                <div className="mt-4 flex flex-col items-center border-t border-gray-300 pt-3">
+                    <Link 
+                        href="/" 
+                        className="flex flex-col items-center text-gray-400 hover:text-sky-600 transition-colors"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        <span className="text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
+                    </Link>
+                </div>
             </div>
         </div>
     );
-}
+};
+
+export default RegisterPage;
