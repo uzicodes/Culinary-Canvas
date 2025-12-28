@@ -6,6 +6,7 @@ import Header from '@/components/Header';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Footer from '@/components/Footer';
+import { motion, Variants } from 'framer-motion'; // Added Framer Motion
 
 interface MenuItem {
   id: number;
@@ -16,14 +17,32 @@ interface MenuItem {
   image: string;
 }
 
+// Animation Variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05, // Items appear one by one quickly
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.4, ease: "easeOut" }
+  },
+};
+
 export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const router = useRouter();
   const [showToast, setShowToast] = useState(false);
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
   
-  // Cart state and addToCart logic removed for SSR/static compatibility
-
   const categories = [
     { id: 'all', label: 'All Items' },
     { id: 'burger', label: 'Burgers' },
@@ -116,7 +135,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 defaultValue={searchTerm}
                 className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
-              {/* Hidden input for category to preserve filter on search */}
               {activeCategory !== 'all' && (
                 <input type="hidden" name="category" value={activeCategory} />
               )}
@@ -130,7 +148,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex gap-3 flex-wrap pb-2">
             {categories.map(cat => {
-              // Build URL with category and current search term
               const params = new URLSearchParams();
               if (cat.id !== 'all') params.set('category', cat.id);
               if (searchTerm) params.set('search', searchTerm);
@@ -153,12 +170,20 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
         </div>
       </div>
 
-      {/* Menu Items Grid */}
+      {/* Menu Items Grid with Animation */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-4">
+        {/* The motion.div grid triggers every time search or category changes */}
+        <motion.div 
+          key={activeCategory + searchTerm}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-4"
+        >
           {filteredItems.map(item => (
-            <div
+            <motion.div
               key={item.id}
+              variants={itemVariants}
               className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-96"
             >
               <div className="bg-[#19b368] h-48 flex items-center justify-center text-6xl">
@@ -215,9 +240,9 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
