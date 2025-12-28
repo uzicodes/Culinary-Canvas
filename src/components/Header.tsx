@@ -89,20 +89,39 @@ const Header = () => {
                   Categories
                 </button>
                 {isCategoriesOpen && (
-                  <div className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                  <div className="absolute left-0 mt-2 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                     <div className="py-1">
-                      <Link href="/all-items?category=burger" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Burgers</Link>
-                      <Link href="/all-items?category=pizza" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Pizza</Link>
-                      <Link href="/all-items?category=fastfood" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Fast-Food</Link>
-                      <Link href="/all-items?category=setmenu" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Set Menus</Link>
-                      <Link href="/all-items?category=appetizers" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Appetizers</Link>
-                      <Link href="/all-items?category=chinese" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Chinese</Link>
-                      <Link href="/all-items?category=italian" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Italian</Link>
-                      <Link href="/all-items?category=traditional" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Traditional</Link>
-                      <Link href="/all-items?category=pakistani" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Pakistani</Link>
-                      <Link href="/all-items?category=coffee" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Coffee</Link>
-                      <Link href="/all-items?category=desserts" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Desserts</Link>
-                      <Link href="/all-items?category=drinks" className="block px-4 py-2 text-gray-700 hover:bg-gray-100" onClick={() => setIsCategoriesOpen(false)}>Drinks & Beverages</Link>
+                      {[
+                        { name: 'Burgers', href: '/all-items?category=burger', image: '/items/burger/classic.png' },
+                        { name: 'Pizza', href: '/all-items?category=pizza', image: '/items/pizza/margherita.png' },
+                        { name: 'Fast-Food', href: '/all-items?category=fastfood', image: '/items/fastfood/fried_chicken.png' },
+                        { name: 'Set Menus', href: '/all-items?category=setmenu', image: '/items/setmenu/1.png' },
+                        { name: 'Appetizers', href: '/all-items?category=appetizers', image: '/items/appetizers/spring_rolls.png' },
+                        { name: 'Chinese', href: '/all-items?category=chinese', image: '/items/chinese/kung_pao.png' },
+                        { name: 'Italian', href: '/all-items?category=italian', image: '/items/italian/alfredo.png' },
+                        { name: 'Traditional', href: '/all-items?category=traditional', image: '/items/traditional/biryani.png' },
+                        { name: 'Pakistani', href: '/all-items?category=pakistani', image: '/items/pakistani/karahi.png' },
+                        { name: 'Coffee', href: '/all-items?category=coffee', image: '/items/coffee/espresso.png' },
+                        { name: 'Desserts', href: '/all-items?category=desserts', image: '/items/desserts/croissant.png' },
+                        { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: '/items/drinks/coke.png' },
+                      ].map((category) => (
+                        <Link
+                          key={category.name}
+                          href={category.href}
+                          className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100"
+                          onClick={() => setIsCategoriesOpen(false)}
+                        >
+                          <div className="w-8 h-8 relative mr-3 flex-shrink-0">
+                            <Image
+                              src={category.image}
+                              alt={category.name}
+                              fill
+                              className="object-cover rounded-full"
+                            />
+                          </div>
+                          <span>{category.name}</span>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 )}
