@@ -98,28 +98,31 @@ const Hero = () => {
             {/* Login and Register Buttons Section */}
             {status === "unauthenticated" && (
               <div className="pt-6 flex flex-wrap gap-4">
-                {/* Login Button - Ghost Style */}
+                {/* Login Button */}
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link href="/login">
-                    <button className="flex items-center gap-2 px-6 py-2.5 rounded-full border-2 border-primary-600 text-primary-600 font-bold hover:bg-primary-50 transition-colors bg-white/50 backdrop-blur-sm shadow-sm">
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                        <circle cx="12" cy="7" r="4" />
-                      </svg>
-                      Login
-                    </button>
+                    <div className="user-profile">
+                      <div className="user-profile-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        Login
+                      </div>
+                    </div>
                   </Link>
                 </motion.div>
 
-                {/* Register Button - Solid Style */}
+                {/* Register Button */}
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                   <Link href="/register">
-                    <button className="flex items-center gap-2 px-7 py-2.5 rounded-full border-2 border-primary-600 text-primary-600 font-bold hover:bg-primary-50 transition-colors shadow-md">
-                      Register
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </button>
+                    <div className="user-profile">
+                      <div className="user-profile-inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                          <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        Register
+                      </div>
+                    </div>
                   </Link>
                 </motion.div>
               </div>
