@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           
-          {/* 1. Company Info */}
+          {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden bg-white p-1">
@@ -29,7 +29,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* 2. Popular Categories */}
+          {/* Popular Categories */}
           <div className="space-y-6">
             <h3 className="text-lg font-bold border-b border-gray-800 pb-2">Popular Categories</h3>
             <ul className="grid grid-cols-1 gap-3">
@@ -47,7 +47,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 3. Customer Support */}
+          {/* Customer Support */}
           <div className="space-y-6">
             <h3 className="text-lg font-bold border-b border-gray-800 pb-2">Our Services</h3>
             <ul className="space-y-3 text-sm">
@@ -59,7 +59,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* 4. Contact & Hours */}
+          {/* Contact & Hours */}
           <div className="space-y-6">
             <h3 className="text-lg font-bold border-b border-gray-800 pb-2">Get In Touch</h3>
             <div className="space-y-4 text-sm">

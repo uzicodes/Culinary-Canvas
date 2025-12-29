@@ -22,7 +22,7 @@ const RegisterPage = () => {
             return;
         }
         setLoading(true);
-        // Registration logic here
+        // Registration logic 
         setLoading(false);
     };
 
@@ -38,7 +38,6 @@ const RegisterPage = () => {
                 />
             </div>
 
-            {/* Reduced max-width to sm for a tighter look */}
             <div className="w-full max-w-sm rounded-2xl shadow-2xl p-6 relative" style={{ backgroundColor: '#BBEDCF' }}>
                 <div className="flex justify-center mb-2">
                     <Image 
@@ -54,8 +53,8 @@ const RegisterPage = () => {
                 <h2 className="text-2xl font-bold text-center text-gray-900 mb-1">Create Account</h2>
                 <p className="text-center text-sm text-gray-500 mb-6">Join our community of Foodies!</p>
 
-                {/* Reduced space-y from 4 to 3 */}
                 <form className="space-y-3" onSubmit={handleSubmit}>
+                    {/* Full Name */}
                     <div>
                         <label htmlFor="name" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Full Name</label>
                         <input
@@ -69,6 +68,7 @@ const RegisterPage = () => {
                         />
                     </div>
 
+                    {/* Email */}
                     <div>
                         <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Email</label>
                         <input
@@ -82,9 +82,10 @@ const RegisterPage = () => {
                         />
                     </div>
 
+                    {/* Password Grid */}
                     <div className="grid grid-cols-2 gap-3">
                         <div>
-                            <label htmlFor="password" university-className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Password</label>
+                            <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Password</label>
                             <div className="relative">
                                 <input
                                     id="password"
@@ -109,7 +110,7 @@ const RegisterPage = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="confirmPassword" university-className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Confirm</label>
+                            <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Confirm</label>
                             <input
                                 id="confirmPassword"
                                 type="password"
@@ -138,7 +139,6 @@ const RegisterPage = () => {
                     <Link href="/login" className="text-sky-600 hover:underline font-bold">Login</Link>
                 </p>
 
-                {/* --- Compact Home Icon Section --- */}
                 <div className="mt-4 flex flex-col items-center border-t border-gray-300 pt-3">
                     <Link 
                         href="/" 
