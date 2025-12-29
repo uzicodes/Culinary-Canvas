@@ -2,6 +2,7 @@
 
 import { Calendar, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import { motion, Variants } from 'framer-motion'
 
 const blogPosts = [
   {
@@ -36,22 +37,72 @@ const blogPosts = [
   }
 ];
 
+// Unique 3D Perspective Variants
+const blogContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3, // Slower stagger for a more deliberate "unfolding" feel
+    },
+  },
+};
+
+const blogCardVariants: Variants = {
+  hidden: { 
+    opacity: 0, 
+    rotateY: 45, // Starts tilted away from the user
+    rotateX: 10,
+    z: -100 
+  },
+  visible: { 
+    opacity: 1, 
+    rotateY: 0, 
+    rotateX: 0,
+    z: 0,
+    transition: { 
+      type: "spring", 
+      stiffness: 80, 
+      damping: 15 
+    } 
+  },
+};
+
 const Blog = () => (
-  <section className="py-16 bg-gray-50">
+  <section className="py-16 bg-gray-50 overflow-hidden" style={{ perspective: "1200px" }}>
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <div className="text-center mb-12">
+      <motion.div 
+        initial={{ opacity: 0, filter: "blur(10px)" }}
+        whileInView={{ opacity: 1, filter: "blur(0px)" }}
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        className="text-center mb-12"
+      >
         <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
           Latest News & <span className="text-primary-600">Blogs</span>
         </h2>
-      </div>
+        <div className="w-16 h-1 bg-primary-600 mx-auto rounded-full mt-2" />
+      </motion.div>
 
-      {/* Blog Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Blog Grid with 3D Entrance */}
+      <motion.div 
+        variants={blogContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
         {blogPosts.map((post) => (
-          <article
+          <motion.article
             key={post.id}
-            className="bg-[#E3DCB1] rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
+            variants={blogCardVariants}
+            whileHover={{ 
+              y: -15, 
+              rotateY: -5, // Tilts toward the user on hover
+              boxShadow: "0px 20px 40px rgba(0,0,0,0.15)" 
+            }}
+            className="bg-[#E3DCB1] rounded-2xl shadow-sm overflow-hidden group border border-black/5"
           >
             {/* Featured Image */}
             <div className="relative h-48 overflow-hidden">
@@ -59,60 +110,63 @@ const Blog = () => (
                 src={post.image}
                 alt={post.title}
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
               />
-              <div className="absolute top-4 left-4">
-                <span className="bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <div className="absolute top-4 left-4 z-10">
+                <span className="bg-primary-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
                   {post.category}
                 </span>
               </div>
+              {/* Overlay on hover */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
             </div>
 
             {/* Content */}
             <div className="p-6 space-y-4">
-              {/* Date and Author */}
               <div className="flex items-center text-sm text-gray-500 space-x-4">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
                   <span>{post.date}</span>
                 </div>
                 <span>•</span>
-                <span>{post.author}</span>
+                <span className="font-medium">{post.author}</span>
               </div>
 
-              {/* Title */}
-              <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+              <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors leading-tight">
                 {post.title}
               </h3>
 
-              {/* Excerpt */}
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-sm line-clamp-3">
                 {post.excerpt}
               </p>
 
-              {/* Read More Link */}
-              <div className="pt-2">
+              <div className="pt-2 border-t border-black/5">
                 {post.link ? (
                   <a
                     href={post.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-semibold transition-colors"
+                    className="flex items-center justify-between text-primary-600 hover:text-primary-700 font-bold transition-all group/link"
                   >
-                    <span>Read More</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <span>Read Full Story</span>
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.div>
                   </a>
                 ) : (
                   <span className="flex items-center space-x-2 text-primary-600 font-semibold opacity-60 cursor-not-allowed">
-                    <span>Read More</span>
+                    <span>Coming Soon</span>
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 )}
               </div>
             </div>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </div>
   </section>
 );
