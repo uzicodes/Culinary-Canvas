@@ -49,12 +49,11 @@ const Header = () => {
   }, []);
 
   return (
-    // Outer container handles centering and top spacing
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
       <div 
         className="w-full max-w-4xl h-14 rounded-full flex items-center justify-between px-6 pointer-events-auto transition-all duration-300 shadow-xl border border-white/20"
         style={{ 
-            backgroundColor: '#E7CCF0',
+            backgroundColor: '#BCE334',
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' 
         }}
       >
@@ -64,7 +63,11 @@ const Header = () => {
             <div className="w-8 h-8 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
             </div>
-            <span className="hidden lg:block text-xs font-black text-gray-900 tracking-tighter uppercase">
+            {/* UPDATED: text-xl lg:text-2xl for a bigger appearance */}
+            <span 
+                className="hidden lg:block text-xl lg:text-2xl font-black text-grey-500 tracking-tighter uppercase leading-none"
+                style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
+            >
               Culinary Canvas
             </span>
           </Link>
@@ -72,8 +75,6 @@ const Header = () => {
 
         {/* RIGHT: Combined Nav and Actions */}
         <div className="flex items-center space-x-4 lg:space-x-6">
-          
-          {/* Navigation Links - Grouped close to the right */}
           <nav className="hidden md:flex items-center space-x-5">
             <Link href="/all-items" className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black transition-colors uppercase tracking-widest whitespace-nowrap">
               All Items
@@ -115,7 +116,6 @@ const Header = () => {
             </div>
           </nav>
 
-          {/* Search, User, Cart Icons */}
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             <div className="relative hidden sm:block w-28 lg:w-40 group" ref={inputRef}>
               <input
