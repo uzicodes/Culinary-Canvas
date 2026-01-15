@@ -14,17 +14,17 @@ interface Category {
 
 const categories: Category[] = [
     { id: 1, name: 'Burgers', slug: 'burger', image: '/items/burger/classic.png', color: 'bg-red-100', textColor: 'text-red-600' },
-    { id: 2, name: 'Pizza', slug: 'pizza', image: '/items/pizza/deluxe.png', color: 'bg-green-100', textColor: 'text-green-600' },
+    { id: 2, name: 'Pizza', slug: 'pizza', image: '/items/pizza/deluxe.png', color: 'bg-green-200', textColor: 'text-green-600' },
     { id: 3, name: 'Fast Foods', slug: 'fastfood', image: '/items/fastfood/fried_chicken.png', color: 'bg-blue-100', textColor: 'text-blue-600' },
-    { id: 4, name: 'Set Menus', slug: 'setmenu', image: '/items/setmenu/1.png', color: 'bg-yellow-100', textColor: 'text-yellow-600' },
-    { id: 5, name: 'Appetizers', slug: 'appetizers', image: '/items/appetizers/Dual Tacos.png', color: 'bg-purple-100', textColor: 'text-purple-600' },
+    { id: 4, name: 'Set Menus', slug: 'setmenu', image: '/items/setmenu/1.png', color: 'bg-yellow-100', textColor: 'text-pink-600' },
+    { id: 5, name: 'Appetizers', slug: 'appetizers', image: '/items/appetizers/Dual Tacos.png', color: 'bg-purple-100', textColor: 'text-yellow-600' },
     { id: 6, name: 'Chinese', slug: 'chinese', image: '/items/chinese/kung_pao.png', color: 'bg-blue-100', textColor: 'text-purple-600' },
     { id: 7, name: 'Desserts', slug: 'desserts', image: '/items/desserts/brownie.png', color: 'bg-blue-100', textColor: 'text-pink-600' },
     { id: 8, name: 'Italian', slug: 'italian', image: '/items/italian/spaghetti.png', color: 'bg-purple-100', textColor: 'text-orange-600' },
     { id: 9, name: 'Traditional', slug: 'traditional', image: '/items/traditional/butter.png', color: 'bg-red-100', textColor: 'text-green-600' },
-    { id: 10, name: 'Coffee', slug: 'coffee', image: '/items/coffee/espresso.png', color: 'bg-green-100', textColor: 'text-purple-600' },
-    { id: 11, name: 'Drinks & Beverages', slug: 'drinks', image: '/items/drinks/matcha.png', color: 'bg-red-100', textColor: 'text-purple-600' },
-    { id: 12, name: 'Pakistani', slug: 'pakistani', image: '/items/pakistani/nihari.png', color: 'bg-green-100', textColor: 'text-green-700' }
+    { id: 10, name: 'Coffee', slug: 'coffee', image: '/items/coffee/espresso.png', color: 'bg-green-200', textColor: 'text-purple-600' },
+    { id: 11, name: 'Drinks & Beverages', slug: 'drinks', image: '/items/drinks/matcha.png', color: 'bg-red-100', textColor: 'text-orange-600' },
+    { id: 12, name: 'Pakistani', slug: 'pakistani', image: '/items/pakistani/nihari.png', color: 'bg-green-200', textColor: 'text-pink-700' }
 ]
 
 // Animation Variants with TypeScript Fix
