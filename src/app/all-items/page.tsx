@@ -120,7 +120,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pt-28">
       <Header />
       {/* Search Bar */}
       <div className="bg-white border-b">

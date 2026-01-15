@@ -54,7 +54,7 @@ const Header = () => {
       <div 
         className="w-full max-w-4xl h-14 rounded-full flex items-center justify-between px-6 pointer-events-auto transition-all duration-300 shadow-xl border border-white/20"
         style={{ 
-            backgroundColor: '#BCE334',
+            backgroundColor: '#E7CCF0',
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' 
         }}
       >

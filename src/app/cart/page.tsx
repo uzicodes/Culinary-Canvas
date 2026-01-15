@@ -118,7 +118,7 @@ export default function CartPage() {
     return (
       <>
         <Header />
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex justify-center items-center min-h-screen pt-20">
           <div className="text-xl">Loading your cart...</div>
         </div>
       </>
@@ -128,7 +128,7 @@ export default function CartPage() {
   return (
     <>
       <Header />
-      <div className="container mx-auto px-4 py-8 min-h-screen relative">
+      <div className="container mx-auto px-4 pt-32 pb-8 min-h-screen relative">
         {/* Background Image Container (only blurred image) */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center blur-md"
