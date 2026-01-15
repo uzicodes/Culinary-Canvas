@@ -52,7 +52,7 @@ const itemVariants: Variants = {
 
 const Categories = () => {
     return (
-        <section className="py-16 bg-white overflow-hidden">
+        <section className="py-16 bg-gradient-to-br from-green-50 to-green-100 overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Section Header */}
