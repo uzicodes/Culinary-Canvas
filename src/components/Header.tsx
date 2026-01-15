@@ -1,14 +1,14 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { ShoppingCart, Search, Menu, X, User } from 'lucide-react'
+import { ShoppingCart, Search, Menu, X, User, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import menuItems, { MenuItem } from '@/data/menuItems'
 import { useAutoLogout } from '@/hooks/useAutoLogout'
 
 const Header = () => {
-  // --- PRESERVED LOGIC ---
+
   useAutoLogout();
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
@@ -63,7 +63,7 @@ const Header = () => {
             <div className="w-8 h-8 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
             </div>
-            {/* UPDATED: text-xl lg:text-2xl for a bigger appearance */}
+      
             <span 
                 className="hidden lg:block text-xl lg:text-2xl font-black text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
@@ -163,6 +163,81 @@ const Header = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5">
+             {/* Search */}
+            <div className="relative w-full">
+                <input
+                    type="text"
+                    placeholder="Search food..."
+                    value={searchQuery}
+                    onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
+                />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                
+                {/* Mobile Search Results */}
+                {showResults && searchQuery && (
+                  <div className="mt-2 max-h-48 overflow-y-auto rounded-xl border border-gray-100 bg-white shadow-lg">
+                    {filteredItems.length > 0 ? (
+                      filteredItems.map(item => (
+                        <Link href={`/all-items/${item.id}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}>
+                          <div className="w-8 h-8 relative"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
+                          <div className="text-xs font-bold text-gray-900">{item.name}</div>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="px-4 py-3 text-xs text-gray-500">No results found</div>
+                    )}
+                  </div>
+                )}
+            </div>
+
+             {/* Links */}
+             <div className="space-y-2">
+                 <Link href="/all-items" className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>
+                    <span>All Items</span>
+                 </Link>
+
+                 {/* Categories Accordion */}
+                 <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
+                    <button 
+                        onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
+                        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 font-bold text-gray-800"
+                    >
+                        <span>Categories</span>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isMobileCategoriesOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {isMobileCategoriesOpen && (
+                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
+                           {[
+                              { name: 'Burgers', href: '/all-items?category=burger', image: '/items/burger/classic.png' },
+                              { name: 'Pizza', href: '/all-items?category=pizza', image: '/items/pizza/margherita.png' },
+                              { name: 'Fast-Food', href: '/all-items?category=fastfood', image: '/items/fastfood/fried_chicken.png' },
+                              { name: 'Set Menus', href: '/all-items?category=setmenu', image: '/items/setmenu/1.png' },
+                              { name: 'Appetizers', href: '/all-items?category=appetizers', image: '/items/appetizers/spring_rolls.png' },
+                              { name: 'Chinese', href: '/all-items?category=chinese', image: '/items/chinese/kung_pao.png' },
+                              { name: 'Italian', href: '/all-items?category=italian', image: '/items/italian/alfredo.png' },
+                              { name: 'Traditional', href: '/all-items?category=traditional', image: '/items/traditional/biryani.png' },
+                              { name: 'Pakistani', href: '/all-items?category=pakistani', image: '/items/pakistani/karahi.png' },
+                              { name: 'Coffee', href: '/all-items?category=coffee', image: '/items/coffee/espresso.png' },
+                              { name: 'Desserts', href: '/all-items?category=desserts', image: '/items/desserts/croissant.png' },
+                              { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: '/items/drinks/coke.png' },
+                          ].map((category) => (
+                              <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                  <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                                  <span className="truncate">{category.name}</span>
+                              </Link>
+                          ))}
+                        </div>
+                    )}
+                 </div>
+             </div>
+        </div>
+      )}
     </header>
   )
 }
