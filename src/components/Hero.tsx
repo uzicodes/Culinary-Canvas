@@ -50,7 +50,7 @@ const Hero = () => {
   }, [images.length])
 
   return (
-    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[600px] flex items-center overflow-hidden pt-24">
+    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[600px] flex items-center overflow-hidden pt-32">
       <div className="w-full">
         <div className="grid lg:grid-cols-2 items-center">
           
