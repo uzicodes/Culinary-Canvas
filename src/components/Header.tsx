@@ -132,7 +132,7 @@ const Header = () => {
                 <div className="absolute top-full mt-4 right-0 w-64 bg-white border rounded-2xl shadow-2xl overflow-hidden py-1 z-50">
                   {filteredItems.length > 0 ? (
                     filteredItems.map(item => (
-                      <Link href={`/all-items/${item.id}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => setShowResults(false)}>
+                      <Link href={`/all-items?search=${encodeURIComponent(item.name)}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => setShowResults(false)}>
                         <div className="w-8 h-8 relative"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
                         <div className="text-[10px] font-bold text-gray-900">{item.name}</div>
                       </Link>
@@ -183,7 +183,7 @@ const Header = () => {
                   <div className="mt-2 max-h-48 overflow-y-auto rounded-xl border border-gray-100 bg-white shadow-lg">
                     {filteredItems.length > 0 ? (
                       filteredItems.map(item => (
-                        <Link href={`/all-items/${item.id}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}>
+                        <Link href={`/all-items?search=${encodeURIComponent(item.name)}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}>
                           <div className="w-8 h-8 relative"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
                           <div className="text-xs font-bold text-gray-900">{item.name}</div>
                         </Link>
