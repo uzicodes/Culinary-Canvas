@@ -201,7 +201,6 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
   const [editedItem, setEditedItem] = useState(item);
 
   const handleSave = () => {
-    // Here you would eventually call an API to update the database
     console.log("Saving changes to DB:", editedItem);
     setIsEditing(false);
     setShowToast(true);
@@ -211,7 +210,7 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
   return (
     <motion.div
       variants={itemVariants}
-      className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-[420px] relative"
+      className="bg-[#029FBE] rounded-lg shadow-md hover:shadow-xl transition-shadow overflow-hidden flex flex-col h-90 relative"
     >
       {/* Admin Edit Trigger */}
       {isAdmin && !isEditing && (
@@ -258,13 +257,13 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
           </div>
         ) : (
           <div>
-            <h3 className="text-lg font-bold text-white text-center leading-tight">{editedItem.name}</h3>
-            <p className="text-slate-100 text-xs mt-2 mb-3 text-center opacity-90">{editedItem.description}</p>
+            <h3 className="text-lg font-bold text-black text-center leading-tight">{editedItem.name}</h3>
+            <p className="text-slate-100 text-xs mt-2 mb-3 text-center opacity-90 line-clamp-2">{editedItem.description}</p>
           </div>
         )}
 
         <div className="flex items-center justify-between pt-3 border-t border-white/20">
-          <span className="text-base font-bold text-[#F1F604]">৳{editedItem.price}</span>
+          <span className="text-base font-bold text-[#050BB3]">৳{editedItem.price}</span>
           
           {isEditing ? (
             <div className="flex gap-2">
