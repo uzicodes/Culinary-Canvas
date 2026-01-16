@@ -13,7 +13,7 @@ const Footer = () => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden bg-white p-1">
-                <img src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="w-full h-full object-contain" />
+                    <Image src="/without_BG_logo.png" alt="Culinary Canvas Logo" className="w-full h-full object-contain" width={40} height={40} />
               </div>
               <span className="text-2xl font-bold tracking-tight">Culinary <span className="text-yellow-400">Canvas</span></span>
             </div>

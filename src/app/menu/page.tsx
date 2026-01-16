@@ -22,7 +22,7 @@ const MenuPage = () => {
             <span className="text-[#BCE334] bg-black px-2">Our Digital Menu</span>
           </h1>
           <p className="text-gray-500 mt-4 text-sm font-bold uppercase tracking-widest">
-            Select your favorite "finger" to see details
+            Select your favorite &quot;finger&quot; to see details
           </p>
         </div>
 

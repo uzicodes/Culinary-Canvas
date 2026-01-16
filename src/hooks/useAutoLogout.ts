@@ -68,7 +68,7 @@ export const useAutoLogout = () => {
         document.removeEventListener(event, resetTimer);
       });
     };
-  }, [session, status]);
+    }, [session, status, resetTimer]);
 
   return { logout };
 };
