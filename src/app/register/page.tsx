@@ -1,8 +1,11 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { User, Mail, Lock, Eye, EyeOff, ArrowRight, Home, CheckCircle2 } from "lucide-react";
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -17,140 +20,179 @@ const RegisterPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        
         if (password !== confirmPassword) {
             setError("Passwords do not match");
             return;
         }
+        
         setLoading(true);
-        // Registration logic 
+        // Add your registration logic/API call here
         setLoading(false);
     };
 
     return (
-        <div className="relative min-h-screen flex items-center justify-center px-4 py-8">
+        <div className="relative min-h-screen flex items-center justify-center px-4 py-12 overflow-hidden">
+            {/* Fixed Full-page Background */}
             <div className="fixed inset-0 w-full h-full -z-10">
                 <Image
                     src="/gradient.png"
-                    alt="Register Background"
+                    alt="Background"
                     fill
-                    className="object-cover w-full h-full blur-md"
+                    className="object-cover w-full h-full blur-xl opacity-60"
                     priority
                 />
             </div>
 
-            <div className="w-full max-w-sm rounded-2xl shadow-2xl p-6 relative" style={{ backgroundColor: '#BBEDCF' }}>
-                <div className="flex justify-center mb-2">
-                    <Image 
-                        src="/without_BG_logo.png" 
-                        alt="Culinary Canvas Logo" 
-                        width={48} 
-                        height={48} 
-                        className="h-12 w-12 object-contain" 
-                        priority 
-                    />
-                </div>
-                
-                <h2 className="text-2xl font-bold text-center text-gray-900 mb-1">Create Account</h2>
-                <p className="text-center text-sm text-gray-500 mb-6">Join our community of Foodies!</p>
-
-                <form className="space-y-3" onSubmit={handleSubmit}>
-                    {/* Full Name */}
-                    <div>
-                        <label htmlFor="name" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Full Name</label>
-                        <input
-                            id="name"
-                            type="text"
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
-                            placeholder="Enter Full Name Here"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                        />
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="w-full max-w-md relative"
+            >
+                {/* Glassmorphism Card */}
+                <div className="bg-white/70 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/40 overflow-hidden">
+                    
+                    {/* Logo & Header */}
+                    <div className="flex flex-col items-center mb-6">
+                        <motion.div 
+                            whileHover={{ rotate: -10, scale: 1.1 }}
+                            className="mb-4 p-3 bg-white rounded-2xl shadow-sm"
+                        >
+                            <Image 
+                                src="/without_BG_logo.png" 
+                                alt="Logo" 
+                                width={48} 
+                                height={48} 
+                                className="object-contain" 
+                            />
+                        </motion.div>
+                        <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">
+                            Create Account
+                        </h2>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-1">
+                            Join our community of Foodies!
+                        </p>
                     </div>
 
-                    {/* Email */}
-                    <div>
-                        <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Email</label>
-                        <input
-                            id="email"
-                            type="email"
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
-                            placeholder="you@email.com"
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </div>
-
-                    {/* Password Grid */}
-                    <div className="grid grid-cols-2 gap-3">
-                        <div>
-                            <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Password</label>
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                        {/* Full Name */}
+                        <div className="space-y-1">
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Full Name</label>
                             <div className="relative">
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
-                                    id="password"
-                                    type={showPassword ? "text" : "password"}
+                                    id="name"
+                                    type="text"
                                     required
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900 pr-8"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={e => setPassword(e.target.value)}
+                                    className="w-full pl-11 pr-4 py-2.5 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-sm font-medium text-black placeholder:text-gray-400"
+                                    placeholder="Enter Full Name"
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
                                 />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword((v) => !v)}
-                                    className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400"
-                                >
-                                    {showPassword ? (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-7 0-10-7-10-7a17.94 17.94 0 014.22-5.94m3.07-2.13A9.99 9.99 0 0112 5c7 0 10 7 10 7a17.94 17.94 0 01-4.22 5.94m-3.07 2.13a9.99 9.99 0 01-1.29.09" /></svg>
-                                    ) : (
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm7 0s-3 7-10 7S2 12 2 12s3-7 10-7 10 7 10 7z" /></svg>
-                                    )}
-                                </button>
                             </div>
                         </div>
-                        <div>
-                            <label htmlFor="confirmPassword" className="block text-xs font-semibold text-gray-700 mb-1 ml-1">Confirm</label>
-                            <input
-                                id="confirmPassword"
-                                type="password"
-                                required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-400 outline-none transition text-sm text-gray-900"
-                                placeholder="Repeat"
-                                value={confirmPassword}
-                                onChange={e => setConfirmPassword(e.target.value)}
-                            />
+
+                        {/* Email */}
+                        <div className="space-y-1">
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Email Address</label>
+                            <div className="relative">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                <input
+                                    id="email"
+                                    type="email"
+                                    required
+                                    className="w-full pl-11 pr-4 py-2.5 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-sm font-medium text-black placeholder:text-gray-400"
+                                    placeholder="you@email.com"
+                                    value={email}
+                                    onChange={e => setEmail(e.target.value)}
+                                />
+                            </div>
                         </div>
+
+                        {/* Password Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="space-y-1">
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Password</label>
+                                <div className="relative">
+                                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                                    <input
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
+                                        required
+                                        className="w-full pl-9 pr-9 py-2.5 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-xs font-medium text-black"
+                                        placeholder="Min. 8 chars"
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Confirm</label>
+                                <div className="relative">
+                                    <CheckCircle2 className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                                    <input
+                                        id="confirmPassword"
+                                        type="password"
+                                        required
+                                        className="w-full pl-9 pr-4 py-2.5 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-xs font-medium text-black"
+                                        placeholder="Repeat"
+                                        value={confirmPassword}
+                                        onChange={e => setConfirmPassword(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {error && (
+                            <motion.p 
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="text-red-500 text-[10px] font-bold text-center uppercase tracking-wider"
+                            >
+                                {error}
+                            </motion.p>
+                        )}
+
+                        {/* Register Button */}
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            disabled={loading}
+                            type="submit"
+                            className="w-full bg-black text-[#BCE334] py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-xl hover:shadow-black/20 transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-50"
+                        >
+                            {loading ? "Creating..." : "Register"}
+                            {!loading && <ArrowRight size={16} />}
+                        </motion.button>
+                    </form>
+
+                    {/* Login Link */}
+                    <div className="mt-6 pt-5 border-t border-gray-100 text-center">
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                            Already have an account?{' '}
+                            <Link href="/login" className="text-black hover:text-[#BCE334] transition-colors underline underline-offset-4 font-black">
+                                Login
+                            </Link>
+                        </p>
                     </div>
 
-                    {error && <p className="text-red-500 text-[11px] text-center font-bold">{error}</p>}
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-700 text-white text-sm font-bold rounded-lg transition mt-2"
-                    >
-                        {loading ? "Creating..." : "Register"}
-                    </button>
-                </form>
-
-                <p className="mt-4 text-center text-xs text-gray-600">
-                    Already have an account?{' '}
-                    <Link href="/login" className="text-sky-600 hover:underline font-bold">Login</Link>
-                </p>
-
-                <div className="mt-4 flex flex-col items-center border-t border-gray-300 pt-3">
-                    <Link 
-                        href="/" 
-                        className="flex flex-col items-center text-gray-400 hover:text-sky-600 transition-colors"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                        <span className="text-[10px] font-bold uppercase tracking-widest mt-0.5">Home</span>
-                    </Link>
+                    {/* Back to Home */}
+                    <div className="mt-4 flex justify-center">
+                        <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-black transition-colors text-[10px] font-bold uppercase tracking-[0.15em]">
+                            <Home size={12} />
+                            Home
+                        </Link>
+                    </div>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 };
