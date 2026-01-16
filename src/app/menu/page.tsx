@@ -26,7 +26,7 @@ const MenuPage = () => {
           </p>
         </div>
 
-        {/* The KitKat Grid: 2 Columns, Smaller Height */}
+        {/* The KitKat Grid: 2 Columns*/}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-x-8 lg:gap-y-4">
           {menuItems.map((item, index) => (
             <motion.div
@@ -38,7 +38,7 @@ const MenuPage = () => {
               whileHover={{ x: 10 }}
               className="group relative flex items-center h-20 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-[#BCE334] hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer"
             >
-              {/* Left Side: Small Image (The "Bar" Tip) */}
+              {/* Left Side: Small Image */}
               <div className="w-24 h-full relative bg-gray-100 group-hover:bg-[#BCE334]/10 transition-colors shrink-0">
                 <Image 
                   src={item.image} 
@@ -48,13 +48,13 @@ const MenuPage = () => {
                 />
               </div>
 
-              {/* Right Side: Details (The "Bar" Body) */}
+              {/* Right Side: Details */}
               <div className="flex-1 px-4 flex items-center justify-between">
                 <div className="space-y-0.5">
                   <h3 className="font-bold text-gray-900 text-xs lg:text-sm uppercase tracking-tight line-clamp-1">
                     {item.name}
                   </h3>
-                  <p className="text-[#029FBE] font-black text-base lg:text-lg tracking-tighter">
+                  <p className="text-[#ED1A1A] font-black text-base lg:text-lg tracking-tighter">
                     ৳{item.price}
                   </p>
                 </div>

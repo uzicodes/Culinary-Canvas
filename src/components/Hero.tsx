@@ -80,14 +80,14 @@ const Hero = () => {
                 </motion.button>
               </Link>
 
-              {/* NEW: Menu Button */}
+              {/* Menu Button */}
               <Link href="/menu">
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-black text-[#BCE334] px-8 py-3 rounded-full font-bold flex items-center justify-center space-x-2 transition-all shadow-lg border-2 border-black hover:bg-transparent hover:text-black"
+                  className="bg-black text-[#BCE334] px-8 py-2.5 rounded-full font-bold flex items-center justify-center space-x-2 transition-all shadow-lg border-2 border-black hover:bg-transparent hover:text-black"
                 >
-                  <span>View Full Menu</span>
+                  <span>View Menu</span>
                   <UtensilsCrossed className="w-5 h-5" />
                 </motion.button>
               </Link>
