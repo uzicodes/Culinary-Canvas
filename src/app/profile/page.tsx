@@ -1,323 +1,124 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import Header from "@/components/Header";
-import { useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
+import { motion } from 'framer-motion'
+import { UserCircle, Lock, ArrowRight, ShieldCheck } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import { useSession } from 'next-auth/react'
 
-const ProfilePage = () => {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const defaultUser = {
-    name: session?.user?.name || "",
-    email: session?.user?.email || "",
-    avatar: session?.user?.image || "/profile-avatar.png",
-    phone: "",
-    address: "",
-    joined: "",
-    orders: 0,
-    favorites: 0,
-    loyaltyPoints: 0,
-  };
-  const [editing, setEditing] = useState(false);
-  const [profile, setProfile] = useState(defaultUser);
-  const [form, setForm] = useState({
-    name: defaultUser.name,
-    phone: defaultUser.phone,
-    address: defaultUser.address,
-    avatar: defaultUser.avatar,
-    email: defaultUser.email,
-  });
+export default function ProfilePage() {
+  const { data: session } = useSession();
 
-  // Sync profile state with session on reload or session change
-  React.useEffect(() => {
-    if (session && session.user) {
-      const createdAt = (session.user as any).createdAt;
-      let formattedDate = "";
-
-      if (createdAt) {
-        const date = new Date(createdAt);
-        const monthNames = [
-          "January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December"
-        ];
-        formattedDate = `${monthNames[date.getMonth()]}, ${date.getFullYear()}`;
-      }
-
-      setProfile((prev) => ({
-        ...prev,
-        name: session.user?.name || "",
-        email: session.user?.email || "",
-        avatar: session.user?.image || "/profile-avatar.png",
-        joined: formattedDate,
-      }));
-      setForm((prev) => ({
-        ...prev,
-        name: session.user?.name || "",
-        email: session.user?.email || "",
-        avatar: session.user?.image || "/profile-avatar.png",
-      }));
-    }
-  }, [session]);
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-  // Order history state
-  const [showOrderHistory, setShowOrderHistory] = useState(false);
-  const [orderHistory, setOrderHistory] = useState<any[]>([]);
-  const [loadingOrders, setLoadingOrders] = useState(false);
-  const [ordersError, setOrdersError] = useState<string | null>(null);
-
-  const fetchOrderHistory = async (updateOnlyCount = false) => {
-    if (!profile.email) return;
-    setLoadingOrders(true);
-    setOrdersError(null);
-    try {
-      const res = await fetch(`/api/orders/history?email=${encodeURIComponent(profile.email)}`);
-      if (!res.ok) throw new Error('Failed to fetch order history');
-      const data = await res.json();
-      if (updateOnlyCount) {
-        setProfile((prev) => ({ ...prev, orders: data.length }));
-      } else {
-        setOrderHistory(data);
-        setProfile((prev) => ({ ...prev, orders: data.length }));
-      }
-    } catch (err: any) {
-      setOrdersError(err.message || 'Error fetching orders');
-    } finally {
-      setLoadingOrders(false);
-    }
-  };
-
-  // Fetch order count on profile load (when email is available)
-  React.useEffect(() => {
-    if (profile.email) {
-      fetchOrderHistory(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profile.email]);
-
-  const handleToggleOrderHistory = () => {
-    if (!showOrderHistory) {
-      fetchOrderHistory();
-    }
-    setShowOrderHistory((prev) => !prev);
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatarPreview(reader.result as string);
-        setForm({ ...form, avatar: reader.result as string });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  const handleSave = () => {
-    setProfile({ ...profile, ...form });
-    setEditing(false);
-    setAvatarPreview(null);
-  };
-  const handleCancel = () => {
-    setForm({ name: profile.name, phone: profile.phone, address: profile.address, avatar: profile.avatar, email: profile.email });
-    setEditing(false);
-    setAvatarPreview(null);
-  };
-
-  if (status === "loading") {
-    return <div className="min-h-screen flex items-center justify-center text-lg">Loading...</div>;
-  }
   if (!session) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
-          <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to view your profile</h2>
-          <p className="mb-6 text-gray-700">If you don&apos;t have an account, please register below.</p>
-          <div className="flex gap-4 justify-center">
-            <Link href="/login" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
-            <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
-            <Link href="/admin-login" className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Admin Login</Link>
-          </div>
+      <div className="relative min-h-screen flex flex-col">
+        <Header />
+        
+        {/* Background with Blur */}
+        <div className="fixed inset-0 w-full h-full -z-10">
+          <Image
+            src="/gradient.png"
+            alt="Background"
+            fill
+            className="object-cover w-full h-full blur-xl opacity-60"
+            priority
+          />
         </div>
+
+        <div className="flex-grow flex items-center justify-center p-4 pt-24 pb-12">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-md"
+          >
+            <div className="bg-white/70 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/40 text-center">
+              
+              {/* Illustration/Icon */}
+              <div className="flex justify-center mb-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-[#BCE334] blur-2xl opacity-20 rounded-full" />
+                  <div className="relative w-16 h-16 bg-black rounded-2xl flex items-center justify-center shadow-xl">
+                    <UserCircle className="text-[#BCE334] w-10 h-10" />
+                    <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm">
+                      <Lock className="w-3 h-3 text-gray-400" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Typography */}
+              <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter leading-none">
+                Your Profile <span className="text-gray-500">Awaits</span>
+              </h2>
+              <p className="mt-3 text-xs text-gray-600 font-medium leading-relaxed px-4">
+                Join our community of foodies to track orders, earn loyalty points, and save your favorites.
+              </p>
+
+              {/* Primary User Buttons */}
+              <div className="mt-6 space-y-3">
+                <Link href="/login" className="block">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-[#BCE334] text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
+                  >
+                    Login to Account
+                    <ArrowRight size={14} />
+                  </motion.button>
+                </Link>
+
+                <Link href="/register" className="block">
+                  <motion.button
+                    whileHover={{ scale: 1.02, backgroundColor: 'rgba(0,0,0,0.05)' }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-transparent border-2 border-black text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] transition-colors"
+                  >
+                    Create New Account
+                  </motion.button>
+                </Link>
+              </div>
+
+              {/* Separator */}
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200"></div>
+                </div>
+                <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black text-gray-400">
+                  <span className="bg-[#f3fce5] px-4 rounded-full">Staff Only</span>
+                </div>
+              </div>
+
+              {/* ADMIN BUTTON: Green/Black before and after hover */}
+              <div className="flex justify-center">
+                <Link href="/admin-login">
+                  <motion.button
+                    // Hover: Inverts colors (Green BG, Black Text)
+                    whileHover={{ scale: 1.05, backgroundColor: '#BCE334', color: '#000' }}
+                    whileTap={{ scale: 0.95 }}
+                    // Initial: Solid Black BG, Green Text
+                    className="inline-flex items-center gap-2 px-8 py-2.5 rounded-full shadow-lg transition-all text-[10px] font-bold uppercase tracking-widest"
+                    style={{ backgroundColor: '#000', color: '#BCE334' }}
+                  >
+                    <ShieldCheck size={14} />
+                    Admin Portal Access
+                  </motion.button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        <Footer />
       </div>
     );
   }
-  return (
-    <>
-      <Header />
-      <section className="relative min-h-screen pt-28 pb-10 px-4 flex flex-col items-center justify-start gap-0">
-        {/* Full-page Gradient background */}
-        <div className="fixed inset-0 w-full h-full -z-10">
-          <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
-        </div>
-        <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
-          <div className="w-full flex justify-end mb-4">
-            <Link href="/admin-login" className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Admin Login</Link>
-          </div>
-          <div className="flex items-center mb-4">
-            <div className="relative w-28 h-28">
-              <Image
-                src={avatarPreview || profile.avatar}
-                alt="Profile Avatar"
-                fill
-                className="rounded-full object-cover border-4 border-primary-500"
-                priority
-              />
-            </div>
-            {editing && (
-              <div className="ml-6 flex flex-col items-start">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarChange}
-                  className="mt-2 text-xs"
-                />
-                <span className="text-xs text-gray-500 mt-1">Change profile picture</span>
-              </div>
-            )}
-          </div>
-          <h2 className="text-2xl font-bold mb-1 text-black">
-            {editing ? (
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-              />
-            ) : (
-              profile.name
-            )}
-          </h2>
-          <p className="text-gray-500 mb-2">{profile.email}</p>
-          <div className="flex gap-4 mb-4">
-            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-              {profile.orders} Orders
-            </span>
-          </div>
-          <div className="w-full border-t pt-4 mt-4">
-            <div className="mb-2 flex items-center justify-between">
-              <span className="font-medium text-gray-700">Phone:</span>
-              {editing ? (
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-                />
-              ) : (
-                <span className="text-gray-900">{profile.phone}</span>
-              )}
-            </div>
-            <div className="mb-2 flex items-center justify-between">
-              <span className="font-medium text-gray-700">Email:</span>
-              <span className="text-gray-900">{profile.email}</span>
-            </div>
-            <div className="mb-2 flex items-center justify-between">
-              <span className="font-medium text-gray-700">Address:</span>
-              {editing ? (
-                <input
-                  type="text"
-                  name="address"
-                  value={form.address}
-                  onChange={handleChange}
-                  className="border rounded px-2 py-1 w-full max-w-xs bg-white"
-                />
-              ) : (
-                <span className="text-gray-900 text-right max-w-[60%] truncate">{profile.address || ""}</span>
-              )}
-            </div>
-            <div className="mb-2 flex items-center justify-between">
-              <span className="font-medium text-gray-700">Member Since:</span>
-              <span className="text-gray-900">{profile.joined}</span>
-            </div>
-          </div>
-          <div className="w-full flex flex-col sm:flex-row gap-3 mt-6 justify-center items-center">
-            {editing ? (
-              <>
-                <button onClick={handleSave} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Save</button>
-                <button onClick={handleCancel} className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Cancel</button>
-              </>
-            ) : (
-              <>
-                <button onClick={() => setEditing(true)} className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto">Edit Profile</button>
-                <button
-                  type="button"
-                  onClick={handleToggleOrderHistory}
-                  className="font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto text-white flex items-center gap-2"
-                  style={{ backgroundColor: '#1267E5' }}
-                  onMouseOver={e => (e.currentTarget.style.backgroundColor = '#0f53b6')}
-                  onMouseOut={e => (e.currentTarget.style.backgroundColor = '#1267E5')}
-                >
-                  {showOrderHistory ? 'Order History' : 'Order History'}
-                  <span style={{ display: 'inline-block', transition: 'transform 0.2s', transform: showOrderHistory ? 'rotate(180deg)' : 'rotate(0deg)', verticalAlign: 'middle' }}>
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'inline', verticalAlign: 'middle' }}>
-                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.2" fill="none" />
-                      <polyline points="8 12 12 16 16 12" stroke="currentColor" strokeWidth="2.2" fill="none" />
-                    </svg>
-                  </span>
-                </button>
-                <button
-                  onClick={() => signOut({ callbackUrl: '/' })}
-                  className="bg-red-100 hover:bg-red-200 text-red-600 font-semibold py-2 px-6 rounded-lg transition-colors w-full sm:w-auto"
-                >
-                  Log Out
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-        {/* Order History Section */}
-        {showOrderHistory && (
-          <div className="w-full mt-6 flex flex-col items-center">
-            <div className="w-full max-w-2xl bg-white rounded-xl shadow p-4 sm:p-6">
-              <h3 className="text-lg font-semibold mb-4 text-primary-600">Order History</h3>
-              {loadingOrders && <div className="text-gray-500">Loading orders...</div>}
-              {ordersError && <div className="text-red-500">{ordersError}</div>}
-              {!loadingOrders && !ordersError && orderHistory.length === 0 && (
-                <div className="text-gray-500">No orders found.</div>
-              )}
-              {!loadingOrders && !ordersError && orderHistory.length > 0 && (
-                <div className="overflow-x-auto w-full">
-                  <table className="min-w-[600px] w-full text-sm border border-gray-200">
-                    <thead>
-                      <tr className="bg-gray-100">
-                        <th className="px-2 py-2 border">Order ID</th>
-                        <th className="px-2 py-2 border">Date</th>
-                        <th className="px-2 py-2 border">Items</th>
-                        <th className="px-2 py-2 border">Payment</th>
-                        <th className="px-2 py-2 border">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {orderHistory.map((order) => (
-                        <tr key={order._id} className="border-b">
-                          <td className="px-2 py-2 border font-mono whitespace-nowrap">{order.order_id || order._id}</td>
-                          <td className="px-2 py-2 border whitespace-nowrap">{order.orderTime ? new Date(order.orderTime).toLocaleString() : ''}</td>
-                          <td className="px-2 py-2 border">
-                            {Array.isArray(order.itemsOrdered)
-                              ? order.itemsOrdered.join(', ')
-                              : (order.itemsOrdered || '')}
-                          </td>
-                          <td className="px-2 py-2 border capitalize whitespace-nowrap">{order.paymentType}</td>
-                          <td className="px-2 py-2 border font-semibold whitespace-nowrap">৳{order.totalCost}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-      </section>
-    </>
-  );
-};
 
-export default ProfilePage;
+  return (
+    <div className="min-h-screen">
+      <Header />
+      {/* Build your Authenticated Profile Dashboard here */}
+      <Footer />
+    </div>
+  );
+}
