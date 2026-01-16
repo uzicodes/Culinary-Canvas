@@ -31,7 +31,7 @@ export default function HomeScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1.5 bg-blue-400 origin-left z-[100]"
+        className="fixed top-0 left-0 right-0 h-1.5 bg-red-500 origin-left z-[100]"
       style={{ scaleX }}
     />
   );
