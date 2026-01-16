@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -28,27 +28,15 @@ export const useAutoLogout = () => {
     }
   };
 
-  const resetTimer = () => {
-    // Clear existing timeout
+  const resetTimer = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-
-    // Set new timeout
     timeoutRef.current = setTimeout(() => {
       logout();
     }, INACTIVITY_TIMEOUT);
-  };
-
+  }, [logout]);
   useEffect(() => {
-    // Check if user is logged in before setting up the timer
-    if (status === 'loading') return; // Wait for session to load
-    if (status === 'unauthenticated' || !session) return; // No need to logout if not logged in
-
-    // Update last activity time
-    lastActivityRef.current = Date.now();
-
-    // Events to track user activity
     const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
 
     // Add event listeners
@@ -68,7 +56,7 @@ export const useAutoLogout = () => {
         document.removeEventListener(event, resetTimer);
       });
     };
-    }, [session, status, resetTimer]);
+  }, [session, status, resetTimer]);
 
   return { logout };
 };

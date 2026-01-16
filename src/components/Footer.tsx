@@ -2,6 +2,7 @@
 
 import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin, Clock, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Footer = () => {
   return (
