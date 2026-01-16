@@ -140,6 +140,7 @@ const ProfilePage = () => {
           <div className="flex gap-4 justify-center">
             <Link href="/login" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
             <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
+            <Link href="/admin-login" className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Admin Login</Link>
           </div>
         </div>
       </div>
@@ -154,6 +155,9 @@ const ProfilePage = () => {
           <Image src="/gradient.png" alt="Gradient background" fill className="w-full h-full object-cover" priority />
         </div>
         <div className="bg-white bg-opacity-90 rounded-2xl shadow-lg p-8 flex flex-col items-center relative max-w-2xl w-full mx-auto">
+          <div className="w-full flex justify-end mb-4">
+            <Link href="/admin-login" className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Admin Login</Link>
+          </div>
           <div className="flex items-center mb-4">
             <div className="relative w-28 h-28">
               <Image

@@ -144,6 +144,7 @@ const Header = () => {
               )}
             </div>
 
+
             <Link href="/profile" className="p-1.5 text-gray-800 hover:scale-110 transition-transform">
               <User className="w-4 h-4" />
             </Link>

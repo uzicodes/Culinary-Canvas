@@ -1,9 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "@/lib/mongodb"; // Adjust path if needed
+import clientPromise from "@/lib/mongodb";
 import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
-
 
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -18,10 +17,15 @@ const handler = NextAuth({
         try {
           if (!credentials?.email || !credentials?.password) return null;
           const user = await findUserByEmail(credentials.email);
+          
           if (user && await validPassword(credentials.password, user.password)) {
-
             const { password, _id, ...userWithoutPassword } = user;
-            return { ...userWithoutPassword, id: _id.toString() };
+            // Ensure the role is included in the returned user object
+            return { 
+              ...userWithoutPassword, 
+              id: _id.toString(),
+              role: user.role || "user" // Fallback to "user" if no role exists
+            };
           }
           return null;
         } catch (err) {
@@ -32,24 +36,22 @@ const handler = NextAuth({
     })
   ],
   session: {
-    strategy: "jwt" as const,
-    maxAge: 30 * 60, // 30 minutes in seconds
-    updateAge: 5 * 60, // Update session every 5 minutes
+    strategy: "jwt",
+    maxAge: 30 * 60,
   },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.name = user.name;
-        token.email = user.email;
+        token.role = (user as any).role; // Add role to token
         token.createdAt = (user as any).createdAt;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
-        session.user.name = token.name as string;
-        session.user.email = token.email as string;
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role; // Add role to session
         (session.user as any).createdAt = token.createdAt;
       }
       return session;
