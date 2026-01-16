@@ -18,7 +18,6 @@ const MenuPage = () => {
         {/* Section Header */}
         <div className="mb-12 text-left border-l-8 border-[#BCE334] pl-6">
           <h1 className="text-4xl lg:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
-            
             <span className="text-[#BCE334] bg-black px-2">Our Digital Menu</span>
           </h1>
           <p className="text-gray-500 mt-4 text-sm font-bold uppercase tracking-widest">
@@ -26,7 +25,7 @@ const MenuPage = () => {
           </p>
         </div>
 
-        {/* The KitKat Grid: 2 Columns*/}
+        {/* The KitKat Grid: 2 Columns */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-x-8 lg:gap-y-4">
           {menuItems.map((item, index) => (
             <motion.div
@@ -36,21 +35,23 @@ const MenuPage = () => {
               viewport={{ once: true }}
               transition={{ delay: (index % 10) * 0.05 }}
               whileHover={{ x: 10 }}
-              className="group relative flex items-center h-20 bg-gray-50 rounded-xl overflow-hidden border border-gray-100 hover:border-[#BCE334] hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer"
+              // CHANGED: bg-gray-50 to bg-[#F1F8E9] (Organic Sage)
+              className="group relative flex items-center h-20 bg-[#F1F8E9] rounded-xl overflow-hidden border border-green-100 hover:border-[#BCE334] hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer"
             >
               {/* Left Side: Small Image */}
-              <div className="w-24 h-full relative bg-gray-100 group-hover:bg-[#BCE334]/10 transition-colors shrink-0">
+              {/* CHANGED: bg-gray-100 to a slightly deeper green tint */}
+              <div className="w-20 h-full relative bg-[#E8F5E9] group-hover:bg-[#BCE334]/10 transition-colors shrink-0">
                 <Image 
                   src={item.image} 
                   alt={item.name} 
                   fill 
-                  className="object-contain p-3 transition-transform duration-500 group-hover:scale-110"
+                  className="object-contain p-2.5 transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
 
               {/* Right Side: Details */}
               <div className="flex-1 px-4 flex items-center justify-between">
-                <div className="space-y-0.5">
+                <div className="space-y-0">
                   <h3 className="font-bold text-gray-900 text-xs lg:text-sm uppercase tracking-tight line-clamp-1">
                     {item.name}
                   </h3>
@@ -61,10 +62,10 @@ const MenuPage = () => {
 
                 <Link href={`/all-items/${item.id}`}>
                    <motion.div 
-                    whileHover={{ x: 5 }}
-                    className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-[#BCE334]"
+                    whileHover={{ x: 3 }}
+                    className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-[#BCE334]"
                    >
-                     <ArrowRight size={16} />
+                     <ArrowRight size={14} />
                    </motion.div>
                 </Link>
               </div>
