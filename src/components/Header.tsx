@@ -65,7 +65,7 @@ const Header = () => {
             </div>
       
             <span 
-                className="hidden lg:block text-xl lg:text-2xl font-black text-grey-500 tracking-tighter uppercase leading-none"
+                className="hidden lg:block text-xl lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
             >
               Culinary Canvas
