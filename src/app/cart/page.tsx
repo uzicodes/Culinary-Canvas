@@ -39,6 +39,7 @@ export default function CartPage() {
           : item
       );
       localStorage.setItem("cart", JSON.stringify(updated));
+      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
       return updated;
     });
   };
@@ -51,6 +52,7 @@ export default function CartPage() {
           : item
       );
       localStorage.setItem("cart", JSON.stringify(updated));
+      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
       return updated;
     });
   };
@@ -59,6 +61,7 @@ export default function CartPage() {
     setCartItems((prev) => {
       const updated = prev.filter((item) => item._id !== id);
       localStorage.setItem("cart", JSON.stringify(updated));
+      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
       return updated;
     });
   };
@@ -66,6 +69,7 @@ export default function CartPage() {
   const clearCart = () => {
     setCartItems([]);
     localStorage.setItem("cart", JSON.stringify([]));
+    if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
   };
 
   // Checkout handler
