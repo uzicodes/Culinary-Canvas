@@ -1,10 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { ArrowRight, UtensilsCrossed } from 'lucide-react' // Added UtensilsCrossed for the menu icon
+import { ArrowRight, UtensilsCrossed, Truck, MapPin, Smartphone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
 import { motion } from 'framer-motion'
 
 const useCountUp = (end: number, duration: number, suffix = '') => {
@@ -38,7 +37,6 @@ const Hero = () => {
 
   const dishes = useCountUp(50, 1200, '+')
   const customers = useCountUp(10000, 1200)
-  const { data: session, status } = useSession();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,45 +45,63 @@ const Hero = () => {
     return () => clearInterval(interval)
   }, [images.length])
 
+  const features = [
+    {
+      icon: <Truck className="w-6 h-6 text-white" />,
+      title: "Super Fast Delivery",
+      desc: "Faster than your cravings can blink. Hot and fresh."
+    },
+    {
+      icon: <MapPin className="w-6 h-6 text-white" />,
+      title: "Live Tracking",
+      desc: "Follow your food's journey from our kitchen to your door."
+    },
+    {
+      icon: <Smartphone className="w-6 h-6 text-white" />,
+      title: "Easy Ordering",
+      desc: "Find and order your top favorites in just a few taps."
+    }
+  ]
+
   return (
-    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[600px] flex items-center overflow-hidden pt-32">
-      <div className="w-full">
-        <div className="grid lg:grid-cols-2 items-center">
+    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
+      <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#BCE334] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+      <div className="w-full relative z-10">
+        <div className="grid lg:grid-cols-2 items-center gap-12 lg:gap-0">
           
           {/* Left Content */}
-          <div className="space-y-8 px-4 sm:px-6 lg:px-8">
+          <div className="space-y-10 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-7xl font-bold text-primary-600 leading-tight">
+              <h1 className="text-5xl lg:text-7xl font-bold text-primary-800 leading-tight">
                 <span style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}>Culinary Canvas</span>
-                <span className="block text-black text-3xl lg:text-3xl font-semibold mt-1 marcellus-regular">
-                  art your healthy way to life !
+                <span className="block text-black text-2xl lg:text-4xl font-semibold mt-2 marcellus-regular tracking-tight">
+                  art your healthy way to life.
                 </span>
               </h1>
-              <p className="text-lg text-gray-600 max-w-md">
-                Discover fresh, organic, and nutritious food delivered straight to your doorstep. 
-                Start your healthy journey today.
+              <p className="text-lg text-gray-700 max-w-md leading-relaxed">
+                Discover fresh, organic, and nutritious food artfully crafted and delivered straight to your doorstep.
               </p>
             </div>
 
-            {/* CTA Buttons - Now with Menu Button */}
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/all-items">
                 <motion.button 
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, backgroundColor: '#050BB3' }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-full font-bold flex items-center justify-center space-x-2 transition-all shadow-lg"
+                  className="bg-primary-600 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
                 >
                   <span>Explore Now</span>
                   <ArrowRight className="w-5 h-5" />
                 </motion.button>
               </Link>
 
-              {/* Menu Button */}
               <Link href="/menu">
                 <motion.button 
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, backgroundColor: 'transparent', color: 'black' }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-black text-[#BCE334] px-8 py-2.5 rounded-full font-bold flex items-center justify-center space-x-2 transition-all shadow-lg border-2 border-black hover:bg-transparent hover:text-black"
+                  className="bg-black text-[#BCE334] px-8 py-3.5 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl border-2 border-black"
                 >
                   <span>View Menu</span>
                   <UtensilsCrossed className="w-5 h-5" />
@@ -93,74 +109,61 @@ const Hero = () => {
               </Link>
             </div>
 
-            {/* Stats */}
-            <div className="flex space-x-8 pt-4">
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{dishes}</div>
-                <div className="text-sm text-gray-600">Healthy Dishes</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">{customers}</div>
-                <div className="text-sm text-gray-600">Happy Customers</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600">Fast Delivery</div>
-              </div>
+            <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {features.map((f, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.15 }}
+                  className="group relative p-5 rounded-3xl bg-white/40 backdrop-blur-md border border-white/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#BCE334]/0 to-primary-500/0 group-hover:from-[#BCE334]/10 group-hover:to-primary-500/5 transition-all duration-500"></div>
+                  <div className="relative z-10 flex flex-col items-start">
+                    <div className="mb-4 p-3 rounded-2xl bg-gradient-to-br from-[#BCE334] to-primary-500 shadow-lg shadow-primary-500/20 group-hover:scale-110 transition-transform duration-300">
+                      {f.icon}
+                    </div>
+                    <h4 className="text-base font-extrabold text-gray-900 mb-1.5">{f.title}</h4>
+                    <p className="text-[13px] font-medium text-gray-600 leading-snug opacity-90">
+                      {f.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
 
-            {/* Login and Register Buttons Section */}
-            {status === "unauthenticated" && (
-              <div className="pt-6 flex flex-wrap gap-4">
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/login">
-                    <div className="user-profile cursor-pointer">
-                      <div className="user-profile-inner">
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
-                        Login
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/register">
-                    <div className="user-profile cursor-pointer">
-                      <div className="user-profile-inner">
-                        <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                        </svg>
-                        Register
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
+            <div className="flex space-x-10 pt-6 border-t border-primary-200/30">
+              <div>
+                <div className="text-3xl font-black text-primary-900">{dishes}</div>
+                <div className="text-sm font-bold text-primary-700/70 uppercase tracking-wider">Healthy Dishes</div>
               </div>
-            )}
+              <div>
+                <div className="text-3xl font-black text-primary-900">{customers}</div>
+                <div className="text-sm font-bold text-primary-700/70 uppercase tracking-wider">Happy Customers</div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Content - Rotating Hero Images */}
-          <div className="relative w-full h-[500px] overflow-hidden">
+          {/* Right Content - Updated Carousel with Hidden Next Images */}
+          <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden mt-8 lg:mt-0">
             {images.map((imageObj, index) => {
               let position = '';
+              // Only the current index gets the visible class
               if (index === currentImageIndex) position = 'carousel-center';
-              else if (index === (currentImageIndex + 1) % images.length) position = 'carousel-right';
-              else if (index === (currentImageIndex - 1 + images.length) % images.length) position = 'carousel-far-right';
               else position = 'carousel-hidden';
 
               return (
                 <div
                   key={imageObj.src}
-                  className={`absolute inset-0 transition-transform duration-700 ease-in-out ${position}`}
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${position}`}
                   style={{ zIndex: index === currentImageIndex ? 10 : 0 }}
                 >
                   <Image
                     src={imageObj.src}
                     alt="Fresh healthy food"
                     fill
-                    className="object-contain w-full h-full scale-90"
+                    // Scale reduced to 0.75 for smaller images as requested
+                    className="object-contain w-full h-full drop-shadow-2xl scale-75"
                     priority={index === 0}
                   />
                 </div>
@@ -169,10 +172,28 @@ const Hero = () => {
           </div>
 
           <style jsx>{`
-            .carousel-center { opacity: 1; transform: translateX(0) scale(0.9); }
-            .carousel-right { opacity: 1; transform: translateX(100%) scale(0.8) rotate(10deg); }
-            .carousel-far-right { opacity: 0; transform: translateX(200%) scale(0.7) rotate(20deg); }
-            .carousel-hidden { opacity: 0; transform: translateX(200%) scale(0.7); pointer-events: none; }
+            /* Only the active image is visible and centered */
+            .carousel-center { 
+              opacity: 1; 
+              transform: translateX(0) scale(1); 
+              visibility: visible;
+            }
+            /* All other images are hidden and ready to slide in */
+            .carousel-hidden { 
+              opacity: 0; 
+              transform: translateX(50%) scale(0.8); 
+              visibility: hidden;
+              pointer-events: none; 
+            }
+
+            @keyframes blob {
+              0% { transform: translate(0px, 0px) scale(1); }
+              33% { transform: translate(30px, -50px) scale(1.1); }
+              66% { transform: translate(-20px, 20px) scale(0.9); }
+              100% { transform: translate(0px, 0px) scale(1); }
+            }
+            .animate-blob { animation: blob 7s infinite; }
+            .animation-delay-2000 { animation-delay: 2s; }
           `}</style>
         </div>
       </div>
