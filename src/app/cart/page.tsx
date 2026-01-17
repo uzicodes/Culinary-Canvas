@@ -143,15 +143,15 @@ export default function CartPage() {
         <div className="relative z-10">
           {/* "Your Cart" Heading with Orange Border and Light Blue Background */}
           <h1
-            className="text-4xl font-extrabold mb-8 text-center text-black mt-[-30px] p-4"
+            className="text-4xl font-extrabold mb-8 text-center text-black mt-[-30px] p-4 mx-auto"
             style={{
               backgroundColor: "#d8e7f5", // Light blue background inside
               border: "3px solid #e97f3e", // Orange border
               padding: "10px", // Padding for better spacing
               borderRadius: "12px", // Rounded corners
-              display: "block", // Make the heading span the full width
-              width: "100%", // Full width of the container
-              maxWidth: "100%", // Full width of the container
+              maxWidth: "480px", // Less wide tile
+              width: "100%",
+              display: "block"
             }}
           >
             Your Cart
