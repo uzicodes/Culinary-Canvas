@@ -115,9 +115,50 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      {/* Build your Authenticated Profile Dashboard here */}
+      <div className="flex-grow flex items-center justify-center p-4 pt-24 pb-12">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-md"
+        >
+          <div className="bg-white/80 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/40 text-center">
+            <div className="flex justify-center mb-4">
+              <div className="relative w-20 h-20 mx-auto">
+                <Image
+                  src={session?.user?.image || '/default-avatar.png'}
+                  alt={session?.user?.name || 'User'}
+                  fill
+                  className="object-cover rounded-full border-4 border-[#BCE334]"
+                />
+              </div>
+            </div>
+            <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-2">
+              {session?.user?.name || 'User'}
+            </h2>
+            <p className="text-sm text-gray-600 mb-4">{session?.user?.email}</p>
+            <div className="flex flex-col gap-3 mt-6">
+              <Link href="/orders" className="block">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-[#BCE334] text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
+                >
+                  My Orders
+                  <ArrowRight size={14} />
+                </motion.button>
+              </Link>
+              <button
+                onClick={() => { if (typeof window !== 'undefined') { window.location.href = '/api/auth/signout'; } }}
+                className="w-full bg-black text-[#BCE334] py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-black/20 flex items-center justify-center gap-2"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
       <Footer />
     </div>
   );
