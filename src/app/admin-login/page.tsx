@@ -75,7 +75,7 @@ const AdminLoginPage = () => {
               <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">
                 Admin <span className="text-gray-500">Access</span>
               </h2>
-              <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1">
+              <p className="text-[0.5rem] font-bold text-gray-500 uppercase tracking-widest mt-1">
                 Authorized Personnel Only
               </p>
             </div>
@@ -91,24 +91,11 @@ const AdminLoginPage = () => {
               </motion.div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+
+         {/* Form */}
+            <form onSubmit={handleSubmit} className="space-y-5">             
               <div className="space-y-1">
-                <label className="block text-gray-700 text-[10px] font-black uppercase tracking-widest ml-1">Admin Email</label>
-                <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="admin@culinarycanvas.com"
-                    className="w-full pl-12 pr-4 py-3 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-sm font-medium"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <div className="space-y-1">
-                <label className="block text-gray-700 text-[10px] font-black uppercase tracking-widest ml-1">Security Key</label>
+                <label className="block text-center text-red-700 text-[10px] font-black uppercase tracking-widest ml-1">Enter your Security Key</label>
                 <div className="relative">
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
