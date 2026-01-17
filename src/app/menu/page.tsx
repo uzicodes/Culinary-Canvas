@@ -60,7 +60,7 @@ const MenuPage = () => {
                   </p>
                 </div>
 
-                <Link href={`/all-items/${item.id}`}>
+                <Link href={`/all-items?id=${item.id}`}>
                    <motion.div 
                     whileHover={{ x: 3 }}
                     className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-[#BCE334]"

@@ -32,12 +32,11 @@ const itemVariants: Variants = {
 export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const { data: session } = useSession();
   const isAdmin = (session?.user as any)?.role === 'admin';
-  
+
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
+  const selectedId = typeof searchParams?.id === 'string' ? searchParams.id : undefined;
   const [showToast, setShowToast] = useState(false);
-
-  // Your Menu Items Array
   const initialMenuItems: MenuItem[] = [
     { id: 1, name: 'Classic Cheeseburger', description: 'Juicy beef patty with melted cheese ', price: 350, category: 'burger', image: '/items/burger/classic.png' },
     { id: 2, name: 'Bacon Burger', description: 'Crispy bacon with beef patty and cheddar', price: 400, category: 'burger', image: '/items/burger/bacon.png' },
@@ -107,12 +106,18 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 'drinks', label: 'Drinks & Beverages' },
   ];
 
-  const filteredItems = initialMenuItems.filter(item => {
+  let filteredItems = initialMenuItems.filter(item => {
     const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.description.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  // If id param is present, show only that item (if found)
+  if (selectedId) {
+    const found = initialMenuItems.find(item => String(item.id) === selectedId);
+    filteredItems = found ? [found] : [];
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pt-28">
@@ -195,7 +200,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   );
 }
 
-// Sub-component for individual item cards to manage internal edit state
+
 function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: boolean, setShowToast: (v: boolean) => void }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedItem, setEditedItem] = useState(item);
