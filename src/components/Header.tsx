@@ -59,11 +59,10 @@ const Header = () => {
       >
         {/* LEFT: Logo Section */}
         <div className="flex items-center shrink-0">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 relative">
+          <Link href="/" className="flex items-center space-x-2 -ml-2">
+            <div className="w-12 h-12 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
             </div>
-      
             <span 
                 className="hidden lg:block text-xl lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
