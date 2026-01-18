@@ -60,7 +60,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     { id: 40, name: 'Tiramisu', description: 'Classic Italian coffee-flavored dessert', price: 220, category: 'desserts', image: '/items/desserts/tiramisu.png' },
     { id: 37, name: 'Brownie', description: 'Chocolate brownie with nuts', price: 120, category: 'desserts', image: '/items/desserts/brownie.png' },
     { id: 50, name: 'Kung Pao Chicken', description: 'Spicy stir-fried chicken with peanuts and vegetables', price: 450, category: 'chinese', image: '/items/chinese/kung_pao.png' },
-    { id: 51, name: 'Sweet and Sour Pork', description: 'Pork in a tangy sweet and sour sauce', price: 400, category: 'chinese', image: '/items/chinese/pork.png' },
+    { id: 51, name: 'Shrimp Spaghetti', description: 'Spaghetti with shrimp in a savory sauce', price: 480, category: 'chinese', image: '/items/chinese/shrimp_spaghetti.png' },
     { id: 52, name: 'Basil Fried Rice', description: 'Egg fried rice with fresh basil and vegetables', price: 350, category: 'chinese', image: '/items/chinese/basil_fried_rice.png' },
     { id: 60, name: 'Fettuccine Alfredo', description: 'Pasta with creamy Alfredo sauce', price: 600, category: 'italian', image: '/items/italian/alfredo.png' },
     { id: 62, name: 'Lasagna', description: 'Classic Italian layered pasta with meat and cheese', price: 650, category: 'italian', image: '/items/italian/lasagna.png' },
