@@ -16,7 +16,6 @@ const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // Get callbackUrl from query string (default to /)
   let callbackUrl = "/";
   if (typeof window !== "undefined") {
     const params = new URLSearchParams(window.location.search);
@@ -45,128 +44,73 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden">
-      {/* Fixed Full-page Background */}
-      <div className="fixed inset-0 w-full h-full -z-10">
-        <Image
-          src="/gradient.png"
-          alt="Background"
-          fill
-          className="object-cover w-full h-full blur-xl opacity-60"
-          priority
+    <div className="relative min-h-screen flex items-center justify-center px-4 bg-[#fafaf9] overflow-hidden">
+      {/* Dynamic Animated Background Section */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        {/* Animated Lime Blob */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            x: [0, 50, 0],
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-[#BCE334] rounded-full blur-[120px] opacity-30"
         />
+        {/* Animated Black Blob */}
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, -30, 0],
+            y: [0, 60, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-[10%] -right-[10%] w-[50%] h-[50%] bg-black rounded-full blur-[120px] opacity-10"
+        />
+        {/* Subtle Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
+        <Image src="/gradient.png" alt="" fill className="object-cover blur-2xl opacity-40" priority />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md relative"
-      >
-        {/* Glassmorphism Card */}
-        <div className="bg-white/70 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/40 overflow-hidden">
-          
-          {/* Logo & Header */}
-          <div className="flex flex-col items-center mb-8">
-            <motion.div 
-              whileHover={{ rotate: 10, scale: 1.1 }}
-              className="mb-4 p-3 bg-white rounded-2xl shadow-sm"
-            >
-              <Image 
-                src="/without_BG_logo.png" 
-                alt="Logo" 
-                width={50} 
-                height={50} 
-                className="object-contain" 
-              />
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative">
+        <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/60 overflow-hidden">
+          <div className="flex flex-col items-center mb-6 text-center">
+            <motion.div whileHover={{ rotate: 10, scale: 1.1 }} className="mb-4 p-3 bg-white rounded-2xl shadow-sm border border-lime-50">
+              <Image src="/without_BG_logo.png" alt="Logo" width={48} height={48} className="object-contain" />
             </motion.div>
             <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">
-              Login
+              Welcome <span className="text-[#BCE334]">Back</span>
             </h2>
-            <p className="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1">
-              Welcome back, Foodie!
-            </p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">Login to your culinary profile</p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            {/* Email Field */}
-            <div className="space-y-1">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Email Address</label>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="group space-y-1">
+              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Email Address</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type="email"
-                  required
-                  className="w-full pl-12 pr-4 py-3 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-sm font-medium text-black placeholder:text-gray-400"
-                  placeholder="you@email.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
+                <input type="email" required className="w-full pl-11 pr-4 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="you@email.com" value={email} onChange={e => setEmail(e.target.value)} />
               </div>
             </div>
-
-            {/* Password Field */}
-            <div className="space-y-1">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-700 ml-1">Password</label>
+            <div className="group space-y-1">
+              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
-                  type={showPassword ? "text" : "password"}
-                  required
-                  className="w-full pl-12 pr-12 py-3 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all text-sm font-medium text-black placeholder:text-gray-400"
-                  placeholder="Your password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-4 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
-                >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
+                <input type={showPassword ? "text" : "password"} required className="w-full pl-11 pr-12 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors">
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
-
-            {/* Error Message */}
-            {error && (
-              <motion.p 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="text-red-500 text-[11px] font-bold text-center uppercase tracking-wider"
-              >
-                {error}
-              </motion.p>
-            )}
-
-            {/* Login Button */}
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              disabled={loading}
-              type="submit"
-              className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-xl hover:shadow-black/20 transition-all flex items-center justify-center gap-2 mt-4 disabled:opacity-50"
-            >
-              {loading ? "Authenticating..." : "Login"}
-              {!loading && <ArrowRight size={16} />}
+            {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</motion.p>}
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2 mt-4 disabled:opacity-50">
+              {loading ? "Authenticating..." : "Login"} <ArrowRight size={16} />
             </motion.button>
           </form>
 
-          {/* Registration Link */}
-          <div className="mt-8 pt-6 border-t border-gray-100 text-center">
-            <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
-              Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-black hover:text-[#BCE334] transition-colors underline underline-offset-4">
-                Register Now
-              </Link>
-            </p>
-          </div>
-
-          {/* Quick Home Link */}
-          <div className="mt-6 flex justify-center">
-            <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-black transition-colors text-[10px] font-bold uppercase tracking-[0.15em]">
-              <Home size={12} />
-              Back to Home
-            </Link>
+          <div className="mt-8 text-center space-y-4">
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">New to the canvas? <Link href="/register" className="text-black hover:text-[#BCE334] transition-colors underline underline-offset-8 decoration-2 decoration-[#BCE334]">Register Now</Link></p>
+            <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors text-[9px] font-black uppercase tracking-widest bg-black/5 px-4 py-2 rounded-full"><Home size={10} /> Back to Home</Link>
           </div>
         </div>
       </motion.div>
