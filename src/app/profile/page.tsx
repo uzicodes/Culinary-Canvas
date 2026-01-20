@@ -32,6 +32,7 @@ export default function ProfilePage() {
     setShowOrders(!showOrders);
   };
 
+  // View shown when the user is NOT logged in
   if (!session) {
     return (
       <div className="relative min-h-screen flex flex-col">
@@ -42,21 +43,59 @@ export default function ProfilePage() {
               <div className="flex justify-center mb-4">
                 <div className="relative w-16 h-16 bg-black rounded-2xl flex items-center justify-center shadow-xl">
                   <UserCircle className="text-[#BCE334] w-10 h-10" />
+                  <div className="absolute -bottom-1 -right-1 bg-white p-1 rounded-full shadow-sm">
+                    <Lock className="w-3 h-3 text-gray-400" />
+                  </div>
                 </div>
               </div>
               <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tighter">Your Profile <span className="text-gray-500">Awaits</span></h2>
+              <p className="mt-3 text-xs text-gray-600 font-medium leading-relaxed px-4">
+                Join our community of foodies to track orders, earn loyalty points, and save your favorites.
+              </p>
+
+              {/* Login and Register Buttons */}
               <div className="mt-6 space-y-3">
                 <Link href="/login" className="block">
-                  <motion.button whileHover={{ scale: 1.02 }} className="w-full bg-[#BCE334] text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2">
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }} 
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-[#BCE334] text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
+                  >
                     Login to Account <ArrowRight size={14} />
                   </motion.button>
                 </Link>
-                <Link href="/admin-login">
-                  <button className="mt-6 inline-flex items-center gap-2 px-8 py-2.5 rounded-full shadow-lg text-[10px] font-bold uppercase tracking-widest bg-black text-[#BCE334]">
-                    <ShieldCheck size={14} /> Admin Portal
-                  </button>
+
+                {/* Restored Create New Account Button */}
+                <Link href="/register" className="block">
+                  <motion.button
+                    whileHover={{ scale: 1.02, backgroundColor: 'rgba(0,0,0,0.05)' }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-transparent border-2 border-black text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] transition-colors"
+                  >
+                    Create New Account
+                  </motion.button>
                 </Link>
               </div>
+
+              {/* Restored Staff Separator */}
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200"></div>
+                </div>
+                <div className="relative flex justify-center text-[10px] uppercase tracking-widest font-black text-gray-400">
+                  <span className="bg-[#f3fce5] px-4 rounded-full">Staff Only</span>
+                </div>
+              </div>
+
+              <Link href="/admin-login">
+                <motion.button 
+                  whileHover={{ scale: 1.05, backgroundColor: '#BCE334', color: '#000' }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-flex items-center gap-2 px-8 py-2.5 rounded-full shadow-lg text-[10px] font-bold uppercase tracking-widest bg-black text-[#BCE334]"
+                >
+                  <ShieldCheck size={14} /> Admin Portal
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         </div>
@@ -65,6 +104,7 @@ export default function ProfilePage() {
     );
   }
 
+  // View shown when the user IS logged in
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FBE7]">
       <Header />
@@ -82,7 +122,6 @@ export default function ProfilePage() {
               {session?.user?.name}
             </h2>
             
-            {/* Updated Email and Label Section */}
             <div className="mb-8">
               <p className="text-[10px] text-[#BCE334] bg-black inline-block px-3 py-1 rounded-full font-black uppercase tracking-[0.2em] mb-2">
                 Member Account
