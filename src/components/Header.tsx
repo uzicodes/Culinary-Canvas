@@ -8,7 +8,6 @@ import menuItems, { MenuItem } from '@/data/menuItems'
 import { useAutoLogout } from '@/hooks/useAutoLogout'
 
 const Header = () => {
-
   useAutoLogout();
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
@@ -35,6 +34,22 @@ const Header = () => {
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0);
 
+  // Shared Data for both Desktop & Mobile to fix ImageErrors
+  const categories = [
+    { name: 'Burgers', href: '/all-items?category=burger', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
+    { name: 'Pizza', href: '/all-items?category=pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
+    { name: 'Fast-Food', href: '/all-items?category=fastfood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
+    { name: 'Set Menus', href: '/all-items?category=setmenu', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
+    { name: 'Appetizers', href: '/all-items?category=appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
+    { name: 'Chinese', href: '/all-items?category=chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
+    { name: 'Italian', href: '/all-items?category=italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
+    { name: 'Traditional', href: '/all-items?category=traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
+    { name: 'Pakistani', href: '/all-items?category=pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
+    { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
+    { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
+    { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
+  ];
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const updateCartCount = () => {
@@ -57,12 +72,12 @@ const Header = () => {
             boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' 
         }}
       >
-        {/* LEFT: Logo Section */}
         <div className="flex items-center shrink-0">
           <Link href="/" className="flex items-center space-x-2 -ml-2">
             <div className="w-12 h-12 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
             </div>
+            {/* Restored Original Font and Style */}
             <span 
                 className="hidden lg:block text-xl lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
@@ -72,54 +87,40 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Combined Nav & Actions */}
-{/* RIGHT: Combined Nav and Actions */}
-<div className="flex items-center space-x-4 lg:space-x-6">
-  {/* Added items-center here to force vertical alignment */}
-  <nav className="hidden md:flex items-center space-x-5 h-full">
-    <Link 
-      href="/all-items" 
-      className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black transition-colors uppercase tracking-widest whitespace-nowrap leading-none flex items-center"
-    >
-      All Items
-    </Link>
-    
-    <div className="relative flex items-center h-full">
-      <button
-        type="button"
-        className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black uppercase tracking-widest focus:outline-none whitespace-nowrap leading-none flex items-center"
-        onClick={() => setIsCategoriesOpen((prev) => !prev)}
-      >
-        Categories
-      </button>
-      
-      {isCategoriesOpen && (
-        <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
-          <div className="max-h-[60vh] overflow-y-auto">
-            {[
-                { name: 'Burgers', href: '/all-items?category=burger', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
-                { name: 'Pizza', href: '/all-items?category=pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
-                { name: 'Fast-Food', href: '/all-items?category=fastfood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
-                { name: 'Set Menus', href: '/all-items?category=setmenu', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
-                { name: 'Appetizers', href: '/all-items?category=appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
-                { name: 'Chinese', href: '/all-items?category=chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
-                { name: 'Italian', href: '/all-items?category=italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
-                { name: 'Traditional', href: '/all-items?category=traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
-                { name: 'Pakistani', href: '/all-items?category=pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
-                { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
-                { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
-                { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
-            ].map((category) => (
-                <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
-                    <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
-                    <span>{category.name}</span>
-                </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  </nav>
+        <div className="flex items-center space-x-4 lg:space-x-6">
+          <nav className="hidden md:flex items-center space-x-5 h-full">
+            <Link 
+              href="/all-items" 
+              className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black transition-colors uppercase tracking-widest whitespace-nowrap leading-none flex items-center"
+            >
+              All Items
+            </Link>
+            
+            <div className="relative flex items-center h-full">
+              <button
+                type="button"
+                className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black uppercase tracking-widest focus:outline-none whitespace-nowrap leading-none flex items-center"
+                onClick={() => setIsCategoriesOpen((prev) => !prev)}
+              >
+                Categories
+              </button>
+              
+              {isCategoriesOpen && (
+                <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
+                  {/* Removed scroller to allow full-length dropdown */}
+                  <div>
+                    {categories.map((category) => (
+                        <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
+                            <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                            <span>{category.name}</span>
+                        </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </nav>
+
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             <div className="relative hidden sm:block w-28 lg:w-40 group" ref={inputRef}>
               <input
@@ -148,7 +149,6 @@ const Header = () => {
               )}
             </div>
 
-
             <Link href="/profile" className="p-1.5 text-gray-800 hover:scale-110 transition-transform">
               <User className="w-4 h-4" />
             </Link>
@@ -172,7 +172,6 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5">
-             {/* Search */}
             <div className="relative w-full">
                 <input
                     type="text"
@@ -182,31 +181,13 @@ const Header = () => {
                     className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
                 />
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                
-                {/* Mobile Search Results */}
-                {showResults && searchQuery && (
-                  <div className="mt-2 max-h-48 overflow-y-auto rounded-xl border border-gray-100 bg-white shadow-lg">
-                    {filteredItems.length > 0 ? (
-                      filteredItems.map(item => (
-                        <Link href={`/all-items?search=${encodeURIComponent(item.name)}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}>
-                          <div className="w-8 h-8 relative"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
-                          <div className="text-xs font-bold text-gray-900">{item.name}</div>
-                        </Link>
-                      ))
-                    ) : (
-                      <div className="px-4 py-3 text-xs text-gray-500">No results found</div>
-                    )}
-                  </div>
-                )}
             </div>
 
-             {/* Links */}
              <div className="space-y-2">
                  <Link href="/all-items" className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>
                     <span>All Items</span>
                  </Link>
 
-                 {/* Categories Accordion */}
                  <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
                     <button 
                         onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
@@ -217,26 +198,14 @@ const Header = () => {
                     </button>
                     
                     {isMobileCategoriesOpen && (
-                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2 max-h-64 overflow-y-auto">
-                           {[
-                              { name: 'Burgers', href: '/all-items?category=burger', image: '/items/burger/classic.png' },
-                              { name: 'Pizza', href: '/all-items?category=pizza', image: '/items/pizza/margherita.png' },
-                              { name: 'Fast-Food', href: '/all-items?category=fastfood', image: '/items/fastfood/fried_chicken.png' },
-                              { name: 'Set Menus', href: '/all-items?category=setmenu', image: '/items/setmenu/1.png' },
-                              { name: 'Appetizers', href: '/all-items?category=appetizers', image: '/items/appetizers/spring_rolls.png' },
-                              { name: 'Chinese', href: '/all-items?category=chinese', image: '/items/chinese/kung_pao.png' },
-                              { name: 'Italian', href: '/all-items?category=italian', image: '/items/italian/alfredo.png' },
-                              { name: 'Traditional', href: '/all-items?category=traditional', image: '/items/traditional/biryani.png' },
-                              { name: 'Pakistani', href: '/all-items?category=pakistani', image: '/items/pakistani/karahi.png' },
-                              { name: 'Coffee', href: '/all-items?category=coffee', image: '/items/coffee/espresso.png' },
-                              { name: 'Desserts', href: '/all-items?category=desserts', image: '/items/desserts/croissant.png' },
-                              { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: '/items/drinks/coke.png' },
-                          ].map((category) => (
-                              <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                  <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
-                                  <span className="truncate">{category.name}</span>
-                              </Link>
-                          ))}
+                        /* Removed scroller for mobile and used Cloudinary links */
+                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
+                           {categories.map((category) => (
+                               <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                                   <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                                   <span className="truncate">{category.name}</span>
+                               </Link>
+                           ))}
                         </div>
                     )}
                  </div>
