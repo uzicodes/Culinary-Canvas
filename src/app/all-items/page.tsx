@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Search, Pencil, Check, X, Trash2 } from 'lucide-react'; // Added Trash2 icon
+import { Search, Pencil, Check, X, Trash2 } from 'lucide-react';
 import Header from '@/components/Header';
 import { useState, useEffect } from 'react'; 
 import Footer from '@/components/Footer';
@@ -36,7 +36,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
   
   const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState("Sync Complete"); // State for custom toast messages
+  const [toastMessage, setToastMessage] = useState("Sync Complete");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -86,10 +86,12 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     });
 
   return (
+    /* Changed min-h-screen to bg-[#F7FBE7] to ensure the light green covers the whole page */
     <div className="min-h-screen bg-[#F7FBE7] pt-28">
       <Header />
       
-      <div className="bg-white border-b">
+      {/* Search Section: Removed 'bg-white' and 'border-b' */}
+      <div className="bg-transparent">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
@@ -99,7 +101,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 name="search"
                 placeholder="Search for food items..."
                 defaultValue={searchTerm}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all"
+                /* Search input updated with darker border and better shadow for the green background */
+                className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm"
               />
               {activeCategory !== 'all' && <input type="hidden" name="category" value={activeCategory} />}
             </form>
@@ -107,9 +110,10 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
         </div>
       </div>
 
-      <div className="bg-white border-b sticky top-16 z-30 shadow-sm overflow-x-auto">
+      {/* Category Buttons Section: Removed 'bg-white', 'border-b', and 'shadow-sm' */}
+      <div className="bg-transparent sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex gap-2.5 pb-1">
+          <div className="flex flex-wrap justify-center md:justify-start gap-2.5">
             {filterCategories.map(cat => {
               const params = new URLSearchParams();
               if (cat.id !== 'all') params.set('category', cat.id);
@@ -119,8 +123,10 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 <a
                   key={cat.id}
                   href={href}
-                  className={`px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full transition-all flex-shrink-0 ${
-                    activeCategory === cat.id ? 'bg-black text-[#BCE334] shadow-lg scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                  className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
+                    activeCategory === cat.id 
+                      ? 'bg-black text-[#BCE334] scale-105' 
+                      : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
                   }`}
                 >
                   {cat.label}
@@ -151,14 +157,14 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   item={item} 
                   isAdmin={isAdmin} 
                   setShowToast={setShowToast} 
-                  setToastMessage={setToastMessage} 
-                  setMenuItems={setMenuItems} // Pass setter to update UI after delete
+                  setToastMessage={setToastMessage}
+                  setMenuItems={setMenuItems}
                 />
               ))}
             </motion.div>
 
             {processedItems.length === 0 && (
-              <div className="text-center py-24 bg-white/40 rounded-[3rem] border-2 border-dashed border-gray-200">
+              <div className="text-center py-24 bg-white/20 rounded-[3rem] border-2 border-dashed border-slate-300">
                 <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">No matching items found</p>
               </div>
             )}
@@ -180,12 +186,12 @@ function ItemCard({
   item, 
   isAdmin, 
   setShowToast, 
-  setToastMessage, 
+  setToastMessage,
   setMenuItems 
 }: { 
   item: MenuItem, 
   isAdmin: boolean, 
-  setShowToast: (v: boolean) => void, 
+  setShowToast: (v: boolean) => void,
   setToastMessage: (v: string) => void,
   setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>
 }) {
@@ -217,15 +223,13 @@ function ItemCard({
   };
 
   const handleDelete = async () => {
-    if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return; // Simple confirmation
-
+    if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return;
     try {
       const response = await fetch(`/api/items?id=${item._id}`, {
-        method: 'DELETE', // Matches the DELETE method in your route.ts
+        method: 'DELETE',
       });
-
       if (response.ok) {
-        setMenuItems((prev) => prev.filter((i) => i._id !== item._id)); // UI update
+        setMenuItems((prev) => prev.filter((i) => i._id !== item._id));
         setToastMessage("Item Deleted");
         setShowToast(true);
         setTimeout(() => setShowToast(false), 2000);
@@ -240,32 +244,15 @@ function ItemCard({
       variants={itemVariants}
       className="bg-[#029FBE] rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
     >
-      {/* Admin Action Buttons (Pencil & Trash) */}
       {isAdmin && !isEditing && (
         <div className="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
-          <button 
-            onClick={() => setIsEditing(true)}
-            className="p-2.5 bg-white/95 rounded-xl shadow-xl hover:scale-110 transition-transform"
-          >
-            <Pencil size={12} className="text-black" />
-          </button>
-          <button 
-            onClick={handleDelete}
-            className="p-2.5 bg-red-500 rounded-xl shadow-xl hover:scale-110 transition-transform text-white"
-          >
-            <Trash2 size={12} />
-          </button>
+          <button onClick={() => setIsEditing(true)} className="p-2.5 bg-white/95 rounded-xl shadow-xl hover:scale-110"><Pencil size={12} className="text-black" /></button>
+          <button onClick={handleDelete} className="p-2.5 bg-red-500 rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={12} /></button>
         </div>
       )}
 
       <div className="bg-white/5 h-48 flex items-center justify-center relative overflow-hidden p-2">
-        <Image 
-          src={editedItem.image} 
-          alt={editedItem.name} 
-          width={250} 
-          height={250} 
-          className="object-cover w-full h-full rounded-[2rem] group-hover:scale-105 transition-transform duration-700" 
-        />
+        <Image src={editedItem.image} alt={editedItem.name} width={250} height={250} className="object-cover w-full h-full rounded-[2rem] group-hover:scale-105 transition-transform duration-700" />
       </div>
 
       <div className="p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
@@ -280,12 +267,8 @@ function ItemCard({
           </div>
         ) : (
           <div>
-            <h3 className="text-[13px] font-black text-black uppercase tracking-wider leading-tight mb-3">
-              {editedItem.name}
-            </h3>
-            <p className="text-white/80 text-[10px] font-bold uppercase tracking-wide line-clamp-2 leading-relaxed">
-              {editedItem.description}
-            </p>
+            <h3 className="text-[13px] font-black text-black uppercase tracking-wider leading-tight mb-3">{editedItem.name}</h3>
+            <p className="text-white/80 text-[10px] font-bold uppercase tracking-wide line-clamp-2 leading-relaxed">{editedItem.description}</p>
           </div>
         )}
 
