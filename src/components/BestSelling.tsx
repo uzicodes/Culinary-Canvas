@@ -6,10 +6,10 @@ import Image from 'next/image'
 import { motion, AnimatePresence, Variants } from 'framer-motion'
 
 const bestSellingProducts = [
-    { id: 1, name: 'Tiramisu', price: '220', originalPrice: '250', rating: 5, reviews: 15, image: '/items/desserts/tiramisu.png', badge: 'SALE' },
-    { id: 2, name: 'Double Cheese Burger', price: '450', originalPrice: '480', rating: 5, reviews: 35, image: '/items/burger/double.png', badge: 'SALE' },
-    { id: 3, name: 'Croissant', price: '160', originalPrice: '220', rating: 5, reviews: 28, image: '/items/desserts/croissant.png', badge: 'SALE' },
-    { id: 4, name: 'Spaghetti', price: '550', originalPrice: '580', rating: 5, reviews: 42, image: '/items/italian/spaghetti.png', badge: 'SALE' },
+    { id: 1, name: 'Tiramisu', price: '200', originalPrice: '220', rating: 5, reviews: 15, image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930251/kyvcoohzi6saedxpguns.png', badge: 'SALE' },
+    { id: 2, name: 'Double Patty', price: '380', originalPrice: '400', rating: 5, reviews: 35, image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928494/lqhcxe20m6ws6hkurvhf.png', badge: 'SALE' },
+    { id: 3, name: 'Croissant', price: '170', originalPrice: '200', rating: 5, reviews: 28, image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930115/ke9r6yd2hj2osscss29n.png', badge: 'SALE' },
+    { id: 4, name: 'Spaghetti', price: '180', originalPrice: '200', rating: 5, reviews: 42, image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', badge: 'SALE' },
 ]
 
 // 1. Spring-Pop Variants
