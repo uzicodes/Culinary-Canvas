@@ -13,18 +13,18 @@ interface Category {
 }
 
 const categories: Category[] = [
-    { id: 1, name: 'Burgers', slug: 'burger', image: '/items/burger/classic.png', color: 'bg-red-100', textColor: 'text-red-600' },
-    { id: 2, name: 'Pizza', slug: 'pizza', image: '/items/pizza/deluxe.png', color: 'bg-green-200', textColor: 'text-green-600' },
-    { id: 3, name: 'Fast Foods', slug: 'fastfood', image: '/items/fastfood/fried_chicken.png', color: 'bg-blue-100', textColor: 'text-blue-600' },
-    { id: 4, name: 'Set Menus', slug: 'setmenu', image: '/items/setmenu/1.png', color: 'bg-yellow-100', textColor: 'text-pink-600' },
-    { id: 5, name: 'Appetizers', slug: 'appetizers', image: '/items/appetizers/Dual Tacos.png', color: 'bg-purple-100', textColor: 'text-yellow-600' },
-    { id: 6, name: 'Chinese', slug: 'chinese', image: '/items/chinese/kung_pao.png', color: 'bg-blue-100', textColor: 'text-purple-600' },
-    { id: 7, name: 'Desserts', slug: 'desserts', image: '/items/desserts/brownie.png', color: 'bg-blue-100', textColor: 'text-pink-600' },
-    { id: 8, name: 'Italian', slug: 'italian', image: '/items/italian/spaghetti.png', color: 'bg-purple-100', textColor: 'text-orange-600' },
-    { id: 9, name: 'Traditional', slug: 'traditional', image: '/items/traditional/butter.png', color: 'bg-red-100', textColor: 'text-green-600' },
-    { id: 10, name: 'Coffee', slug: 'coffee', image: '/items/coffee/espresso.png', color: 'bg-green-200', textColor: 'text-purple-600' },
-    { id: 11, name: 'Drinks & Beverages', slug: 'drinks', image: '/items/drinks/matcha.png', color: 'bg-red-100', textColor: 'text-orange-600' },
-    { id: 12, name: 'Pakistani', slug: 'pakistani', image: '/items/pakistani/nihari.png', color: 'bg-green-200', textColor: 'text-pink-700' }
+    { id: 1, name: 'Burgers', slug: 'Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png', color: 'bg-red-50', textColor: 'text-red-600' },
+    { id: 2, name: 'Pizza', slug: 'Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png', color: 'bg-green-50', textColor: 'text-green-600' },
+    { id: 3, name: 'Fast Foods', slug: 'Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png', color: 'bg-blue-50', textColor: 'text-blue-600' },
+    { id: 4, name: 'Set Menus', slug: 'Set Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png', color: 'bg-yellow-50', textColor: 'text-pink-600' },
+    { id: 5, name: 'Appetizers', slug: 'Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png', color: 'bg-purple-50', textColor: 'text-yellow-600' },
+    { id: 6, name: 'Chinese', slug: 'Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png', color: 'bg-blue-50', textColor: 'text-purple-600' },
+    { id: 7, name: 'Desserts', slug: 'Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png', color: 'bg-indigo-50', textColor: 'text-indigo-600' },
+    { id: 8, name: 'Italian', slug: 'Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', color: 'bg-orange-50', textColor: 'text-orange-600' },
+    { id: 9, name: 'Traditional', slug: 'Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png', color: 'bg-emerald-50', textColor: 'text-emerald-600' },
+    { id: 10, name: 'Coffee', slug: 'Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png', color: 'bg-stone-50', textColor: 'text-stone-700' },
+    { id: 11, name: 'Drinks & Beverages', slug: 'Drinks & Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-cyan-50', textColor: 'text-cyan-600' },
+    { id: 12, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-50', textColor: 'text-rose-600' }
 ]
 
 // Animation Variants with TypeScript Fix
