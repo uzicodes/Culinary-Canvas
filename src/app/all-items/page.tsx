@@ -1,7 +1,7 @@
 "use client";
 
 import Image from 'next/image';
-import { Search, Pencil, Check, X } from 'lucide-react';
+import { Search, Pencil, Check, X, Trash2 } from 'lucide-react'; // Added Trash2 icon
 import Header from '@/components/Header';
 import { useState, useEffect } from 'react'; 
 import Footer from '@/components/Footer';
@@ -36,6 +36,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
   
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("Sync Complete"); // State for custom toast messages
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -65,39 +66,22 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     ...categoryOrder.map(cat => ({ id: cat, label: cat }))
   ];
 
-  // 1. REFINED FLEXIBLE FILTERING (Fixes Set Menus issue)
   const processedItems = menuItems
     .filter(item => {
-      // Normalize strings by removing spaces, dashes, and converting to lowercase
       const normalize = (str: string) => str.toLowerCase().replace(/[\s-]/g, '');
-      
       const itemCat = normalize(item.category || "");
       const activeCat = normalize(activeCategory);
-      
-      const matchesCategory = activeCategory === 'all' || 
-        itemCat === activeCat || 
-        itemCat.includes(activeCat) ||
-        activeCat.includes(itemCat);
-
-      const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchTerm.toLowerCase());
-        
+      const matchesCategory = activeCategory === 'all' || itemCat === activeCat || itemCat.includes(activeCat) || activeCat.includes(itemCat);
+      const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.description.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesCategory && matchesSearch;
     })
-    // 2. NESTED SORTING: Category Order -> Price Low to High
     .sort((a, b) => {
       const normalize = (str: string) => str.toLowerCase().replace(/[\s-]/g, '').substring(0, 4);
-      
       const indexA = categoryOrder.findIndex(cat => normalize(a.category).includes(normalize(cat)));
       const indexB = categoryOrder.findIndex(cat => normalize(b.category).includes(normalize(cat)));
-      
       const priorityA = indexA === -1 ? 99 : indexA;
       const priorityB = indexB === -1 ? 99 : indexB;
-
-      if (priorityA === priorityB) {
-        return a.price - b.price; // Price sorting: Low to High
-      }
-      
+      if (priorityA === priorityB) return a.price - b.price;
       return priorityA - priorityB;
     });
 
@@ -136,9 +120,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   key={cat.id}
                   href={href}
                   className={`px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] rounded-full transition-all flex-shrink-0 ${
-                    activeCategory === cat.id 
-                      ? 'bg-black text-[#BCE334] shadow-lg scale-105' 
-                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                    activeCategory === cat.id ? 'bg-black text-[#BCE334] shadow-lg scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                   }`}
                 >
                   {cat.label}
@@ -164,7 +146,14 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
               className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
             >
               {processedItems.map(item => (
-                <ItemCard key={item._id || item.id} item={item} isAdmin={isAdmin} setShowToast={setShowToast} />
+                <ItemCard 
+                  key={item._id || item.id} 
+                  item={item} 
+                  isAdmin={isAdmin} 
+                  setShowToast={setShowToast} 
+                  setToastMessage={setToastMessage} 
+                  setMenuItems={setMenuItems} // Pass setter to update UI after delete
+                />
               ))}
             </motion.div>
 
@@ -180,14 +169,26 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       <Footer />
       {showToast && (
         <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-black text-[#BCE334] px-10 py-4 rounded-[2rem] font-black uppercase text-[9px] tracking-[0.2em] shadow-2xl z-50 border border-white/10">
-          Sync Complete
+          {toastMessage}
         </div>
       )}
     </div>
   );
 }
 
-function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: boolean, setShowToast: (v: boolean) => void }) {
+function ItemCard({ 
+  item, 
+  isAdmin, 
+  setShowToast, 
+  setToastMessage, 
+  setMenuItems 
+}: { 
+  item: MenuItem, 
+  isAdmin: boolean, 
+  setShowToast: (v: boolean) => void, 
+  setToastMessage: (v: string) => void,
+  setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedItem, setEditedItem] = useState(item);
 
@@ -206,6 +207,7 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
 
       if (response.ok) {
         setIsEditing(false);
+        setToastMessage("Sync Complete");
         setShowToast(true);
         setTimeout(() => setShowToast(false), 2000);
       }
@@ -214,22 +216,56 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
     }
   };
 
+  const handleDelete = async () => {
+    if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return; // Simple confirmation
+
+    try {
+      const response = await fetch(`/api/items?id=${item._id}`, {
+        method: 'DELETE', // Matches the DELETE method in your route.ts
+      });
+
+      if (response.ok) {
+        setMenuItems((prev) => prev.filter((i) => i._id !== item._id)); // UI update
+        setToastMessage("Item Deleted");
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 2000);
+      }
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
+  };
+
   return (
     <motion.div
       variants={itemVariants}
       className="bg-[#029FBE] rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
     >
+      {/* Admin Action Buttons (Pencil & Trash) */}
       {isAdmin && !isEditing && (
-        <button 
-          onClick={() => setIsEditing(true)}
-          className="absolute top-4 right-4 z-10 p-2.5 bg-white/95 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-all hover:scale-110"
-        >
-          <Pencil size={12} className="text-black" />
-        </button>
+        <div className="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+          <button 
+            onClick={() => setIsEditing(true)}
+            className="p-2.5 bg-white/95 rounded-xl shadow-xl hover:scale-110 transition-transform"
+          >
+            <Pencil size={12} className="text-black" />
+          </button>
+          <button 
+            onClick={handleDelete}
+            className="p-2.5 bg-red-500 rounded-xl shadow-xl hover:scale-110 transition-transform text-white"
+          >
+            <Trash2 size={12} />
+          </button>
+        </div>
       )}
 
       <div className="bg-white/5 h-48 flex items-center justify-center relative overflow-hidden p-2">
-        <Image src={editedItem.image} alt={editedItem.name} width={250} height={250} className="object-cover w-full h-full rounded-[2rem] group-hover:scale-105 transition-transform duration-700" />
+        <Image 
+          src={editedItem.image} 
+          alt={editedItem.name} 
+          width={250} 
+          height={250} 
+          className="object-cover w-full h-full rounded-[2rem] group-hover:scale-105 transition-transform duration-700" 
+        />
       </div>
 
       <div className="p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
@@ -273,6 +309,7 @@ function ItemCard({ item, isAdmin, setShowToast }: { item: MenuItem, isAdmin: bo
                   else cart.push(cartItem);
                   localStorage.setItem('cart', JSON.stringify(cart));
                   window.dispatchEvent(new Event('storage'));
+                  setToastMessage("Added to Cart");
                   setShowToast(true);
                   setTimeout(() => setShowToast(false), 2000);
                 }
