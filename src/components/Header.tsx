@@ -97,18 +97,18 @@ const Header = () => {
         <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
           <div className="max-h-[60vh] overflow-y-auto">
             {[
-                { name: 'Burgers', href: '/all-items?category=burger', image: '/items/burger/classic.png' },
-                { name: 'Pizza', href: '/all-items?category=pizza', image: '/items/pizza/margherita.png' },
-                { name: 'Fast-Food', href: '/all-items?category=fastfood', image: '/items/fastfood/fried_chicken.png' },
-                { name: 'Set Menus', href: '/all-items?category=setmenu', image: '/items/setmenu/1.png' },
-                { name: 'Appetizers', href: '/all-items?category=appetizers', image: '/items/appetizers/spring_rolls.png' },
-                { name: 'Chinese', href: '/all-items?category=chinese', image: '/items/chinese/kung_pao.png' },
-                { name: 'Italian', href: '/all-items?category=italian', image: '/items/italian/alfredo.png' },
-                { name: 'Traditional', href: '/all-items?category=traditional', image: '/items/traditional/biryani.png' },
-                { name: 'Pakistani', href: '/all-items?category=pakistani', image: '/items/pakistani/karahi.png' },
-                { name: 'Coffee', href: '/all-items?category=coffee', image: '/items/coffee/espresso.png' },
-                { name: 'Desserts', href: '/all-items?category=desserts', image: '/items/desserts/croissant.png' },
-                { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: '/items/drinks/coke.png' },
+                { name: 'Burgers', href: '/all-items?category=burger', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
+                { name: 'Pizza', href: '/all-items?category=pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
+                { name: 'Fast-Food', href: '/all-items?category=fastfood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
+                { name: 'Set Menus', href: '/all-items?category=setmenu', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
+                { name: 'Appetizers', href: '/all-items?category=appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
+                { name: 'Chinese', href: '/all-items?category=chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
+                { name: 'Italian', href: '/all-items?category=italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
+                { name: 'Traditional', href: '/all-items?category=traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
+                { name: 'Pakistani', href: '/all-items?category=pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
+                { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
+                { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
+                { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
             ].map((category) => (
                 <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
                     <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
