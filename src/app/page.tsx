@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Categories from '@/components/Categories'
@@ -54,7 +55,15 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       {loading && (
         <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-white">
-          <div className="loader"></div>
+          <div className="relative w-32 h-32 mb-4 animate-pulse">
+            <Image 
+                src="/without_BG_logo.png" 
+                alt="Loading..." 
+                fill 
+                className="object-contain" 
+                priority
+            />
+          </div>
           <span className="mt-4 text-gray-700 text-lg font-bold tracking-widest" style={{ letterSpacing: '0.2em' }}>CULINARY CANVAS</span>
         </div>
       )}

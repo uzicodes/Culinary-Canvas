@@ -1,11 +1,21 @@
+import Image from 'next/image';
+
 export default function Loading() {
   // Define the font string exactly as it appears in your globals.css @font-face
   const nalinakFont = { fontFamily: "'Nalinak', sans-serif" };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-white z-[9999]">
-      {/* Animated loader from your globals.css */}
-      <div className="loader mb-8"></div>
+      {/* Animated loader image */}
+      <div className="relative w-24 h-24 mb-8 animate-pulse">
+        <Image 
+            src="/without_BG_logo.png" 
+            alt="Loading..." 
+            fill 
+            className="object-contain" 
+            priority
+        />
+      </div>
       
       <div className="flex flex-col items-center gap-1">
         {/* Using inline style to force the font priority */}
