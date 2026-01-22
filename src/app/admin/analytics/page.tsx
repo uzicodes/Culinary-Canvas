@@ -1,6 +1,5 @@
 "use client";
 
-// Explicitly import React to fix the UMD global error
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -23,7 +22,7 @@ export default function AnalyticsPage() {
   });
 
   const today = new Date();
-  const currentDay = today.getDate(); 
+  const currentDay = today.getDate(); // Today is Jan 22
   const currentMonthName = today.toLocaleString('default', { month: 'long' });
   const currentYear = today.getFullYear();
   const daysInMonthCount = new Date(currentYear, today.getMonth() + 1, 0).getDate();
@@ -86,6 +85,7 @@ export default function AnalyticsPage() {
     <div className="min-h-screen bg-[#fafaf9] pb-20 font-sans text-left">
       <Header />
       <main className="max-w-7xl mx-auto px-4 pt-32">
+        {/* Header Actions */}
         <div className="flex items-center justify-between mb-10">
           <div className="flex items-center gap-4">
             <Link href="/admin/dashboard" className="p-3 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all hover:bg-black hover:text-[#BCE334]"><ArrowLeft size={18} /></Link>
@@ -99,6 +99,7 @@ export default function AnalyticsPage() {
           )}
         </div>
 
+        {/* Financial Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {DISPLAY_STATS.map((stat, i) => (
             <div key={i} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
@@ -131,11 +132,19 @@ export default function AnalyticsPage() {
           )}
         </AnimatePresence>
 
+        {/* Order History Table with Styled Green Header Row */}
         <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden relative min-h-[400px]">
           {isLoading && <div className="absolute inset-0 bg-white/40 backdrop-blur-sm z-10 flex items-center justify-center"><Loader2 className="animate-spin text-[#BCE334] w-10 h-10" /></div>}
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-gray-50/50 text-[9px] font-black text-gray-400 uppercase tracking-widest"><th className="px-8 py-6">Order ID</th><th className="px-8 py-6">Customer</th><th className="px-8 py-6">Bill (৳)</th><th className="px-8 py-6">Payment</th><th className="px-8 py-6 text-right">View</th></tr>
+              {/* UPDATED: Green Background Header Row */}
+              <tr className="bg-[#BCE334] text-[9px] font-black text-black uppercase tracking-widest">
+                <th className="px-8 py-6">Order ID</th>
+                <th className="px-8 py-6">Customer</th>
+                <th className="px-8 py-6">Bill (৳)</th>
+                <th className="px-8 py-6">Payment</th>
+                <th className="px-8 py-6 text-right">View</th>
+              </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
               {stats.recentOrders?.map((order: any) => (
@@ -156,6 +165,8 @@ export default function AnalyticsPage() {
                       </button>
                     </td>
                   </tr>
+                  
+                  {/* Detailed View Section */}
                   <AnimatePresence>
                     {expandedOrderId === order._id && (
                       <tr>
