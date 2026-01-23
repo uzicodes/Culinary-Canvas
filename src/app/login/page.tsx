@@ -110,6 +110,7 @@ const LoginPage = () => {
 
           <div className="mt-8 text-center space-y-4">
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">New to the canvas? <Link href="/register" className="text-black hover:text-[#BCE334] transition-colors underline underline-offset-8 decoration-2 decoration-[#BCE334]">Register Now</Link></p>
+            <Link href="/forgot-password" className="inline-flex items-center justify-center w-full text-black bg-red-200 hover:bg-red-300 transition-colors text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full mb-1">Forgot Password?</Link>
             <Link href="/" className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors text-[9px] font-black uppercase tracking-widest bg-black/5 px-4 py-2 rounded-full"><Home size={10} /> Back to Home</Link>
           </div>
         </div>

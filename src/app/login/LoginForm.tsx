@@ -1,53 +1,139 @@
 "use client";
 
-import React from "react";
-import styles from "./login-form.module.css";
+import React, { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Mail, Lock, ArrowRight, Loader2, ChefHat } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/dist/ReactToastify.css';
 
 const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    // Master Admin logic check/route.ts]
+    const isMasterAdmin = email === 'master_admin' && password === process.env.NEXT_PUBLIC_MASTER_ADMIN_KEY;
+
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.error) {
+        toast.error('Invalid Credentials. Please try again.', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+      } else {
+        toast.success('Access Granted. Redirecting...', {
+          position: "top-right",
+          autoClose: 2000,
+          theme: "dark",
+        });
+        
+        // Dynamic redirection logic based on role/route.ts]
+        setTimeout(() => {
+          router.push(isMasterAdmin ? '/admin/dashboard' : '/profile');
+          router.refresh();
+        }, 2000);
+      }
+    } catch (error) {
+      toast.error('Vault connection failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <form className={styles.form}>
-      <div className={styles["flex-column"]}>
-        <label htmlFor="email">Email</label>
-      </div>
-      <div className={styles.inputForm}>
-        <input
-          type="email"
-          className={styles.input}
-          placeholder="Enter your email"
-          id="email"
-          required
-        />
-      </div>
-      <div className={styles["flex-column"]}>
-        <label htmlFor="password">Password</label>
-      </div>
-      <div className={styles.inputForm}>
-        <input
-          type="password"
-          className={styles.input}
-          placeholder="Enter your password"
-          id="password"
-          required
-        />
-      </div>
-      <div className={styles["flex-row"]}>
-        <div>
-          <input type="checkbox" id="remember" />
-          <label htmlFor="remember"> Remember me</label>
+    <div className="w-full max-w-md mx-auto">
+      <ToastContainer />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email Field */}
+        <div className="space-y-2">
+          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-2">
+            Access Identity
+          </label>
+          <div className="relative group">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#BCE334] transition-colors">
+              <Mail size={18} />
+            </div>
+            <input
+              type="text"
+              required
+              placeholder="email@example.com or master_id"
+              className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] text-gray-900 px-12 py-4 rounded-2xl outline-none font-bold text-sm transition-all placeholder:text-gray-300"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
         </div>
-        <span className={styles.span}>Forgot password?</span>
-      </div>
-      <button type="submit" className={styles["button-submit"]}>
-        Log In
-      </button>
-  <p className={styles.p}>Don&apos;t have an account? <span className={styles.span}>Sign up</span></p>
-      <button type="button" className={styles.btn}>
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M21.805 10.023c-.11-.396-.432-.707-.828-.8l-7.02-1.62-3.13-6.6c-.18-.38-.56-.62-.97-.62-.41 0-.79.24-.97.62l-3.13 6.6-7.02 1.62c-.396.09-.718.404-.828.8-.11.396.01.82.31 1.09l5.36 4.7-1.27 7.01c-.07.41.1.83.43 1.08.33.25.77.28 1.13.08l6.29-3.3 6.29 3.3c.16.08.33.12.5.12.22 0 .44-.07.63-.2.33-.25.5-.67.43-1.08l-1.27-7.01 5.36-4.7c.3-.27.42-.69.31-1.09z" />
-        </svg>
-        Log in with Google
-      </button>
-    </form>
+
+        {/* Password Field */}
+        <div className="space-y-2">
+          <div className="flex justify-between items-center px-2">
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+              Security Key
+            </label>
+            {/* --- FORGOT PASSWORD LINK --- */}
+            <Link 
+              href="/forgot-password" 
+              className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+            >
+              Forgot Access?
+            </Link>
+          </div>
+          <div className="relative group">
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#BCE334] transition-colors">
+              <Lock size={18} />
+            </div>
+            <input
+              type="password"
+              required
+              placeholder="••••••••"
+              className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] text-gray-900 px-12 py-4 rounded-2xl outline-none font-bold text-sm transition-all placeholder:text-gray-300"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Submit Button */}
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          disabled={loading}
+          type="submit"
+          className="w-full bg-black text-[#BCE334] py-5 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.3em] shadow-xl hover:shadow-[#BCE334]/20 transition-all flex items-center justify-center gap-3 disabled:opacity-50"
+        >
+          {loading ? (
+            <Loader2 className="animate-spin" size={20} />
+          ) : (
+            <>
+              Enter Vault <ArrowRight size={18} />
+            </>
+          )}
+        </motion.button>
+
+        {/* Register Redirect */}
+        <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-4">
+          No Access Identity?{' '}
+          <Link href="/register" className="text-black border-b-2 border-[#BCE334] pb-0.5 hover:text-[#BCE334] transition-colors">
+            Register Now
+          </Link>
+        </p>
+      </form>
+    </div>
   );
 };
 
