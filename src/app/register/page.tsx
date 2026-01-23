@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, Eye, EyeOff, ArrowRight, Home, CheckCircle2 } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff, ArrowRight, Home, CheckCircle2, Phone } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
+    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
@@ -18,9 +21,35 @@ const RegisterPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
-        if (password !== confirmPassword) { setError("Passwords mismatch"); return; }
+        
+        if (password !== confirmPassword) { 
+            setError("Passwords mismatch"); 
+            return; 
+        }
+        
         setLoading(true);
-        setTimeout(() => setLoading(false), 1500);
+        
+        try {
+            const res = await fetch("/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, phone, password })
+            });
+            
+            const data = await res.json();
+            
+            if (!res.ok) {
+                setError(data.error || "Registration failed");
+                setLoading(false);
+                return;
+            }
+            
+            // Success - redirect to login
+            router.push("/login?registered=true");
+        } catch (err) {
+            setError("Something went wrong. Please try again.");
+            setLoading(false);
+        }
     };
 
     return (
@@ -50,7 +79,8 @@ const RegisterPage = () => {
                         <div className="space-y-3">
                             {[ 
                                 { label: "Name", icon: User, type: "text", val: name, set: setName, ph: "Full Name" },
-                                { label: "Email", icon: Mail, type: "email", val: email, set: setEmail, ph: "you@email.com" }
+                                { label: "Email", icon: Mail, type: "email", val: email, set: setEmail, ph: "you@email.com" },
+                                { label: "Phone", icon: Phone, type: "tel", val: phone, set: setPhone, ph: "Phone Number" }
                             ].map((field) => (
                                 <div key={field.label} className="relative group">
                                     <field.icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
