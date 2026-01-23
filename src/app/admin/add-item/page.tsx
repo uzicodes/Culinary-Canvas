@@ -91,7 +91,7 @@ export default function AddItemPage() {
                 ${imageUrl ? 'border-[#BCE334] bg-[#BCE334]/5' : 'border-gray-200 hover:border-sky-600'}`}
             >
               {imageUrl ? (
-                <img src={imageUrl} className="h-40 w-full object-cover rounded-[1.5rem] shadow-lg" alt="Preview" />
+                <Image src={imageUrl} width={400} height={160} className="h-40 w-full object-cover rounded-[1.5rem] shadow-lg" alt="Preview" />
               ) : (
                 <>
                   <Upload className="text-gray-400" size={30} />

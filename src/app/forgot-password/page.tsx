@@ -92,7 +92,7 @@ export default function ForgotPasswordPage() {
               <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto mb-4" />
               <h3 className="text-xl font-black uppercase tracking-tighter text-gray-900">Email Dispatched</h3>
               <p className="text-[11px] font-bold text-gray-500 uppercase tracking-tight mt-2 leading-relaxed">
-                Check your inbox! We've sent a secure link to <br/>
+                Check your inbox! We&apos;ve sent a secure link to <br/>
                 <span className="text-black font-black underline decoration-[#BCE334]">{email}</span>
               </p>
               <button 

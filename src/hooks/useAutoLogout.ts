@@ -10,7 +10,7 @@ export const useAutoLogout = () => {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const lastActivityRef = useRef<number>(Date.now());
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     // Clear user session data
     if (typeof window !== 'undefined') {
       // Sign out using NextAuth
@@ -26,7 +26,7 @@ export const useAutoLogout = () => {
       // Optional: Show a notification that the session expired
       alert('Your session has expired due to inactivity. Please log in again.');
     }
-  };
+  }, [router]);
 
   const resetTimer = useCallback(() => {
     if (timeoutRef.current) {
