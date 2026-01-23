@@ -91,7 +91,7 @@ export default function AddItemPage() {
               className={`border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all
                 ${imageUrl ? 'border-[#BCE334] bg-[#BCE334]/5' : 'border-gray-200 hover:border-sky-600'}`}
             >
-import Image from "next/image";
+              {imageUrl ? (
                 <Image src={imageUrl} width={400} height={160} className="h-40 w-full object-cover rounded-[1.5rem] shadow-lg" alt="Preview" />
               ) : (
                 <>
