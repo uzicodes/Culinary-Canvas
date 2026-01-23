@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Tag, Utensils, ArrowLeft, CheckCircle, Upload, AlignLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 
