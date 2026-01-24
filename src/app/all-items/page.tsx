@@ -86,11 +86,9 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     });
 
   return (
-
     <div className="min-h-screen bg-[#F7FBE7] pt-28">
       <Header />
       
-      {/* Search Section */}
       <div className="bg-transparent">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="relative">
@@ -109,7 +107,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
         </div>
       </div>
 
-      {/* Category Buttons Section */}
       <div className="bg-transparent sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-wrap justify-center md:justify-start gap-2.5">
@@ -282,6 +279,9 @@ function ItemCard({
             <button
               className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-5 py-2.5 rounded-[1.2rem] text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
               onClick={() => {
+                // If admin ? not allow adding to cart
+                if (isAdmin) return; 
+
                 const cartItem = { ...editedItem, _id: String(item._id || item.id), quantity: 1 };
                 if (typeof window !== 'undefined') {
                   const saved = localStorage.getItem('cart');
