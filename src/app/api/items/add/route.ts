@@ -7,12 +7,12 @@ export async function POST(req: Request) {
     const db = client.db("culinary-canvas");
     const body = await req.json();
 
-    // Create the item object
+    // Create the item 
     const newItem = {
       name: body.name,
       price: parseFloat(body.price),
       category: body.category,
-      image: body.image, // This will be the Cloudinary URL
+      image: body.image,
       description: body.description,
       available: true,
       createdAt: new Date(),

@@ -8,10 +8,10 @@ export default function HomeScrollProgress() {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
 
-  // Hook into the scroll position
+  // scroll position
   const { scrollYProgress } = useScroll();
 
-  // movement smooth (spring physics)
+  // movement smooth 
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,

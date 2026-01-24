@@ -20,7 +20,6 @@ export default function SuccessPage() {
   const [order, setOrder] = useState<any>(null);
 
   useEffect(() => {
-    // Logic remains exactly as provided
     const backendOrder = sessionStorage.getItem("lastOrderResponse");
     if (backendOrder) {
       setOrder(JSON.parse(backendOrder));
@@ -122,7 +121,6 @@ export default function SuccessPage() {
             <motion.div 
               initial={{ opacity: 0, y: 20 }} 
               animate={{ opacity: 1, y: 0 }}
-              // Light color applied here matching your site theme
               className="bg-[#FDFEF0] rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-[#BCE334]/20 text-center"
             >
               <div className="flex justify-center mb-6">

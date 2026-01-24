@@ -22,7 +22,7 @@ export default function AnalyticsPage() {
   });
 
   const today = new Date();
-  const currentDay = today.getDate(); // Today is Jan 22
+  const currentDay = today.getDate(); // Today's date
   const currentMonthName = today.toLocaleString('default', { month: 'long' });
   const currentYear = today.getFullYear();
   const daysInMonthCount = new Date(currentYear, today.getMonth() + 1, 0).getDate();
@@ -137,7 +137,6 @@ export default function AnalyticsPage() {
           {isLoading && <div className="absolute inset-0 bg-white/40 backdrop-blur-sm z-10 flex items-center justify-center"><Loader2 className="animate-spin text-[#BCE334] w-10 h-10" /></div>}
           <table className="w-full text-left">
             <thead>
-              {/* UPDATED: Green Background Header Row */}
               <tr className="bg-[#BCE334] text-[9px] font-black text-black uppercase tracking-widest">
                 <th className="px-8 py-6">Order ID</th>
                 <th className="px-8 py-6">Customer</th>

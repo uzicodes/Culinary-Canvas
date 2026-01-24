@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FaTrashAlt } from "react-icons/fa"; // Trash icon for Remove Item
+import { FaTrashAlt } from "react-icons/fa"; 
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 
@@ -30,7 +30,7 @@ export default function CartPage() {
   // Calculate total price
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  // Cart item quantity handlers
+
   const decreaseQuantity = (id: string) => {
     setCartItems((prev) => {
       const updated = prev.map((item) =>
@@ -102,7 +102,7 @@ export default function CartPage() {
     loadCart();
   }, []);
 
-  // Main return block for the page
+  // block !  if not logged in , redirect to login page auto
   if (showAuthPrompt) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
@@ -133,7 +133,7 @@ export default function CartPage() {
     <>
       <Header />
       <div className="container mx-auto px-4 pt-32 pb-8 min-h-screen relative">
-        {/* Background Image Container (only blurred image) */}
+        {/* ( BG blurred image) */}
         <div
           className="absolute top-0 left-0 w-full h-full bg-cover bg-center blur-md"
           style={{
@@ -145,15 +145,14 @@ export default function CartPage() {
 
         {/* Content Wrapper */}
         <div className="relative z-10">
-          {/* "Your Cart" Heading with Orange Border and Light Blue Background */}
           <h1
             className="text-4xl font-extrabold mb-8 text-center text-black mt-[-30px] p-4 mx-auto"
             style={{
-              backgroundColor: "#d8e7f5", // Light blue background inside
-              border: "3px solid #e97f3e", // Orange border
-              padding: "10px", // Padding for better spacing
-              borderRadius: "12px", // Rounded corners
-              maxWidth: "480px", // Less wide tile
+              backgroundColor: "#d8e7f5", 
+              border: "3px solid #e97f3e", 
+              padding: "10px", 
+              borderRadius: "12px", 
+              maxWidth: "480px", 
               width: "100%",
               display: "block"
             }}

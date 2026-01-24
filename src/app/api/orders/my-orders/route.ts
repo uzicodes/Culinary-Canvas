@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import clientPromise from "@/lib/mongodb";
 
-// Must be named exactly GET
+
 export async function GET() {
   const session = await getServerSession();
 

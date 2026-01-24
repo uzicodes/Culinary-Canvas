@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 export default function Loading() {
-  // Define the font string exactly as it appears in your globals.css @font-face
+
   const nalinakFont = { fontFamily: "'Nalinak', sans-serif" };
 
   return (

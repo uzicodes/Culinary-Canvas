@@ -19,7 +19,7 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Master Admin logic check/route.ts]
+    // Admin logic check/route.ts]
     const isMasterAdmin = email === 'master_admin' && password === process.env.NEXT_PUBLIC_MASTER_ADMIN_KEY;
 
     try {

@@ -77,7 +77,6 @@ const Header = () => {
             <div className="w-12 h-12 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
             </div>
-            {/* Restored Original Font and Style */}
             <span 
                 className="hidden lg:block text-xl lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
@@ -107,7 +106,6 @@ const Header = () => {
               
               {isCategoriesOpen && (
                 <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
-                  {/* Removed scroller to allow full-length dropdown */}
                   <div>
                     {categories.map((category) => (
                         <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
@@ -198,7 +196,6 @@ const Header = () => {
                     </button>
                     
                     {isMobileCategoriesOpen && (
-                        /* Removed scroller for mobile and used Cloudinary links */
                         <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
                            {categories.map((category) => (
                                <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>

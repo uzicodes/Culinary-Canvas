@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const db = client.db();
 
 
-    // Check if user exists in your 'members' collection
+    // Check if user exists in 'members' collection
     const user = await db.collection("members").findOne({ 
     email: { $regex: new RegExp(`^${email}$`, "i") } 
     });
@@ -20,17 +20,17 @@ export async function POST(req: Request) {
     if (!user) {
     return NextResponse.json({ error: "User with this email does not exist." }, { status: 404 });
     }
-    // Generate a secure random token and set 1-hour expiry
+    // Generate token & set 1-hour expiry
     const resetToken = crypto.randomBytes(32).toString("hex");
     const expiry = new Date(Date.now() + 3600000); // Current time + 1 hour
 
     // Update the user document with the reset details
     await db.collection("members").updateOne(
-    { email: user.email }, // Use the exact email string from the database record
+    { email: user.email }, // Use exact email from the database record
     { $set: { resetToken, resetTokenExpiry: expiry } }
     );
 
-    // Setup Nodemailer (add to .env.local)
+    // Nodemailer (add to .env.local)
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
     const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${resetToken}&email=${user.email}`;
 
-    // Send the Email
+    // Send Email
     await transporter.sendMail({
     to: user.email,
     subject: "Reset Your Culinary Canvas Password",

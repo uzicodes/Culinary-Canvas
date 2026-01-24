@@ -37,7 +37,7 @@ const blogPosts = [
   }
 ];
 
-// Unique 3D Perspective Variants
+// 3D Perspective 
 const blogContainerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {

@@ -65,7 +65,7 @@ const DeliveryPartners = () => (
             className="flex flex-col items-center"
           >
             <motion.div 
-              // The "Bigger on Hover" effect
+              //"Bigger on Hover" effect
               whileHover={{ 
                 scale: 1.2, 
                 filter: "brightness(1.1)",

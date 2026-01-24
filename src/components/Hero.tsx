@@ -144,7 +144,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Content - Updated Carousel with Hidden Next Images */}
+          {/*  Carousel Images */}
           <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden mt-8 lg:mt-0">
             {images.map((imageObj, index) => {
               let position = '';
@@ -162,7 +162,6 @@ const Hero = () => {
                     src={imageObj.src}
                     alt="Fresh healthy food"
                     fill
-                    // Scale reduced to 0.75 for smaller images as requested
                     className="object-contain w-full h-full drop-shadow-2xl scale-75"
                     priority={index === 0}
                   />

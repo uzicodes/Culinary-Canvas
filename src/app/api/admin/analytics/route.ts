@@ -9,10 +9,10 @@ export async function GET(request: Request) {
     const client = await clientPromise;
     const db = client.db("culinary-canvas");
 
-    // 1. Fetch Real-Time User Count from 'members' collection
+    // Fetch User Count from 'members' collection
     const totalMembersCount = await db.collection("members").countDocuments();
 
-    // 2. Fetch recent orders for the table
+    // Fetch recent orders 
     const recentOrders = await db.collection("orders")
       .find({})
       .sort({ orderTime: -1 })
@@ -49,7 +49,6 @@ export async function GET(request: Request) {
     return NextResponse.json({
       todayRevenue: todayStats.total,
       monthlyRevenue: monthlyStats.total,
-      // Sending the actual member count
       totalCustomers: totalMembersCount, 
       recentOrders,
       specificDayRevenue

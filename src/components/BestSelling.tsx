@@ -12,7 +12,7 @@ const bestSellingProducts = [
     { id: 4, name: 'Spaghetti', price: '180', originalPrice: '200', rating: 5, reviews: 42, image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', badge: 'SALE' },
 ]
 
-// 1. Spring-Pop Variants
+// Spring-Pop Variants
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {

@@ -45,9 +45,8 @@ const LoginPage = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 bg-[#fafaf9] overflow-hidden">
-      {/* Dynamic Animated Background Section */}
+
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* Animated Lime Blob */}
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -57,7 +56,7 @@ const LoginPage = () => {
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           className="absolute -top-[10%] -left-[10%] w-[60%] h-[60%] bg-[#BCE334] rounded-full blur-[120px] opacity-30"
         />
-        {/* Animated Black Blob */}
+
         <motion.div
           animate={{
             scale: [1, 1.1, 1],

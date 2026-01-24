@@ -55,7 +55,7 @@ function ResetPasswordForm() {
         <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto animate-bounce" />
         <h2 className="text-2xl font-black uppercase tracking-tighter text-gray-900">Key Updated</h2>
         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-relaxed">
-          Your new security key has been forged. <br/> Redirecting to login...
+          Your new password has been set !. <br/> Redirecting to login...
         </p>
       </div>
     );
@@ -110,9 +110,9 @@ export default function ResetPasswordPage() {
         <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/60">
           <div className="text-center mb-8">
              <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">
-                Reset <span className="text-[#BCE334]">Vault</span>
+                Reset <span className="text-[#BCE334]">Password</span>
              </h2>
-             <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">Configure your new access key</p>
+             <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">Configure your new password</p>
           </div>
 
           <Suspense fallback={<div className="py-10 flex justify-center"><Loader2 className="animate-spin text-[#BCE334]" /></div>}>
@@ -121,7 +121,7 @@ export default function ResetPasswordPage() {
 
           <div className="mt-8 text-center border-t border-black/5 pt-6">
             <Link href="/login" className="inline-flex items-center gap-2 text-gray-400 hover:text-black text-[9px] font-black uppercase tracking-widest transition-colors">
-              <Home size={10} /> Abandon Reset
+              <Home size={10} /> Cancel Reset
             </Link>
           </div>
         </div>

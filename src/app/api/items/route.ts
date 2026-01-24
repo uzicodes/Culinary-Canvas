@@ -4,8 +4,8 @@ import { ObjectId } from "mongodb";
 
 export async function GET() {
   const client = await clientPromise;
-  const db = client.db("culinary-canvas"); // Targets your specific database
-  const items = await db.collection("items").find({}).toArray(); // Fetches all 54 items
+  const db = client.db("culinary-canvas"); //database
+  const items = await db.collection("items").find({}).toArray(); // Fetches items
   return NextResponse.json(items);
 }
 
@@ -35,7 +35,7 @@ export async function DELETE(request: Request) {
     const client = await clientPromise;
     const db = client.db("culinary-canvas");
     
-    // Deletes the specific document from your 'items' collection
+    // Deletes document from 'items' collection
     const result = await db.collection("items").deleteOne({ 
       _id: new ObjectId(id) 
     });

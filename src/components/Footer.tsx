@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
 
 
-        {/* Bottom Bar - Centered Credit */}
+        {/* Bottom Bar*/}
 
         <div className="border-t border-gray-800 mt-4 pt-4">
           <div className="grid grid-cols-1 md:grid-cols-3 items-center text-[10px] text-gray-500 font-medium gap-4">

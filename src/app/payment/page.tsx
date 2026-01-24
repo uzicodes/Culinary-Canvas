@@ -20,10 +20,10 @@ export default function PaymentPage() {
 	const [mobileNumber, setMobileNumber] = useState('+880');
 	const [cardNumber, setCardNumber] = useState('');
 	const [customerName, setCustomerName] = useState('');
-	const [customerEmail, setCustomerEmail] = useState('');  // This will be retrieved from localStorage
-	const [customerAddress, setCustomerAddress] = useState(''); // New state for address
-	const [couponCode, setCouponCode] = useState(''); // State for coupon code
-	const [couponDiscount, setCouponDiscount] = useState(0); // State for coupon discount
+	const [customerEmail, setCustomerEmail] = useState('');  
+	const [customerAddress, setCustomerAddress] = useState(''); 
+	const [couponCode, setCouponCode] = useState(''); 
+	const [couponDiscount, setCouponDiscount] = useState(0); 
 	const router = useRouter();
 
 	useEffect(() => {
@@ -35,10 +35,10 @@ export default function PaymentPage() {
 		const checkoutData = localStorage.getItem('checkoutData');
 		if (checkoutData) {
 			const parsedData = JSON.parse(checkoutData);
-			setCustomerName(parsedData.name);  // Set customer name from CheckoutPage form
-			setCustomerEmail(parsedData.email); // Set customer email from CheckoutPage form
-			setMobileNumber(parsedData.phone); // Set customer phone number from CheckoutPage form
-			setCustomerAddress(parsedData.address); // Set customer address from CheckoutPage form
+			setCustomerName(parsedData.name);  
+			setCustomerEmail(parsedData.email); 
+			setMobileNumber(parsedData.phone); 
+			setCustomerAddress(parsedData.address); 
 		}
 	}, []);
 
@@ -64,7 +64,7 @@ export default function PaymentPage() {
 
 			if (couponCode === '') {
 				finalCouponDiscount = 0;
-			} else if (couponCode === 'BITE10') {
+			} else if (couponCode === 'CC10') {
 				finalCouponDiscount = subtotal * 0.10; // Apply 10% discount
 				alert('Coupon applied successfully!');
 			} else {
@@ -104,7 +104,7 @@ export default function PaymentPage() {
 				throw new Error(errorData.message || 'Failed to confirm order');
 			}
 
-			// Redirect to success page after order confirmation
+		
 			router.push('/payment/success');  // Redirect to the success page
 
 		} catch (error: any) {
@@ -113,13 +113,13 @@ export default function PaymentPage() {
 		}
 	};
 
-	// Function to format card number input (group digits in blocks of 4)
+	//card number input (group digits in blocks of 4)=16
 	const formatCardInput = (value: string) => {
 		return value
 			.replace(/\D/g, '')  // Remove all non-numeric characters
-			.replace(/(.{4})/g, '$1 ')  // Add space after every 4 digits
+			.replace(/(.{4})/g, '$1 ')  // space after every 4 digits
 			.trim()  // Remove trailing spaces
-			.slice(0, 19);  // Limit input to 19 characters (16 digits + 3 spaces)
+			.slice(0, 19);  // Limit  (16 digits + 3 spaces)=19 digits
 	};
 
 	// Handle phone number input
@@ -130,7 +130,7 @@ export default function PaymentPage() {
 		} else {
 			input = '+880' + input;
 		}
-		setMobileNumber(input.slice(0, 14));  // Ensure it doesn't exceed 14 digits
+		setMobileNumber(input.slice(0, 14));  // doesn't exceed 14 digits
 	};
 
 	return (

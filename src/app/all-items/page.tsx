@@ -86,11 +86,11 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     });
 
   return (
-    /* Changed min-h-screen to bg-[#F7FBE7] to ensure the light green covers the whole page */
+
     <div className="min-h-screen bg-[#F7FBE7] pt-28">
       <Header />
       
-      {/* Search Section: Removed 'bg-white' and 'border-b' */}
+      {/* Search Section */}
       <div className="bg-transparent">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="relative">
@@ -101,7 +101,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 name="search"
                 placeholder="Search for food items..."
                 defaultValue={searchTerm}
-                /* Search input updated with darker border and better shadow for the green background */
                 className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm"
               />
               {activeCategory !== 'all' && <input type="hidden" name="category" value={activeCategory} />}
@@ -110,7 +109,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
         </div>
       </div>
 
-      {/* Category Buttons Section: Removed 'bg-white', 'border-b', and 'shadow-sm' */}
+      {/* Category Buttons Section */}
       <div className="bg-transparent sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-wrap justify-center md:justify-start gap-2.5">

@@ -13,10 +13,10 @@ export default function CheckoutPage() {
     name: '',
     email: '',
     address: '',
-    phone: ''  // Full phone number including the country code (+880)
+    phone: ''  // including country code (+880)
   });
 
-  // Prefill name and email from session (profile)
+  // Prefill name & email from session (profile)
   useEffect(() => {
     if (session && session.user) {
       setFormData((prev) => ({
@@ -44,7 +44,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Save the form data (name, email, phone, and address) to localStorage
+    // Saved data
     localStorage.setItem("checkoutData", JSON.stringify(formData));
     router.push("/payment");  // Redirect to the payment page
   };
@@ -117,7 +117,7 @@ export default function CheckoutPage() {
               name="phone"
               placeholder="+8801234567890"
               value={formData.phone}
-              onChange={handlePhoneChange}  // Update the full phone number on change
+              onChange={handlePhoneChange}  
               required
               className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
             />

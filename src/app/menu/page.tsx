@@ -8,7 +8,7 @@ import { ArrowRight, Utensils, Loader2 } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-// 1. Define the Interface to fix the 'item' and 'index' type errors
+
 interface MenuItem {
   _id: string;
   name: string;
@@ -19,7 +19,7 @@ interface MenuItem {
 }
 
 const MenuPage = () => {
-  // 2. Apply the type to the state
+
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,7 +38,7 @@ const MenuPage = () => {
     fetchMenu();
   }, []);
 
-  // 3. Explicitly type the accumulator and items in reduce
+
   const groupedMenu = menuItems.reduce((acc, item: MenuItem) => {
     if (!acc[item.category]) acc[item.category] = [];
     acc[item.category].push(item);
@@ -79,7 +79,7 @@ const MenuPage = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-x-8 lg:gap-y-4">
-                {/* 4. Explicitly typed 'item' and 'index' in the map function */}
+                {/*  map function */}
                 {groupedMenu[category].map((item: MenuItem, index: number) => (
                   <motion.div
                     key={item._id} 

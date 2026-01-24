@@ -77,7 +77,7 @@ export default function ForgotPasswordPage() {
         </div>
       </motion.div>
 
-      {/* --- SUCCESS POP-UP MODAL --- */}
+      {/* --- SUCCESS POP-UP  --- */}
       <AnimatePresence>
         {status === "sent" && (
           <motion.div 

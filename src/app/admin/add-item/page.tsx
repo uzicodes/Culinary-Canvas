@@ -24,15 +24,12 @@ export default function AddItemPage() {
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
         uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
-        // 'folder' is an allowed parameter for unsigned uploads
         folder: "culinary-canvas/items", 
         theme: "minimal",
         colors: { primary: "#BCE334" },
-        // REMOVED BOTH: use_filename and unique_filename to avoid any conflict
       },
       (error: any, result: any) => {
         if (!error && result && result.event === "success") {
-          // Cloudinary will now generate its own safe ID like 'hluwiapjhw5zxmajot0s'
           setImageUrl(result.info.secure_url);
         }
       }
@@ -49,7 +46,7 @@ export default function AddItemPage() {
       const res = await fetch("/api/items/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Ensures price is saved as a number for your 'Low to High' sorting logic
+        // price 'Low to High' sorting logic
         body: JSON.stringify({ 
           ...formData, 
           price: Number(formData.price), 
@@ -85,7 +82,6 @@ export default function AddItemPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Cloudinary Image Upload with Folder Logic */}
             <div 
               onClick={handleUpload}
               className={`border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all

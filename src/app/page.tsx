@@ -16,7 +16,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Wait for all images and fonts to load
+    // Wait for all images & fonts to load
     const handleReady = () => setLoading(false);
 
     // Check if all images are loaded
@@ -39,14 +39,13 @@ export default function Home() {
       }
     });
 
-    // Also wait for fonts
+    // wait for fonts
     if (document.fonts) {
       document.fonts.ready.then(() => {
-        // If images already loaded, set loading false
         if (images.length === 0 || loadedImages === images.length) handleReady();
       });
     }
-    // Fallback: max 5s
+    // Fallback max 5s
     const timeout = setTimeout(handleReady, 5000);
     return () => clearTimeout(timeout);
   }, []);

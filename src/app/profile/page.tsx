@@ -35,7 +35,7 @@ export default function ProfilePage() {
     setShowOrders(!showOrders);
   };
 
-  // 1. View shown when the user is NOT logged in
+  //  User is NOT logged in
   if (!session) {
     return (
       <div className="relative min-h-screen flex flex-col">
@@ -104,7 +104,7 @@ export default function ProfilePage() {
     );
   }
 
-  // 2. View shown when the user IS logged in (Conditional for Admin/Member)
+  // user IS logged in (Conditional for Admin/Member)
   return (
     <div className="min-h-screen flex flex-col bg-[#F7FBE7]">
       <Header />

@@ -20,10 +20,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid or expired link." }, { status: 400 });
     }
 
-    // Hash the new password
+    // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update password &remove reset fields
+    // Update password & remove reset fields
     await db.collection("members").updateOne(
       { email: user.email },
       { 

@@ -6,20 +6,20 @@ export default withAuth(
     const token = req.nextauth.token;
     const isAdminPath = req.nextUrl.pathname.startsWith("/admin");
 
-    // If the user is trying to access an admin page but isn't an admin, redirect them
+    // isn't an admin, redirect
     if (isAdminPath && token?.role !== "admin") {
       return NextResponse.redirect(new URL("/admin-login", req.url));
     }
   },
   {
     callbacks: {
-      // This ensures the middleware only runs if the user is logged in
+      // only runs if the user is logged in
       authorized: ({ token }) => !!token,
     },
   }
 );
 
-// This tells the middleware which paths to protect
+// tells which paths to protect
 export const config = {
   matcher: ["/admin/dashboard", "/admin/add-item"],
 };

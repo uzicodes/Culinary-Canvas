@@ -27,7 +27,7 @@ const categories: Category[] = [
     { id: 12, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-50', textColor: 'text-rose-600' }
 ]
 
-// Animation Variants with TypeScript Fix
+
 const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {

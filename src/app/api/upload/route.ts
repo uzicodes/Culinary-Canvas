@@ -19,11 +19,11 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Explicitly typing the Promise and callback parameters to fix TS7006
+
     const uploadResponse = await new Promise((resolve, reject) => {
       cloudinary.uploader.upload_stream(
         { folder: "culinary-canvas/items" }, 
-        (error: any, result: any) => { // Adding explicit 'any' or specific Cloudinary types
+        (error: any, result: any) => { 
           if (error) reject(error);
           else resolve(result);
         }

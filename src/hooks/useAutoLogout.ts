@@ -23,7 +23,7 @@ export const useAutoLogout = () => {
       // Redirect to home page
       router.push('/');
       
-      // Optional: Show a notification that the session expired
+      // session expired notification
       alert('Your session has expired due to inactivity. Please log in again.');
     }
   }, [router]);

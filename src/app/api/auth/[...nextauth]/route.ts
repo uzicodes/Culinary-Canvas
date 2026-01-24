@@ -18,29 +18,8 @@ const handler = NextAuth({
           const client = await clientPromise;
           const db = client.db("culinary-canvas");
 
-          /**
-           * 1. ADMIN SECURITY KEY LOGIC
-           * Triggers when the form sends a password (key) but NO email.
-           */
-          if (!credentials?.email && credentials?.password) {
-            // Find the admin document in the 'admin' collection
-            const admin = await db.collection("admin").findOne({ role: "admin" });
 
-            // Validate the entered key against the stored password (hashed)
-            if (admin && await validPassword(credentials.password, admin.password)) {
-              return {
-                id: admin._id.toString(),
-                name: "Master Admin",
-                role: "admin"
-              };
-            }
-            return null; // Incorrect Security Key
-          }
 
-          /**
-           * 2. MEMBER LOGIN LOGIC
-           * Standard login using Email and Password.
-           */
           if (credentials?.email && credentials?.password) {
             const user = await findUserByEmail(credentials.email);
             
@@ -83,7 +62,7 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: '/login', // Redirect for standard user sign-in
+    signIn: '/login', // Redirect for user sign-in
   },
 });
 
