@@ -109,26 +109,51 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
       <div className="bg-transparent sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-wrap justify-center md:justify-start gap-2.5">
-            {filterCategories.map(cat => {
-              const params = new URLSearchParams();
-              if (cat.id !== 'all') params.set('category', cat.id);
-              if (searchTerm) params.set('search', searchTerm);
-              const href = params.toString() ? `/all-items?${params}` : '/all-items';
-              return (
-                <a
-                  key={cat.id}
-                  href={href}
-                  className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
-                    activeCategory === cat.id 
-                      ? 'bg-black text-[#BCE334] scale-105' 
-                      : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
-                  }`}
-                >
-                  {cat.label}
-                </a>
-              );
-            })}
+          <div className="flex flex-col gap-2">
+            {/* First row - 8 buttons */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {filterCategories.slice(0, 8).map(cat => {
+                const params = new URLSearchParams();
+                if (cat.id !== 'all') params.set('category', cat.id);
+                if (searchTerm) params.set('search', searchTerm);
+                const href = params.toString() ? `/all-items?${params}` : '/all-items';
+                return (
+                  <a
+                    key={cat.id}
+                    href={href}
+                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
+                      activeCategory === cat.id 
+                        ? 'bg-black text-[#BCE334] scale-105' 
+                        : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
+                    }`}
+                  >
+                    {cat.label}
+                  </a>
+                );
+              })}
+            </div>
+            {/* Second row - 7 buttons */}
+            <div className="flex flex-wrap justify-center gap-2">
+              {filterCategories.slice(8).map(cat => {
+                const params = new URLSearchParams();
+                if (cat.id !== 'all') params.set('category', cat.id);
+                if (searchTerm) params.set('search', searchTerm);
+                const href = params.toString() ? `/all-items?${params}` : '/all-items';
+                return (
+                  <a
+                    key={cat.id}
+                    href={href}
+                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
+                      activeCategory === cat.id 
+                        ? 'bg-black text-[#BCE334] scale-105' 
+                        : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
+                    }`}
+                  >
+                    {cat.label}
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -262,13 +287,13 @@ function ItemCard({
             </div>
           </div>
         ) : (
-          <div>
+          <div className="flex-1 flex flex-col">
             <h3 className="text-[10px] md:text-[13px] font-black text-black uppercase tracking-wider leading-tight mb-1 md:mb-3">{editedItem.name}</h3>
-            <p className="text-white/80 text-[8px] md:text-[10px] font-bold uppercase tracking-wide line-clamp-2 leading-relaxed">{editedItem.description}</p>
+            <p className="text-white/80 text-[8px] md:text-[10px] font-bold uppercase tracking-wide line-clamp-2 md:line-clamp-3 leading-relaxed flex-1">{editedItem.description}</p>
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-2 md:pt-5 mt-2 md:mt-5 border-t border-white/10">
+        <div className="flex items-center justify-between pt-2 md:pt-5 mt-auto border-t border-white/10">
           <span className="text-sm md:text-xl font-black text-[#F1F604]">৳{editedItem.price}</span>
           {isEditing ? (
             <div className="flex gap-2">
