@@ -17,6 +17,7 @@ export async function GET() {
   const orders = await db
     .collection("orders")
     .find({ email: session.user.email })
+    .sort({ orderTime: -1, _id: -1 })
     .toArray();
 
   return NextResponse.json(orders);

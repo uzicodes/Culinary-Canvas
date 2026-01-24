@@ -25,7 +25,13 @@ export default function ProfilePage() {
       try {
         const res = await fetch('/api/orders/my-orders');
         const data = await res.json();
-        setOrders(data);
+        // Sort by orderTime descending (most recent first)
+        const sortedData = data.sort((a: any, b: any) => {
+          const dateA = new Date(a.orderTime || 0).getTime();
+          const dateB = new Date(b.orderTime || 0).getTime();
+          return dateB - dateA;
+        });
+        setOrders(sortedData);
       } catch (err) {
         console.error("Failed to load orders", err);
       } finally {
