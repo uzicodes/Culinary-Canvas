@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react'; // Added getSession
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Mail, Lock, ArrowRight, Loader2, ChefHat } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/dist/ReactToastify.css';
 
@@ -19,14 +19,11 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Admin logic check/route.ts]
-    const isMasterAdmin = email === 'master_admin' && password === process.env.NEXT_PUBLIC_MASTER_ADMIN_KEY;
-
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        email,
-        password,
+        email: email,
+        password: password,
       });
 
       if (result?.error) {
@@ -35,22 +32,40 @@ const LoginForm = () => {
           autoClose: 3000,
           theme: "dark",
         });
-      } else {
+        setLoading(false);
+      } else if (result?.ok) {
         toast.success('Access Granted. Redirecting...', {
           position: "top-right",
           autoClose: 2000,
           theme: "dark",
         });
         
-        // Dynamic redirection logic based on role/route.ts]
+        // Small delay to ensure session is properly updated before fetching
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Fetch the updated session to check the role
+        const session = await getSession();
+        const userRole = (session?.user as any)?.role;
+
         setTimeout(() => {
-          router.push(isMasterAdmin ? '/admin/dashboard' : '/profile');
+          // If the role is admin, go to dashboard; otherwise, go to profile
+          if (userRole === 'admin') {
+            router.push('/admin/dashboard');
+          } else {
+            router.push('/profile');
+          }
           router.refresh();
-        }, 2000);
+        }, 1500);
+      } else {
+        toast.error('Login failed. Please try again.', {
+          position: "top-right",
+          autoClose: 3000,
+          theme: "dark",
+        });
+        setLoading(false);
       }
     } catch (error) {
       toast.error('Vault connection failed.');
-    } finally {
       setLoading(false);
     }
   };
@@ -59,7 +74,6 @@ const LoginForm = () => {
     <div className="w-full max-w-md mx-auto">
       <ToastContainer />
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Email Field */}
         <div className="space-y-2">
           <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-2">
             Access Identity
@@ -70,8 +84,7 @@ const LoginForm = () => {
             </div>
             <input
               type="text"
-              required
-              placeholder="email@example.com or master_id"
+              placeholder="email@example.com (leave empty for admin)"
               className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] text-gray-900 px-12 py-4 rounded-2xl outline-none font-bold text-sm transition-all placeholder:text-gray-300"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -79,13 +92,11 @@ const LoginForm = () => {
           </div>
         </div>
 
-        {/* Password Field */}
         <div className="space-y-2">
           <div className="flex justify-between items-center px-2">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
               Security Key
             </label>
-            {/* --- FORGOT PASSWORD LINK --- */}
             <Link 
               href="/forgot-password" 
               className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
@@ -108,7 +119,6 @@ const LoginForm = () => {
           </div>
         </div>
 
-        {/* Submit Button */}
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -125,7 +135,6 @@ const LoginForm = () => {
           )}
         </motion.button>
 
-        {/* Register Redirect */}
         <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-4">
           No Access Identity?{' '}
           <Link href="/register" className="text-black border-b-2 border-[#BCE334] pb-0.5 hover:text-[#BCE334] transition-colors">
