@@ -2,327 +2,300 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Truck, 
+  CreditCard, 
+  DollarSign, 
+  Ticket, 
+  CheckCircle2, 
+  Smartphone, 
+  ArrowRight,
+  ShieldCheck
+} from 'lucide-react';
+import Header from '@/components/Header';
 
 interface CartItem {
-	_id: string;
-	name: string;
-	price: number;
-	quantity: number;
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
 }
 
 export default function PaymentPage() {
-	const [cartItems, setCartItems] = useState<CartItem[]>([]);
-	const [deliveryMethod, setDeliveryMethod] = useState('');
-	const [paymentMethod, setPaymentMethod] = useState('');
-	const [tip, setTip] = useState<number>(0);
-	const [customTip, setCustomTip] = useState<string>('');
-	const [mobileNumber, setMobileNumber] = useState('+880');
-	const [cardNumber, setCardNumber] = useState('');
-	const [customerName, setCustomerName] = useState('');
-	const [customerEmail, setCustomerEmail] = useState('');  
-	const [customerAddress, setCustomerAddress] = useState(''); 
-	const [couponCode, setCouponCode] = useState(''); 
-	const [couponDiscount, setCouponDiscount] = useState(0); 
-	const router = useRouter();
+    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [deliveryMethod, setDeliveryMethod] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('');
+    const [tip, setTip] = useState<number>(0);
+    const [customTip, setCustomTip] = useState<string>('');
+    const [mobileNumber, setMobileNumber] = useState('+880');
+    const [cardNumber, setCardNumber] = useState('');
+    const [customerName, setCustomerName] = useState('');
+    const [customerEmail, setCustomerEmail] = useState('');  
+    const [customerAddress, setCustomerAddress] = useState(''); 
+    const [couponCode, setCouponCode] = useState(''); 
+    const [couponDiscount, setCouponDiscount] = useState(0); 
+    const router = useRouter();
 
-	useEffect(() => {
-		const saved = localStorage.getItem('cart');
-		const parsed: CartItem[] = saved ? JSON.parse(saved) : [];
-		setCartItems(parsed);
+    useEffect(() => {
+        const saved = localStorage.getItem('cart');
+        const parsed: CartItem[] = saved ? JSON.parse(saved) : [];
+        setCartItems(parsed);
 
-		// Retrieve customer data from localStorage (checkoutData)
-		const checkoutData = localStorage.getItem('checkoutData');
-		if (checkoutData) {
-			const parsedData = JSON.parse(checkoutData);
-			setCustomerName(parsedData.name);  
-			setCustomerEmail(parsedData.email); 
-			setMobileNumber(parsedData.phone); 
-			setCustomerAddress(parsedData.address); 
-		}
-	}, []);
+        const checkoutData = localStorage.getItem('checkoutData');
+        if (checkoutData) {
+            const parsedData = JSON.parse(checkoutData);
+            setCustomerName(parsedData.name);  
+            setCustomerEmail(parsedData.email); 
+            setMobileNumber(parsedData.phone); 
+            setCustomerAddress(parsedData.address); 
+        }
+    }, []);
 
-	const subtotal = cartItems.reduce(
-		(sum, item) => sum + item.price * item.quantity,
-		0
-	);
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const deliveryFee = deliveryMethod === 'Priority' ? 60 : 45;
+    const totalBeforeCoupon = subtotal + deliveryFee + tip;
+    const total = totalBeforeCoupon - couponDiscount;
 
-	const deliveryFee = deliveryMethod === 'Priority' ? 60 : 45;
-	const totalBeforeCoupon = subtotal + deliveryFee + tip;
-	const total = totalBeforeCoupon - couponDiscount;  // Apply coupon discount to total
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!deliveryMethod || !paymentMethod) {
+            alert('Please select all required options.');
+            return;
+        }
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+        let finalCouponDiscount = couponDiscount;
+        if (couponCode === 'CC10' || couponCode === 'BITE10') {
+            finalCouponDiscount = subtotal * 0.10;
+        }
 
-		if (!deliveryMethod || !paymentMethod) {
-			alert('Please select all required options.');
-			return;
-		}
+        const orderData = {
+            customerName, customerEmail,
+            customerPhone: mobileNumber,
+            customerAddress, orderItems: cartItems,
+            deliveryMethod, paymentMethod, tip,
+            subtotal, couponCode,
+            total: totalBeforeCoupon - finalCouponDiscount,
+            couponDiscount: finalCouponDiscount,
+        };
 
-		// Handle coupon discount logic
-		let finalCouponDiscount = couponDiscount;
+        localStorage.setItem('orderData', JSON.stringify(orderData));
 
-			if (couponCode === '') {
-				finalCouponDiscount = 0;
-			} else if (couponCode === 'CC10') {
-				finalCouponDiscount = subtotal * 0.10; // Apply 10% discount
-				alert('Coupon applied successfully!');
-			} else {
-				finalCouponDiscount = 0;
-				alert('Invalid coupon!');
-				return;
-			}
+        try {
+            const response = await fetch('/api/orders', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData),
+            });
 
-		// Collect order data to send to the backend API
-		const orderData = {
-			customerName,
-			customerEmail,
-			customerPhone: mobileNumber,
-			customerAddress,
-			orderItems: cartItems,
-			deliveryMethod,
-			paymentMethod,
-			tip,
-			subtotal,
-			couponCode,
-			total: totalBeforeCoupon - finalCouponDiscount, // Apply discount to total
-			couponDiscount: finalCouponDiscount,  // Store coupon discount value here
-		};
+            if (!response.ok) throw new Error('Failed to confirm order');
+            router.push('/payment/success');
+        } catch (error: any) {
+            alert(`Error: ${error.message}`);
+        }
+    };
 
-		// Save the order data including the coupon discount
-		localStorage.setItem('orderData', JSON.stringify(orderData));
+    const formatCardInput = (value: string) => {
+        return value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim().slice(0, 19);
+    };
 
-		try {
-			const response = await fetch('/api/orders', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(orderData),
-			});
+    return (
+        <div className="min-h-screen bg-[#F7FBE7] text-black">
+            <Header />
+            
+            <div className="max-w-5xl mx-auto px-4 pt-24 pb-10 md:pt-28">
+                <motion.div 
+                    initial={{ opacity: 0, y: -10 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    className="flex items-center gap-3 mb-6"
+                >
+                    <div className="bg-black p-2.5 rounded-xl shadow-lg">
+                        <ShieldCheck className="text-[#BCE334] text-lg md:text-xl" />
+                    </div>
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none">Secure <span className="text-[#BCE334] bg-black px-1.5 rounded-md">Finalize</span></h1>
+                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-gray-400 mt-0.5">Vault Settlement Active</p>
+                    </div>
+                </motion.div>
 
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.message || 'Failed to confirm order');
-			}
-		
-			router.push('/payment/success');
+                <form onSubmit={handleSubmit} className="flex flex-col lg:grid lg:grid-cols-12 gap-5 lg:gap-8">
+                    {/* Left Section: Inputs */}
+                    <div className="order-1 lg:col-span-7 space-y-4">
+                        
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {/* Logistics Pod */}
+                            <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
+                                <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
+                                    <Truck size={12} className="text-black" /> Logistics
+                                </h2>
+                                <select
+                                    value={deliveryMethod}
+                                    onChange={(e) => setDeliveryMethod(e.target.value)}
+                                    required
+                                    className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 text-xs font-bold outline-none appearance-none cursor-pointer"
+                                >
+                                    <option value="">Select Speed</option>
+                                    <option value="Standard">Standard (৳45)</option>
+                                    <option value="Priority">Priority (৳60)</option>
+                                </select>
+                            </section>
 
-		} catch (error: any) {
-			alert(`Error: ${error.message || 'An unexpected error occurred'}`);
-			console.error('Error confirming order:', error);
-		}
-	};
+                            {/* Promo Pod */}
+                            <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
+                                <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
+                                    <Ticket size={12} className="text-black" /> Promo Token
+                                </h2>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={couponCode}
+                                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                        placeholder="CODE"
+                                        className="flex-1 bg-black/5 border-none rounded-xl p-3 text-xs font-bold outline-none min-w-0"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            if (couponCode === 'CC10' || couponCode === 'BITE10') {
+                                                setCouponDiscount(subtotal * 0.10);
+                                                alert('Token Authenticated!');
+                                            } else {
+                                                setCouponDiscount(0);
+                                                alert('Invalid Token');
+                                            }
+                                        }}
+                                        className="bg-black text-[#BCE334] px-3 rounded-xl text-[9px] font-black uppercase"
+                                    >
+                                        Apply
+                                    </button>
+                                </div>
+                            </section>
+                        </div>
 
-	//card number input (group digits in blocks of 4)=16
-	const formatCardInput = (value: string) => {
-		return value
-			.replace(/\D/g, '')  // Remove all non-numeric characters
-			.replace(/(.{4})/g, '$1 ')  // space after every 4 digits
-			.trim()  // Remove trailing spaces
-			.slice(0, 19);  // Limit  (16 digits + 3 spaces)=19 digits
-	};
+                        {/* Payment Pod */}
+                        <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-4">
+                            <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
+                                <CreditCard size={12} className="text-black" /> Settlement Method
+                            </h2>
+                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                {['Cash', 'Bkash', 'Nagad', 'Card'].map((method) => {
+                                    const fullMethod = method === 'Cash' ? 'Cash on Delivery' : method === 'Card' ? 'Card/Debit Card' : method;
+                                    return (
+                                        <button
+                                            key={method}
+                                            type="button"
+                                            onClick={() => setPaymentMethod(fullMethod)}
+                                            className={`p-3 rounded-xl border-2 text-[8px] font-black uppercase tracking-tighter transition-all ${
+                                                paymentMethod === fullMethod 
+                                                ? 'bg-black text-[#BCE334] border-black' 
+                                                : 'bg-white border-transparent text-gray-500 hover:border-gray-100 shadow-sm'
+                                            }`}
+                                        >
+                                            {method}
+                                        </button>
+                                    );
+                                })}
+                            </div>
 
-	// Handle phone number input
-	const handleMobileNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let input = e.target.value.replace(/\D/g, '');
-		if (input.startsWith('880')) {
-			input = '+' + input;
-		} else {
-			input = '+880' + input;
-		}
-		setMobileNumber(input.slice(0, 14));  // doesn't exceed 14 digits
-	};
+                            <AnimatePresence mode="wait">
+                                {(paymentMethod === 'Bkash' || paymentMethod === 'Nagad' || paymentMethod === 'Card/Debit Card') && (
+                                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="pt-2">
+                                        <div className="relative">
+                                            {paymentMethod.includes('Card') ? <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} /> : <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />}
+                                            <input
+                                                type="text"
+                                                value={paymentMethod.includes('Card') ? cardNumber : mobileNumber}
+                                                onChange={(e) => paymentMethod.includes('Card') ? setCardNumber(formatCardInput(e.target.value)) : setMobileNumber(e.target.value)}
+                                                placeholder={paymentMethod.includes('Card') ? "XXXX XXXX XXXX XXXX" : `Enter ${paymentMethod} number`}
+                                                className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 pl-10 text-xs font-bold outline-none"
+                                            />
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </section>
 
-	return (
-		<div
-			className="relative min-h-screen bg-cover bg-center flex items-center justify-center p-6"
-			style={{
-				backgroundImage: `url(https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1920&q=80)`,
-				backgroundPosition: 'center',
-				backgroundSize: 'cover',
-				backgroundRepeat: 'no-repeat',
-				backgroundBlendMode: 'overlay',
-				backgroundColor: 'rgba(0,0,0,0.3)',  // Slight dark overlay for text visibility
-			}}
-		>
+                        {/* Gratuity Pod (Custom Compact Logic) */}
+                        <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
+                            <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
+                                <DollarSign size={12} className="text-black" /> Rider Gratuity
+                            </h2>
+                            <div className="flex items-center gap-2">
+                                <div className="flex gap-1.5">
+                                    {[10, 20, 30].map((amt) => (
+                                        <button
+                                            key={amt}
+                                            type="button"
+                                            onClick={() => { setTip(amt); setCustomTip(''); }}
+                                            className={`w-9 h-8 rounded-lg text-[8px] font-black transition-all ${tip === amt ? 'bg-black text-[#BCE334]' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                                        >
+                                            ৳{amt}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="flex-1 relative">
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400">৳</span>
+                                    <input
+                                        type="number"
+                                        value={customTip}
+                                        onChange={(e) => setCustomTip(e.target.value)}
+                                        onBlur={() => setTip(parseFloat(customTip) || 0)}
+                                        placeholder="Custom amount"
+                                        className="w-full bg-black/5 border-none rounded-xl p-2.5 pl-6 text-[10px] font-black outline-none placeholder:text-gray-300"
+                                    />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
 
-			<form
-				onSubmit={handleSubmit}
-				className="relative backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-lg w-full border border-yellow-600"
-				style={{ backgroundColor: '#deecbb' }}
-			>
-				<h2 className="text-3xl font-extrabold mb-6 text-center text-black">
-					Payment & Delivery
-				</h2>
+                    {/* Right Section: Summary */}
+                    <div className="order-2 lg:col-span-5">
+                        <div className="bg-black text-white p-6 rounded-[2.5rem] shadow-xl lg:sticky lg:top-28 border border-white/10">
+                            <h3 className="text-lg font-black uppercase tracking-tight mb-4 pb-3 border-b border-white/10">Summary</h3>
+                            
+                            <div className="space-y-3 mb-6">
+                                <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Base Amount</span>
+                                    <span className="text-white">৳{subtotal.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Logistics Fee</span>
+                                    <span className="text-white">৳{deliveryFee.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                                    <span>Gratuity</span>
+                                    <span className="text-[#BCE334]">৳{tip.toFixed(2)}</span>
+                                </div>
+                                {couponDiscount > 0 && (
+                                    <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+                                        <span>Token Value</span>
+                                        <span className="text-red-400">-৳{couponDiscount.toFixed(2)}</span>
+                                    </div>
+                                )}
+                            </div>
 
-				<div className="mb-4">
-					<label className="font-semibold block mb-2 text-black">
-						Delivery Options
-					</label>
-								<select
-									value={deliveryMethod}
-									onChange={(e) => setDeliveryMethod(e.target.value)}
-									required
-									className="w-full p-2 rounded text-black bg-white"
-								>
-						<option value="">-- Select --</option>            
-						<option value="Standard">Standard (30 – 40 min)</option>
-						<option value="Priority">Priority (20 – 30 min)</option>
-					</select>
-				</div>
+                            <div className="pt-4 border-t-2 border-dashed border-[#BCE334]/30">
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <p className="text-[8px] font-black uppercase tracking-widest text-gray-500 mb-0.5">Total Payable</p>
+                                        <p className="text-3xl font-black text-[#BCE334]">৳{total.toFixed(2)}</p>
+                                    </div>
+                                    <CheckCircle2 size={20} className="text-[#BCE334] mb-1" />
+                                </div>
+                            </div>
 
-				{/* Payment Method */}
-				<div className="mb-4">
-					<label className="font-semibold block mb-2 text-black">
-						Payment Methods
-					</label>
-								<select
-									value={paymentMethod}
-									onChange={(e) => {
-										setPaymentMethod(e.target.value);
-										setMobileNumber('+880');
-										setCardNumber('');
-									}}
-									required
-									className="w-full p-2 rounded  text-black bg-white"
-								>
-						<option value="">-- Select --</option>
-						<option value="Cash on Delivery">Cash on Delivery</option>
-						<option value="Bkash">Bkash</option>
-						<option value="Nagad">Nagad</option>
-						<option value="Card/Debit Card">Card/Debit Card</option>
-					</select>
-				</div>
-
-				{/* Phone Number Input for Bkash or Nagad */}
-				{(paymentMethod === 'Bkash' || paymentMethod === 'Nagad') && (
-					<div className="mb-4">
-						<input
-							type="text"
-							value={mobileNumber}
-							onChange={(e) => setMobileNumber(e.target.value)}
-							placeholder={`Enter your ${paymentMethod} number (+880XXXXXXXXXX)`}
-							className="w-full border-2 border-black p-2 rounded text-black bg-white"
-						/>
-						<small className="text-gray-500">
-							{`Please enter your ${paymentMethod} Number`}
-						</small>
-					</div>
-				)}
-
-				{/* Card Number Input for Card/Debit Card */}
-				{paymentMethod === 'Card/Debit Card' && (
-					<div className="mb-4">
-						<input
-							type="text"
-							value={cardNumber}
-							onChange={(e) => setCardNumber(formatCardInput(e.target.value))}
-							placeholder="Enter your 16-digit card number"
-							className="w-full border-2 border-black p-2 rounded text-black bg-white"
-						/>
-					</div>
-				)}
-
-
-						{/* Tip and Coupon Side by Side */}
-						<div className="mb-6 flex flex-row gap-4">
-							{/* Tip Your Rider */}
-							<div className="flex-1">
-								<label className="font-semibold block mb-2 text-black">Tip Your Rider</label>
-								<div className="flex items-center space-x-2 mb-2">
-									{[10, 20, 30].map((amt) => (
-										<button
-											key={amt}
-											type="button"
-											onClick={() => {
-												setTip(amt);
-												setCustomTip('');
-											}}
-											className={`py-1 px-2 rounded text-xs ${tip === amt ? 'bg-green-700 text-white' : 'bg-green-500 text-white'} hover:bg-green-600`}
-										>
-											৳{amt}
-										</button>
-									))}
-								</div>
-								<div className="flex items-center">
-									<input
-										type="number"
-										min="0"
-										value={customTip}
-										onChange={(e) => setCustomTip(e.target.value)}
-										onBlur={() => setTip(parseFloat(customTip) || 0)}
-										placeholder="Other amount"
-										className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs text-black bg-white"
-									/>
-
-								</div>
-							</div>
-							{/* Coupon Code Section */}
-										<div className="flex flex-col items-start justify-end">
-											<div className="flex flex-col">
-												<label className="font-semibold block mb-2 text-black mt-7">Do You Have a Coupon ?</label>
-												<div className="flex items-center gap-2">
-													<input
-														type="text"
-														value={couponCode}
-														onChange={(e) => setCouponCode(e.target.value)}
-														placeholder="Enter your coupon code"
-														className="w-40 border-2 border-black p-2 rounded text-xs placeholder:text-xs text-black bg-white"
-													/>
-													<button
-														type="button"
-														onClick={() => {
-															// Add coupon validation or discount logic here
-															if (couponCode === 'BITE10') {
-																setCouponDiscount(subtotal * 0.10);  // Apply 10% discount
-																alert('Coupon applied successfully!');
-															} else {
-																setCouponDiscount(0);
-																alert('Invalid coupon!');
-															}
-														}}
-														className="bg-green-500 text-white py-1 px-2 rounded text-xs hover:bg-green-600"
-													>
-														Apply 
-													</button>
-												</div>
-											</div>
-										</div>
-						</div>
-
-				<div className="mb-6 space-y-2 text-black text-center">
-					<h3 className="font-bold text-xl">Order Summary</h3>
-					<div className="w-full">
-						<div className="flex justify-between">
-							<span>Subtotal</span>
-							<span>৳{subtotal.toFixed(2)}</span>
-						</div>
-						<div className="flex justify-between">
-							<span>Delivery Fee</span>
-							<span>৳{deliveryFee.toFixed(2)}</span>
-						</div>
-						<div className="flex justify-between">
-							<span>Tip</span>
-							<span>৳{tip.toFixed(2)}</span>
-						</div>
-						<div className="flex justify-between">
-							<span>Coupon Discount</span>
-							<span>৳{couponDiscount.toFixed(2)}</span>
-						</div>
-						<hr className="border-t-2 border-black my-4" />
-						<div className="flex justify-between font-bold text-lg">
-							<span>Total</span>
-							<span>৳{total.toFixed(2)}</span>
-						</div>
-					</div>
-				</div>
-
-				<button
-					type="submit"
-					className="bg-yellow-500 text-black py-2 px-4 rounded hover:bg-yellow-600 w-full font-semibold shadow-md"
-				>
-					Confirm Order
-				</button>
-			</form>
-		</div>
-	);
+                            <motion.button
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit"
+                                className="w-full bg-[#BCE334] text-black py-3.5 rounded-xl font-black uppercase text-[10px] tracking-[0.2em] mt-6 shadow-lg flex items-center justify-center gap-2 group transition-all"
+                            >
+                                Confirm Order <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                            </motion.button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
 }

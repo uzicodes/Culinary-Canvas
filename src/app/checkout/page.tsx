@@ -5,6 +5,8 @@ import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { User, Mail, MapPin, Phone, ShieldCheck, ArrowRight } from 'lucide-react';
+import Header from '@/components/Header';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -13,12 +15,11 @@ export default function CheckoutPage() {
     name: '',
     email: '',
     address: '',
-    phone: ''  // including country code (+880)
+    phone: '' 
   });
 
-  // Prefill name & email from session (profile)
   useEffect(() => {
-    if (session && session.user) {
+    if (session?.user) {
       setFormData((prev) => ({
         ...prev,
         name: session.user?.name || '',
@@ -35,108 +36,125 @@ export default function CheckoutPage() {
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
     setFormData({
       ...formData,
-      phone: value  // Allow full phone number input
+      phone: e.target.value 
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Saved data
     localStorage.setItem("checkoutData", JSON.stringify(formData));
-    router.push("/payment");  // Redirect to the payment page
+    router.push("/payment"); 
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-gray-100 overflow-hidden">
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1470&q=80"
-          alt="checkout bg"
-          fill
-          className="object-cover opacity-50 blur-sm"
-          priority
-        />
+    <div className="relative min-h-screen flex items-center justify-center bg-[#F7FBE7] px-4 pt-20 pb-10">
+      <Header />
+      
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}>
       </div>
 
-      {/* Overlay card */}
       <motion.div
-        className="z-10 w-full max-w-xl bg-[#c78e28] shadow-2xl rounded-2xl p-8 space-y-6 backdrop-blur-md"
-        initial={{ y: 50, opacity: 0 }}
+        className="z-10 w-full max-w-xl bg-white/80 backdrop-blur-2xl shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] rounded-[3rem] border border-white p-8 md:p-12 space-y-8"
+        initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <h2 className="text-3xl font-bold text-black text-center">🛒 Checkout</h2>
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-semibold text-black mb-1">Name</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              readOnly
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white bg-gray-200 text-gray-500 cursor-not-allowed"
-            />
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center justify-center p-3 bg-black rounded-2xl mb-2">
+            <ShieldCheck className="text-[#BCE334] w-6 h-6" />
+          </div>
+          <h2 className="text-4xl font-black text-black uppercase tracking-tighter">Checkout <span className="text-[#BCE334] bg-black px-2 rounded-lg">Cart</span></h2>
+          <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Confirm your Items</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Name Field (Read Only) */}
+            <div className="space-y-1">
+              <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">
+                <User size={12} /> Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                readOnly
+                className="w-full bg-gray-100 border-2 border-transparent rounded-2xl p-4 text-sm font-bold text-gray-400 cursor-not-allowed outline-none"
+              />
+            </div>
+
+            {/* Email Field (Read Only) */}
+            <div className="space-y-1">
+              <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">
+                <Mail size={12} /> Identity
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                readOnly
+                className="w-full bg-gray-100 border-2 border-transparent rounded-2xl p-4 text-sm font-bold text-gray-400 cursor-not-allowed outline-none"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-black mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              readOnly
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white bg-gray-200 text-gray-500 cursor-not-allowed"
-            />
+          {/* Address Field */}
+          <div className="space-y-1">
+            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">
+              <MapPin size={12} /> Delivery Address
+            </label>
+            <div className="relative group">
+              <input
+                type="text"
+                name="address"
+                placeholder="Road & House no:"
+                value={formData.address}
+                onChange={handleChange}
+                required
+                className="w-full bg-black/5 border-2 border-transparent rounded-2xl p-4 pl-5 text-sm font-bold text-black outline-none focus:border-[#BCE334] transition-all placeholder:text-gray-300"
+              />
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-semibold text-black mb-1">Address</label>
-            <input
-              type="text"
-              name="address"
-              placeholder="Road & House no:"
-              value={formData.address}
-              onChange={handleChange}
-              required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-semibold text-black mb-1">Phone</label>
+          {/* Phone Field */}
+          <div className="space-y-1">
+            <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">
+              <Phone size={12} /> Phone Number
+            </label>
             <input
               type="text"
               name="phone"
-              placeholder="+8801234567890"
+              placeholder="+880 0000-000000"
               value={formData.phone}
               onChange={handlePhoneChange}  
               required
-              className="w-full border border-gray-300 rounded-lg p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-white"
+              className="w-full bg-black/5 border-2 border-transparent rounded-2xl p-4 pl-5 text-sm font-bold text-black outline-none focus:border-[#BCE334] transition-all placeholder:text-gray-300"
             />
-            <small className="text-gray-500">
-              {`Please enter your full phone number, including the country code (+880).`}
-            </small>
+            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-tight ml-2 mt-2 ">
+              Include country code (+880) 
+            </p>
           </div>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full bg-white hover:bg-gray-100 text-[#c78e28] font-semibold py-3 rounded-lg shadow-lg"
+            className="group w-full bg-black text-[#BCE334] font-black uppercase text-xs tracking-[0.3em] py-5 rounded-[2rem] shadow-2xl flex items-center justify-center gap-3 transition-all hover:shadow-[#BCE334]/20"
           >
-              Proceed To Payements
+            Authorize Payment <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
           </motion.button>
         </form>
+
+        <div className="pt-4 border-t border-gray-100 text-center">
+          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">
+            Encryption Status: <span className="text-black">Active</span>
+          </p>
+        </div>
       </motion.div>
     </div>
   );
 }
-
