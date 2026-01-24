@@ -24,7 +24,9 @@ const categories: Category[] = [
     { id: 9, name: 'Traditional', slug: 'Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png', color: 'bg-emerald-50', textColor: 'text-emerald-600' },
     { id: 10, name: 'Coffee', slug: 'Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png', color: 'bg-stone-50', textColor: 'text-stone-700' },
     { id: 11, name: 'Drinks & Beverages', slug: 'Drinks & Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-cyan-50', textColor: 'text-cyan-600' },
-    { id: 12, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-50', textColor: 'text-rose-600' }
+    { id: 12, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-50', textColor: 'text-rose-600' },
+    { id: 13, name: 'Sea-Food', slug: 'Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-sky-50', textColor: 'text-sky-600' },
+    { id: 14, name: 'Japanese', slug: 'Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png', color: 'bg-amber-50', textColor: 'text-amber-600' }
 ]
 
 

@@ -50,6 +50,8 @@ const Header = () => {
     { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
     { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
     { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
+    { name: 'Sea-Food', href: '/all-items?category=seafood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
+    { name: 'Japanese', href: '/all-items?category=japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
   ];
 
   useEffect(() => {

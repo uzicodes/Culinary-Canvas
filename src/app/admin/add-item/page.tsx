@@ -146,6 +146,8 @@ export default function AddItemPage() {
                   <option>Coffee</option>
                   <option>Desserts</option>
                   <option>Drinks & Beverages</option>
+                  <option>Sea-Food</option>
+                  <option>Japanese</option>
                 </select>
               </div>
             </div>
