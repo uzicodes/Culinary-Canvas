@@ -75,10 +75,10 @@ const Header = () => {
         <div className="flex items-center shrink-0">
           <Link href="/" className="flex items-center space-x-2 -ml-2">
             <div className="w-12 h-12 relative">
-              <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" />
+              <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" sizes="48px" />
             </div>
             <span 
-                className="hidden lg:block text-xl lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
+                className="text-base sm:text-lg lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
                 style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
             >
               Culinary Canvas
