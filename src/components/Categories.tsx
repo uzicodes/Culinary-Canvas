@@ -13,20 +13,22 @@ interface Category {
 }
 
 const categories: Category[] = [
-    { id: 1, name: 'Burgers', slug: 'Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png', color: 'bg-red-50', textColor: 'text-red-600' },
-    { id: 2, name: 'Pizza', slug: 'Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png', color: 'bg-green-50', textColor: 'text-green-600' },
-    { id: 3, name: 'Fast Foods', slug: 'Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png', color: 'bg-blue-50', textColor: 'text-blue-600' },
-    { id: 4, name: 'Set Menus', slug: 'Set Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png', color: 'bg-yellow-50', textColor: 'text-pink-600' },
-    { id: 5, name: 'Appetizers', slug: 'Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png', color: 'bg-purple-50', textColor: 'text-yellow-600' },
-    { id: 6, name: 'Chinese', slug: 'Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png', color: 'bg-blue-50', textColor: 'text-purple-600' },
-    { id: 7, name: 'Desserts', slug: 'Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png', color: 'bg-indigo-50', textColor: 'text-indigo-600' },
-    { id: 8, name: 'Italian', slug: 'Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', color: 'bg-orange-50', textColor: 'text-orange-600' },
-    { id: 9, name: 'Traditional', slug: 'Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png', color: 'bg-emerald-50', textColor: 'text-emerald-600' },
-    { id: 10, name: 'Coffee', slug: 'Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png', color: 'bg-stone-50', textColor: 'text-stone-700' },
-    { id: 11, name: 'Drinks & Beverages', slug: 'Drinks & Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-cyan-50', textColor: 'text-cyan-600' },
-    { id: 12, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-50', textColor: 'text-rose-600' },
-    { id: 13, name: 'Sea-Food', slug: 'Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-sky-50', textColor: 'text-sky-600' },
-    { id: 14, name: 'Japanese', slug: 'Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png', color: 'bg-amber-50', textColor: 'text-amber-600' }
+    { id: 1, name: 'Burgers', slug: 'Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png', color: 'bg-red-100', textColor: 'text-black-600' },
+    { id: 2, name: 'Pizza', slug: 'Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png', color: 'bg-cyan-100', textColor: 'text-black-600' },
+    { id: 3, name: 'Fast Foods', slug: 'Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png', color: 'bg-blue-100', textColor: 'text-black-600' },
+    { id: 4, name: 'Set Menus', slug: 'Set Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png', color: 'bg-yellow-100', textColor: 'text-black-600' },
+    { id: 5, name: 'Appetizers', slug: 'Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png', color: 'bg-purple-100', textColor: 'text-black-600' },
+    { id: 6, name: 'Chinese', slug: 'Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png', color: 'bg-blue-100', textColor: 'text-black-600' },
+    { id: 7, name: 'Desserts', slug: 'Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png', color: 'bg-cyan-100', textColor: 'text-black-600' },
+    { id: 8, name: 'Italian', slug: 'Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', color: 'bg-orange-100', textColor: 'text-black-600' },
+    { id: 9, name: 'Traditional', slug: 'Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png', color: 'bg-blue-100', textColor: 'text-black-600' },
+    { id: 10, name: 'Japanese', slug: 'Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png', color: 'bg-amber-100', textColor: 'text-black-600'},
+    { id: 11, name: 'Sea-Food', slug: 'Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png', color: 'bg-red-100', textColor: 'text-black-600' },
+    { id: 12, name: 'Coffee', slug: 'Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png', color: 'bg-indigo-100', textColor: 'text-black-600' },
+    { id: 13, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-100', textColor: 'text-black-600' },
+    { id: 14, name: 'Drinks & Beverages', slug: 'Drinks & Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png', color: 'bg-blue-100', textColor: 'text-black-600' },
+
+
 ]
 
 
@@ -78,7 +80,7 @@ const Categories = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
-                    className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+                    className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-6"
                 >
                     {categories.map((category) => (
                         <motion.div key={category.id} variants={itemVariants}>

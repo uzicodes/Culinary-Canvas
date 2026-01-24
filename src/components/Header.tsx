@@ -45,13 +45,15 @@ const Header = () => {
     { name: 'Appetizers', href: '/all-items?category=appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
     { name: 'Chinese', href: '/all-items?category=chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
     { name: 'Italian', href: '/all-items?category=italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
+    { name: 'Japanese', href: '/all-items?category=japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png' },
     { name: 'Traditional', href: '/all-items?category=traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
+    { name: 'Sea-Food', href: '/all-items?category=seafood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png' },
     { name: 'Pakistani', href: '/all-items?category=pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
     { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
     { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
     { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
-    { name: 'Sea-Food', href: '/all-items?category=seafood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
-    { name: 'Japanese', href: '/all-items?category=japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
+
+
   ];
 
   useEffect(() => {

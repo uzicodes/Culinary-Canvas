@@ -57,8 +57,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
   const categoryOrder = [
     'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers', 
-    'Chinese', 'Italian', 'Traditional', 'Pakistani', 'Coffee', 
-    'Desserts', 'Drinks & Beverages', 'Sea-Food', 'Japanese'
+    'Chinese', 'Italian', 'Japanese', 'Traditional', 'Sea-Food', 
+    'Pakistani', 'Coffee', 'Desserts', 'Drinks & Beverages'
   ];
 
   const filterCategories = [
