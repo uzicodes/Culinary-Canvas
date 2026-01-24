@@ -6,9 +6,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import menuItems, { MenuItem } from '@/data/menuItems'
 import { useAutoLogout } from '@/hooks/useAutoLogout'
+import { useSession } from 'next-auth/react'
 
 const Header = () => {
   useAutoLogout();
+  const { data: session } = useSession();
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -148,7 +150,7 @@ const Header = () => {
             </div>
 
             <Link href="/profile" className="p-1.5 text-gray-800 hover:scale-110 transition-transform">
-              <User className="w-4 h-4" />
+              <User className={`w-4 h-4 ${session ? 'text-black fill-black' : ''}`} />
             </Link>
 
             <Link href="/cart" className="relative p-1.5 text-gray-800 hover:scale-110 transition-transform">
