@@ -6,9 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FaTrashAlt } from "react-icons/fa"; 
+import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-icons/fa"; 
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface CartItem {
   _id: string;
@@ -20,263 +21,191 @@ interface CartItem {
 }
 
 export default function CartPage() {
-  
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const { data: session } = useSession();
   const pathname = usePathname();
-  // Calculate total price
+
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-
-  const decreaseQuantity = (id: string) => {
-    setCartItems((prev) => {
-      const updated = prev.map((item) =>
-        item._id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-      localStorage.setItem("cart", JSON.stringify(updated));
-      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
-      return updated;
-    });
-  };
-
-  const increaseQuantity = (id: string) => {
-    setCartItems((prev) => {
-      const updated = prev.map((item) =>
-        item._id === id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-      localStorage.setItem("cart", JSON.stringify(updated));
-      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
-      return updated;
-    });
-  };
-
-  const removeFromCart = (id: string) => {
-    setCartItems((prev) => {
-      const updated = prev.filter((item) => item._id !== id);
-      localStorage.setItem("cart", JSON.stringify(updated));
-      if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
-      return updated;
-    });
-  };
-
-  const clearCart = () => {
-    setCartItems([]);
-    localStorage.setItem("cart", JSON.stringify([]));
+  const updateCart = (updatedItems: CartItem[]) => {
+    setCartItems(updatedItems);
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
     if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
   };
 
-  // Checkout handler
+  const decreaseQuantity = (id: string) => {
+    const updated = cartItems.map((item) =>
+      item._id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+    );
+    updateCart(updated);
+  };
+
+  const increaseQuantity = (id: string) => {
+    const updated = cartItems.map((item) =>
+      item._id === id ? { ...item, quantity: item.quantity + 1 } : item
+    );
+    updateCart(updated);
+  };
+
+  const removeFromCart = (id: string) => {
+    const updated = cartItems.filter((item) => item._id !== id);
+    updateCart(updated);
+    toast.error("Item removed from Cart");
+  };
+
+  const clearCart = () => {
+    updateCart([]);
+    toast.warn("Cart cleared");
+  };
+
   const handleCheckout = () => {
     if (!session) {
-      toast.info("Please login to proceed to checkout", { position: "top-center", autoClose: 2000 });
-      setTimeout(() => {
-        router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`);
-      }, 2000);
+      toast.info("Identification required for checkout");
+      setTimeout(() => router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`), 1500);
       return;
     }
-    // Proceed to checkout page
     router.push("/checkout");
   };
 
-  // Load cart items from localStorage
   useEffect(() => {
     const loadCart = () => {
       try {
         const savedCart = localStorage.getItem("cart");
-        const parsedCart = savedCart ? JSON.parse(savedCart) : [];
-        setCartItems(parsedCart);
+        setCartItems(savedCart ? JSON.parse(savedCart) : []);
       } catch (error) {
-        console.error("Error loading cart:", error);
         setCartItems([]);
       } finally {
         setIsLoading(false);
       }
     };
     loadCart();
-
-    // Listen for storage changes (e.g., when cart is cleared after order)
-    const handleStorageChange = () => {
-      loadCart();
-    };
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('cartUpdated', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('cartUpdated', handleStorageChange);
-    };
+    window.addEventListener('storage', loadCart);
+    return () => window.removeEventListener('storage', loadCart);
   }, []);
-
-  // block !  if not logged in , redirect to login page auto
-  if (showAuthPrompt) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
-          <h2 className="text-2xl font-bold mb-4 text-primary-600">Please login to proceed to checkout</h2>
-          <p className="mb-6 text-gray-700">If you don&apos;t have an account, please register below.</p>
-          <div className="flex gap-4 justify-center">
-            <Link href="/login?redirect=cart" className="bg-primary-500 hover:bg-primary-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Login</Link>
-            <Link href="/register" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors">Register</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   if (isLoading) {
     return (
-      <>
-        <Header />
-        <div className="flex justify-center items-center min-h-screen pt-20">
-          <div className="text-xl">Loading your cart...</div>
-        </div>
-      </>
+      <div className="min-h-screen bg-[#F7FBE7] flex items-center justify-center">
+        <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="w-12 h-12 border-4 border-black border-t-[#BCE334] rounded-full" />
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-[#F7FBE7] text-black pb-20">
       <Header />
-      <div className="container mx-auto px-4 pt-32 pb-8 min-h-screen relative">
-        {/* ( BG blurred image) */}
-        <div
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center blur-md"
-          style={{
-            backgroundImage: `url('/cart.jpg')`,
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed"
-          }}
-        ></div>
+      <ToastContainer position="bottom-right" theme="dark" />
+      
+      <div className="max-w-7xl mx-auto px-4 pt-32 lg:pt-40">
+        <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4 mb-12">
+          <div className="bg-black p-4 rounded-2xl">
+            <FaShoppingBag className="text-[#BCE334] text-2xl" />
+          </div>
+          <div>
+            <h1 className="text-4xl font-black uppercase tracking-tighter">Your <span className="text-[#BCE334] bg-black px-2 py-1 rounded-lg">Cart</span></h1>
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-1 ml-1">Secure your selections</p>
+          </div>
+        </motion.div>
 
-        {/* Content Wrapper */}
-        <div className="relative z-10">
-          <h1
-            className="text-4xl font-extrabold mb-8 text-center text-black mt-[-30px] p-4 mx-auto"
-            style={{
-              backgroundColor: "#d8e7f5", 
-              border: "3px solid #e97f3e", 
-              padding: "10px", 
-              borderRadius: "12px", 
-              maxWidth: "480px", 
-              width: "100%",
-              display: "block"
-            }}
-          >
-            Your Cart
-          </h1>
-
-          {cartItems.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-500 text-6xl mb-4">🛒</div>
-              <p className="text-xl mb-8 text-white">Your cart is empty</p>
-              <Link
-                href="/all-items"
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded"
-              >
-                Browse Menu
-              </Link>
-            </div>
-          ) : (
-            <>
-              <div className="space-y-6">
+        {cartItems.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 bg-white/40 rounded-[3rem] border-2 border-dashed border-gray-300 backdrop-blur-sm">
+            <div className="text-6xl mb-6">📦</div>
+            <h2 className="text-xl font-black uppercase tracking-widest text-gray-500 mb-8">The cart is currently empty</h2>
+            <Link href="/all-items" className="bg-black text-[#BCE334] px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-xl hover:scale-105 transition-transform">
+              Browse the Menu
+            </Link>
+          </div>
+        ) : (
+          <div className="grid lg:grid-cols-3 gap-12">
+            {/* Items List */}
+            <div className="lg:col-span-2 space-y-4">
+              <AnimatePresence>
                 {cartItems.map((item) => (
-                  <div
+                  <motion.div
                     key={item._id}
-                    className="flex flex-wrap md:flex-nowrap justify-between items-center bg-white shadow-lg rounded-lg p-4 w-full min-w-0"
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    className="flex flex-col sm:flex-row items-center gap-6 bg-white/80 backdrop-blur-md p-4 rounded-[2rem] border border-white/60 shadow-xl group transition-all hover:border-[#BCE334]"
                   >
-                    <div className="flex items-center space-x-4 w-full min-w-0">
-                      <div className="w-20 h-20 relative flex-shrink-0">
-                        <Image
-                          src={item.image}
-                          alt={item.name}
-                          fill
-                          className="object-cover rounded-md"
-                        />
-                      </div>
-                      <div className="w-0 flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-gray-900 truncate">
-                          {item.name}
-                        </h3>
-                        <p className="text-sm text-gray-600 capitalize truncate">
-                          {item.category}
-                        </p>
+                    <div className="relative w-full sm:w-32 h-32 overflow-hidden rounded-2xl">
+                      <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                    </div>
+                    
+                    <div className="flex-1 text-center sm:text-left">
+                      <h3 className="text-lg font-black uppercase tracking-tight text-gray-900">{item.name}</h3>
+                      <p className="text-[10px] font-bold text-[#BCE334] bg-black inline-block px-2 py-0.5 rounded-md uppercase tracking-widest mb-4 sm:mb-0">
+                        {item.category}
+                      </p>
+                      <div className="mt-4 sm:hidden flex justify-center items-center gap-6">
+                         <span className="text-xl font-black text-black">৳{item.price}</span>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-2 md:space-x-8 w-auto md:w-full justify-between mt-4 md:mt-0">
-                      <div className="text-sm text-gray-900 min-w-[48px] text-center">
-                        {Number(item.price).toFixed(2)}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => decreaseQuantity(item._id)}
-                          className="bg-red-500 hover:bg-red-600 text-white rounded-full px-2 py-1 font-bold"
-                        >
-                          -
-                        </button>
-                        <span className="font-semibold text-lg mx-2">{item.quantity}</span>
-                        <button
-                          onClick={() => increaseQuantity(item._id)}
-                          className="bg-green-500 hover:bg-green-600 text-white rounded-full px-2 py-1 font-bold"
-                        >
-                          +
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => removeFromCart(item._id)}
-                        className="bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 font-bold"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
 
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 mt-8 gap-8">
-                {/* Order Summary Box */}
-                <div className="bg-gray-50 p-6 rounded-lg border w-full md:w-96 mb-6 md:mb-0">
-                  <h2 className="text-lg font-bold mb-4 text-black">Order Summary</h2>
+                    <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-2xl">
+                      <button onClick={() => decreaseQuantity(item._id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-xl shadow-sm hover:bg-[#BCE334] transition-colors"><FaMinus size={10} /></button>
+                      <span className="w-8 text-center font-black text-sm">{item.quantity}</span>
+                      <button onClick={() => increaseQuantity(item._id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-xl shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={10} /></button>
+                    </div>
+
+                    <div className="hidden sm:block text-right min-w-[100px]">
+                      <span className="text-xl font-black text-black block">৳{item.price}</span>
+                      <span className="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">per unit</span>
+                    </div>
+
+                    <button onClick={() => removeFromCart(item._id)} className="p-4 text-gray-300 hover:text-red-500 transition-colors">
+                      <FaTrashAlt size={18} />
+                    </button>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              
+              <button onClick={clearCart} className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 flex items-center gap-2 ml-4 transition-colors">
+                <FaTrashAlt size={10} /> Clear Cart !
+              </button>
+            </div>
+
+            {/* Sidebar Summary */}
+            <div className="lg:col-span-1">
+              <div className="bg-black text-white p-8 rounded-[2.5rem] shadow-2xl sticky top-40 border border-white/10">
+                <h2 className="text-xl font-black uppercase tracking-tighter mb-6">Order Summary</h2>
+                
+                <div className="space-y-4 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                   {cartItems.map((item) => (
-                    <div className="flex justify-between mb-2 text-black" key={item._id}>
-                      <span>{item.name}</span>
-                      <span>
-                        {item.quantity} × {Number(item.price).toFixed(2)} = { (item.quantity * Number(item.price)).toFixed(2) }
-                      </span>
+                    <div key={item._id} className="flex justify-between items-center text-[11px] font-bold uppercase tracking-tight text-gray-400 border-b border-white/5 pb-2">
+                      <span className="truncate max-w-[150px]">{item.name} <span className="text-[#BCE334]">x{item.quantity}</span></span>
+                      <span className="text-white">৳{(item.quantity * item.price).toFixed(2)}</span>
                     </div>
                   ))}
-                  <hr className="my-2 border-gray-300" />
-                  <div className="flex justify-between font-bold text-black text-lg mt-2">
-                    <span>Total</span>
-                    <span>৳{totalPrice.toFixed(2)}</span>
+                </div>
+
+                <div className="flex justify-between items-end pt-4 border-t-2 border-dashed border-[#BCE334]/30">
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Total Payable</p>
+                    <p className="text-4xl font-black text-[#BCE334]">৳{totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
-                {/* Cart Actions */}
-                <div className="flex flex-col gap-4 items-start w-full md:w-auto">
-                  <button
-                    onClick={clearCart}
-                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded"
-                  >
-                    Clear Cart
-                  </button>
-                  <button
-                    onClick={handleCheckout}
-                    className="bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-6 rounded"
-                  >
-                    Proceed to Checkout
-                  </button>
-                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleCheckout}
+                  className="w-full bg-[#BCE334] text-black py-5 rounded-2xl font-black uppercase text-xs tracking-[0.2em] mt-10 shadow-lg flex items-center justify-center gap-3 group transition-all"
+                >
+                  Proceed to Payments <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
+                </motion.button>
+                
+                <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest text-center mt-6">
+                  SSL Secure Verification Guaranteed
+                </p>
               </div>
-            </>
-          )}
-        </div>
+            </div>
+          </div>
+        )}
       </div>
-      <ToastContainer />
-    </>
+    </div>
   );
 }
