@@ -40,7 +40,7 @@ const LoginForm = () => {
           theme: "dark",
         });
         
-        // Small delay to ensure session is properly updated before fetching
+        // Small delay 
         await new Promise(resolve => setTimeout(resolve, 500));
         
         // Fetch the updated session to check the role

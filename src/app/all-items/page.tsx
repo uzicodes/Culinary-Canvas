@@ -145,7 +145,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
+              className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6"
             >
               {processedItems.map(item => (
                 <ItemCard 
@@ -238,20 +238,20 @@ function ItemCard({
   return (
     <motion.div
       variants={itemVariants}
-      className="bg-[#029FBE] rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
+      className="bg-[#029FBE] rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
     >
       {isAdmin && !isEditing && (
-        <div className="absolute top-4 right-4 z-10 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
-          <button onClick={() => setIsEditing(true)} className="p-2.5 bg-white/95 rounded-xl shadow-xl hover:scale-110"><Pencil size={12} className="text-black" /></button>
-          <button onClick={handleDelete} className="p-2.5 bg-red-500 rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={12} /></button>
+        <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10 flex gap-1 md:gap-2 opacity-0 group-hover:opacity-100 transition-all">
+          <button onClick={() => setIsEditing(true)} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
+          <button onClick={handleDelete} className="p-1.5 md:p-2.5 bg-red-500 rounded-lg md:rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={10} className="md:w-3 md:h-3" /></button>
         </div>
       )}
 
-      <div className="bg-white/5 h-48 flex items-center justify-center relative overflow-hidden p-2">
-        <Image src={editedItem.image} alt={editedItem.name} width={250} height={250} className="object-cover w-full h-full rounded-[2rem] group-hover:scale-105 transition-transform duration-700" />
+      <div className="bg-white/5 h-28 md:h-48 flex items-center justify-center relative overflow-hidden p-1 md:p-2">
+        <Image src={editedItem.image} alt={editedItem.name} width={250} height={250} className="object-cover w-full h-full rounded-[1.2rem] md:rounded-[2rem] group-hover:scale-105 transition-transform duration-700" />
       </div>
 
-      <div className="p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
+      <div className="p-3 md:p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
         {isEditing ? (
           <div className="space-y-2.5">
             <input className="w-full text-[10px] font-black uppercase p-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.name} onChange={(e) => setEditedItem({...editedItem, name: e.target.value})} />
@@ -263,13 +263,13 @@ function ItemCard({
           </div>
         ) : (
           <div>
-            <h3 className="text-[13px] font-black text-black uppercase tracking-wider leading-tight mb-3">{editedItem.name}</h3>
-            <p className="text-white/80 text-[10px] font-bold uppercase tracking-wide line-clamp-2 leading-relaxed">{editedItem.description}</p>
+            <h3 className="text-[10px] md:text-[13px] font-black text-black uppercase tracking-wider leading-tight mb-1 md:mb-3">{editedItem.name}</h3>
+            <p className="text-white/80 text-[8px] md:text-[10px] font-bold uppercase tracking-wide line-clamp-2 leading-relaxed">{editedItem.description}</p>
           </div>
         )}
 
-        <div className="flex items-center justify-between pt-5 mt-5 border-t border-white/10">
-          <span className="text-xl font-black text-[#F1F604]">৳{editedItem.price}</span>
+        <div className="flex items-center justify-between pt-2 md:pt-5 mt-2 md:mt-5 border-t border-white/10">
+          <span className="text-sm md:text-xl font-black text-[#F1F604]">৳{editedItem.price}</span>
           {isEditing ? (
             <div className="flex gap-2">
               <button onClick={handleSave} className="bg-[#BCE334] p-2.5 rounded-xl text-black shadow-lg hover:scale-105 transition-transform"><Check size={14} /></button>
@@ -277,7 +277,7 @@ function ItemCard({
             </div>
           ) : (
             <button
-              className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-5 py-2.5 rounded-[1.2rem] text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
+              className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-2 py-1.5 md:px-5 md:py-2.5 rounded-lg md:rounded-[1.2rem] text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
               onClick={() => {
                 // If admin ? not allow adding to cart
                 if (isAdmin) return; 
