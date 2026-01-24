@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 // FIXED: Changed ReceiptText to Receipt
 import { X, Clock, CreditCard, ShoppingBag, Receipt } from 'lucide-react'
@@ -7,6 +8,12 @@ import { X, Clock, CreditCard, ShoppingBag, Receipt } from 'lucide-react'
 interface OrderItem {
   name: string;
   quantity: number;
+  price: number;
+}
+
+interface MenuItem {
+  _id?: string;
+  name: string;
   price: number;
 }
 
@@ -25,6 +32,32 @@ interface ModalProps {
 }
 
 const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+
+  // Fetch menu items to look up prices for old orders
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const res = await fetch('/api/items');
+        const data = await res.json();
+        setMenuItems(data);
+      } catch (err) {
+        console.error('Failed to fetch menu items', err);
+      }
+    };
+    if (order) {
+      fetchMenuItems();
+    }
+  }, [order]);
+
+  // Helper function to find item price by name
+  const getItemPrice = (itemName: string): number => {
+    const menuItem = menuItems.find(
+      (m) => m.name.toLowerCase() === itemName.toLowerCase()
+    );
+    return menuItem?.price || 0;
+  };
+
   if (!order) return null;
 
   return (
@@ -81,15 +114,25 @@ const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
               <p className="text-[10px] font-black text-gray-900 uppercase tracking-widest">Items Purchased</p>
             </div>
             <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
-              {order.itemsOrdered?.map((item, idx) => (
-                <div key={idx} className="flex justify-between items-center bg-[#F7FBE7]/50 p-4 rounded-2xl border border-green-50/50">
-                  <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-black text-[#BCE334] rounded-xl flex items-center justify-center text-xs font-black">{item.quantity}x</div>
-                    <p className="text-sm font-bold text-gray-900">{item.name}</p>
+              {order.itemsOrdered?.map((item: any, idx: number) => {
+                // Handle both old format (string) and new format (object)
+                const isStringItem = typeof item === 'string';
+                const itemName = isStringItem ? item : (item.name || 'Unknown Item');
+                const itemQuantity = isStringItem ? 1 : (item.quantity || 1);
+                // For old orders (string), look up price from menu items
+                const itemPrice = isStringItem ? getItemPrice(itemName) : (item.price || 0);
+                const itemTotal = itemPrice * itemQuantity;
+
+                return (
+                  <div key={idx} className="flex justify-between items-center bg-[#F7FBE7]/50 p-4 rounded-2xl border border-green-50/50">
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-black text-[#BCE334] rounded-xl flex items-center justify-center text-xs font-black">{itemQuantity}x</div>
+                      <p className="text-sm font-bold text-gray-900">{itemName}</p>
+                    </div>
+                    <p className="text-sm font-black text-black">৳{itemTotal}</p>
                   </div>
-                  <p className="text-sm font-black text-black">৳{item.price * item.quantity}</p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 

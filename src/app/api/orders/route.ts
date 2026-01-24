@@ -30,10 +30,14 @@ export async function POST(req: Request) {
   }
 
 
-  // Transform itemsOrdered to only include the name of each item
+  // Transform itemsOrdered to include name, quantity, and price for each item
   let formattedItems = itemsOrdered;
   if (Array.isArray(itemsOrdered) && itemsOrdered.length > 0 && typeof itemsOrdered[0] === 'object') {
-    formattedItems = itemsOrdered.map((item: any) => item.name || item._id || item);
+    formattedItems = itemsOrdered.map((item: any) => ({
+      name: item.name || item.title || 'Unknown Item',
+      quantity: item.quantity || 1,
+      price: item.price || 0,
+    }));
   }
 
   const order = {
