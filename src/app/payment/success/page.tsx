@@ -20,12 +20,29 @@ export default function SuccessPage() {
   const [order, setOrder] = useState<any>(null);
 
   useEffect(() => {
+    // Get order data FIRST before clearing
     const backendOrder = sessionStorage.getItem("lastOrderResponse");
+    const savedOrder = window.localStorage.getItem("orderData");
+    
     if (backendOrder) {
       setOrder(JSON.parse(backendOrder));
-    } else {
-      const saved = localStorage.getItem("orderData");
-      if (saved) setOrder(JSON.parse(saved));
+    } else if (savedOrder) {
+      setOrder(JSON.parse(savedOrder));
+    }
+    
+    // Clear the cart when success page loads - multiple approaches
+    try {
+      window.localStorage.setItem('cart', '[]');
+      window.localStorage.removeItem('checkoutData');
+      window.localStorage.removeItem('cart');
+      
+      // Force update cart count in header
+      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event('cartUpdated'));
+      
+      console.log('Cart cleared successfully');
+    } catch (e) {
+      console.error('Failed to clear cart:', e);
     }
   }, []);
 

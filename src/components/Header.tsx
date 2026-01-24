@@ -65,7 +65,11 @@ const Header = () => {
       };
       updateCartCount();
       window.addEventListener('storage', updateCartCount);
-      return () => window.removeEventListener('storage', updateCartCount);
+      window.addEventListener('cartUpdated', updateCartCount);
+      return () => {
+        window.removeEventListener('storage', updateCartCount);
+        window.removeEventListener('cartUpdated', updateCartCount);
+      };
     }
   }, []);
 

@@ -103,9 +103,8 @@ export default function PaymentPage() {
 				const errorData = await response.json();
 				throw new Error(errorData.message || 'Failed to confirm order');
 			}
-
 		
-			router.push('/payment/success');  // Redirect to the success page
+			router.push('/payment/success');
 
 		} catch (error: any) {
 			alert(`Error: ${error.message || 'An unexpected error occurred'}`);

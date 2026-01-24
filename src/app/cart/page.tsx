@@ -100,6 +100,17 @@ export default function CartPage() {
       }
     };
     loadCart();
+
+    // Listen for storage changes (e.g., when cart is cleared after order)
+    const handleStorageChange = () => {
+      loadCart();
+    };
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('cartUpdated', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('cartUpdated', handleStorageChange);
+    };
   }, []);
 
   // block !  if not logged in , redirect to login page auto
