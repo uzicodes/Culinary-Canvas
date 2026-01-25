@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { UserCircle, Lock, ArrowRight, ShieldCheck, ShoppingBag, Clock, CreditCard, ChevronRight, User, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
@@ -8,6 +8,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useSession, signOut } from 'next-auth/react'
 import OrderDetailsModal from '@/components/OrderDetailsModal'
+import ProfilePictureUpload from '@/components/ProfilePictureUpload'
 
 export default function ProfilePage() {
   const { data: session } = useSession();
@@ -15,9 +16,32 @@ export default function ProfilePage() {
   const [orders, setOrders] = useState<any[]>([]);
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
 
   // Helper to check if the current user is an admin
   const isAdmin = (session?.user as any)?.role === 'admin';
+
+  // Fetch user's profile picture on mount
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      if (session?.user?.email) {
+        try {
+          const res = await fetch(`/api/members?email=${encodeURIComponent(session.user.email)}`);
+          if (res.ok) {
+            const data = await res.json();
+            setProfilePicture(data.profilePicture || null);
+          }
+        } catch (err) {
+          console.error('Failed to fetch profile picture', err);
+        }
+      }
+    };
+    fetchProfilePicture();
+  }, [session?.user?.email]);
+
+  const handleProfilePictureUpdate = (newImageUrl: string) => {
+    setProfilePicture(newImageUrl);
+  };
 
   const toggleOrders = async () => {
     if (!showOrders && orders.length === 0) {
@@ -118,14 +142,22 @@ export default function ProfilePage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
           <div className="bg-white/80 backdrop-blur-2xl p-10 rounded-[2.5rem] shadow-2xl border border-white/40 text-center relative overflow-hidden">
             
-            <div className="flex justify-center mb-6">
-              <div className="bg-black p-4 rounded-2xl shadow-xl">
-                {isAdmin ? (
-                  <ShieldCheck className="text-[#BCE334] w-8 h-8" />
-                ) : (
-                  <User className="text-[#BCE334] w-8 h-8" />
-                )}
-              </div>
+            {/* Profile Picture Upload Section */}
+            <div className="mb-6">
+              {isAdmin ? (
+                <div className="flex justify-center">
+                  <div className="bg-black p-4 rounded-2xl shadow-xl">
+                    <ShieldCheck className="text-[#BCE334] w-8 h-8" />
+                  </div>
+                </div>
+              ) : (
+                <ProfilePictureUpload
+                  currentImage={profilePicture}
+                  userEmail={session?.user?.email || ''}
+                  userName={session?.user?.name || 'User'}
+                  onUploadSuccess={handleProfilePictureUpdate}
+                />
+              )}
             </div>
 
             <h2 className="text-4xl font-black text-gray-900 uppercase tracking-tighter mb-2">
