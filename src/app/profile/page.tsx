@@ -17,11 +17,12 @@ export default function ProfilePage() {
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [profilePicture, setProfilePicture] = useState<string | null>(null);
+  const [totalOrderCount, setTotalOrderCount] = useState<number | null>(null);
 
   // Helper to check if the current user is an admin
   const isAdmin = (session?.user as any)?.role === 'admin';
 
-  // Fetch user's profile picture on mount
+  // Fetch user's profile picture and order count on mount
   useEffect(() => {
     const fetchProfilePicture = async () => {
       if (session?.user?.email) {
@@ -38,6 +39,25 @@ export default function ProfilePage() {
     };
     fetchProfilePicture();
   }, [session?.user?.email]);
+
+  // Fetch total order count for non-admin users
+  useEffect(() => {
+    const fetchOrderCount = async () => {
+      if (session?.user?.email && !isAdmin) {
+        try {
+          const res = await fetch('/api/orders/my-orders');
+          if (res.ok) {
+            const data = await res.json();
+            setTotalOrderCount(Array.isArray(data) ? data.length : 0);
+          }
+        } catch (err) {
+          console.error('Failed to fetch order count', err);
+          setTotalOrderCount(0);
+        }
+      }
+    };
+    fetchOrderCount();
+  }, [session?.user?.email, isAdmin]);
 
   const handleProfilePictureUpdate = (newImageUrl: string) => {
     setProfilePicture(newImageUrl);
@@ -56,6 +76,8 @@ export default function ProfilePage() {
           return dateB - dateA;
         });
         setOrders(sortedData);
+        // Update order count in real-time
+        setTotalOrderCount(sortedData.length);
       } catch (err) {
         console.error("Failed to load orders", err);
       } finally {
@@ -171,6 +193,25 @@ export default function ProfilePage() {
               <p className="text-sm text-gray-600 font-bold lowercase block">
                 {session?.user?.email}
               </p>
+              {/* Total Orders Badge - Only for non-admin users */}
+              {!isAdmin && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-3 inline-flex items-center gap-2 bg-[#F1F8E9] px-4 py-2 rounded-xl border border-[#BCE334]/30"
+                >
+                  <ShoppingBag size={14} className="text-[#BCE334]" />
+                  <span className="text-[11px] font-black text-gray-700 uppercase tracking-wider">
+                    {totalOrderCount === null ? (
+                      <span className="animate-pulse">Loading...</span>
+                    ) : (
+                      <>
+                        <span className="text-[#050BB3] text-sm">{totalOrderCount}</span> {totalOrderCount === 1 ? 'Order' : 'Orders'} Placed
+                      </>
+                    )}
+                  </span>
+                </motion.div>
+              )}
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
