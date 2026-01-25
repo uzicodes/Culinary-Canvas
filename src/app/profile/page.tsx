@@ -193,7 +193,7 @@ export default function ProfilePage() {
               <p className="text-sm text-gray-600 font-bold lowercase block">
                 {session?.user?.email}
               </p>
-              {/* Total Orders Badge - Only for non-admin users */}
+              {/* Total Orders Badge*/}
               {!isAdmin && (
                 <motion.div 
                   initial={{ opacity: 0, y: 5 }}
@@ -255,23 +255,23 @@ export default function ProfilePage() {
                     {isLoadingOrders ? (
                       <div className="py-10 text-center text-gray-400 font-bold uppercase text-xs tracking-widest animate-pulse">Fetching...</div>
                     ) : orders.length > 0 ? (
-                      <div className="grid gap-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                      <div className="grid gap-2.5 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                         {orders.map((order: any) => (
-                          <div key={order._id} className="bg-[#F1F8E9] p-6 rounded-[2rem] border border-green-100 group transition-all">
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-[10px] bg-black text-[#BCE334] px-4 py-1.5 rounded-full font-black uppercase">
+                          <div key={order._id} className="bg-[#F1F8E9] p-3.5 rounded-xl border border-green-100 group transition-all">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-[9px] bg-black text-[#BCE334] px-3 py-1 rounded-full font-black uppercase">
                                 ID: {order.order_id || order._id?.toString().slice(-6).toUpperCase()}
                               </span>
-                              <span className="text-xl font-black text-[#050BB3]">৳{order.totalCost || '0'}</span>
+                              <span className="text-base font-black text-[#050BB3]">৳{order.totalCost || '0'}</span>
                             </div>
-                            <div className="grid grid-cols-2 gap-4 text-[11px] font-bold text-gray-500 uppercase tracking-tight">
-                              <div className="flex items-center gap-2"><CreditCard size={12} className="text-[#BCE334]" />{order.paymentType || 'COD'}</div>
-                              <div className="flex items-center gap-2 justify-end"><Clock size={12} className="text-[#BCE334]" />{order.orderTime ? new Date(order.orderTime).toLocaleDateString() : 'N/A'}</div>
+                            <div className="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-tight">
+                              <div className="flex items-center gap-1.5"><CreditCard size={10} className="text-[#BCE334]" />{order.paymentType || 'COD'}</div>
+                              <div className="flex items-center gap-1.5"><Clock size={10} className="text-[#BCE334]" />{order.orderTime ? new Date(order.orderTime).toLocaleDateString() : 'N/A'}</div>
                             </div>
-                            <div className="mt-4 pt-4 border-t border-gray-200/50 flex justify-between items-center">
-                              <p className="text-[10px] font-black text-gray-400 uppercase">{order.itemsOrdered?.length || 0} Items Placed</p>
-                              <button onClick={() => setSelectedOrder(order)} className="text-[10px] font-black text-black flex items-center gap-1 hover:text-[#BCE334] transition-colors uppercase tracking-widest">
-                                View Details <ChevronRight size={12} />
+                            <div className="mt-2.5 pt-2.5 border-t border-gray-200/50 flex justify-between items-center">
+                              <p className="text-[9px] font-black text-gray-400 uppercase">{order.itemsOrdered?.length || 0} Items</p>
+                              <button onClick={() => setSelectedOrder(order)} className="text-[9px] font-black text-black flex items-center gap-1 hover:text-[#BCE334] transition-colors uppercase tracking-wider">
+                                Details <ChevronRight size={10} />
                               </button>
                             </div>
                           </div>

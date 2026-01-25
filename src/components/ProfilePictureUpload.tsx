@@ -98,7 +98,7 @@ export default function ProfilePictureUpload({
     setError(null);
 
     try {
-      // Step 1: Upload directly to Cloudinary (unsigned upload)
+      // Upload directly to Cloudinary (unsigned upload)
       setUploadProgress('uploading');
       
       const formData = new FormData();
@@ -123,7 +123,7 @@ export default function ProfilePictureUpload({
 
       const imageUrl = cloudinaryResult.secure_url;
 
-      // Step 2: Update user profile in database
+      // Update user profile in DB
       setUploadProgress('saving');
       const updateResponse = await fetch('/api/members', {
         method: 'PATCH',
@@ -267,7 +267,7 @@ export default function ProfilePictureUpload({
         )}
       </AnimatePresence>
 
-      {/* Action Buttons (when preview is shown) */}
+      {/* Action Buttons */}
       <AnimatePresence>
         {previewUrl && !isUploading && (
           <motion.div

@@ -129,42 +129,45 @@ export default function CartPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, x: -100 }}
-                    className="flex flex-col sm:flex-row items-center gap-6 bg-white/80 backdrop-blur-md p-4 rounded-[2rem] border border-white/60 shadow-xl group transition-all hover:border-[#BCE334]"
+                    className="flex flex-col sm:flex-row items-center gap-4 bg-white/80 backdrop-blur-md p-3 rounded-xl border border-white/60 shadow-lg group transition-all hover:border-[#BCE334]"
                   >
-                    <div className="relative w-full sm:w-32 h-32 overflow-hidden rounded-2xl">
+                    <div className="relative w-full sm:w-20 h-20 overflow-hidden rounded-xl flex-shrink-0">
                       <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                     </div>
                     
-                    <div className="flex-1 text-center sm:text-left">
-                      <h3 className="text-lg font-black uppercase tracking-tight text-gray-900">{item.name}</h3>
-                      <p className="text-[10px] font-bold text-[#BCE334] bg-black inline-block px-2 py-0.5 rounded-md uppercase tracking-widest mb-4 sm:mb-0">
+                    <div className="flex-1 text-center sm:text-left min-w-0">
+                      <h3 className="text-sm font-black uppercase tracking-tight text-gray-900 truncate">{item.name}</h3>
+                      <p className="text-[9px] font-bold text-[#BCE334] bg-black inline-block px-1.5 py-0.5 rounded uppercase tracking-wider">
                         {item.category}
                       </p>
-                      <div className="mt-4 sm:hidden flex justify-center items-center gap-6">
-                         <span className="text-xl font-black text-black">৳{item.price}</span>
+                      <div className="mt-2 sm:hidden flex justify-center items-center">
+                         <span className="text-base font-black text-black">৳{item.price}</span>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-4 bg-gray-100 p-2 rounded-2xl">
-                      <button onClick={() => decreaseQuantity(item._id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-xl shadow-sm hover:bg-[#BCE334] transition-colors"><FaMinus size={10} /></button>
-                      <span className="w-8 text-center font-black text-sm">{item.quantity}</span>
-                      <button onClick={() => increaseQuantity(item._id)} className="w-8 h-8 flex items-center justify-center bg-white rounded-xl shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={10} /></button>
+                    <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-xl flex-shrink-0">
+                      <button onClick={() => decreaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#ef5959] transition-colors"><FaMinus size={8} /></button>
+                      <span className="w-6 text-center font-black text-xs">{item.quantity}</span>
+                      <button onClick={() => increaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={8} /></button>
                     </div>
 
-                    <div className="hidden sm:block text-right min-w-[100px]">
-                      <span className="text-xl font-black text-black block">৳{item.price}</span>
-                      <span className="text-[9px] font-bold text-gray-400 uppercase tracking-tighter">per unit</span>
+                    <div className="hidden sm:block text-right min-w-[80px] flex-shrink-0">
+                      <span className="text-base font-black text-black block">৳{item.price}</span>
+                      <span className="text-[8px] font-bold text-gray-400 uppercase tracking-tighter">per unit</span>
                     </div>
 
-                    <button onClick={() => removeFromCart(item._id)} className="p-4 text-gray-300 hover:text-red-500 transition-colors">
-                      <FaTrashAlt size={18} />
+                    <button onClick={() => removeFromCart(item._id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0">
+                      <FaTrashAlt size={14} />
                     </button>
                   </motion.div>
                 ))}
               </AnimatePresence>
               
-              <button onClick={clearCart} className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 flex items-center gap-2 ml-4 transition-colors">
-                <FaTrashAlt size={10} /> Clear Cart !
+              <button
+                onClick={clearCart}
+                className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ml-4 transition-colors bg-red-100 border border-red-200 rounded-2xl px-4 py-2 text-red-500 hover:bg-red-200 hover:text-red-700 shadow-sm"
+              >
+                <FaTrashAlt size={12} /> Clear Cart 
               </button>
             </div>
 
