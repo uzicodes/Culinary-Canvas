@@ -42,12 +42,13 @@ const About = () => {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
+    <section className="py-10 sm:py-16 bg-gradient-to-br from-green-50 to-green-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content - Image Carousel */}
           <div className="relative group">
-            <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+            {/* Responsive height: smaller on mobile, larger on desktop */}
+            <div className="relative w-full h-[280px] sm:h-[350px] md:h-[420px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               {/* Images */}
               {aboutImages.map((src, index) => (
                 <div
@@ -62,7 +63,8 @@ const About = () => {
                     src={src}
                     alt={`About us ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
                     priority={index === 0}
                   />
                 </div>
@@ -71,31 +73,31 @@ const About = () => {
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
-              {/* Navigation Arrows */}
+              {/* Navigation Arrows - Always visible on mobile, hover on desktop */}
               <button
                 onClick={goToPrevious}
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:bg-white active:scale-95 sm:hover:scale-110"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-5 h-5 text-gray-800" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800" />
               </button>
               <button
                 onClick={goToNext}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:bg-white active:scale-95 sm:hover:scale-110"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-5 h-5 text-gray-800" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800" />
               </button>
 
               {/* Dots Indicator */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+              <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2">
                 {aboutImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`transition-all duration-300 rounded-full ${
                       index === currentIndex
-                        ? 'w-8 h-2 bg-white'
+                        ? 'w-6 sm:w-8 h-2 bg-white'
                         : 'w-2 h-2 bg-white/50 hover:bg-white/80'
                     }`}
                     aria-label={`Go to slide ${index + 1}`}
