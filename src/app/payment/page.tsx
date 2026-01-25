@@ -81,8 +81,6 @@ export default function PaymentPage() {
             couponDiscount: finalCouponDiscount,
         };
 
-        localStorage.setItem('orderData', JSON.stringify(orderData));
-
         try {
             const response = await fetch('/api/orders', {
                 method: 'POST',
@@ -91,6 +89,25 @@ export default function PaymentPage() {
             });
 
             if (!response.ok) throw new Error('Failed to confirm order');
+            
+            // Get server response with generated order ID
+            const serverOrder = await response.json();
+            
+            // Store the complete order data with server-generated ID
+            // Only store after server confirmation to ensure ID integrity
+            const confirmedOrderData = {
+                ...orderData,
+                order_id: serverOrder.order_id,
+                orderId: serverOrder.order_id,
+                orderTime: serverOrder.orderTime,
+                name: customerName,
+                email: customerEmail,
+            };
+            
+            // Store in both localStorage and sessionStorage for success page
+            localStorage.setItem('orderData', JSON.stringify(confirmedOrderData));
+            sessionStorage.setItem('lastOrderResponse', JSON.stringify(serverOrder));
+            
             router.push('/payment/success');
         } catch (error: any) {
             alert(`Error: ${error.message}`);
