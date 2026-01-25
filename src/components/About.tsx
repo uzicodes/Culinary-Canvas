@@ -1,29 +1,106 @@
 'use client'
 
-import { CheckCircle, Truck, Shield, Users } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { CheckCircle, Truck, Shield, Users, ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 
+const aboutImages = [
+  '/about/1.png',
+  '/about/2.png',
+  '/about/3.png',
+  '/about/4.png',
+  '/about/5.png',
+  '/about/6.png',
+]
+
 const About = () => {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+
+  // Auto-play carousel
+  useEffect(() => {
+    if (!isAutoPlaying) return
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % aboutImages.length)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [isAutoPlaying])
+
+  const goToPrevious = () => {
+    setIsAutoPlaying(false)
+    setCurrentIndex((prev) => (prev - 1 + aboutImages.length) % aboutImages.length)
+  }
+
+  const goToNext = () => {
+    setIsAutoPlaying(false)
+    setCurrentIndex((prev) => (prev + 1) % aboutImages.length)
+  }
+
+  const goToSlide = (index: number) => {
+    setIsAutoPlaying(false)
+    setCurrentIndex(index)
+  }
+
   return (
     <section className="py-16 bg-gradient-to-br from-green-50 to-green-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content - Image */}
-          <div className="relative">
-            <div className="relative w-full h-[500px] rounded-2xl overflow-hidden">
-              <Image
-                src="/chef.jpg"
-                alt="Fresh vegetables and farmers"
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            {/* Floating Card */}
-            <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">100%</div>
-                <div className="text-sm text-gray-600">Organic Products</div>
+          {/* Left Content - Image Carousel */}
+          <div className="relative group">
+            <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl">
+              {/* Images */}
+              {aboutImages.map((src, index) => (
+                <div
+                  key={src}
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                    index === currentIndex
+                      ? 'opacity-100 scale-100'
+                      : 'opacity-0 scale-105'
+                  }`}
+                >
+                  <Image
+                    src={src}
+                    alt={`About us ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                  />
+                </div>
+              ))}
+
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={goToPrevious}
+                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-800" />
+              </button>
+              <button
+                onClick={goToNext}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-800" />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                {aboutImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToSlide(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      index === currentIndex
+                        ? 'w-8 h-2 bg-white'
+                        : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
