@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { 
   Truck, 
   CreditCard, 
@@ -11,7 +12,8 @@ import {
   CheckCircle2, 
   Smartphone, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Banknote
 } from 'lucide-react';
 import Header from '@/components/Header';
 
@@ -113,8 +115,8 @@ export default function PaymentPage() {
                         <ShieldCheck className="text-[#BCE334] text-lg md:text-xl" />
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none">Secure <span className="text-[#BCE334] bg-black px-1.5 rounded-md">Finalize</span></h1>
-                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-gray-400 mt-0.5">Vault Settlement Active</p>
+                        <h1 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none">Secure <span className="text-[#BCE334] bg-black px-1.5 rounded-md">Payment</span></h1>
+                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-gray-400 mt-0.5">Cart payment</p>
                     </div>
                 </motion.div>
 
@@ -123,10 +125,10 @@ export default function PaymentPage() {
                     <div className="order-1 lg:col-span-7 space-y-4">
                         
                         <div className="grid md:grid-cols-2 gap-4">
-                            {/* Logistics Pod */}
+                            {/* Delivery type Pod */}
                             <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
                                 <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
-                                    <Truck size={12} className="text-black" /> Logistics
+                                    <Truck size={12} className="text-black" /> Delivery type
                                 </h2>
                                 <select
                                     value={deliveryMethod}
@@ -134,7 +136,7 @@ export default function PaymentPage() {
                                     required
                                     className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 text-xs font-bold outline-none appearance-none cursor-pointer"
                                 >
-                                    <option value="">Select Speed</option>
+                                    <option value="">Select delivery type </option>
                                     <option value="Standard">Standard (৳45)</option>
                                     <option value="Priority">Priority (৳60)</option>
                                 </select>
@@ -143,7 +145,7 @@ export default function PaymentPage() {
                             {/* Promo Pod */}
                             <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
                                 <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
-                                    <Ticket size={12} className="text-black" /> Promo Token
+                                    <Ticket size={12} className="text-black" /> Apply Promo 
                                 </h2>
                                 <div className="flex gap-2">
                                     <input
@@ -175,23 +177,42 @@ export default function PaymentPage() {
                         {/* Payment Pod */}
                         <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-4">
                             <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
-                                <CreditCard size={12} className="text-black" /> Settlement Method
+                                <CreditCard size={12} className="text-black" /> Payment Method
                             </h2>
                             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                 {['Cash', 'Bkash', 'Nagad', 'Card'].map((method) => {
                                     const fullMethod = method === 'Cash' ? 'Cash on Delivery' : method === 'Card' ? 'Card/Debit Card' : method;
+                                    let customBg = '';
+                                    let customText = '';
+                                    let customBorder = 'border-transparent';
+                                    if (paymentMethod === fullMethod) {
+                                        customBg = 'bg-black';
+                                        customText = 'text-[#BCE334]';
+                                        customBorder = 'border-black';
+                                    } else {
+                                        if (method === 'Cash') {
+                                            customBg = 'bg-green-100';
+                                        } else if (method === 'Bkash') {
+                                            customBg = 'bg-pink-100';
+                                        } else if (method === 'Nagad') {
+                                            customBg = 'bg-orange-100';
+                                        } else if (method === 'Card') {
+                                            customBg = 'bg-blue-100';
+                                        }
+                                        customText = 'text-black';
+                                    }
                                     return (
                                         <button
                                             key={method}
                                             type="button"
                                             onClick={() => setPaymentMethod(fullMethod)}
-                                            className={`p-3 rounded-xl border-2 text-[8px] font-black uppercase tracking-tighter transition-all ${
-                                                paymentMethod === fullMethod 
-                                                ? 'bg-black text-[#BCE334] border-black' 
-                                                : 'bg-white border-transparent text-gray-500 hover:border-gray-100 shadow-sm'
-                                            }`}
+                                            className={`p-2 sm:p-3 rounded-xl border-2 text-[8px] font-black uppercase tracking-tighter transition-all ${customBg} ${customText} ${customBorder} hover:border-gray-100 shadow-sm flex flex-col items-center justify-center gap-1`}
                                         >
-                                            {method}
+                                            {method === 'Cash' && <Banknote size={16} className="sm:w-5 sm:h-5" />}
+                                            {method === 'Bkash' && <Image src="/bkash.svg" alt="Bkash" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5" />}
+                                            {method === 'Nagad' && <Image src="/nagad.svg" alt="Nagad" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5" />}
+                                            {method === 'Card' && <Image src="/visa.svg" alt="Card" width={20} height={20} className="w-4 h-4 sm:w-5 sm:h-5" />}
+                                            <span>{method}</span>
                                         </button>
                                     );
                                 })}
@@ -215,10 +236,10 @@ export default function PaymentPage() {
                             </AnimatePresence>
                         </section>
 
-                        {/* Gratuity Pod (Custom Compact Logic) */}
+                        {/* Tips section */}
                         <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
                             <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
-                                <DollarSign size={12} className="text-black" /> Rider Gratuity
+                                <DollarSign size={12} className="text-black" /> Tip your Rider
                             </h2>
                             <div className="flex items-center gap-2">
                                 <div className="flex gap-1.5">
@@ -259,11 +280,11 @@ export default function PaymentPage() {
                                     <span className="text-white">৳{subtotal.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                                    <span>Logistics Fee</span>
+                                    <span>Delivery Fee</span>
                                     <span className="text-white">৳{deliveryFee.toFixed(2)}</span>
                                 </div>
                                 <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
-                                    <span>Gratuity</span>
+                                    <span>Tips</span>
                                     <span className="text-[#BCE334]">৳{tip.toFixed(2)}</span>
                                 </div>
                                 {couponDiscount > 0 && (
