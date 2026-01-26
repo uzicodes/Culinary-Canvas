@@ -24,26 +24,49 @@ export default function SuccessPage() {
     const backendOrder = sessionStorage.getItem("lastOrderResponse");
     const savedOrder = window.localStorage.getItem("orderData");
     
+    let orderData = null;
+    
     if (backendOrder) {
-      setOrder(JSON.parse(backendOrder));
+      orderData = JSON.parse(backendOrder);
     } else if (savedOrder) {
-      setOrder(JSON.parse(savedOrder));
+      orderData = JSON.parse(savedOrder);
     }
     
-    // Clear the cart when success page loads - multiple approaches
-    try {
-      window.localStorage.setItem('cart', '[]');
-      window.localStorage.removeItem('checkoutData');
-      window.localStorage.removeItem('cart');
-      
-      // Force update cart count in header
-      window.dispatchEvent(new Event('storage'));
-      window.dispatchEvent(new Event('cartUpdated'));
-      
-      console.log('Cart cleared successfully');
-    } catch (e) {
-      console.error('Failed to clear cart:', e);
+    // Map SSLCommerz response fields to expected fields
+    if (orderData) {
+      const mappedOrder = {
+        ...orderData,
+        // Ensure total is mapped from various possible sources
+        total: orderData.total || orderData.totalCost || orderData.total_amount || orderData.amount || 0,
+        subtotal: orderData.subtotal || orderData.base_amount || 0,
+        order_id: orderData.order_id || orderData.orderId || orderData.tran_id || '',
+        orderId: orderData.orderId || orderData.order_id || orderData.tran_id || '',
+        name: orderData.name || orderData.customerName || orderData.cus_name || '',
+        email: orderData.email || orderData.customerEmail || orderData.cus_email || '',
+        address: orderData.address || orderData.customerAddress || orderData.cus_add1 || '',
+        phone: orderData.phone || orderData.customerPhone || orderData.cus_phone || '',
+        orderItems: orderData.orderItems || orderData.itemsOrdered || [],
+        itemsOrdered: orderData.itemsOrdered || orderData.orderItems || [],
+      };
+      setOrder(mappedOrder);
     }
+    
+    // Clear the cart AFTER reading order data - small delay to ensure data is set
+    setTimeout(() => {
+      try {
+        window.localStorage.setItem('cart', '[]');
+        window.localStorage.removeItem('checkoutData');
+        window.localStorage.removeItem('cart');
+        
+        // Force update cart count in header
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new Event('cartUpdated'));
+        
+        console.log('Cart cleared successfully');
+      } catch (e) {
+        console.error('Failed to clear cart:', e);
+      }
+    }, 100);
   }, []);
 
   const handleDownloadInvoice = async () => {
@@ -107,7 +130,7 @@ export default function SuccessPage() {
     doc.text(order.tip !== undefined ? `Tip: Tk ${order.tip.toFixed(2)}` : "", 75, y);
     doc.text(order.subtotal !== undefined ? `Sub Total: Tk ${order.subtotal.toFixed(2)}` : "", 135, y);
     y += 7;
-    if (order.total !== undefined) doc.text(`Total: Tk ${order.total.toFixed(2)}`, 15, y);
+    if (order.total !== undefined) doc.text(`Total: Tk ${(Number(order.total || order.totalCost || order.total_amount || 0)).toFixed(2)}`, 15, y);
     y += 10;
     doc.setFontSize(10);
     doc.text("Thank you for your order!", 105, y, { align: "center" });
@@ -254,21 +277,21 @@ export default function SuccessPage() {
                 <div className="space-y-4">
                   <div className="flex justify-between text-sm font-medium">
                     <span className="text-slate-400">Items Subtotal</span>
-                    <span className="text-slate-800">৳{order?.subtotal?.toFixed(2)}</span>
+                    <span className="text-slate-800">৳{(Number(order?.subtotal || 0)).toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm font-medium">
                     <span className="text-slate-400">Delivery ({order?.deliveryMethod})</span>
                     <span className="text-slate-800">৳{order?.deliveryMethod === "Priority" ? "60.00" : "45.00"}</span>
                   </div>
-                  {order?.tip > 0 && (
+                  {(Number(order?.tip || 0) > 0) && (
                     <div className="flex justify-between text-sm font-medium">
                       <span className="text-slate-400">Extra Tip</span>
-                      <span className="text-green-600 font-bold">৳{order.tip.toFixed(2)}</span>
+                      <span className="text-green-600 font-bold">৳{(Number(order?.tip || 0)).toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-xl font-black border-t-2 border-slate-100 pt-6 mt-6">
                     <span className="tracking-tighter">TOTAL</span>
-                    <span className="text-slate-900 tracking-tighter">৳{order?.total?.toFixed(2)}</span>
+                    <span className="text-slate-900 tracking-tighter">৳{(Number(order?.total || order?.totalCost || order?.total_amount || 0)).toFixed(2)}</span>
                   </div>
                 </div>
               </div>
