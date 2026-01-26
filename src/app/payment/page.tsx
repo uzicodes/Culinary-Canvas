@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Script from 'next/script';
 import { 
   Truck, 
   CreditCard, 
@@ -16,6 +17,13 @@ import {
   Banknote
 } from 'lucide-react';
 import Header from '@/components/Header';
+
+// Declare global interface for SSLCommerz
+declare global {
+    interface Window {
+        sslcz_init?: (config: { sessionkey: string; callback?: (data: any) => void }) => void;
+    }
+}
 
 interface CartItem {
     _id: string;
@@ -37,6 +45,8 @@ export default function PaymentPage() {
     const [customerAddress, setCustomerAddress] = useState(''); 
     const [couponCode, setCouponCode] = useState(''); 
     const [couponDiscount, setCouponDiscount] = useState(0); 
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [sslczReady, setSslczReady] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
@@ -66,6 +76,10 @@ export default function PaymentPage() {
             return;
         }
 
+        const isOnlinePayment = paymentMethod === 'Bkash' || paymentMethod === 'Nagad' || paymentMethod === 'Card/Debit Card';
+
+        setIsProcessing(true);
+
         let finalCouponDiscount = couponDiscount;
         if (couponCode === 'CC10' || couponCode === 'BITE10') {
             finalCouponDiscount = subtotal * 0.10;
@@ -82,6 +96,7 @@ export default function PaymentPage() {
         };
 
         try {
+            // Step 1: Create order in database first
             const response = await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -94,7 +109,6 @@ export default function PaymentPage() {
             const serverOrder = await response.json();
             
             // Store the complete order data with server-generated ID
-            // Only store after server confirmation to ensure ID integrity
             const confirmedOrderData = {
                 ...orderData,
                 order_id: serverOrder.order_id,
@@ -107,10 +121,81 @@ export default function PaymentPage() {
             // Store in both localStorage and sessionStorage for success page
             localStorage.setItem('orderData', JSON.stringify(confirmedOrderData));
             sessionStorage.setItem('lastOrderResponse', JSON.stringify(serverOrder));
-            
-            router.push('/payment/success');
+
+            // Step 2: Check if online payment is required
+            if (isOnlinePayment) {
+                // Initialize SSLCommerz payment session
+                const paymentInitResponse = await fetch('/api/payment/init', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        order_id: serverOrder.order_id,
+                        total: orderData.total,
+                        customerName,
+                        customerEmail,
+                        address: customerAddress,
+                        phone: mobileNumber,
+                    }),
+                });
+
+                const paymentResult = await paymentInitResponse.json();
+
+                if (paymentResult.status === 'SUCCESS' && paymentResult.sessionkey) {
+                    // Trigger SSLCommerz EasyCheckout popup
+                    // Use a small delay to ensure script is fully initialized
+                    const triggerPayment = () => {
+                        if (typeof window !== 'undefined' && (window as any).EasycheckoutPay) {
+                            (window as any).EasycheckoutPay({
+                                sessionkey: paymentResult.sessionkey,
+                                onSuccess: (data: any) => {
+                                    console.log('Payment Success:', data);
+                                    router.push('/payment/success');
+                                },
+                                onFail: (data: any) => {
+                                    console.log('Payment Failed:', data);
+                                    router.push('/checkout?payment=failed');
+                                },
+                                onCancel: () => {
+                                    console.log('Payment Cancelled');
+                                    setIsProcessing(false);
+                                    router.push('/checkout?payment=cancelled');
+                                }
+                            });
+                        } else if (typeof window !== 'undefined' && (window as any).sslcz_init) {
+                            (window as any).sslcz_init({
+                                sessionkey: paymentResult.sessionkey,
+                                callback: (data: any) => {
+                                    if (data.status === 'VALID' || data.status === 'VALIDATED') {
+                                        router.push('/payment/success');
+                                    } else if (data.status === 'FAILED') {
+                                        router.push('/checkout?payment=failed');
+                                    } else if (data.status === 'CANCELLED') {
+                                        router.push('/checkout?payment=cancelled');
+                                    }
+                                }
+                            });
+                        } else if (paymentResult.GatewayPageURL) {
+                            // Fallback: redirect to SSLCommerz gateway page
+                            window.location.href = paymentResult.GatewayPageURL;
+                        } else {
+                            alert('Payment gateway could not be loaded. Please try again.');
+                            setIsProcessing(false);
+                        }
+                    };
+
+                    // Try immediately, or wait a bit for script to initialize
+                    setTimeout(triggerPayment, 100);
+                } else {
+                    throw new Error(paymentResult.error || 'Failed to initialize payment');
+                }
+            } else {
+                // Cash on Delivery - redirect directly to success page
+                router.push('/payment/success');
+            }
         } catch (error: any) {
             alert(`Error: ${error.message}`);
+        } finally {
+            setIsProcessing(false);
         }
     };
 
@@ -120,6 +205,20 @@ export default function PaymentPage() {
 
     return (
         <div className="min-h-screen bg-[#F7FBE7] text-black">
+            {/* SSLCommerz EasyCheckout Script */}
+            <Script 
+                src="https://sandbox.sslcommerz.com/embed.min.js"
+                strategy="beforeInteractive"
+                onLoad={() => {
+                    console.log('SSLCommerz script loaded');
+                    console.log('EasycheckoutPay available:', typeof (window as any).EasycheckoutPay);
+                    console.log('sslcz_init available:', typeof (window as any).sslcz_init);
+                    setSslczReady(true);
+                }}
+                onError={(e) => {
+                    console.error('Failed to load SSLCommerz script:', e);
+                }}
+            />
             <Header />
             
             <div className="max-w-5xl mx-auto px-4 pt-24 pb-10 md:pt-28">
@@ -323,12 +422,25 @@ export default function PaymentPage() {
                             </div>
 
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
+                                whileHover={{ scale: isProcessing ? 1 : 1.02 }}
+                                whileTap={{ scale: isProcessing ? 1 : 0.98 }}
                                 type="submit"
-                                className="w-full bg-[#BCE334] text-black py-3.5 rounded-xl font-black uppercase text-[10px] tracking-[0.2em] mt-6 shadow-lg flex items-center justify-center gap-2 group transition-all"
+                                disabled={isProcessing}
+                                className={`w-full bg-[#BCE334] text-black py-3.5 rounded-xl font-black uppercase text-[10px] tracking-[0.2em] mt-6 shadow-lg flex items-center justify-center gap-2 group transition-all ${isProcessing ? 'opacity-70 cursor-not-allowed' : ''}`}
                             >
-                                Confirm Order <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                {isProcessing ? (
+                                    <>
+                                        <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                                        </svg>
+                                        Processing...
+                                    </>
+                                ) : (
+                                    <>
+                                        Confirm Order <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                                    </>
+                                )}
                             </motion.button>
                         </div>
                     </div>
