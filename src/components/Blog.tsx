@@ -79,8 +79,8 @@ const Blog = () => (
         transition={{ duration: 1 }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-          Latest News & <span className="text-primary-600">Blogs</span>
+        <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
+          Food <span className="text-primary-600">Blogs</span>
         </h2>
         <div className="w-16 h-1 bg-primary-600 mx-auto rounded-full mt-2" />
       </motion.div>
