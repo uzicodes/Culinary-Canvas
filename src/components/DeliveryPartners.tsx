@@ -27,7 +27,7 @@ const logoVariants: Variants = {
 };
 
 const DeliveryPartners = () => (
-  <section className="py-20 bg-gradient-to-br from-[#8dbee3] to-[#6da5d1] overflow-hidden relative">
+  <section className="py-8 bg-gradient-to-br from-[#8dbee3] to-[#6da5d1] overflow-hidden relative">
     {/* Background depth circles */}
     <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
     <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-x-1/4 translate-y-1/4" />
@@ -39,14 +39,14 @@ const DeliveryPartners = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-3xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-4">
-          Speedy <span className="text-blue-100/70">Partners</span>
+        <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
+          Delivery <span className="text-primary-700">Partners</span>
         </h2>
         <motion.div 
           initial={{ width: 0 }}
           whileInView={{ width: "100px" }}
           viewport={{ once: true }}
-          className="h-1.5 bg-white/40 mx-auto rounded-full"
+          className="h-1.5 bg-black/40 mx-auto rounded-full"
         />
       </motion.div>
       
@@ -72,7 +72,6 @@ const DeliveryPartners = () => (
                 boxShadow: "0px 20px 40px rgba(0,0,0,0.1)"
               }}
               whileTap={{ scale: 0.95 }}
-              // Neutral glassmorphism to let logo colors pop
               className="w-48 h-28 relative cursor-pointer bg-white/20 backdrop-blur-xl rounded-[2.5rem] border border-white/40 shadow-xl flex items-center justify-center p-6 transition-all duration-300"
             >
               <div className="relative w-full h-full">
@@ -81,7 +80,6 @@ const DeliveryPartners = () => (
                   alt={partner.name} 
                   fill 
                   className="object-contain transition-transform duration-500 group-hover:scale-110" 
-                  // Invert filter removed to keep original logo colors
                 />
               </div>
             </motion.div>
