@@ -39,11 +39,11 @@ const BestSelling = () => {
     const [editingSlot, setEditingSlot] = useState<number | null>(null);
     const [tempData, setTempData] = useState<Partial<Product>>({});
 
-    // STRICT ROLE-ONLY CHECK
+    // STRICT ROLE CHECK
     const checkAdminPrivilege = useCallback(() => {
         if (status === "authenticated" && session?.user) {
             const user = session.user as any;
-            // Only check for the "admin" role from your database
+            // "admin" role check from your database
             const isRoleAdmin = user?.role?.toLowerCase() === 'admin';
 
             if (isRoleAdmin) {
@@ -120,7 +120,7 @@ const BestSelling = () => {
     );
 
     return (
-        <section className="py-20 bg-[#FDFEF0] overflow-hidden relative">
+        <section className="py-20 bg-gradient-to-br from-green-50 to-green-100 overflow-hidden relative">
             <AnimatePresence>
                 {successMsg && (
                     <motion.div initial={{ opacity: 0, y: -100, x: '-50%' }} animate={{ opacity: 1, y: 0, x: '-50%' }} exit={{ opacity: 0, y: -100, x: '-50%' }} className="fixed top-10 left-1/2 bg-black text-[#BCE334] px-10 py-4 rounded-full shadow-2xl z-[500] font-black uppercase text-[10px] tracking-widest border border-[#BCE334]/30">
@@ -132,13 +132,20 @@ const BestSelling = () => {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-                        Best Sellers <Star className="text-yellow-400 w-8 h-8 fill-yellow-400" />
+                        Best Sellers 
+                        <motion.span
+                            animate={{ rotate: [0, 270, 0] }}
+                            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                            style={{ display: 'inline-block' }}
+                        >
+                            <Star className="text-yellow-400 w-8 h-8 fill-yellow-400" />
+                        </motion.span>
                     </h2>
                 </div>
 
                 <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {products.map((product, index) => (
-                        <motion.div key={index} variants={cardVariants} whileHover={{ y: -8 }} className="bg-white rounded-[3rem] shadow-sm p-6 group text-center relative border border-slate-100">
+                        <motion.div key={index} variants={cardVariants} whileHover={{ y: -8 }} className="bg-[#68EFF7] rounded-[3rem] shadow-sm p-6 group text-center relative border border-slate-100">
                             <div className="relative mb-6">
                                 <div className="relative w-full h-52 rounded-[2.5rem] overflow-hidden bg-slate-50">
                                     <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -166,11 +173,10 @@ const BestSelling = () => {
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} size={14} className={i < product.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-100'} />
                                     ))}
-                                    <span className="text-[11px] text-slate-400 font-black ml-1">({product.reviews || 0})</span>
                                 </div>
                                 <div className="flex items-center justify-center gap-4 pt-2">
-                                    <span className="text-3xl font-black text-slate-900 tracking-tighter">৳{product.price}</span>
-                                    <span className="text-sm text-slate-300 line-through font-bold">৳{product.originalPrice}</span>
+                                    <span className="text-3xl font-black text-slate-900 tracking-tighter">৳ {product.price}</span>
+                                    <span className="text-sm text-red-500 line-through font-bold">৳{product.originalPrice}</span>
                                 </div>
                             </div>
                         </motion.div>
