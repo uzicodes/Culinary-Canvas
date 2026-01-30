@@ -48,7 +48,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       try {
         const response = await fetch('/api/items');
         const data = await response.json();
-        // Strict source of truth to prevent "ghost" items
         setMenuItems(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to fetch menu items:", error);
@@ -71,6 +70,14 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     router.push(`/all-items?${params.toString()}`);
   };
 
+  const clearSearch = () => {
+    setLocalSearch("");
+    const params = new URLSearchParams();
+    if (activeCategory !== 'all') params.set('category', activeCategory);
+    const newPath = params.toString() ? `/all-items?${params.toString()}` : '/all-items';
+    router.push(newPath);
+  };
+
   const categoryOrder = [
     'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers', 
     'Chinese', 'Italian', 'Japanese', 'Traditional', 'Sea-Food', 
@@ -89,7 +96,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       const activeCat = normalize(activeCategory);
       const matchesCategory = activeCategory === 'all' || itemCat === activeCat || itemCat.includes(activeCat) || activeCat.includes(itemCat);
       
-      // Fixed search logic to prevent ghost results
       const matchesSearch = 
         (item.name || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
         (item.description || "").toLowerCase().includes(searchTerm.toLowerCase());
@@ -111,16 +117,37 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       <Header />
       
       <div className="bg-transparent">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <form onSubmit={handleSearchSubmit} className="relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+        <div className="max-w-md mx-auto px-4 py-4"> 
+          <form onSubmit={handleSearchSubmit} className="relative group">
+            
+            {/* MAGNIFYING ICON */}
+            <Search 
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 z-10 pointer-events-none" 
+              size={18} 
+            />
+            
+            {/* INPUT FIELD */}
             <input
               type="text"
-              placeholder="Search for food items..."
+              placeholder="Search"
               value={localSearch}
-              onChange={(e) => setLocalSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm"
+              onChange={(e) => {
+                setLocalSearch(e.target.value);
+                if (e.target.value === "") clearSearch();
+              }}
+              className="w-full pl-12 pr-12 py-3 bg-white border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm relative z-0"
             />
+
+            {/* CLEAR BUTTON */}
+            {localSearch && (
+              <button 
+                type="button" 
+                onClick={clearSearch} 
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black transition-colors z-10"
+              >
+                <X size={18} />
+              </button>
+            )}
           </form>
         </div>
       </div>
@@ -262,7 +289,6 @@ function ItemCard({
   const handleDelete = async () => {
     if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return;
     try {
-      // Fixed DELETE call to match your updated server-side logic
       const response = await fetch(`/api/items?id=${item._id}`, {
         method: 'DELETE',
       });
