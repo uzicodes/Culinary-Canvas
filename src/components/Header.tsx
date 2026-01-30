@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { ShoppingCart, Search, Menu, X, User, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
-import menuItems, { MenuItem } from '@/data/menuItems'
+// Import only the type, not the static data
+import { MenuItem } from '@/data/menuItems' 
 import { useAutoLogout } from '@/hooks/useAutoLogout'
 import { useSession } from 'next-auth/react'
 
@@ -13,11 +14,27 @@ const Header = () => {
   const { data: session } = useSession();
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
+  const [dbItems, setDbItems] = useState<MenuItem[]>([]); // State for live MongoDB items
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // 1. Fetch live items from your database
+  useEffect(() => {
+    const fetchLiveItems = async () => {
+      try {
+        const res = await fetch('/api/items');
+        const data = await res.json();
+        setDbItems(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Header search fetch failed:", err);
+      }
+    };
+    fetchLiveItems();
+  }, []);
+
+  // 2. Filter using live dbItems instead of static file
   const filteredItems = searchQuery
-    ? menuItems.filter((item: MenuItem) =>
-        item.name.toLowerCase().startsWith(searchQuery.toLowerCase())
+    ? dbItems.filter((item: MenuItem) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : [];
 
@@ -36,24 +53,21 @@ const Header = () => {
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
   const [cartCount, setCartCount] = useState(0);
 
-  // Shared Data for both Desktop & Mobile to fix ImageErrors
   const categories = [
-    { name: 'Burgers', href: '/all-items?category=burger', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
-    { name: 'Pizza', href: '/all-items?category=pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
-    { name: 'Fast-Food', href: '/all-items?category=fastfood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
-    { name: 'Set Menus', href: '/all-items?category=setmenu', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
-    { name: 'Appetizers', href: '/all-items?category=appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
-    { name: 'Chinese', href: '/all-items?category=chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
-    { name: 'Italian', href: '/all-items?category=italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
-    { name: 'Japanese', href: '/all-items?category=japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png' },
-    { name: 'Traditional', href: '/all-items?category=traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
-    { name: 'Sea-Food', href: '/all-items?category=seafood', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png' },
-    { name: 'Pakistani', href: '/all-items?category=pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
-    { name: 'Coffee', href: '/all-items?category=coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
-    { name: 'Desserts', href: '/all-items?category=desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
-    { name: 'Drinks & Beverages', href: '/all-items?category=drinks', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
-
-
+    { name: 'Burgers', href: '/all-items?category=Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
+    { name: 'Pizza', href: '/all-items?category=Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
+    { name: 'Fast-Food', href: '/all-items?category=Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
+    { name: 'Set Menus', href: '/all-items?category=Set%20Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
+    { name: 'Appetizers', href: '/all-items?category=Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
+    { name: 'Chinese', href: '/all-items?category=Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
+    { name: 'Italian', href: '/all-items?category=Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
+    { name: 'Japanese', href: '/all-items?category=Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png' },
+    { name: 'Traditional', href: '/all-items?category=Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
+    { name: 'Sea-Food', href: '/all-items?category=Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png' },
+    { name: 'Pakistani', href: '/all-items?category=Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
+    { name: 'Coffee', href: '/all-items?category=Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
+    { name: 'Desserts', href: '/all-items?category=Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
+    { name: 'Drinks & Beverages', href: '/all-items?category=Drinks%20%26%20Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
   ];
 
   useEffect(() => {
@@ -116,7 +130,7 @@ const Header = () => {
               
               {isCategoriesOpen && (
                 <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
-                  <div>
+                  <div className="max-h-80 overflow-y-auto">
                     {categories.map((category) => (
                         <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
                             <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
@@ -131,23 +145,36 @@ const Header = () => {
 
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             <div className="relative hidden sm:block w-28 lg:w-40 group" ref={inputRef}>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
-                className="w-full pl-7 pr-3 py-1 rounded-full border-none bg-black/5 focus:bg-white/40 focus:ring-1 focus:ring-black/20 text-[10px] transition-all placeholder:text-gray-600"
-                onFocus={() => setShowResults(true)}
-              />
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (searchQuery) window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
+                  className="w-full pl-7 pr-3 py-1 rounded-full border-none bg-black/5 focus:bg-white/40 focus:ring-1 focus:ring-black/20 text-[10px] transition-all placeholder:text-gray-600"
+                  onFocus={() => setShowResults(true)}
+                  autoComplete="off"
+                />
+              </form>
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-700" />
               
               {showResults && searchQuery && (
                 <div className="absolute top-full mt-4 right-0 w-64 bg-white border rounded-2xl shadow-2xl overflow-hidden py-1 z-50">
                   {filteredItems.length > 0 ? (
                     filteredItems.map(item => (
-                      <Link href={`/all-items?search=${encodeURIComponent(item.name)}`} key={item.id} className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" onClick={() => setShowResults(false)}>
-                        <div className="w-8 h-8 relative"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
-                        <div className="text-[10px] font-bold text-gray-900">{item.name}</div>
+                      <Link 
+                        href={`/all-items?search=${encodeURIComponent(item.name)}`} 
+                        key={item._id || (item as any).id} 
+                        className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" 
+                        onClick={() => setShowResults(false)}
+                      >
+                        <div className="w-8 h-8 relative shrink-0"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
+                        <div className="text-[10px] font-bold text-gray-900 truncate">{item.name}</div>
                       </Link>
                     ))
                   ) : (
@@ -181,13 +208,24 @@ const Header = () => {
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5">
             <div className="relative w-full">
-                <input
-                    type="text"
-                    placeholder="Search food..."
-                    value={searchQuery}
-                    onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
-                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
-                />
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (searchQuery) {
+                      window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
+                      setIsMobileMenuOpen(false);
+                    }
+                  }}
+                >
+                  <input
+                      type="text"
+                      placeholder="Search food..."
+                      value={searchQuery}
+                      onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
+                      autoComplete="off"
+                  />
+                </form>
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             </div>
 
@@ -206,7 +244,7 @@ const Header = () => {
                     </button>
                     
                     {isMobileCategoriesOpen && (
-                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
+                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
                            {categories.map((category) => (
                                <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
                                    <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>

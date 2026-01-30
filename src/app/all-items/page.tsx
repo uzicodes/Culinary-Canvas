@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 import { motion, Variants } from 'framer-motion';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface MenuItem {
   _id?: string; 
@@ -30,6 +31,7 @@ const itemVariants: Variants = {
 
 export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const { data: session } = useSession();
+  const router = useRouter();
   const isAdmin = (session?.user as any)?.role === 'admin';
 
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
@@ -39,13 +41,15 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   const [toastMessage, setToastMessage] = useState("Sync Complete");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [localSearch, setLocalSearch] = useState(searchTerm);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await fetch('/api/items');
         const data = await response.json();
-        setMenuItems(data);
+        // Strict source of truth to prevent "ghost" items
+        setMenuItems(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Failed to fetch menu items:", error);
       } finally {
@@ -54,6 +58,18 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     };
     fetchItems();
   }, []);
+
+  useEffect(() => {
+    setLocalSearch(searchTerm);
+  }, [searchTerm]);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (activeCategory !== 'all') params.set('category', activeCategory);
+    if (localSearch) params.set('search', localSearch);
+    router.push(`/all-items?${params.toString()}`);
+  };
 
   const categoryOrder = [
     'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers', 
@@ -68,15 +84,20 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
   const processedItems = menuItems
     .filter(item => {
-      const normalize = (str: string) => str.toLowerCase().replace(/[\s-]/g, '');
-      const itemCat = normalize(item.category || "");
+      const normalize = (str: string) => (str || "").toLowerCase().replace(/[\s-]/g, '');
+      const itemCat = normalize(item.category);
       const activeCat = normalize(activeCategory);
       const matchesCategory = activeCategory === 'all' || itemCat === activeCat || itemCat.includes(activeCat) || activeCat.includes(itemCat);
-      const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase()) || item.description.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      // Fixed search logic to prevent ghost results
+      const matchesSearch = 
+        (item.name || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
+        (item.description || "").toLowerCase().includes(searchTerm.toLowerCase());
+      
       return matchesCategory && matchesSearch;
     })
     .sort((a, b) => {
-      const normalize = (str: string) => str.toLowerCase().replace(/[\s-]/g, '').substring(0, 4);
+      const normalize = (str: string) => (str || "").toLowerCase().replace(/[\s-]/g, '').substring(0, 4);
       const indexA = categoryOrder.findIndex(cat => normalize(a.category).includes(normalize(cat)));
       const indexB = categoryOrder.findIndex(cat => normalize(b.category).includes(normalize(cat)));
       const priorityA = indexA === -1 ? 99 : indexA;
@@ -91,26 +112,22 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       
       <div className="bg-transparent">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="relative">
+          <form onSubmit={handleSearchSubmit} className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <form method="get" action="/all-items">
-              <input
-                type="text"
-                name="search"
-                placeholder="Search for food items..."
-                defaultValue={searchTerm}
-                className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm"
-              />
-              {activeCategory !== 'all' && <input type="hidden" name="category" value={activeCategory} />}
-            </form>
-          </div>
+            <input
+              type="text"
+              placeholder="Search for food items..."
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#BCE334] text-black font-medium transition-all shadow-sm"
+            />
+          </form>
         </div>
       </div>
 
       <div className="bg-transparent sticky top-16 z-30">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex flex-col gap-2">
-            {/* First row - 8 buttons */}
             <div className="flex flex-wrap justify-center gap-2">
               {filterCategories.slice(0, 8).map(cat => {
                 const params = new URLSearchParams();
@@ -132,7 +149,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                 );
               })}
             </div>
-            {/* Second row - 7 buttons */}
             <div className="flex flex-wrap justify-center gap-2">
               {filterCategories.slice(8).map(cat => {
                 const params = new URLSearchParams();
@@ -246,6 +262,7 @@ function ItemCard({
   const handleDelete = async () => {
     if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return;
     try {
+      // Fixed DELETE call to match your updated server-side logic
       const response = await fetch(`/api/items?id=${item._id}`, {
         method: 'DELETE',
       });
@@ -304,9 +321,7 @@ function ItemCard({
             <button
               className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-2 py-1.5 md:px-5 md:py-2.5 rounded-lg md:rounded-[1.2rem] text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
               onClick={() => {
-                // If admin ? not allow adding to cart
                 if (isAdmin) return; 
-
                 const cartItem = { ...editedItem, _id: String(item._id || item.id), quantity: 1 };
                 if (typeof window !== 'undefined') {
                   const saved = localStorage.getItem('cart');
