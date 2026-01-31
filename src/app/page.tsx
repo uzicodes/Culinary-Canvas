@@ -8,6 +8,7 @@ import About from '@/components/About'
 import Stats from '@/components/Stats'
 import Blog from '@/components/Blog'
 import DeliveryPartners from '@/components/DeliveryPartners'
+
 import SpecialOffers from '@/components/SpecialOffers'
 import Footer from '@/components/Footer'
 
