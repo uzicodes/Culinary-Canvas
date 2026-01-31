@@ -51,7 +51,7 @@ const SpecialOffers = () => {
 
                         </h2>
                         <p className="mt-4 text-slate-800 font-bold max-w-md">
-                            Get 30% off on above 1000Tk orders on Sunday's. <span className="text-xs">* Selected Items Only</span> <br />
+                            Get 30% off on above 1000Tk orders on Sunday&apos;s. <span className="text-xs text-gray-500">* Selected Items Only</span> <br />
                             Use code: <span className="bg-white/40 px-2 rounded">CANVAS30</span>
                         </p>
                     </div>
