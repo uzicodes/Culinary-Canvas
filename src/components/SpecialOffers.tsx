@@ -32,7 +32,7 @@ const SpecialOffers = () => {
     }, []);
 
     return (
-        <section className="py-10 px-4 bg-gradient-to-br from-green-50 to-green-100">
+        <section className="py-10 px-4 bg-gradient-to-br from-green-100 to-green-200">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

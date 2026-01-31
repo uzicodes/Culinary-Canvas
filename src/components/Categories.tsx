@@ -23,7 +23,7 @@ const categories: Category[] = [
     { id: 7, name: 'Desserts', slug: 'Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png', color: 'bg-cyan-500/10', textColor: 'text-slate-900' },
     { id: 8, name: 'Italian', slug: 'Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png', color: 'bg-orange-500/10', textColor: 'text-slate-900' },
     { id: 9, name: 'Traditional', slug: 'Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png', color: 'bg-blue-500/10', textColor: 'text-slate-900' },
-    { id: 10, name: 'Japanese', slug: 'Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png', color: 'bg-amber-500/10', textColor: 'text-slate-900'},
+    { id: 10, name: 'Japanese', slug: 'Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png', color: 'bg-amber-500/10', textColor: 'text-slate-900' },
     { id: 11, name: 'Sea-Food', slug: 'Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png', color: 'bg-red-500/10', textColor: 'text-slate-900' },
     { id: 12, name: 'Coffee', slug: 'Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png', color: 'bg-indigo-500/10', textColor: 'text-slate-900' },
     { id: 13, name: 'Pakistani', slug: 'Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png', color: 'bg-rose-500/10', textColor: 'text-slate-900' },
@@ -45,20 +45,20 @@ const itemVariants: Variants = {
     visible: {
         y: 0,
         opacity: 1,
-        transition: { 
-            duration: 0.5, 
-            ease: "easeOut" 
+        transition: {
+            duration: 0.5,
+            ease: "easeOut"
         }
     },
 };
 
 const Categories = () => {
     return (
-        <section className="py-16 bg-gradient-to-br from-green-50 to-green-100 overflow-hidden">
+        <section className="py-16 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                
+
                 {/* Section Header */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -72,7 +72,7 @@ const Categories = () => {
                 </motion.div>
 
                 {/* Staggered Grid */}
-                <motion.div 
+                <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -86,10 +86,10 @@ const Categories = () => {
                                 className="group block h-full"
                             >
                                 <motion.div
-                                    whileHover={{ 
+                                    whileHover={{
                                         y: -10,
                                         scale: 1.02,
-                                        boxShadow: "0px 20px 40px rgba(0,0,0,0.1)" 
+                                        boxShadow: "0px 20px 40px rgba(0,0,0,0.1)"
                                     }}
                                     whileTap={{ scale: 0.98 }}
                                     // Glassmorphism implementation: 

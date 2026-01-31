@@ -56,7 +56,7 @@ const BestSelling = () => {
 
     useEffect(() => {
         const loadInitialData = async () => {
-            checkAdminPrivilege(); 
+            checkAdminPrivilege();
 
             try {
                 const [bestRes, itemsRes] = await Promise.all([
@@ -85,7 +85,7 @@ const BestSelling = () => {
         if (existing) existing.quantity = (existing.quantity || 1) + 1;
         else cart.push({ ...product, quantity: 1 });
         localStorage.setItem('cart', JSON.stringify(cart));
-        window.dispatchEvent(new Event('cartUpdated')); 
+        window.dispatchEvent(new Event('cartUpdated'));
         setSuccessMsg(`${product.name} added to cart!`);
         setTimeout(() => setSuccessMsg(null), 1500);
     };
@@ -120,7 +120,7 @@ const BestSelling = () => {
     );
 
     return (
-        <section className="py-20 bg-gradient-to-br from-green-50 to-green-100 overflow-hidden relative">
+        <section className="py-20 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden relative">
             <AnimatePresence>
                 {successMsg && (
                     <motion.div initial={{ opacity: 0, y: -100, x: '-50%' }} animate={{ opacity: 1, y: 0, x: '-50%' }} exit={{ opacity: 0, y: -100, x: '-50%' }} className="fixed top-10 left-1/2 bg-black text-[#BCE334] px-10 py-4 rounded-full shadow-2xl z-[500] font-black uppercase text-[10px] tracking-widest border border-[#BCE334]/30">
@@ -132,7 +132,7 @@ const BestSelling = () => {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-                        Best Sellers 
+                        Best Sellers
                         <motion.span
                             animate={{ rotate: [0, 270, 0] }}
                             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
@@ -199,8 +199,8 @@ const BestSelling = () => {
                                     {allInventory.map(item => <option key={item.id || (item as any)._id} value={item.id || (item as any)._id}>{item.name}</option>)}
                                 </select>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({...tempData, price: e.target.value})} />
-                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({...tempData, originalPrice: e.target.value})} />
+                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
+                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
                                 </div>
                                 <button onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
                                     Update Best Seller

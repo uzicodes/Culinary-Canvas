@@ -64,13 +64,13 @@ const Hero = () => {
   ]
 
   return (
-    <section className="relative bg-gradient-to-br from-green-50 to-green-100 min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
+    <section className="relative bg-gradient-to-br from-green-100 to-green-200 min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#BCE334] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
       <div className="w-full relative z-10">
         <div className="grid lg:grid-cols-2 items-center gap-12 lg:gap-0">
-          
+
           {/* Left Content */}
           <div className="space-y-10 px-4 sm:px-6 lg:px-8">
             <div className="space-y-4">
@@ -87,7 +87,7 @@ const Hero = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/all-items">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: '#050BB3' }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-primary-600 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
@@ -98,7 +98,7 @@ const Hero = () => {
               </Link>
 
               <Link href="/menu">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: 'transparent', color: 'black' }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-black text-[#BCE334] px-8 py-3.5 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl border-2 border-black"
@@ -111,7 +111,7 @@ const Hero = () => {
 
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
               {features.map((f, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}

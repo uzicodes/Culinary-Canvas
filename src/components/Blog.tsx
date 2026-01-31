@@ -23,7 +23,7 @@ const blogPosts = [
     category: 'Dessert',
     image: '/blog-2.png',
     author: 'Jo cooks ( Joanna )',
-    link : 'https://www.jocooks.com/recipes/cinnabons-cinnamon-rolls/'
+    link: 'https://www.jocooks.com/recipes/cinnabons-cinnamon-rolls/'
   },
   {
     id: 2,
@@ -49,30 +49,30 @@ const blogContainerVariants: Variants = {
 };
 
 const blogCardVariants: Variants = {
-  hidden: { 
-    opacity: 0, 
+  hidden: {
+    opacity: 0,
     rotateY: 45, // Starts tilted away from the user
     rotateX: 10,
-    z: -100 
+    z: -100
   },
-  visible: { 
-    opacity: 1, 
-    rotateY: 0, 
+  visible: {
+    opacity: 1,
+    rotateY: 0,
     rotateX: 0,
     z: 0,
-    transition: { 
-      type: "spring", 
-      stiffness: 80, 
-      damping: 15 
-    } 
+    transition: {
+      type: "spring",
+      stiffness: 80,
+      damping: 15
+    }
   },
 };
 
 const Blog = () => (
-  <section className="py-16 bg-gradient-to-br from-green-50 to-green-100 overflow-hidden" style={{ perspective: "1200px" }}>
+  <section className="py-16 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden" style={{ perspective: "1200px" }}>
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, filter: "blur(10px)" }}
         whileInView={{ opacity: 1, filter: "blur(0px)" }}
         viewport={{ once: true }}
@@ -86,7 +86,7 @@ const Blog = () => (
       </motion.div>
 
       {/* Blog Grid with 3D Entrance */}
-      <motion.div 
+      <motion.div
         variants={blogContainerVariants}
         initial="hidden"
         whileInView="visible"
@@ -97,10 +97,10 @@ const Blog = () => (
           <motion.article
             key={post.id}
             variants={blogCardVariants}
-            whileHover={{ 
-              y: -15, 
+            whileHover={{
+              y: -15,
               rotateY: -5, // Tilts toward the user on hover
-              boxShadow: "0px 20px 40px rgba(0,0,0,0.15)" 
+              boxShadow: "0px 20px 40px rgba(0,0,0,0.15)"
             }}
             className="bg-[#E3DCB1] rounded-2xl shadow-sm overflow-hidden group border border-black/5"
           >

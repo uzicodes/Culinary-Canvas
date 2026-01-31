@@ -42,7 +42,7 @@ const About = () => {
   }
 
   return (
-    <section className="py-10 sm:py-16 bg-gradient-to-br from-green-50 to-green-100">
+    <section className="py-10 sm:py-16 bg-gradient-to-br from-green-100 to-green-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content - Image Carousel */}
@@ -53,11 +53,10 @@ const About = () => {
               {aboutImages.map((src, index) => (
                 <div
                   key={src}
-                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                    index === currentIndex
-                      ? 'opacity-100 scale-100'
-                      : 'opacity-0 scale-105'
-                  }`}
+                  className={`absolute inset-0 transition-all duration-700 ease-in-out ${index === currentIndex
+                    ? 'opacity-100 scale-100'
+                    : 'opacity-0 scale-105'
+                    }`}
                 >
                   <Image
                     src={src}
@@ -95,11 +94,10 @@ const About = () => {
                   <button
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      index === currentIndex
-                        ? 'w-6 sm:w-8 h-2 bg-white'
-                        : 'w-2 h-2 bg-white/50 hover:bg-white/80'
-                    }`}
+                    className={`transition-all duration-300 rounded-full ${index === currentIndex
+                      ? 'w-6 sm:w-8 h-2 bg-white'
+                      : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                      }`}
                     aria-label={`Go to slide ${index + 1}`}
                   />
                 ))}
