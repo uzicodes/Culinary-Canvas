@@ -32,7 +32,7 @@ const Hero = () => {
   const images = [
     { src: '/1.png' }, { src: '/2.png' }, { src: '/3.png' },
     { src: '/4.png' }, { src: '/5.png' }, { src: '/6.png' },
-    { src: '/7.png' }, { src: '/8.png' }, { src: '/9.png' }, { src: '/10.png' }
+    { src: '/8.png' }, { src: '/10.png' }
   ]
 
   const dishes = useCountUp(50, 1200, '+')
@@ -47,18 +47,18 @@ const Hero = () => {
 
   const features = [
     {
-      icon: <Truck className="w-6 h-6 text-white" />,
-      title: "Super Fast Delivery",
+      icon: <Truck className="w-6 h-6 text-brown-200" />,
+      title: <span className="text-blue-500">Super Fast Delivery</span>,
       desc: "Faster than your cravings can blink. Hot and fresh."
     },
     {
-      icon: <MapPin className="w-6 h-6 text-white" />,
-      title: "Live Tracking",
-      desc: "Follow your food's journey from our kitchen to your door."
+      icon: <MapPin className="w-6 h-6 text-brown-200" />,
+      title: <span className="text-blue-500">Live Tracking</span>,
+      desc: "Follow your food's journey from our kitchen to your doorsteps."
     },
     {
-      icon: <Smartphone className="w-6 h-6 text-white" />,
-      title: "Easy Ordering",
+      icon: <Smartphone className="w-6 h-6 text-brown-200" />,
+      title: <span className="text-blue-500">Easy Ordering</span>,
       desc: "Find and order your top favorites in just a few taps."
     }
   ]
