@@ -5,7 +5,7 @@ import { ShoppingCart, Search, Menu, X, User, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 // Import only the type, not the static data
-import { MenuItem } from '@/data/menuItems' 
+import { MenuItem } from '@/data/menuItems'
 import { useAutoLogout } from '@/hooks/useAutoLogout'
 import { useSession } from 'next-auth/react'
 
@@ -34,8 +34,8 @@ const Header = () => {
   // 2. Filter using live dbItems instead of static file
   const filteredItems = searchQuery
     ? dbItems.filter((item: MenuItem) =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
     : [];
 
   useEffect(() => {
@@ -89,11 +89,11 @@ const Header = () => {
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-      <div 
+      <div
         className="w-full max-w-4xl h-14 rounded-full flex items-center justify-between px-6 pointer-events-auto transition-all duration-300 shadow-xl border border-white/20"
-        style={{ 
-            backgroundColor: '#BCE334',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' 
+        style={{
+          backgroundColor: '#BCE334',
+          boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
         }}
       >
         <div className="flex items-center shrink-0">
@@ -101,9 +101,9 @@ const Header = () => {
             <div className="w-12 h-12 relative">
               <Image src="/without_BG_logo.png" alt="Logo" fill className="object-contain" sizes="48px" />
             </div>
-            <span 
-                className="text-base sm:text-lg lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
-                style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
+            <span
+              className="text-base sm:text-lg lg:text-2xl font-white text-grey-500 tracking-tighter uppercase leading-none"
+              style={{ fontFamily: 'Nalinak, Inter, sans-serif' }}
             >
               Culinary Canvas
             </span>
@@ -112,13 +112,13 @@ const Header = () => {
 
         <div className="flex items-center space-x-4 lg:space-x-6">
           <nav className="hidden md:flex items-center space-x-5 h-full">
-            <Link 
-              href="/all-items" 
+            <Link
+              href="/all-items"
               className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black transition-colors uppercase tracking-widest whitespace-nowrap leading-none flex items-center"
             >
               All Items
             </Link>
-            
+
             <div className="relative flex items-center h-full">
               <button
                 type="button"
@@ -127,15 +127,15 @@ const Header = () => {
               >
                 Categories
               </button>
-              
+
               {isCategoriesOpen && (
                 <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
-                  <div className="max-h-80 overflow-y-auto">
+                  <div>
                     {categories.map((category) => (
-                        <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
-                            <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
-                            <span>{category.name}</span>
-                        </Link>
+                      <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
+                        <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                        <span>{category.name}</span>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -145,7 +145,7 @@ const Header = () => {
 
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             <div className="relative hidden sm:block w-28 lg:w-40 group" ref={inputRef}>
-              <form 
+              <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (searchQuery) window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
@@ -162,15 +162,15 @@ const Header = () => {
                 />
               </form>
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-700" />
-              
+
               {showResults && searchQuery && (
                 <div className="absolute top-full mt-4 right-0 w-64 bg-white border rounded-2xl shadow-2xl overflow-hidden py-1 z-50">
                   {filteredItems.length > 0 ? (
                     filteredItems.map(item => (
-                      <Link 
-                        href={`/all-items?search=${encodeURIComponent(item.name)}`} 
-                        key={item._id || (item as any).id} 
-                        className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20" 
+                      <Link
+                        href={`/all-items?search=${encodeURIComponent(item.name)}`}
+                        key={item._id || (item as any).id}
+                        className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20"
                         onClick={() => setShowResults(false)}
                       >
                         <div className="w-8 h-8 relative shrink-0"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
@@ -207,54 +207,54 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5">
-            <div className="relative w-full">
-                <form 
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (searchQuery) {
-                      window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
-                      setIsMobileMenuOpen(false);
-                    }
-                  }}
-                >
-                  <input
-                      type="text"
-                      placeholder="Search food..."
-                      value={searchQuery}
-                      onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
-                      className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
-                      autoComplete="off"
-                  />
-                </form>
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <div className="relative w-full">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (searchQuery) {
+                  window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
+                  setIsMobileMenuOpen(false);
+                }
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search food..."
+                value={searchQuery}
+                onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"
+                autoComplete="off"
+              />
+            </form>
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          </div>
+
+          <div className="space-y-2">
+            <Link href="/all-items" className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>
+              <span>All Items</span>
+            </Link>
+
+            <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
+              <button
+                onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
+                className="w-full flex items-center justify-between p-3 hover:bg-gray-50 font-bold text-gray-800"
+              >
+                <span>Categories</span>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isMobileCategoriesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {isMobileCategoriesOpen && (
+                <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
+                  {categories.map((category) => (
+                    <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
+                      <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                      <span className="truncate">{category.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
-
-             <div className="space-y-2">
-                 <Link href="/all-items" className="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 font-bold text-gray-800" onClick={() => setIsMobileMenuOpen(false)}>
-                    <span>All Items</span>
-                 </Link>
-
-                 <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
-                    <button 
-                        onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
-                        className="w-full flex items-center justify-between p-3 hover:bg-gray-50 font-bold text-gray-800"
-                    >
-                        <span>Categories</span>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isMobileCategoriesOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                    
-                    {isMobileCategoriesOpen && (
-                        <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2 max-h-60 overflow-y-auto">
-                           {categories.map((category) => (
-                               <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                                   <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
-                                   <span className="truncate">{category.name}</span>
-                               </Link>
-                           ))}
-                        </div>
-                    )}
-                 </div>
-             </div>
+          </div>
         </div>
       )}
     </header>
