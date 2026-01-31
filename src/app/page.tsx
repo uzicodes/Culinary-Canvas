@@ -8,6 +8,7 @@ import About from '@/components/About'
 import Stats from '@/components/Stats'
 import Blog from '@/components/Blog'
 import DeliveryPartners from '@/components/DeliveryPartners'
+import SpecialOffers from '@/components/SpecialOffers'
 import Footer from '@/components/Footer'
 
 import React, { useEffect, useState } from 'react';
@@ -69,7 +70,7 @@ export default function Home() {
 
             {/* Pulsing ring */}
             <div className="absolute inset-0 w-36 h-36 rounded-full border-2 border-[#BCE334]/30 animate-ping" style={{ animationDuration: '2s' }} />
-            
+
             {/* Static outer ring */}
             <div className="w-36 h-36 rounded-full border border-[#BCE334]/20 flex items-center justify-center">
               {/* Inner glowing circle */}
@@ -77,11 +78,11 @@ export default function Home() {
                 style={{ boxShadow: 'inset 0 0 30px rgba(188, 227, 52, 0.1)' }}>
                 {/* Logo */}
                 <div className="relative w-16 h-16">
-                  <Image 
-                    src="/without_BG_logo.png" 
-                    alt="Loading..." 
-                    fill 
-                    className="object-contain" 
+                  <Image
+                    src="/without_BG_logo.png"
+                    alt="Loading..."
+                    fill
+                    className="object-contain"
                     priority
                     sizes="64px"
                   />
@@ -89,7 +90,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           {/* Text with animated dots */}
           <div className="mt-10 flex flex-col items-center gap-3">
             <p className="text-[#BCE334] font-black uppercase text-xl tracking-[0.4em]">
@@ -107,6 +108,7 @@ export default function Home() {
       <Hero />
       <Categories />
       <BestSelling />
+      <SpecialOffers />
       <About />
       <Stats />
       <DeliveryPartners />
