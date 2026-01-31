@@ -47,16 +47,17 @@ const SpecialOffers = () => {
                             Limited Time Offer
                         </span>
                         <h2 className="text-4xl md:text-6xl font-black text-slate-900 mt-4 leading-none uppercase tracking-tighter">
-                            Weekend <br /> <span className="text-white">Feast Mode</span>
+                            Weekend <br /> <span className="text-red-600">Feast <span className="text-black">Mode</span></span>
+
                         </h2>
                         <p className="mt-4 text-slate-800 font-bold max-w-md">
-                            Get 30% off on all Family Sets this Saturday & Sunday.
+                            Get 30% off on above 1000Tk orders on Sunday's. <span className="text-xs">* Selected Items Only</span> <br />
                             Use code: <span className="bg-white/40 px-2 rounded">CANVAS30</span>
                         </p>
                     </div>
 
                     {/* Middle: Image Carousel */}
-                    <div className="relative w-full max-w-xs md:max-w-sm h-32 md:h-48 flex justify-center items-center z-10">
+                    <div className="relative w-full max-w-md md:max-w-lg h-48 md:h-64 flex justify-center items-center z-10">
                         <AnimatePresence mode='popLayout'>
                             <motion.div
                                 key={index}
