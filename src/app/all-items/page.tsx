@@ -3,14 +3,14 @@
 import Image from 'next/image';
 import { Search, Pencil, Check, X, Trash2 } from 'lucide-react';
 import Header from '@/components/Header';
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 import { motion, Variants } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 interface MenuItem {
-  _id?: string; 
+  _id?: string;
   id: number;
   name: string;
   description: string;
@@ -36,7 +36,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
-  
+
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("Sync Complete");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -79,8 +79,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   };
 
   const categoryOrder = [
-    'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers', 
-    'Chinese', 'Italian', 'Japanese', 'Traditional', 'Sea-Food', 
+    'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers',
+    'Chinese', 'Italian', 'Japanese', 'Traditional', 'Sea-Food',
     'Pakistani', 'Coffee', 'Desserts', 'Drinks & Beverages'
   ];
 
@@ -95,11 +95,11 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
       const itemCat = normalize(item.category);
       const activeCat = normalize(activeCategory);
       const matchesCategory = activeCategory === 'all' || itemCat === activeCat || itemCat.includes(activeCat) || activeCat.includes(itemCat);
-      
-      const matchesSearch = 
-        (item.name || "").toLowerCase().includes(searchTerm.toLowerCase()) || 
+
+      const matchesSearch =
+        (item.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
         (item.description || "").toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       return matchesCategory && matchesSearch;
     })
     .sort((a, b) => {
@@ -113,19 +113,19 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
     });
 
   return (
-    <div className="min-h-screen bg-[#F7FBE7] pt-28">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-green-200 pt-28">
       <Header />
-      
+
       <div className="bg-transparent">
-        <div className="max-w-md mx-auto px-4 py-4"> 
+        <div className="max-w-md mx-auto px-4 py-4">
           <form onSubmit={handleSearchSubmit} className="relative group">
-            
+
             {/* MAGNIFYING ICON */}
-            <Search 
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 z-10 pointer-events-none" 
-              size={18} 
+            <Search
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 z-10 pointer-events-none"
+              size={18}
             />
-            
+
             {/* INPUT FIELD */}
             <input
               type="text"
@@ -140,9 +140,9 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
             {/* CLEAR BUTTON */}
             {localSearch && (
-              <button 
-                type="button" 
-                onClick={clearSearch} 
+              <button
+                type="button"
+                onClick={clearSearch}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black transition-colors z-10"
               >
                 <X size={18} />
@@ -165,11 +165,10 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   <a
                     key={cat.id}
                     href={href}
-                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
-                      activeCategory === cat.id 
-                        ? 'bg-black text-[#BCE334] scale-105' 
+                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${activeCategory === cat.id
+                        ? 'bg-black text-[#BCE334] scale-105'
                         : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
-                    }`}
+                      }`}
                   >
                     {cat.label}
                   </a>
@@ -186,11 +185,10 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                   <a
                     key={cat.id}
                     href={href}
-                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${
-                      activeCategory === cat.id 
-                        ? 'bg-black text-[#BCE334] scale-105' 
+                    className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${activeCategory === cat.id
+                        ? 'bg-black text-[#BCE334] scale-105'
                         : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
-                    }`}
+                      }`}
                   >
                     {cat.label}
                   </a>
@@ -208,7 +206,7 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
           </div>
         ) : (
           <>
-            <motion.div 
+            <motion.div
               key={activeCategory + searchTerm}
               variants={containerVariants}
               initial="hidden"
@@ -216,11 +214,11 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
               className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6"
             >
               {processedItems.map(item => (
-                <ItemCard 
-                  key={item._id || item.id} 
-                  item={item} 
-                  isAdmin={isAdmin} 
-                  setShowToast={setShowToast} 
+                <ItemCard
+                  key={item._id || item.id}
+                  item={item}
+                  isAdmin={isAdmin}
+                  setShowToast={setShowToast}
                   setToastMessage={setToastMessage}
                   setMenuItems={setMenuItems}
                 />
@@ -246,15 +244,15 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   );
 }
 
-function ItemCard({ 
-  item, 
-  isAdmin, 
-  setShowToast, 
+function ItemCard({
+  item,
+  isAdmin,
+  setShowToast,
   setToastMessage,
-  setMenuItems 
-}: { 
-  item: MenuItem, 
-  isAdmin: boolean, 
+  setMenuItems
+}: {
+  item: MenuItem,
+  isAdmin: boolean,
   setShowToast: (v: boolean) => void,
   setToastMessage: (v: string) => void,
   setMenuItems: React.Dispatch<React.SetStateAction<MenuItem[]>>
@@ -268,7 +266,7 @@ function ItemCard({
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          id: item._id, 
+          id: item._id,
           name: editedItem.name,
           description: editedItem.description,
           price: editedItem.price
@@ -322,11 +320,11 @@ function ItemCard({
       <div className="p-3 md:p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
         {isEditing ? (
           <div className="space-y-2.5">
-            <input className="w-full text-[10px] font-black uppercase p-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.name} onChange={(e) => setEditedItem({...editedItem, name: e.target.value})} />
-            <textarea className="w-full text-[10px] p-3 rounded-2xl bg-white/90 text-black h-20 resize-none border-none leading-relaxed" value={editedItem.description} onChange={(e) => setEditedItem({...editedItem, description: e.target.value})} />
+            <input className="w-full text-[10px] font-black uppercase p-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.name} onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })} />
+            <textarea className="w-full text-[10px] p-3 rounded-2xl bg-white/90 text-black h-20 resize-none border-none leading-relaxed" value={editedItem.description} onChange={(e) => setEditedItem({ ...editedItem, description: e.target.value })} />
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-black">৳</span>
-              <input type="number" className="w-full text-[10px] font-black pl-7 pr-3 py-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.price} onChange={(e) => setEditedItem({...editedItem, price: Number(e.target.value)})} />
+              <input type="number" className="w-full text-[10px] font-black pl-7 pr-3 py-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.price} onChange={(e) => setEditedItem({ ...editedItem, price: Number(e.target.value) })} />
             </div>
           </div>
         ) : (
@@ -347,7 +345,7 @@ function ItemCard({
             <button
               className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-2 py-1.5 md:px-5 md:py-2.5 rounded-lg md:rounded-[1.2rem] text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
               onClick={() => {
-                if (isAdmin) return; 
+                if (isAdmin) return;
                 const cartItem = { ...editedItem, _id: String(item._id || item.id), quantity: 1 };
                 if (typeof window !== 'undefined') {
                   const saved = localStorage.getItem('cart');
