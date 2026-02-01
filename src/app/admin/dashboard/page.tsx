@@ -92,130 +92,104 @@ export default function AdminDashboard() {
               </p>
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex gap-2 mb-6">
-              <button
-                onClick={() => setView('menu')}
-                className={`flex-1 py-3 px-4 rounded-full font-black uppercase text-[10px] tracking-widest transition-all ${
-                  view === 'menu' 
-                    ? 'bg-black text-[#BCE334]' 
-                    : 'bg-white/60 text-gray-600 hover:bg-white'
-                }`}
+            <div className="grid grid-cols-3 gap-2">
+              <Link href="/admin/add-item">
+                <motion.div whileHover={{ scale: 1.02 }} className="p-4 bg-black rounded-[1.5rem] flex flex-col items-center gap-2 cursor-pointer group shadow-md h-full">
+                  <PlusCircle className="text-[#BCE334] w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+                  <span className="text-[#BCE334] font-bold uppercase text-[8px] tracking-widest text-center">Add Item</span>
+                </motion.div>
+              </Link>
+
+              <Link href="/all-items">
+                <motion.div whileHover={{ scale: 1.02 }} className="p-4 bg-black rounded-[1.5rem] flex flex-col items-center gap-2 cursor-pointer group shadow-md h-full">
+                  <Utensils className="text-[#BCE334] w-6 h-6 group-hover:scale-110 transition-transform" />
+                  <span className="text-[#BCE334] font-bold uppercase text-[8px] tracking-widest text-center">Manage Menu</span>
+                </motion.div>
+              </Link>
+
+              <motion.div 
+                whileHover={{ scale: 1.02 }} 
+                onClick={() => setView(view === 'feedbacks' ? 'menu' : 'feedbacks')}
+                className={`p-4 bg-black rounded-[1.5rem] flex flex-col items-center gap-2 cursor-pointer group shadow-md h-full ${view === 'feedbacks' ? 'ring-2 ring-[#029FBE]' : ''}`}
               >
-                <span className="flex items-center justify-center gap-2">
-                  <Utensils size={14} />
-                  Manage Menu
-                </span>
-              </button>
-              <button
-                onClick={() => setView('feedbacks')}
-                className={`flex-1 py-3 px-4 rounded-full font-black uppercase text-[10px] tracking-widest transition-all ${
-                  view === 'feedbacks' 
-                    ? 'bg-black text-[#BCE334]' 
-                    : 'bg-white/60 text-gray-600 hover:bg-white'
-                }`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <MessageSquare size={14} />
-                  Feedbacks
+                <div className="relative">
+                  <MessageSquare className="w-6 h-6 text-[#BCE334] group-hover:scale-110 transition-transform" />
                   {feedbacks.length > 0 && view !== 'feedbacks' && (
-                    <span className="bg-[#029FBE] text-white text-[8px] px-2 py-0.5 rounded-full">
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[6px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center">
                       {feedbacks.length}
                     </span>
                   )}
-                </span>
-              </button>
+                </div>
+                <span className="text-[#BCE334] font-bold uppercase text-[8px] tracking-widest text-center">Feedbacks</span>
+              </motion.div>
             </div>
 
-            <AnimatePresence mode="wait">
-              {view === 'menu' ? (
-                <motion.div
-                  key="menu"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <Link href="/admin/add-item">
-                      <motion.div whileHover={{ scale: 1.02 }} className="p-6 bg-black rounded-[2rem] flex flex-col items-center gap-3 cursor-pointer group shadow-md">
-                        <PlusCircle className="text-[#BCE334] w-8 h-8 group-hover:rotate-90 transition-transform duration-300" />
-                        <span className="text-[#BCE334] font-bold uppercase text-[10px] tracking-widest">ADD New Item</span>
-                      </motion.div>
-                    </Link>
-
-                    <Link href="/all-items">
-                      <motion.div whileHover={{ scale: 1.02 }} className="p-6 bg-white rounded-[2rem] border border-gray-100 flex flex-col items-center gap-3 cursor-pointer shadow-sm group hover:border-[#BCE334] transition-colors">
-                        <Utensils className="text-black w-8 h-8 group-hover:scale-110 transition-transform" />
-                        <span className="text-black font-bold uppercase text-[10px] tracking-widest">Manage Menu</span>
-                      </motion.div>
-                    </Link>
-
-                    {/* ANALYTICS button*/}
-                    <Link href="/admin/analytics" className="sm:col-span-2 mt-2">
-                      <motion.div 
-                        whileHover={{ scale: 1.01 }} 
-                        whileTap={{ scale: 0.98 }}
-                        className="p-5 bg-[#BCE334] rounded-[2rem] flex items-center justify-between px-8 cursor-pointer shadow-lg group"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="p-3 bg-black rounded-xl">
-                            <TrendingUp className="text-[#BCE334] w-5 h-5" />
-                          </div>
-                          <div className="text-left">
-                            <span className="text-black font-black uppercase text-[11px] tracking-widest block">Business Analytics</span>
-                            <span className="text-black/60 font-bold text-[9px] uppercase tracking-tighter">Revenue & Performance</span>
-                          </div>
-                        </div>
-                        <ArrowRight className="text-black group-hover:translate-x-2 transition-transform" />
-                      </motion.div>
-                    </Link>
+            {/* ANALYTICS button*/}
+            <Link href="/admin/analytics" className="block mt-3">
+              <motion.div 
+                whileHover={{ scale: 1.01 }} 
+                whileTap={{ scale: 0.98 }}
+                className="p-4 bg-[#BCE334] rounded-[1.5rem] flex items-center justify-between px-6 cursor-pointer shadow-lg group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-black rounded-xl">
+                    <TrendingUp className="text-[#BCE334] w-4 h-4" />
                   </div>
-                </motion.div>
-              ) : (
+                  <div className="text-left">
+                    <span className="text-black font-black uppercase text-[10px] tracking-widest block">Business Analytics</span>
+                    <span className="text-black/60 font-bold text-[8px] uppercase tracking-tighter">Revenue & Performance</span>
+                  </div>
+                </div>
+                <ArrowRight className="text-black group-hover:translate-x-2 transition-transform w-5 h-5" />
+              </motion.div>
+            </Link>
+
+            {/* Feedbacks View */}
+            <AnimatePresence mode="wait">
+              {view === 'feedbacks' && (
                 <motion.div
                   key="feedbacks"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="space-y-3"
+                  className="mt-4 space-y-3 overflow-hidden"
                 >
                   {loading ? (
-                    <div className="flex items-center justify-center py-12">
+                    <div className="flex items-center justify-center py-8">
                       <div className="w-8 h-8 border-4 border-[#BCE334] border-t-transparent rounded-full animate-spin" />
                     </div>
                   ) : feedbacks.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-12 text-center">
-                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                        <Inbox className="w-8 h-8 text-gray-400" />
+                    <div className="flex flex-col items-center justify-center py-8 text-center">
+                      <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-3">
+                        <Inbox className="w-6 h-6 text-gray-400" />
                       </div>
                       <p className="text-gray-500 font-bold text-sm">No feedbacks yet</p>
                       <p className="text-gray-400 text-xs mt-1">Customer feedbacks will appear here</p>
                     </div>
                   ) : (
-                    <div className="max-h-[400px] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+                    <div className="max-h-[280px] overflow-y-auto space-y-2 pr-2">
                       {feedbacks.map((feedback) => (
                         <motion.div
                           key={feedback._id}
                           whileHover={{ scale: 1.01 }}
                           onClick={() => setSelectedFeedback(feedback)}
-                          className="p-4 bg-white rounded-2xl border border-gray-100 cursor-pointer hover:border-[#BCE334] hover:shadow-md transition-all group"
+                          className="p-3 bg-white rounded-xl border border-gray-100 cursor-pointer hover:border-[#BCE334] hover:shadow-md transition-all group"
                         >
                           <div className="flex items-center justify-between">
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
-                                <span className="font-black text-sm text-gray-900 truncate">{feedback.name}</span>
-                                <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${getTypeColor(feedback.type)}`}>
+                                <span className="font-black text-xs text-gray-900 truncate">{feedback.name}</span>
+                                <span className={`text-[7px] font-black uppercase px-1.5 py-0.5 rounded-full ${getTypeColor(feedback.type)}`}>
                                   {feedback.type}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 text-[10px] text-gray-400">
-                                <Clock size={10} />
+                              <div className="flex items-center gap-2 text-[9px] text-gray-400">
+                                <Clock size={9} />
                                 <span>{formatDate(feedback.timestamp)}</span>
                               </div>
                             </div>
-                            <ChevronRight className="w-5 h-5 text-gray-300 group-hover:text-[#BCE334] group-hover:translate-x-1 transition-all" />
+                            <ChevronRight className="w-4 h-4 text-gray-300 group-hover:text-[#BCE334] group-hover:translate-x-1 transition-all" />
                           </div>
                         </motion.div>
                       ))}
@@ -225,7 +199,7 @@ export default function AdminDashboard() {
               )}
             </AnimatePresence>
 
-            <div className="mt-8 pt-6 border-t border-black/5 flex justify-between items-center px-2">
+            <div className="mt-6 pt-5 border-t border-black/5 flex justify-between items-center px-2">
               <Link href="/profile" className="flex items-center gap-2 text-[9px] font-black text-gray-400 uppercase hover:text-black transition-colors tracking-widest">
                   Back to Profile
               </Link>
