@@ -1,10 +1,16 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
-import { Send, MessageSquare } from 'lucide-react';
+import { Send, MessageSquare, Lock } from 'lucide-react';
+
+const MAX_NAME_LENGTH = 50;
+const MAX_MESSAGE_WORDS = 100;
+const MAX_MESSAGE_CHARS = 600; // ~100 words equivalent
 
 const Feedback = () => {
+    const { data: session } = useSession();
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
     const [formData, setFormData] = useState({
         name: '',
@@ -12,14 +18,88 @@ const Feedback = () => {
         type: 'General Feedback',
         message: ''
     });
+    const [errors, setErrors] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+
+    // Auto-fill user data when logged in
+    useEffect(() => {
+        if (session?.user) {
+            setFormData(prev => ({
+                ...prev,
+                name: session.user?.name || '',
+                email: session.user?.email || ''
+            }));
+        }
+    }, [session]);
+
+    const validateEmail = (email: string): boolean => {
+        const atCount = (email.match(/@/g) || []).length;
+        return atCount === 1 && email.includes('@');
+    };
+
+    const countWords = (text: string): number => {
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
+        
+        // Clear error when user starts typing
+        setErrors(prev => ({ ...prev, [name]: '' }));
+
+        // Validation checks
+        if (name === 'name') {
+            if (value.length > MAX_NAME_LENGTH) {
+                setErrors(prev => ({ ...prev, name: `Name must be ${MAX_NAME_LENGTH} characters or less` }));
+                return;
+            }
+        }
+
+        if (name === 'message') {
+            const wordCount = countWords(value);
+            if (wordCount > MAX_MESSAGE_WORDS || value.length > MAX_MESSAGE_CHARS) {
+                setErrors(prev => ({ ...prev, message: `Message must be ${MAX_MESSAGE_WORDS} words or ${MAX_MESSAGE_CHARS} characters or less` }));
+                return;
+            }
+        }
+
         setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const validateForm = (): boolean => {
+        const newErrors = { name: '', email: '', message: '' };
+        let isValid = true;
+
+        if (formData.name.length > MAX_NAME_LENGTH) {
+            newErrors.name = `Name must be ${MAX_NAME_LENGTH} characters or less`;
+            isValid = false;
+        }
+
+        if (!validateEmail(formData.email)) {
+            newErrors.email = 'Please enter a valid email with exactly one @';
+            isValid = false;
+        }
+
+        const wordCount = countWords(formData.message);
+        if (wordCount > MAX_MESSAGE_WORDS || formData.message.length > MAX_MESSAGE_CHARS) {
+            newErrors.message = `Message must be ${MAX_MESSAGE_WORDS} words or ${MAX_MESSAGE_CHARS} characters or less`;
+            isValid = false;
+        }
+
+        setErrors(newErrors);
+        return isValid;
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        
+        if (!validateForm()) {
+            return;
+        }
+
         setStatus('submitting');
 
         try {
@@ -33,7 +113,12 @@ const Feedback = () => {
 
             if (response.ok) {
                 setStatus('success');
-                setFormData({ name: '', email: '', type: 'General Feedback', message: '' });
+                // Keep user info if logged in, only clear type and message
+                if (session?.user) {
+                    setFormData(prev => ({ ...prev, type: 'General Feedback', message: '' }));
+                } else {
+                    setFormData({ name: '', email: '', type: 'General Feedback', message: '' });
+                }
             } else {
                 setStatus('error');
                 setTimeout(() => setStatus('idle'), 3000);
@@ -44,6 +129,8 @@ const Feedback = () => {
             setTimeout(() => setStatus('idle'), 3000);
         }
     };
+
+    const isLoggedIn = !!session?.user;
 
     return (
         <section className="py-10 px-4 bg-gradient-to-br from-green-100 to-green-200">
@@ -100,24 +187,50 @@ const Feedback = () => {
                                     </motion.div>
                                 )}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <input
-                                        required
-                                        type="text"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        placeholder="NAME"
-                                        className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all"
-                                    />
-                                    <input
-                                        required
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        placeholder="EMAIL"
-                                        className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all"
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            required
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            placeholder="NAME"
+                                            maxLength={MAX_NAME_LENGTH}
+                                            readOnly={isLoggedIn}
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${
+                                                errors.name ? 'border-red-400' : 'border-slate-200'
+                                            } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
+                                        />
+                                        {isLoggedIn && (
+                                            <Lock size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        )}
+                                        {errors.name && (
+                                            <p className="text-red-500 text-[8px] font-bold mt-1">{errors.name}</p>
+                                        )}
+                                        <span className="text-[8px] text-slate-400 absolute right-3 bottom-1">
+                                            {!isLoggedIn && `${formData.name.length}/${MAX_NAME_LENGTH}`}
+                                        </span>
+                                    </div>
+                                    <div className="relative">
+                                        <input
+                                            required
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            placeholder="EMAIL"
+                                            readOnly={isLoggedIn}
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${
+                                                errors.email ? 'border-red-400' : 'border-slate-200'
+                                            } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
+                                        />
+                                        {isLoggedIn && (
+                                            <Lock size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                                        )}
+                                        {errors.email && (
+                                            <p className="text-red-500 text-[8px] font-bold mt-1">{errors.email}</p>
+                                        )}
+                                    </div>
                                 </div>
                                 <select 
                                     name="type"
@@ -130,15 +243,25 @@ const Feedback = () => {
                                     <option>Advice/Suggestion</option>
                                     <option>Compliment</option>
                                 </select>
-                                <textarea
-                                    required
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    rows={3}
-                                    placeholder="YOUR MESSAGE..."
-                                    className="w-full bg-white/60 border border-slate-200 rounded-2xl px-4 py-4 text-[10px] font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none"
-                                />
+                                <div className="relative">
+                                    <textarea
+                                        required
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        rows={3}
+                                        placeholder="YOUR MESSAGE..."
+                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-[10px] font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${
+                                            errors.message ? 'border-red-400' : 'border-slate-200'
+                                        }`}
+                                    />
+                                    {errors.message && (
+                                        <p className="text-red-500 text-[8px] font-bold mt-1">{errors.message}</p>
+                                    )}
+                                    <span className="text-[8px] text-slate-400 absolute right-3 bottom-3">
+                                        {countWords(formData.message)}/{MAX_MESSAGE_WORDS} words
+                                    </span>
+                                </div>
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
