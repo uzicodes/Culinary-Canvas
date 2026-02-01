@@ -80,7 +80,7 @@ const Blog = () => (
         className="text-center mb-12"
       >
         <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-          Food <span className="text-primary-600">Blogs</span>
+          <span className="text-green-600">Food</span> <span className="text-red-600">Blogs</span>
         </h2>
         <div className="w-16 h-1 bg-primary-600 mx-auto rounded-full mt-2" />
       </motion.div>

@@ -5,7 +5,6 @@ import Hero from '@/components/Hero'
 import Categories from '@/components/Categories'
 import BestSelling from '@/components/BestSelling'
 import About from '@/components/About'
-import Stats from '@/components/Stats'
 import Blog from '@/components/Blog'
 import DeliveryPartners from '@/components/DeliveryPartners'
 
@@ -111,7 +110,6 @@ export default function Home() {
       <BestSelling />
       <SpecialOffers />
       <About />
-      <Stats />
       <DeliveryPartners />
       <Blog />
       <Footer />

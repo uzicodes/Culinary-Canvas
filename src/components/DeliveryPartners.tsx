@@ -27,10 +27,7 @@ const logoVariants: Variants = {
 };
 
 const DeliveryPartners = () => (
-  <section className="py-16 bg-gradient-to-br from-[#8dbee3] to-[#6da5d1] overflow-hidden relative">
-    {/* Background depth circles */}
-    <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-    <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl translate-x-1/4 translate-y-1/4" />
+  <section className="py-16 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden relative">
 
     <div className="container mx-auto px-4 relative z-10">
       <motion.div
@@ -40,7 +37,7 @@ const DeliveryPartners = () => (
         className="text-center mb-12"
       >
         <h2 className="text-3xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-          Delivery <span className="text-blue-600">Partners</span>
+          <span className="text-green-600">Delivery</span> <span className="text-red-600">Partners</span>
         </h2>
         <motion.div
           initial={{ width: 0 }}
