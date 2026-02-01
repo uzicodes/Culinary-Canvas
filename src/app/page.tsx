@@ -6,8 +6,8 @@ import Categories from '@/components/Categories'
 import BestSelling from '@/components/BestSelling'
 import About from '@/components/About'
 import Blog from '@/components/Blog'
+import Feedback from '@/components/Feedback'
 import DeliveryPartners from '@/components/DeliveryPartners'
-
 import SpecialOffers from '@/components/SpecialOffers'
 import Footer from '@/components/Footer'
 
@@ -112,6 +112,7 @@ export default function Home() {
       <About />
       <DeliveryPartners />
       <Blog />
+      <Feedback />
       <Footer />
     </main>
   );
