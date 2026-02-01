@@ -132,7 +132,7 @@ const BestSelling = () => {
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-                        Best Sellers
+                        Best <span className="text-red-600">Sellers</span>
                         <motion.span
                             animate={{ rotate: [0, 270, 0] }}
                             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}

@@ -19,8 +19,8 @@ const containerVariants: Variants = {
 
 const logoVariants: Variants = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: { type: 'spring', stiffness: 100, damping: 20 }
   },
@@ -40,21 +40,21 @@ const DeliveryPartners = () => (
         className="text-center mb-12"
       >
         <h2 className="text-3xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-          Delivery <span className="text-white">Partners</span>
+          Delivery <span className="text-blue-600">Partners</span>
         </h2>
-        <motion.div 
+        <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: "100px" }}
           viewport={{ once: true }}
           className="h-1.5 bg-black/20 mx-auto rounded-full"
         />
       </motion.div>
-      
+
       {/* MODIFIED GRID CONTAINER:
           - grid-cols-2: 2 columns on mobile
           - md:flex: switch back to flex for desktop centering
       */}
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -62,13 +62,13 @@ const DeliveryPartners = () => (
         className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-6 md:gap-8 lg:gap-12"
       >
         {deliveryPartners.map((partner) => (
-          <motion.div 
-            key={partner.name} 
+          <motion.div
+            key={partner.name}
             variants={logoVariants}
             className="group flex flex-col items-center"
           >
-            <motion.div 
-              whileHover={{ 
+            <motion.div
+              whileHover={{
                 y: -10,
                 scale: 1.05,
                 backgroundColor: "rgba(255, 255, 255, 0.4)",
@@ -80,15 +80,15 @@ const DeliveryPartners = () => (
               className="w-full max-w-[180px] md:w-48 h-24 md:h-28 relative cursor-pointer bg-white/20 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] border border-white/40 shadow-xl flex items-center justify-center p-4 md:p-6 transition-all duration-300"
             >
               <div className="relative w-full h-full">
-                <Image 
-                  src={partner.logo} 
-                  alt={partner.name} 
-                  fill 
-                  className="object-contain transition-transform duration-500 group-hover:scale-110" 
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  fill
+                  className="object-contain transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
             </motion.div>
-            
+
             <p className="mt-3 text-[9px] md:text-[10px] font-black uppercase text-white tracking-[0.3em] text-center opacity-0 group-hover:opacity-100 transition-opacity">
               {partner.name}
             </p>

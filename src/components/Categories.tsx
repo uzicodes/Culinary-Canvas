@@ -66,7 +66,7 @@ const Categories = () => {
                     className="text-center mb-12"
                 >
                     <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
-                        Hottest <span className="text-sky-600">Categories</span>
+                        Hottest <span className="text-red-600">Categories</span>
                     </h2>
                     <div className="w-20 h-1 bg-sky-600 mx-auto rounded-full"></div>
                 </motion.div>
