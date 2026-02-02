@@ -46,7 +46,7 @@ const Feedback = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        
+
         // Clear error when user starts typing
         setErrors(prev => ({ ...prev, [name]: '' }));
 
@@ -95,7 +95,7 @@ const Feedback = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        
+
         if (!validateForm()) {
             return;
         }
@@ -151,7 +151,7 @@ const Feedback = () => {
                             Help us <br /> <span className="text-red-600">Sharpen</span> <span className="text-green-600">the Canvas</span>
                         </h2>
                         <p className="text-slate-600 font-medium leading-relaxed max-w-sm">
-                            Whether it's a compliment or a complaint, your feedback helps us craft a better dining experience. We read every message.
+                            Whether it&apos;s a compliment or a complaint, your feedback helps us craft a better dining experience. We read every message.
                         </p>
                     </div>
 
@@ -197,9 +197,8 @@ const Feedback = () => {
                                             placeholder="NAME"
                                             maxLength={MAX_NAME_LENGTH}
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${
-                                                errors.name ? 'border-red-400' : 'border-slate-200'
-                                            } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'
+                                                } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
                                             <Lock size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -220,9 +219,8 @@ const Feedback = () => {
                                             onChange={handleChange}
                                             placeholder="EMAIL"
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${
-                                                errors.email ? 'border-red-400' : 'border-slate-200'
-                                            } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'
+                                                } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
                                             <Lock size={12} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -232,7 +230,7 @@ const Feedback = () => {
                                         )}
                                     </div>
                                 </div>
-                                <select 
+                                <select
                                     name="type"
                                     value={formData.type}
                                     onChange={handleChange}
@@ -251,9 +249,8 @@ const Feedback = () => {
                                         onChange={handleChange}
                                         rows={3}
                                         placeholder="YOUR MESSAGE..."
-                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-[10px] font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${
-                                            errors.message ? 'border-red-400' : 'border-slate-200'
-                                        }`}
+                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-[10px] font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${errors.message ? 'border-red-400' : 'border-slate-200'
+                                            }`}
                                     />
                                     {errors.message && (
                                         <p className="text-red-500 text-[8px] font-bold mt-1">{errors.message}</p>
