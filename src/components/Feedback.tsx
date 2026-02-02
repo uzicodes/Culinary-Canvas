@@ -194,10 +194,10 @@ const Feedback = () => {
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            placeholder="NAME"
+                                            placeholder="Name"
                                             maxLength={MAX_NAME_LENGTH}
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'
                                                 } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
@@ -217,9 +217,9 @@ const Feedback = () => {
                                             name="email"
                                             value={formData.email}
                                             onChange={handleChange}
-                                            placeholder="EMAIL"
+                                            placeholder="Email"
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'
+                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'
                                                 } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
@@ -234,7 +234,7 @@ const Feedback = () => {
                                     name="type"
                                     value={formData.type}
                                     onChange={handleChange}
-                                    className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 text-[10px] font-black uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
+                                    className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
                                 >
                                     <option>General Feedback</option>
                                     <option>Complaint about Order</option>
@@ -248,8 +248,8 @@ const Feedback = () => {
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows={3}
-                                        placeholder="YOUR MESSAGE..."
-                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-[10px] font-bold uppercase focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${errors.message ? 'border-red-400' : 'border-slate-200'
+                                        placeholder="Your message..."
+                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${errors.message ? 'border-red-400' : 'border-slate-200'
                                             }`}
                                     />
                                     {errors.message && (
@@ -263,7 +263,7 @@ const Feedback = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={status === 'submitting'}
-                                    className="w-full bg-black text-white py-3 rounded-xl font-black uppercase tracking-[0.2em] text-xs shadow-xl disabled:bg-slate-400 flex items-center justify-center gap-3"
+                                    className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide text-sm shadow-xl disabled:bg-slate-400 flex items-center justify-center gap-3"
                                 >
                                     {status === 'submitting' ? 'Processing...' : 'Send to Us'}
                                     <Send size={14} />
