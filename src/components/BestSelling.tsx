@@ -151,7 +151,7 @@ const BestSelling = () => {
                                     <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                                 </div>
                                 <span className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
-                                    {product.badge || 'SALE'}
+                                    {product.badge || 'HOT'}
                                 </span>
 
                                 <div className="absolute -bottom-4 right-6">
@@ -168,10 +168,10 @@ const BestSelling = () => {
                             </div>
 
                             <div className="space-y-3">
-                                <h3 className="font-black text-slate-900 text-xl uppercase tracking-tight">{product.name}</h3>
+                                <h3 className="font-black text-[#29570E] text-xl uppercase tracking-tight">{product.name}</h3>
                                 <div className="flex items-center justify-center gap-1.5">
                                     {[...Array(5)].map((_, i) => (
-                                        <Star key={i} size={14} className={i < product.rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-100'} />
+                                        <Star key={i} size={14} className={i < product.rating ? 'text-yellow-400 fill-[#949018]' : 'text-slate-100'} />
                                     ))}
                                 </div>
                                 <div className="flex items-center justify-center gap-4 pt-2">
