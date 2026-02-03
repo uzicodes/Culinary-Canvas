@@ -26,7 +26,7 @@ const MenuPage = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const response = await fetch('/api/items'); 
+        const response = await fetch('/api/items');
         const data = await response.json();
         setMenuItems(data);
       } catch (error) {
@@ -50,7 +50,7 @@ const MenuPage = () => {
   return (
     <div className="min-h-screen bg-white pt-28">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8 max-w-5xl">
         <div className="mb-12 text-left border-l-8 border-[#BCE334] pl-6">
           <h1 className="text-4xl lg:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-none">
@@ -82,7 +82,7 @@ const MenuPage = () => {
                 {/*  map function */}
                 {groupedMenu[category].map((item: MenuItem, index: number) => (
                   <motion.div
-                    key={item._id} 
+                    key={item._id}
                     initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -91,10 +91,10 @@ const MenuPage = () => {
                     className="group relative flex items-center h-20 bg-[#F1F8E9] rounded-xl overflow-hidden border border-green-100 hover:border-[#BCE334] hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer"
                   >
                     <div className="w-20 h-full relative bg-[#E8F5E9] group-hover:bg-[#BCE334]/10 transition-colors shrink-0">
-                      <Image 
-                        src={item.image} 
-                        alt={item.name} 
-                        fill 
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
                         className="object-contain p-2.5 transition-transform duration-500 group-hover:scale-110"
                       />
                     </div>
@@ -105,17 +105,17 @@ const MenuPage = () => {
                           {item.name}
                         </h3>
                         <p className="text-[#ED1A1A] font-black text-base lg:text-lg tracking-tighter">
-                          ৳{item.price}
+                          ৳ {item.price}
                         </p>
                       </div>
 
                       <Link href={`/all-items?id=${item._id}`}>
-                          <motion.div 
+                        <motion.div
                           whileHover={{ x: 3 }}
                           className="w-7 h-7 rounded-full bg-black flex items-center justify-center text-[#BCE334]"
-                          >
-                            <ArrowRight size={14} />
-                          </motion.div>
+                        >
+                          <ArrowRight size={14} />
+                        </motion.div>
                       </Link>
                     </div>
                   </motion.div>

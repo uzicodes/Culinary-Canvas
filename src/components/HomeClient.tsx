@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-// Import all your sections
+
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Categories from '@/components/Categories'
@@ -18,7 +18,7 @@ import Footer from '@/components/Footer'
 export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
     const [loading, setLoading] = useState(true);
 
-    // --- YOUR EXACT LOADING LOGIC ---
+
     useEffect(() => {
         const handleReady = () => setLoading(false);
         const images = Array.from(document.images);
@@ -51,7 +51,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
 
     return (
         <main className="min-h-screen bg-white">
-            {/* --- YOUR EXACT LOADING SCREEN --- */}
+            {/* --- LOADING SCREEN --- */}
             {loading && (
                 <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black">
                     <div className="relative">
@@ -109,12 +109,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
             <SpecialOffers />
             <About />
             <DeliveryPartners />
-
-            {/* THE KEY CHANGE: 
-         We pass the server-fetched 'blogPosts' into the Blog component here.
-      */}
             <Blog posts={blogPosts} />
-
             <Feedback />
             <Footer />
         </main>

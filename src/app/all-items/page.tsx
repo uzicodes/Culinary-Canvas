@@ -166,8 +166,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                     key={cat.id}
                     href={href}
                     className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${activeCategory === cat.id
-                        ? 'bg-black text-[#BCE334] scale-105'
-                        : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
+                      ? 'bg-black text-[#BCE334] scale-105'
+                      : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
                       }`}
                   >
                     {cat.label}
@@ -186,8 +186,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
                     key={cat.id}
                     href={href}
                     className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-sm ${activeCategory === cat.id
-                        ? 'bg-black text-[#BCE334] scale-105'
-                        : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
+                      ? 'bg-black text-[#BCE334] scale-105'
+                      : 'bg-white/70 text-slate-600 hover:bg-white backdrop-blur-sm'
                       }`}
                   >
                     {cat.label}
@@ -335,7 +335,7 @@ function ItemCard({
         )}
 
         <div className="flex items-center justify-between pt-2 md:pt-5 mt-auto border-t border-white/10">
-          <span className="text-sm md:text-xl font-black text-[#F1F604]">৳{editedItem.price}</span>
+          <span className="text-sm md:text-xl font-black text-[#F1F604]">৳ {editedItem.price}</span>
           {isEditing ? (
             <div className="flex gap-2">
               <button onClick={handleSave} className="bg-[#BCE334] p-2.5 rounded-xl text-black shadow-lg hover:scale-105 transition-transform"><Check size={14} /></button>

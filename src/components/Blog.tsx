@@ -4,8 +4,6 @@ import { Calendar, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
 import { motion, Variants } from 'framer-motion'
 import { BlogPost } from '@/types/blog'
-
-// Re-export for backwards compatibility
 export type { BlogPost } from '@/types/blog'
 
 const blogContainerVariants: Variants = {
@@ -21,9 +19,8 @@ const blogCardVariants: Variants = {
   },
 };
 
-// FIX 2: Updated component to accept 'posts' as a prop
+//accept 'posts' as a prop
 const Blog = ({ posts }: { posts: BlogPost[] }) => {
-  // If no posts are provided (safety check), use an empty array
   const safePosts = posts || [];
 
   return (

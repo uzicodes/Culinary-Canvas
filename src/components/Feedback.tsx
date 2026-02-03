@@ -113,7 +113,6 @@ const Feedback = () => {
 
             if (response.ok) {
                 setStatus('success');
-                // Keep user info if logged in, only clear type and message
                 if (session?.user) {
                     setFormData(prev => ({ ...prev, type: 'General Feedback', message: '' }));
                 } else {
