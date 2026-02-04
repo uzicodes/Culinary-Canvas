@@ -6,7 +6,7 @@ import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Home } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, Home } from "lucide-react";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,7 +72,18 @@ const LoginPage = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative">
-        <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/60 overflow-hidden">
+        <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/60 overflow-hidden relative">
+          {/* Back Arrow */}
+          <motion.button
+            onClick={() => router.back()}
+            whileHover={{ scale: 1.1, x: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="absolute top-6 left-6 p-2 bg-white/80 hover:bg-white rounded-full shadow-sm border border-lime-100 text-gray-600 hover:text-black transition-colors"
+            aria-label="Go back"
+          >
+            <ArrowLeft size={18} />
+          </motion.button>
+
           <div className="flex flex-col items-center mb-6 text-center">
             <motion.div whileHover={{ rotate: 10, scale: 1.1 }} className="mb-4 p-3 bg-white rounded-2xl shadow-sm border border-lime-50">
               <Image src="/without_BG_logo.png" alt="Logo" width={48} height={48} className="object-contain" />

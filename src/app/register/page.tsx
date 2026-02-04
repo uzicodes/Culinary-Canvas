@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, Eye, EyeOff, ArrowRight, Home, CheckCircle2, Phone } from "lucide-react";
+import { User, Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, Home, CheckCircle2, Phone } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
@@ -21,29 +21,29 @@ const RegisterPage = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
-        
-        if (password !== confirmPassword) { 
-            setError("Passwords mismatch"); 
-            return; 
+
+        if (password !== confirmPassword) {
+            setError("Passwords mismatch");
+            return;
         }
-        
+
         setLoading(true);
-        
+
         try {
             const res = await fetch("/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, email, phone, password })
             });
-            
+
             const data = await res.json();
-            
+
             if (!res.ok) {
                 setError(data.error || "Registration failed");
                 setLoading(false);
                 return;
             }
-            
+
             // Success - redirect to login
             router.push("/login?registered=true");
         } catch (err) {
@@ -61,8 +61,18 @@ const RegisterPage = () => {
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
                 {/* RESTORED: Light green background for the card */}
-                <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-xl border border-white/60">
-                    
+                <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-xl border border-white/60 relative">
+                    {/* Back Arrow */}
+                    <motion.button
+                        onClick={() => router.back()}
+                        whileHover={{ scale: 1.1, x: -2 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="absolute top-6 left-6 p-2 bg-white/80 hover:bg-white rounded-full shadow-sm border border-lime-100 text-gray-600 hover:text-black transition-colors"
+                        aria-label="Go back"
+                    >
+                        <ArrowLeft size={18} />
+                    </motion.button>
+
                     <div className="flex flex-col items-center mb-6 text-center">
                         <motion.div whileHover={{ scale: 1.1 }} className="mb-3 p-3 bg-white rounded-2xl shadow-sm border border-lime-50">
                             <Image src="/without_BG_logo.png" alt="Logo" width={44} height={44} />
@@ -77,7 +87,7 @@ const RegisterPage = () => {
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
                         <div className="space-y-3">
-                            {[ 
+                            {[
                                 { label: "Name", icon: User, type: "text", val: name, set: setName, ph: "Full Name" },
                                 { label: "Email", icon: Mail, type: "email", val: email, set: setEmail, ph: "you@email.com" },
                                 { label: "Phone", icon: Phone, type: "tel", val: phone, set: setPhone, ph: "Phone Number" }
