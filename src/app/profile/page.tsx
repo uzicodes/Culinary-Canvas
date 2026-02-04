@@ -90,7 +90,7 @@ export default function ProfilePage() {
   //  User is NOT logged in
   if (!session) {
     return (
-      <div className="relative min-h-screen flex flex-col">
+      <div className="relative min-h-screen flex flex-col bg-[#F7FBE7]">
         <Header />
         <div className="flex-grow flex items-center justify-center p-4 pt-24 pb-12">
           <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-md">
@@ -110,8 +110,8 @@ export default function ProfilePage() {
 
               <div className="mt-6 space-y-3">
                 <Link href="/login" className="block">
-                  <motion.button 
-                    whileHover={{ scale: 1.02 }} 
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="w-full bg-[#BCE334] text-black py-3.5 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
                   >
@@ -140,7 +140,7 @@ export default function ProfilePage() {
               </div>
 
               <Link href="/admin/login">
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: '#BCE334', color: '#000' }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-flex items-center gap-2 px-8 py-2.5 rounded-full shadow-lg text-[10px] font-bold uppercase tracking-widest bg-black text-[#BCE334]"
@@ -163,7 +163,7 @@ export default function ProfilePage() {
       <div className="flex-grow flex flex-col items-center p-4 pt-32 pb-12">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
           <div className="bg-white/80 backdrop-blur-2xl p-10 rounded-[2.5rem] shadow-2xl border border-white/40 text-center relative overflow-hidden">
-            
+
             {/* Profile Picture Upload Section */}
             <div className="mb-6">
               {isAdmin ? (
@@ -185,7 +185,7 @@ export default function ProfilePage() {
             <h2 className="text-4xl font-black text-gray-900 uppercase tracking-tighter mb-2">
               {session?.user?.name}
             </h2>
-            
+
             <div className="mb-8">
               <p className="text-[10px] text-[#BCE334] bg-black inline-block px-3 py-1 rounded-full font-black uppercase tracking-[0.2em] mb-2">
                 {isAdmin ? "Master Admin" : "Member Account"}
@@ -195,7 +195,7 @@ export default function ProfilePage() {
               </p>
               {/* Total Orders Badge*/}
               {!isAdmin && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="mt-3 inline-flex items-center gap-2 bg-[#F1F8E9] px-4 py-2 rounded-xl border border-[#BCE334]/30"
@@ -213,30 +213,30 @@ export default function ProfilePage() {
                 </motion.div>
               )}
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {/* CONDITIONAL ACTION BUTTON */}
               {isAdmin ? (
                 <Link href="/admin/dashboard" className="flex-1">
-                  <motion.button 
-                    whileHover={{ scale: 1.02 }} 
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
                     className="w-full bg-[#BCE334] text-black px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
                   >
                     <LayoutDashboard size={14} /> Admin Dashboard
                   </motion.button>
                 </Link>
               ) : (
-                <motion.button 
-                  onClick={toggleOrders} 
-                  whileHover={{ scale: 1.02 }} 
+                <motion.button
+                  onClick={toggleOrders}
+                  whileHover={{ scale: 1.02 }}
                   className="flex-1 bg-[#BCE334] text-black px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
                 >
                   <ShoppingBag size={14} /> {showOrders ? "Hide Orders" : "My Orders"}
                 </motion.button>
               )}
-              
-              <button 
-                onClick={() => signOut({ callbackUrl: '/' })} 
+
+              <button
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="flex-1 bg-black text-[#BCE334] px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2"
               >
                 Logout
@@ -251,7 +251,7 @@ export default function ProfilePage() {
                     <h3 className="text-xl font-black text-black uppercase tracking-tighter mb-6 flex items-center gap-2">
                       <Clock size={18} className="text-[#BCE334]" /> History
                     </h3>
-                    
+
                     {isLoadingOrders ? (
                       <div className="py-10 text-center text-gray-400 font-bold uppercase text-xs tracking-widest animate-pulse">Fetching...</div>
                     ) : orders.length > 0 ? (
