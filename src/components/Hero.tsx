@@ -64,7 +64,7 @@ const Hero = () => {
   ]
 
   return (
-    <section className="relative bg-gradient-to-br from-green-100 to-green-200 min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
+    <section className="relative min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
       <div className="absolute top-1/4 left-0 w-64 h-64 bg-[#BCE334] rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 

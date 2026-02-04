@@ -27,7 +27,7 @@ const logoVariants: Variants = {
 };
 
 const DeliveryPartners = () => (
-  <section className="py-16 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden relative">
+  <section className="py-16 overflow-hidden relative">
 
     <div className="container mx-auto px-4 relative z-10">
       <motion.div

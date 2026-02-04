@@ -24,7 +24,7 @@ const Blog = ({ posts }: { posts: BlogPost[] }) => {
   const safePosts = posts || [];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden" style={{ perspective: "1200px" }}>
+    <section className="py-16 overflow-hidden" style={{ perspective: "1200px" }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
         <motion.div

@@ -132,7 +132,7 @@ const Feedback = () => {
     const isLoggedIn = !!session?.user;
 
     return (
-        <section className="py-10 px-4 bg-gradient-to-br from-green-100 to-green-200">
+        <section className="py-10 px-4">
             <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}

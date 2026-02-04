@@ -50,7 +50,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
     }, []);
 
     return (
-        <main className="min-h-screen bg-white">
+        <main className="min-h-screen bg-gradient-to-br from-green-100 to-green-200">
             {/* --- LOADING SCREEN --- */}
             {loading && (
                 <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-black">

@@ -120,7 +120,7 @@ const BestSelling = () => {
     );
 
     return (
-        <section className="py-20 bg-gradient-to-br from-green-100 to-green-200 overflow-hidden relative">
+        <section className="py-20 overflow-hidden relative">
             <AnimatePresence>
                 {successMsg && (
                     <motion.div initial={{ opacity: 0, y: -100, x: '-50%' }} animate={{ opacity: 1, y: 0, x: '-50%' }} exit={{ opacity: 0, y: -100, x: '-50%' }} className="fixed top-10 left-1/2 bg-black text-[#BCE334] px-10 py-4 rounded-full shadow-2xl z-[500] font-black uppercase text-[10px] tracking-widest border border-[#BCE334]/30">

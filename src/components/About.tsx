@@ -42,7 +42,7 @@ const About = () => {
   }
 
   return (
-    <section className="py-10 sm:py-16 bg-gradient-to-br from-green-100 to-green-200">
+    <section className="py-10 sm:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Content - Image Carousel */}
