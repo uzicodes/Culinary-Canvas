@@ -27,7 +27,11 @@ const useCountUp = (end: number, duration: number, suffix = '') => {
   return suffix ? `${count}${suffix}` : count;
 };
 
-const Hero = () => {
+interface HeroProps {
+  isLoading?: boolean;
+}
+
+const Hero = ({ isLoading = false }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const images = [
     { src: '/1.png' }, { src: '/2.png' }, { src: '/3.png' },
@@ -38,12 +42,20 @@ const Hero = () => {
   const dishes = useCountUp(50, 1200, '+')
   const customers = useCountUp(10000, 1200)
 
+  // Reset carousel to start when loading completes, then start cycling
   useEffect(() => {
+    // Don't start carousel while loading
+    if (isLoading) {
+      setCurrentImageIndex(0) // Always reset to first image
+      return
+    }
+
+    // Start carousel interval only after loading is complete
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 3000)
+    }, 1000)
     return () => clearInterval(interval)
-  }, [images.length])
+  }, [isLoading, images.length])
 
   const features = [
     {

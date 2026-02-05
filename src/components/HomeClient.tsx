@@ -103,7 +103,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
 
             {/* --- SITE SECTIONS --- */}
             <Header />
-            <Hero />
+            <Hero isLoading={loading} />
             <Categories />
             <BestSelling />
             <SpecialOffers />
