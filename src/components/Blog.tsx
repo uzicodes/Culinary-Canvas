@@ -37,7 +37,12 @@ const Blog = ({ posts }: { posts: BlogPost[] }) => {
           <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
             <span className="text-green-600">Food</span> <span className="text-red-600">Blogs</span>
           </h2>
-          <div className="w-16 h-1 bg-green-600 mx-auto rounded-full mt-2" />
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100px" }}
+            viewport={{ once: true }}
+            className="h-1.5 bg-black/20 mx-auto rounded-full"
+          />
         </motion.div>
 
         <motion.div

@@ -47,10 +47,7 @@ const DeliveryPartners = () => (
         />
       </motion.div>
 
-      {/* MODIFIED GRID CONTAINER:
-          - grid-cols-2: 2 columns on mobile
-          - md:flex: switch back to flex for desktop centering
-      */}
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -73,7 +70,6 @@ const DeliveryPartners = () => (
                 boxShadow: "0px 20px 40px rgba(0,0,0,0.1)"
               }}
               whileTap={{ scale: 0.95 }}
-              /* Adjusted size for mobile to ensure the 2x2 grid fits nicely */
               className="w-full max-w-[180px] md:w-48 h-24 md:h-28 relative cursor-pointer bg-white/20 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] border border-white/40 shadow-xl flex items-center justify-center p-4 md:p-6 transition-all duration-300"
             >
               <div className="relative w-full h-full">
@@ -86,7 +82,7 @@ const DeliveryPartners = () => (
               </div>
             </motion.div>
 
-            <p className="mt-3 text-[9px] md:text-[10px] font-black uppercase text-white tracking-[0.3em] text-center opacity-0 group-hover:opacity-100 transition-opacity">
+            <p className="mt-3 text-[9px] md:text-[10px] font-black uppercase text-black tracking-[0.3em] text-center opacity-0 group-hover:opacity-100 transition-opacity">
               {partner.name}
             </p>
           </motion.div>

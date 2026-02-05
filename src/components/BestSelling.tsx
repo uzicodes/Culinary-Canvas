@@ -141,6 +141,12 @@ const BestSelling = () => {
                             <Star className="text-yellow-400 w-8 h-8 fill-yellow-400" />
                         </motion.span>
                     </h2>
+                    <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "100px" }}
+                        viewport={{ once: true }}
+                        className="h-1.5 bg-black/20 mx-auto rounded-full"
+                    />
                 </div>
 
                 <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
