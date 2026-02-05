@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-icons/fa"; 
+import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-icons/fa";
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -94,10 +94,15 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7FBE7] text-black pb-20">
+    <div className="relative min-h-screen bg-[#F7FBE7] text-black pb-20">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}>
+      </div>
+
       <Header />
       <ToastContainer position="bottom-right" theme="dark" />
-      
+
       <div className="max-w-7xl mx-auto px-4 pt-32 lg:pt-40">
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4 mb-12">
           <div className="bg-black p-4 rounded-2xl">
@@ -134,14 +139,14 @@ export default function CartPage() {
                     <div className="relative w-full sm:w-20 h-20 overflow-hidden rounded-xl flex-shrink-0">
                       <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                     </div>
-                    
+
                     <div className="flex-1 text-center sm:text-left min-w-0">
                       <h3 className="text-sm font-black uppercase tracking-tight text-gray-900 truncate">{item.name}</h3>
                       <p className="text-[9px] font-bold text-[#BCE334] bg-black inline-block px-1.5 py-0.5 rounded uppercase tracking-wider">
                         {item.category}
                       </p>
                       <div className="mt-2 sm:hidden flex justify-center items-center">
-                         <span className="text-base font-black text-black">৳{item.price}</span>
+                        <span className="text-base font-black text-black">৳{item.price}</span>
                       </div>
                     </div>
 
@@ -162,12 +167,12 @@ export default function CartPage() {
                   </motion.div>
                 ))}
               </AnimatePresence>
-              
+
               <button
                 onClick={clearCart}
                 className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ml-4 transition-colors bg-red-100 border border-red-200 rounded-2xl px-4 py-2 text-red-500 hover:bg-red-200 hover:text-red-700 shadow-sm"
               >
-                <FaTrashAlt size={12} /> Clear Cart 
+                <FaTrashAlt size={12} /> Clear Cart
               </button>
             </div>
 
@@ -175,7 +180,7 @@ export default function CartPage() {
             <div className="lg:col-span-1">
               <div className="bg-black text-white p-8 rounded-[2.5rem] shadow-2xl sticky top-40 border border-white/10">
                 <h2 className="text-xl font-black uppercase tracking-tighter mb-6">Order Summary</h2>
-                
+
                 <div className="space-y-4 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                   {cartItems.map((item) => (
                     <div key={item._id} className="flex justify-between items-center text-[11px] font-bold uppercase tracking-tight text-gray-400 border-b border-white/5 pb-2">
@@ -200,7 +205,7 @@ export default function CartPage() {
                 >
                   Proceed to Payments <FaArrowRight className="group-hover:translate-x-2 transition-transform" />
                 </motion.button>
-                
+
                 <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest text-center mt-6">
                   SSL Secure Verification Guaranteed
                 </p>

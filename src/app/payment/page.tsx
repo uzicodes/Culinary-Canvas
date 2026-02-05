@@ -5,16 +5,17 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Script from 'next/script';
-import { 
-  Truck, 
-  CreditCard, 
-  DollarSign, 
-  Ticket, 
-  CheckCircle2, 
-  Smartphone, 
-  ArrowRight,
-  ShieldCheck,
-  Banknote
+import {
+    Truck,
+    CreditCard,
+    DollarSign,
+    Ticket,
+    CheckCircle2,
+    Smartphone,
+    ArrowRight,
+    ShieldCheck,
+    Banknote,
+    ChevronDown
 } from 'lucide-react';
 import Header from '@/components/Header';
 
@@ -41,10 +42,10 @@ export default function PaymentPage() {
     const [mobileNumber, setMobileNumber] = useState('+880');
     const [cardNumber, setCardNumber] = useState('');
     const [customerName, setCustomerName] = useState('');
-    const [customerEmail, setCustomerEmail] = useState('');  
-    const [customerAddress, setCustomerAddress] = useState(''); 
-    const [couponCode, setCouponCode] = useState(''); 
-    const [couponDiscount, setCouponDiscount] = useState(0); 
+    const [customerEmail, setCustomerEmail] = useState('');
+    const [customerAddress, setCustomerAddress] = useState('');
+    const [couponCode, setCouponCode] = useState('');
+    const [couponDiscount, setCouponDiscount] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
     const [sslczReady, setSslczReady] = useState(false);
     const router = useRouter();
@@ -57,10 +58,10 @@ export default function PaymentPage() {
         const checkoutData = localStorage.getItem('checkoutData');
         if (checkoutData) {
             const parsedData = JSON.parse(checkoutData);
-            setCustomerName(parsedData.name);  
-            setCustomerEmail(parsedData.email); 
-            setMobileNumber(parsedData.phone); 
-            setCustomerAddress(parsedData.address); 
+            setCustomerName(parsedData.name);
+            setCustomerEmail(parsedData.email);
+            setMobileNumber(parsedData.phone);
+            setCustomerAddress(parsedData.address);
         }
     }, []);
 
@@ -104,10 +105,10 @@ export default function PaymentPage() {
             });
 
             if (!response.ok) throw new Error('Failed to confirm order');
-            
+
             // Get server response with generated order ID
             const serverOrder = await response.json();
-            
+
             // Store the complete order data with server-generated ID
             const confirmedOrderData = {
                 ...orderData,
@@ -117,7 +118,7 @@ export default function PaymentPage() {
                 name: customerName,
                 email: customerEmail,
             };
-            
+
             // Store in both localStorage and sessionStorage for success page
             localStorage.setItem('orderData', JSON.stringify(confirmedOrderData));
             sessionStorage.setItem('lastOrderResponse', JSON.stringify(serverOrder));
@@ -204,9 +205,14 @@ export default function PaymentPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F7FBE7] text-black">
+        <div className="relative min-h-screen bg-[#F7FBE7] text-black">
+            {/* Subtle background pattern */}
+            <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}>
+            </div>
+
             {/* SSLCommerz EasyCheckout Script */}
-            <Script 
+            <Script
                 src="https://sandbox.sslcommerz.com/embed.min.js"
                 strategy="beforeInteractive"
                 onLoad={() => {
@@ -220,11 +226,11 @@ export default function PaymentPage() {
                 }}
             />
             <Header />
-            
+
             <div className="max-w-5xl mx-auto px-4 pt-24 pb-10 md:pt-28">
-                <motion.div 
-                    initial={{ opacity: 0, y: -10 }} 
-                    animate={{ opacity: 1, y: 0 }} 
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
                     className="flex items-center gap-3 mb-6"
                 >
                     <div className="bg-black p-2.5 rounded-xl shadow-lg">
@@ -239,29 +245,32 @@ export default function PaymentPage() {
                 <form onSubmit={handleSubmit} className="flex flex-col lg:grid lg:grid-cols-12 gap-5 lg:gap-8">
                     {/* Left Section: Inputs */}
                     <div className="order-1 lg:col-span-7 space-y-4">
-                        
+
                         <div className="grid md:grid-cols-2 gap-4">
                             {/* Delivery type Pod */}
                             <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
                                 <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
                                     <Truck size={12} className="text-black" /> Delivery type
                                 </h2>
-                                <select
-                                    value={deliveryMethod}
-                                    onChange={(e) => setDeliveryMethod(e.target.value)}
-                                    required
-                                    className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 text-xs font-bold outline-none appearance-none cursor-pointer"
-                                >
-                                    <option value="">Select delivery type </option>
-                                    <option value="Standard">Standard (৳45)</option>
-                                    <option value="Priority">Priority (৳60)</option>
-                                </select>
+                                <div className="relative">
+                                    <select
+                                        value={deliveryMethod}
+                                        onChange={(e) => setDeliveryMethod(e.target.value)}
+                                        required
+                                        className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 pr-10 text-xs font-bold outline-none appearance-none cursor-pointer"
+                                    >
+                                        <option value="">Select delivery type </option>
+                                        <option value="Standard">Standard (৳45)</option>
+                                        <option value="Priority">Priority (৳60)</option>
+                                    </select>
+                                    <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                </div>
                             </section>
 
                             {/* Promo Pod */}
                             <section className="bg-white/70 backdrop-blur-md p-5 rounded-3xl border border-white shadow-md space-y-3">
                                 <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
-                                    <Ticket size={12} className="text-black" /> Apply Promo 
+                                    <Ticket size={12} className="text-black" /> Apply Promo
                                 </h2>
                                 <div className="flex gap-2">
                                     <input
@@ -389,7 +398,7 @@ export default function PaymentPage() {
                     <div className="order-2 lg:col-span-5">
                         <div className="bg-black text-white p-6 rounded-[2.5rem] shadow-xl lg:sticky lg:top-28 border border-white/10">
                             <h3 className="text-lg font-black uppercase tracking-tight mb-4 pb-3 border-b border-white/10">Summary</h3>
-                            
+
                             <div className="space-y-3 mb-6">
                                 <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-widest">
                                     <span>Base Amount</span>
