@@ -151,48 +151,52 @@ export default function SuccessPage() {
   })();
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900 pb-20">
-      <Header />
-      <div className="h-2 w-full bg-[#BCE334]" />
+    <div className="relative min-h-screen bg-[#F7FBE7] font-sans text-slate-900 pb-20">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")` }}>
+      </div>
 
-      <main className="max-w-6xl mx-auto px-4 pt-28 md:pt-32">
+      <Header />
+
+      <main className="relative z-10 max-w-6xl mx-auto px-4 pt-28 md:pt-32">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
           {/* Main Confirmation Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-[#FDFEF0] rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-[#BCE334]/20 text-center"
+              className="bg-white/80 backdrop-blur-md rounded-[2rem] p-6 md:p-8 shadow-lg border border-white text-center"
             >
-              <div className="flex justify-center mb-6">
+              <div className="flex justify-center mb-4">
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                  className="bg-white rounded-full p-4 shadow-sm"
+                  className="bg-white rounded-full p-3 shadow-sm"
                 >
-                  <CheckCircle2 className="w-12 h-12 text-[#6fcf97]" />
+                  <CheckCircle2 className="w-10 h-10 text-[#6fcf97]" />
                 </motion.div>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-black tracking-tighter text-slate-900 mb-2 uppercase">
+              <h1 className="text-2xl md:text-3xl font-black tracking-tighter text-slate-900 mb-1 uppercase">
                 Order Confirmed
               </h1>
-              <p className="text-slate-500 max-w-sm mx-auto mb-10 text-sm font-medium">
+              <p className="text-slate-500 max-w-sm mx-auto mb-6 text-xs font-medium">
                 Deliciousness is on the way! Confirmation sent to <span className="text-slate-800 font-bold">{order?.email || order?.customerEmail}</span>.
               </p>
 
               {/* Steps Tracker */}
-              <div className="relative pt-10 pb-8 px-2 max-w-lg mx-auto">
-                <div className="absolute top-[48px] left-0 w-full h-1 bg-slate-200/50" />
+              <div className="relative pt-6 pb-4 px-2 max-w-md mx-auto">
+                <div className="absolute top-[36px] left-0 w-full h-1 bg-slate-200/50" />
                 <div className="flex justify-between relative z-10">
                   {["Confirmed", "Kitchen", "Quality", "Route", "Here"].map((step, idx) => (
                     <div key={idx} className="flex flex-col items-center">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center border-4 border-white shadow-sm ${idx === 0 ? 'bg-[#BCE334]' : 'bg-slate-200'}`}>
-                        {idx === 0 ? <PackageCheck className="w-4 h-4 text-slate-900" /> : <div className="w-1.5 h-1.5 bg-slate-400 rounded-full" />}
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center border-3 border-white shadow-sm ${idx === 0 ? 'bg-[#BCE334]' : 'bg-slate-200'}`}>
+                        {idx === 0 ? <PackageCheck className="w-3.5 h-3.5 text-slate-900" /> : <div className="w-1.5 h-1.5 bg-slate-400 rounded-full" />}
                       </div>
-                      <span className={`text-[9px] mt-3 font-black uppercase tracking-widest ${idx === 0 ? 'text-slate-900' : 'text-slate-400'}`}>
+                      <span className={`text-[8px] mt-2 font-black uppercase tracking-widest ${idx === 0 ? 'text-slate-900' : 'text-slate-400'}`}>
                         {step}
                       </span>
                     </div>
@@ -201,18 +205,18 @@ export default function SuccessPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
                   href="/"
-                  className="bg-black text-[#BCE334] px-10 py-5 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  className="bg-black text-[#BCE334] px-8 py-4 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-2"
                 >
-                  <Home size={16} /> Back to Home
+                  <Home size={14} /> Back to Home
                 </Link>
                 <Link
                   href="/all-items"
-                  className="bg-white text-slate-900 border border-slate-200 px-10 py-5 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+                  className="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl font-black uppercase text-[9px] tracking-[0.2em] shadow-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
                 >
-                  <ShoppingBag size={16} /> Continue Shopping
+                  <ShoppingBag size={14} /> Continue Shopping
                 </Link>
               </div>
             </motion.div>
@@ -222,19 +226,19 @@ export default function SuccessPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center justify-between"
+              className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex items-center justify-between"
             >
-              <div className="flex items-center gap-4">
-                <div className="bg-[#BCE334]/10 p-3 rounded-2xl">
-                  <Clock className="text-slate-900 w-6 h-6" />
+              <div className="flex items-center gap-3">
+                <div className="bg-[#BCE334]/10 p-2.5 rounded-xl">
+                  <Clock className="text-slate-900 w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Expected At</p>
-                  <p className="text-xl font-black text-slate-800 tracking-tight">{expectedTime}</p>
+                  <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest">Expected At</p>
+                  <p className="text-lg font-black text-slate-800 tracking-tight">{expectedTime}</p>
                 </div>
               </div>
-              <button className="flex items-center gap-2 text-slate-900 font-black text-[10px] uppercase tracking-widest hover:gap-3 transition-all">
-                Track Live <ChevronRight size={14} />
+              <button className="flex items-center gap-2 text-slate-900 font-black text-[9px] uppercase tracking-widest hover:gap-3 transition-all">
+                Track Live <ChevronRight size={12} />
               </button>
             </motion.div>
           </div>
@@ -244,54 +248,54 @@ export default function SuccessPage() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
-            className="space-y-6"
+            className="space-y-4"
           >
-            <div className="bg-black rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
-              <div className="relative z-10 flex justify-between items-start mb-10">
-                <Image src="/without_BG_logo.png" alt="Logo" width={50} height={50} className="object-contain" />
+            <div className="bg-black rounded-[2rem] p-6 shadow-2xl relative overflow-hidden">
+              <div className="relative z-10 flex justify-between items-start mb-6">
+                <Image src="/without_BG_logo.png" alt="Logo" width={45} height={45} className="object-contain" />
                 <button
                   onClick={handleDownloadInvoice}
-                  className="bg-[#BCE334] p-3 rounded-xl text-black hover:rotate-12 transition-all shadow-lg"
+                  className="bg-[#BCE334] p-2.5 rounded-xl text-black hover:rotate-12 transition-all shadow-lg"
                 >
-                  <Download size={18} />
+                  <Download size={16} />
                 </button>
               </div>
               <div className="relative z-10">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#BCE334]/60 mb-1">Receipt ID</p>
-                <h2 className="text-3xl font-black text-white tracking-tighter">#{order?.order_id || order?.orderId || "------"}</h2>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#BCE334]/60 mb-0.5">Receipt ID</p>
+                <h2 className="text-2xl font-black text-white tracking-tighter">#{order?.order_id || order?.orderId || "------"}</h2>
               </div>
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#BCE334]/10 rounded-full blur-3xl" />
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-[#BCE334]/10 rounded-full blur-3xl" />
             </div>
 
-            <div className="bg-white rounded-[2.5rem] p-8 shadow-sm border border-slate-100 space-y-8">
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="bg-slate-50 p-2 h-fit rounded-lg text-slate-400"><MapPin size={18} /></div>
+            <div className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 space-y-5">
+              <div className="space-y-4">
+                <div className="flex gap-3">
+                  <div className="bg-slate-50 p-1.5 h-fit rounded-lg text-slate-400"><MapPin size={16} /></div>
                   <div className="text-left">
-                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Deliver To</h4>
-                    <p className="text-sm font-bold text-slate-700 leading-snug mt-1">{order?.address || order?.customerAddress}</p>
+                    <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Deliver To</h4>
+                    <p className="text-xs font-bold text-slate-700 leading-snug mt-0.5">{order?.address || order?.customerAddress}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="border-t border-dashed border-slate-200 pt-8">
-                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 text-left">Bill Summary</h4>
-                <div className="space-y-4">
-                  <div className="flex justify-between text-sm font-medium">
+              <div className="border-t border-dashed border-slate-200 pt-5">
+                <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4 text-left">Bill Summary</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-xs font-medium">
                     <span className="text-slate-400">Items Subtotal</span>
                     <span className="text-slate-800">৳{(Number(order?.subtotal || 0)).toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-sm font-medium">
+                  <div className="flex justify-between text-xs font-medium">
                     <span className="text-slate-400">Delivery ({order?.deliveryMethod})</span>
                     <span className="text-slate-800">৳{order?.deliveryMethod === "Priority" ? "60.00" : "45.00"}</span>
                   </div>
                   {(Number(order?.tip || 0) > 0) && (
-                    <div className="flex justify-between text-sm font-medium">
+                    <div className="flex justify-between text-xs font-medium">
                       <span className="text-slate-400">Extra Tip</span>
                       <span className="text-green-600 font-bold">৳{(Number(order?.tip || 0)).toFixed(2)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between text-xl font-black border-t-2 border-slate-100 pt-6 mt-6">
+                  <div className="flex justify-between text-lg font-black border-t-2 border-slate-100 pt-4 mt-4">
                     <span className="tracking-tighter">TOTAL</span>
                     <span className="text-slate-900 tracking-tighter">৳{(Number(order?.total || order?.totalCost || order?.total_amount || 0)).toFixed(2)}</span>
                   </div>
