@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { motion } from 'framer-motion';
-import { Send, MessageSquare, Lock } from 'lucide-react';
+import { Send, MessageSquare, Lock, ChevronDown } from 'lucide-react';
 
 const MAX_NAME_LENGTH = 50;
 const MAX_MESSAGE_WORDS = 100;
@@ -229,17 +229,20 @@ const Feedback = () => {
                                         )}
                                     </div>
                                 </div>
-                                <select
-                                    name="type"
-                                    value={formData.type}
-                                    onChange={handleChange}
-                                    className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
-                                >
-                                    <option>General Feedback</option>
-                                    <option>Complaint about Order</option>
-                                    <option>Advice/Suggestion</option>
-                                    <option>Compliment</option>
-                                </select>
+                                <div className="relative">
+                                    <select
+                                        name="type"
+                                        value={formData.type}
+                                        onChange={handleChange}
+                                        className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
+                                    >
+                                        <option>General Feedback</option>
+                                        <option>Complaint about Order</option>
+                                        <option>Advice/Suggestion</option>
+                                        <option>Compliment</option>
+                                    </select>
+                                    <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
+                                </div>
                                 <div className="relative">
                                     <textarea
                                         required

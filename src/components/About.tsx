@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { CheckCircle, Truck, Shield, Users, ChevronLeft, ChevronRight } from 'lucide-react'
+import { CheckCircle, Truck, Shield, Users, ChevronLeft, ChevronRight, Leaf, Award } from 'lucide-react'
 import Image from 'next/image'
 
 const aboutImages = [
@@ -112,7 +112,9 @@ const About = () => {
                 We Believe In Working With{' '}
                 <span className="text-primary-600">Experienced Chefs</span>
               </h2>
-
+              <p className="text-gray-600 leading-relaxed">
+                At Culinary Canvas, we craft more than just meals — we create experiences ! Our passionate team of world-class chefs brings together the finest ingredients with innovative techniques to deliver dishes that delight your senses and nourish your body. Every recipe tells a story of dedication, creativity, and love for authentic flavors.
+              </p>
             </div>
 
             {/* Features */}
@@ -156,13 +158,46 @@ const About = () => {
                   <p className="text-sm text-gray-600">24/7 customer support team</p>
                 </div>
               </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Leaf className="w-5 h-5 text-green-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Fresh Organic Ingredients</h4>
+                  <p className="text-sm text-gray-600">Locally sourced, farm-fresh produce</p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-3">
+                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Award className="w-5 h-5 text-primary-600" />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">Award Winning Cuisine</h4>
+                  <p className="text-sm text-gray-600">Recognized for culinary excellence</p>
+                </div>
+              </div>
             </div>
 
-            {/* CTA Button */}
-            <div>
-              <button className="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-full font-semibold transition-colors">
-                Learn More About Us
-              </button>
+            {/* Statistics */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-gray-200">
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-primary-600">5+</div>
+                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Years Experience</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-primary-600">10K+</div>
+                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Happy Customers</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-primary-600">12+</div>
+                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Catogories</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl lg:text-3xl font-black text-primary-600">6</div>
+                <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Expert Chefs</div>
+              </div>
             </div>
           </div>
         </div>
