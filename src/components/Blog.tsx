@@ -92,7 +92,7 @@ const Blog = ({ posts }: { posts: BlogPost[] }) => {
                 </p>
 
                 <div className="pt-2 border-t border-black/5">
-                  <a href={post.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between text-green-600 hover:text-green-700 font-black uppercase text-xs tracking-widest transition-all group/link">
+                  <a href={post.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between text-red-600 hover:text-green-700 font-black uppercase text-xs tracking-widest transition-all group/link">
                     <span>Read Story</span>
                     <motion.div animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>
                       <ArrowRight className="w-4 h-4" />

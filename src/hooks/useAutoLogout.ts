@@ -15,14 +15,14 @@ export const useAutoLogout = () => {
     if (typeof window !== 'undefined') {
       // Sign out using NextAuth
       await signOut({ redirect: false });
-      
+
       // Clear any additional local storage
       localStorage.removeItem('user');
       localStorage.removeItem('authToken');
-      
+
       // Redirect to home page
       router.push('/');
-      
+
       // session expired notification
       alert('Your session has expired due to inactivity. Please log in again.');
     }
@@ -37,6 +37,11 @@ export const useAutoLogout = () => {
     }, INACTIVITY_TIMEOUT);
   }, [logout]);
   useEffect(() => {
+    // Only set up inactivity timer if user is logged in
+    if (status !== 'authenticated' || !session) {
+      return;
+    }
+
     const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
 
     // Add event listeners
