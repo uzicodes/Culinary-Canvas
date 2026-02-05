@@ -53,7 +53,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
     // Start carousel interval only after loading is complete
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
-    }, 1000)
+    }, 1500)
     return () => clearInterval(interval)
   }, [isLoading, images.length])
 
