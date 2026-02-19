@@ -42,9 +42,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
   const dishes = useCountUp(50, 1200, '+')
   const customers = useCountUp(10000, 1200)
 
-  // Reset carousel to start when loading completes, then start cycling
   useEffect(() => {
-    // Don't start carousel while loading
     if (isLoading) {
       setCurrentImageIndex(0) // Always reset to first image
       return
@@ -101,7 +99,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
                 <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: '#050BB3' }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary-600 text-white px-8 py-4 rounded-none font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
+                  className="bg-primary-600 text-white px-7 py-4 rounded-none font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
                 >
                   <span>Explore Now</span>
                   <ArrowRight className="w-5 h-5" />

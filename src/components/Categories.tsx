@@ -94,17 +94,20 @@ const Categories = () => {
                                     whileHover={{
                                         y: -10,
                                         scale: 1.02,
-                                        boxShadow: "0px 20px 40px rgba(0,0,0,0.1)"
+                                        boxShadow: "10px 10px 20px -10px rgba(255, 255, 255, 0.3)"
                                     }}
                                     whileTap={{ scale: 0.98 }}
-                                    // Glassmorphism implementation: 
-                                    // 1. Semi-transparent background (white/60)
-                                    // 2. High backdrop blur (blur-xl)
-                                    // 3. Thin, semi-transparent border (white/80)
-                                    className="relative bg-white/60 backdrop-blur-xl rounded-[2rem] p-6 text-center h-full flex flex-col items-center justify-center border border-white/80 shadow-sm transition-all duration-300"
+                                    className="relative rounded-[20px] p-6 text-center h-full flex flex-col items-center justify-center transition-all duration-500"
+                                    style={{
+                                        background: 'rgba(255,255,255,0.2)', // Increased bg opacity slightly for contrast
+                                        boxShadow: '10px 10px 20px -10px rgba(0, 0, 0, 0.1)', // Darker shadow for light bg
+                                        border: '1px solid rgba(255,255,255,0.4)', // Added noticeable outline
+                                        borderRight: '1px solid rgba(255,255,255,0.8)', // Stronger highlight
+                                        borderBottom: '1px solid rgba(255,255,255,0.8)', // Stronger highlight
+                                        backdropFilter: 'blur(10px)',
+                                        WebkitBackdropFilter: 'blur(10px)',
+                                    }}
                                 >
-                                    {/* Subtle color glow matching the category */}
-                                    <div className={`absolute inset-0 ${category.color} rounded-[2rem] -z-10`} />
 
                                     <div className="relative w-16 h-16 mb-4">
                                         <Image
@@ -115,7 +118,7 @@ const Categories = () => {
                                         />
                                     </div>
                                     <h3
-                                        className={`font-black text-xs lg:text-sm ${category.textColor} tracking-widest uppercase leading-tight`}
+                                        className="font-black text-xs lg:text-sm text-slate-900 tracking-widest uppercase leading-tight"
                                     >
                                         {category.name}
                                     </h3>
