@@ -138,11 +138,11 @@ const Feedback = () => {
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="bg-white/40 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-10 border border-white shadow-2xl flex flex-col lg:flex-row gap-8"
+                    className="bg-white/40 backdrop-blur-xl rounded-none p-6 md:p-10 border border-white shadow-2xl flex flex-col lg:flex-row gap-8"
                 >
                     {/* Left Side: Info */}
                     <div className="flex-1 space-y-4">
-                        <div className="inline-flex items-center gap-2 bg-[#BCE334]/20 text-slate-800 px-4 py-2 rounded-full font-black uppercase text-[10px] tracking-widest">
+                        <div className="inline-flex items-center gap-2 bg-[#BCE334]/20 text-slate-800 px-4 py-2 rounded-none font-black uppercase text-[10px] tracking-widest">
                             <MessageSquare size={14} />
                             <span>Voice Your Thoughts</span>
                         </div>
@@ -162,7 +162,7 @@ const Feedback = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 className="h-full flex flex-col items-center justify-center text-center space-y-4"
                             >
-                                <div className="w-20 h-20 bg-[#BCE334] rounded-full flex items-center justify-center text-black shadow-lg">
+                                <div className="w-20 h-20 bg-[#BCE334] rounded-none flex items-center justify-center text-black shadow-lg">
                                     <Send size={32} />
                                 </div>
                                 <h3 className="text-2xl font-black text-slate-900 uppercase">Message Received!</h3>
@@ -180,7 +180,7 @@ const Feedback = () => {
                                     <motion.div
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        className="bg-red-100 text-red-700 px-4 py-2 rounded-xl text-xs font-bold"
+                                        className="bg-red-100 text-red-700 px-4 py-2 rounded-none text-xs font-bold"
                                     >
                                         Something went wrong. Please try again.
                                     </motion.div>
@@ -196,7 +196,7 @@ const Feedback = () => {
                                             placeholder="Name"
                                             maxLength={MAX_NAME_LENGTH}
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'
+                                            className={`w-full bg-white/60 border rounded-none px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.name ? 'border-red-400' : 'border-slate-200'
                                                 } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
@@ -218,7 +218,7 @@ const Feedback = () => {
                                             onChange={handleChange}
                                             placeholder="Email"
                                             readOnly={isLoggedIn}
-                                            className={`w-full bg-white/60 border rounded-xl px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'
+                                            className={`w-full bg-white/60 border rounded-none px-4 py-3 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all ${errors.email ? 'border-red-400' : 'border-slate-200'
                                                 } ${isLoggedIn ? 'bg-slate-100 cursor-not-allowed pr-10' : ''}`}
                                         />
                                         {isLoggedIn && (
@@ -234,7 +234,7 @@ const Feedback = () => {
                                         name="type"
                                         value={formData.type}
                                         onChange={handleChange}
-                                        className="w-full bg-white/60 border border-slate-200 rounded-xl px-4 py-3 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
+                                        className="w-full bg-white/60 border border-slate-200 rounded-none px-4 py-3 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
                                     >
                                         <option>General Feedback</option>
                                         <option>Complaint about Order</option>
@@ -251,7 +251,7 @@ const Feedback = () => {
                                         onChange={handleChange}
                                         rows={3}
                                         placeholder="Your message..."
-                                        className={`w-full bg-white/60 border rounded-2xl px-4 py-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${errors.message ? 'border-red-400' : 'border-slate-200'
+                                        className={`w-full bg-white/60 border rounded-none px-4 py-4 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all resize-none ${errors.message ? 'border-red-400' : 'border-slate-200'
                                             }`}
                                     />
                                     {errors.message && (
@@ -265,7 +265,7 @@ const Feedback = () => {
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     disabled={status === 'submitting'}
-                                    className="w-full bg-black text-white py-3 rounded-xl font-semibold tracking-wide text-sm shadow-xl disabled:bg-slate-400 flex items-center justify-center gap-3"
+                                    className="w-full bg-black text-white py-3 rounded-none font-semibold tracking-wide text-sm shadow-xl disabled:bg-slate-400 flex items-center justify-center gap-3"
                                 >
                                     {status === 'submitting' ? 'Processing...' : 'Send to Us'}
                                     <Send size={14} />

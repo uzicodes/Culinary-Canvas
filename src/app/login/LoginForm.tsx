@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { signIn, getSession } from 'next-auth/react'; // Added getSession
+import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -39,10 +39,10 @@ const LoginForm = () => {
           autoClose: 2000,
           theme: "dark",
         });
-        
+
         // Small delay 
         await new Promise(resolve => setTimeout(resolve, 500));
-        
+
         // Fetch the updated session to check the role
         const session = await getSession();
         const userRole = (session?.user as any)?.role;
@@ -97,8 +97,8 @@ const LoginForm = () => {
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
               Security Key
             </label>
-            <Link 
-              href="/forgot-password" 
+            <Link
+              href="/forgot-password"
               className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
             >
               Forgot Access?

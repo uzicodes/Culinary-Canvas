@@ -101,7 +101,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
                 <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: '#050BB3' }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary-600 text-white px-8 py-4 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
+                  className="bg-primary-600 text-white px-8 py-4 rounded-none font-bold flex items-center justify-center space-x-3 transition-all shadow-xl shadow-primary-600/20"
                 >
                   <span>Explore Now</span>
                   <ArrowRight className="w-5 h-5" />
@@ -112,7 +112,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
                 <motion.button
                   whileHover={{ scale: 1.05, backgroundColor: 'transparent', color: 'black' }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-black text-[#BCE334] px-8 py-3.5 rounded-full font-bold flex items-center justify-center space-x-3 transition-all shadow-xl border-2 border-black"
+                  className="bg-black text-[#BCE334] px-8 py-3.5 rounded-none font-bold flex items-center justify-center space-x-3 transition-all shadow-xl border-2 border-black"
                 >
                   <span>View Menu</span>
                   <UtensilsCrossed className="w-5 h-5" />

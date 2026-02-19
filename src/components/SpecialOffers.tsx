@@ -37,7 +37,7 @@ const SpecialOffers = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="max-w-7xl mx-auto rounded-[3rem] overflow-hidden relative bg-gradient-to-r from-[#BCE334] to-[#8dbee3] p-6 md:p-10 shadow-2xl"
+                className="max-w-7xl mx-auto rounded-none overflow-hidden relative bg-gradient-to-r from-[#BCE334] to-[#8dbee3] p-6 md:p-10 shadow-2xl"
             >
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
 
@@ -87,7 +87,7 @@ const SpecialOffers = () => {
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-black text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-colors"
+                            className="bg-black text-white px-12 py-5 rounded-none font-black uppercase tracking-widest shadow-xl hover:bg-slate-800 transition-colors"
                         >
                             Claim Offer
                         </motion.button>

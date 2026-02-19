@@ -15,7 +15,7 @@ const Newsletter = () => {
               <span className="text-primary-100">Mobile App</span>
             </h2>
             <p className="text-lg text-primary-100">
-              Get the best shopping experience with our mobile app. Order fresh, 
+              Get the best shopping experience with our mobile app. Order fresh,
               organic products on the go and enjoy exclusive mobile-only deals.
             </p>
 
