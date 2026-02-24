@@ -17,10 +17,12 @@ const RegisterPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
+        setRateLimitError(null);
 
         if (password !== confirmPassword) {
             setError("Passwords mismatch");
@@ -35,6 +37,12 @@ const RegisterPage = () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name, email, phone, password })
             });
+
+            if (res.status === 429) {
+                setRateLimitError('You are performing this action too fast. Please wait a moment.');
+                setLoading(false);
+                return;
+            }
 
             const data = await res.json();
 
@@ -126,6 +134,11 @@ const RegisterPage = () => {
                         </div>
 
                         {error && <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</p>}
+                        {rateLimitError && (
+                            <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                                {rateLimitError}
+                            </div>
+                        )}
 
                         <motion.button
                             whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={loading}

@@ -47,6 +47,7 @@ export default function PaymentPage() {
     const [couponCode, setCouponCode] = useState('');
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
+    const [rateLimitError, setRateLimitError] = useState<string | null>(null);
     const [sslczReady, setSslczReady] = useState(false);
     const router = useRouter();
 
@@ -72,6 +73,7 @@ export default function PaymentPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setRateLimitError(null);
         if (!deliveryMethod || !paymentMethod) {
             alert('Please select all required options.');
             return;
@@ -103,6 +105,12 @@ export default function PaymentPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData),
             });
+
+            if (response.status === 429) {
+                setRateLimitError('You are performing this action too fast. Please wait a moment.');
+                setIsProcessing(false);
+                return;
+            }
 
             if (!response.ok) throw new Error('Failed to confirm order');
 
@@ -138,6 +146,12 @@ export default function PaymentPage() {
                         phone: mobileNumber,
                     }),
                 });
+
+                if (paymentInitResponse.status === 429) {
+                    setRateLimitError('You are performing this action too fast. Please wait a moment.');
+                    setIsProcessing(false);
+                    return;
+                }
 
                 const paymentResult = await paymentInitResponse.json();
 
@@ -429,6 +443,12 @@ export default function PaymentPage() {
                                     <CheckCircle2 size={20} className="text-[#BCE334] mb-1" />
                                 </div>
                             </div>
+
+                            {rateLimitError && (
+                                <div className="mt-4 mb-2 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                                    {rateLimitError}
+                                </div>
+                            )}
 
                             <motion.button
                                 whileHover={{ scale: isProcessing ? 1 : 1.02 }}

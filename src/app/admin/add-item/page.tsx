@@ -11,10 +11,11 @@ export default function AddItemPage() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     price: "",
-    category: "Burgers", 
+    category: "Burgers",
     description: ""
   });
 
@@ -24,7 +25,7 @@ export default function AddItemPage() {
       {
         cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
         uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
-        folder: "culinary-canvas/items", 
+        folder: "culinary-canvas/items",
         theme: "minimal",
         colors: { primary: "#BCE334" },
       },
@@ -39,20 +40,26 @@ export default function AddItemPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setRateLimitError(null);
     if (!imageUrl) return alert("Please upload an image first!");
-    
+
     setLoading(true);
     try {
       const res = await fetch("/api/items/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         // price 'Low to High' sorting logic
-        body: JSON.stringify({ 
-          ...formData, 
-          price: Number(formData.price), 
-          image: imageUrl 
+        body: JSON.stringify({
+          ...formData,
+          price: Number(formData.price),
+          image: imageUrl
         }),
       });
+      if (res.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        setLoading(false);
+        return;
+      }
       if (res.ok) {
         setSuccess(true);
         setImageUrl("");
@@ -70,7 +77,7 @@ export default function AddItemPage() {
 
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="w-full max-w-xl">
         <div className="bg-white/80 backdrop-blur-md p-8 rounded-[2.5rem] shadow-2xl border border-white/20">
-          
+
           <div className="flex justify-between items-center mb-8">
             <Link href="/all-items" className="p-2 bg-black text-[#BCE334] rounded-xl hover:scale-110 transition-transform">
               <ArrowLeft size={18} />
@@ -82,7 +89,7 @@ export default function AddItemPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div 
+            <div
               onClick={handleUpload}
               className={`border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all
                 ${imageUrl ? 'border-[#BCE334] bg-[#BCE334]/5' : 'border-gray-200 hover:border-sky-600'}`}
@@ -93,7 +100,7 @@ export default function AddItemPage() {
                 <>
                   <Upload className="text-gray-400" size={30} />
                   <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">
-                    Upload Dish Image<br/>
+                    Upload Dish Image<br />
                     <span className="text-sky-500 font-bold">(Auto-saves to culinary-canvas/items)</span>
                   </span>
                 </>
@@ -103,12 +110,12 @@ export default function AddItemPage() {
             {/* Dish Name */}
             <div className="relative group">
               <Utensils className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
-              <input 
-                required 
-                placeholder="Dish Name" 
+              <input
+                required
+                placeholder="Dish Name"
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all shadow-sm"
                 value={formData.name}
-                onChange={e => setFormData({...formData, name: e.target.value})}
+                onChange={e => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
 
@@ -116,23 +123,23 @@ export default function AddItemPage() {
               {/* Price Field */}
               <div className="relative flex-1 group">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-black text-gray-400 group-focus-within:text-sky-600">৳</span>
-                <input 
-                  type="number" 
-                  required 
-                  placeholder="Price" 
+                <input
+                  type="number"
+                  required
+                  placeholder="Price"
                   className="w-full pl-11 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all shadow-sm"
                   value={formData.price}
-                  onChange={e => setFormData({...formData, price: e.target.value})}
+                  onChange={e => setFormData({ ...formData, price: e.target.value })}
                 />
               </div>
 
               {/* Category Dropdown */}
               <div className="relative flex-1 group">
                 <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
-                <select 
+                <select
                   className="w-full pl-11 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] appearance-none cursor-pointer shadow-sm"
                   value={formData.category}
-                  onChange={e => setFormData({...formData, category: e.target.value})}
+                  onChange={e => setFormData({ ...formData, category: e.target.value })}
                 >
                   <option>Burgers</option>
                   <option>Pizza</option>
@@ -155,11 +162,11 @@ export default function AddItemPage() {
             {/* Description Area */}
             <div className="relative group">
               <AlignLeft className="absolute left-4 top-5 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
-              <textarea 
-                placeholder="Write a delicious description for this item..." 
+              <textarea
+                placeholder="Write a delicious description for this item..."
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all min-h-[120px] resize-none shadow-sm"
                 value={formData.description}
-                onChange={e => setFormData({...formData, description: e.target.value})}
+                onChange={e => setFormData({ ...formData, description: e.target.value })}
               />
             </div>
 
@@ -171,8 +178,14 @@ export default function AddItemPage() {
               )}
             </AnimatePresence>
 
-            <button 
-              disabled={loading} 
+            {rateLimitError && (
+              <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                {rateLimitError}
+              </div>
+            )}
+
+            <button
+              disabled={loading}
               className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors disabled:opacity-50"
             >
               {loading ? "Syncing with Cloudinary..." : "Add to Kitchen Menu"} <Plus size={18} />

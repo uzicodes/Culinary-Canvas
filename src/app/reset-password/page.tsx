@@ -10,7 +10,7 @@ import Link from "next/link";
 function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   const token = searchParams.get("token");
   const email = searchParams.get("email");
 
@@ -18,13 +18,15 @@ function ResetPasswordForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setRateLimitError(null);
     if (password !== confirmPassword) {
       return setError("Passwords do not match");
     }
-    
+
     setStatus("loading");
     setError("");
 
@@ -34,6 +36,12 @@ function ResetPasswordForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, email, newPassword: password }),
       });
+
+      if (res.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        setStatus("idle");
+        return;
+      }
 
       if (res.ok) {
         setStatus("success");
@@ -55,7 +63,7 @@ function ResetPasswordForm() {
         <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto animate-bounce" />
         <h2 className="text-2xl font-black uppercase tracking-tighter text-gray-900">Key Updated</h2>
         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-relaxed">
-          Your new password has been set !. <br/> Redirecting to login...
+          Your new password has been set !. <br /> Redirecting to login...
         </p>
       </div>
     );
@@ -67,7 +75,7 @@ function ResetPasswordForm() {
         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">New Security Key</label>
         <div className="relative group">
           <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input 
+          <input
             type="password" required placeholder="••••••••"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={password} onChange={(e) => setPassword(e.target.value)}
@@ -79,7 +87,7 @@ function ResetPasswordForm() {
         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Confirm Key</label>
         <div className="relative group">
           <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input 
+          <input
             type="password" required placeholder="••••••••"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
@@ -92,8 +100,13 @@ function ResetPasswordForm() {
           {error}
         </p>
       )}
+      {rateLimitError && (
+        <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+          {rateLimitError}
+        </div>
+      )}
 
-      <button 
+      <button
         disabled={status === "loading" || !token}
         className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 transition-transform active:scale-95"
       >
@@ -109,10 +122,10 @@ export default function ResetPasswordPage() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="bg-[#F7FBE7]/90 backdrop-blur-2xl p-8 rounded-[2.5rem] shadow-2xl border border-white/60">
           <div className="text-center mb-8">
-             <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">
-                Reset <span className="text-[#BCE334]">Password</span>
-             </h2>
-             <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">Configure your new password</p>
+            <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tighter">
+              Reset <span className="text-[#BCE334]">Password</span>
+            </h2>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mt-1">Configure your new password</p>
           </div>
 
           <Suspense fallback={<div className="py-10 flex justify-center"><Loader2 className="animate-spin text-[#BCE334]" /></div>}>

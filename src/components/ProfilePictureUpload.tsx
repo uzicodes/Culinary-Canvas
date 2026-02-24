@@ -25,16 +25,17 @@ const COMPRESSION_OPTIONS = {
 const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
-export default function ProfilePictureUpload({ 
-  currentImage, 
-  userEmail, 
+export default function ProfilePictureUpload({
+  currentImage,
+  userEmail,
   userName,
-  onUploadSuccess 
+  onUploadSuccess
 }: ProfilePictureUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState<'idle' | 'compressing' | 'uploading' | 'saving'>('idle');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -59,7 +60,7 @@ export default function ProfilePictureUpload({
       setUploadProgress('compressing');
       try {
         processedFile = await imageCompression(file, COMPRESSION_OPTIONS);
-        
+
         // Check if compression was successful
         if (processedFile.size > MAX_FILE_SIZE) {
           setError(`File still too large after compression (${(processedFile.size / 1024).toFixed(1)}KB). Please use a smaller image.`);
@@ -96,11 +97,12 @@ export default function ProfilePictureUpload({
 
     setIsUploading(true);
     setError(null);
+    setRateLimitError(null);
 
     try {
       // Upload directly to Cloudinary (unsigned upload)
       setUploadProgress('uploading');
-      
+
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
@@ -133,6 +135,13 @@ export default function ProfilePictureUpload({
           profilePicture: imageUrl,
         }),
       });
+
+      if (updateResponse.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        setIsUploading(false);
+        setUploadProgress('idle');
+        return;
+      }
 
       const updateResult = await updateResponse.json();
 
@@ -178,7 +187,7 @@ export default function ProfilePictureUpload({
     <div className="flex flex-col items-center">
       {/* Profile Picture Container */}
       <div className="relative group">
-        <motion.div 
+        <motion.div
           whileHover={{ scale: 1.02 }}
           className="w-28 h-28 rounded-2xl overflow-hidden bg-black shadow-xl border-4 border-[#BCE334]/20"
         >
@@ -266,6 +275,11 @@ export default function ProfilePictureUpload({
           </motion.div>
         )}
       </AnimatePresence>
+      {rateLimitError && (
+        <div className="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+          {rateLimitError}
+        </div>
+      )}
 
       {/* Action Buttons */}
       <AnimatePresence>

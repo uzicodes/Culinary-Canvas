@@ -9,11 +9,13 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
   const [error, setError] = useState("");
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setError("");
+    setRateLimitError(null);
 
     try {
       const res = await fetch("/api/auth/forgot-password", {
@@ -21,6 +23,12 @@ export default function ForgotPasswordPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+
+      if (res.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        setStatus("idle");
+        return;
+      }
 
       if (res.ok) {
         setStatus("sent");
@@ -51,7 +59,7 @@ export default function ForgotPasswordPage() {
               <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Registered Email</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1-2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-                <input 
+                <input
                   type="email" required placeholder="chef@example.com"
                   className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
                   value={email} onChange={(e) => setEmail(e.target.value)}
@@ -60,8 +68,13 @@ export default function ForgotPasswordPage() {
             </div>
 
             {error && <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</p>}
+            {rateLimitError && (
+              <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                {rateLimitError}
+              </div>
+            )}
 
-            <button 
+            <button
               disabled={status === "loading"}
               className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 transition-transform active:scale-95"
             >
@@ -80,11 +93,11 @@ export default function ForgotPasswordPage() {
       {/* --- SUCCESS POP-UP  --- */}
       <AnimatePresence>
         {status === "sent" && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
               className="bg-white rounded-[2.5rem] p-10 max-w-sm w-full shadow-2xl text-center relative overflow-hidden"
             >
@@ -92,10 +105,10 @@ export default function ForgotPasswordPage() {
               <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto mb-4" />
               <h3 className="text-xl font-black uppercase tracking-tighter text-gray-900">Email Dispatched</h3>
               <p className="text-[11px] font-bold text-gray-500 uppercase tracking-tight mt-2 leading-relaxed">
-                Check your inbox! We&apos;ve sent a secure link to <br/>
+                Check your inbox! We&apos;ve sent a secure link to <br />
                 <span className="text-black font-black underline decoration-[#BCE334]">{email}</span>
               </p>
-              <button 
+              <button
                 onClick={() => setStatus("idle")}
                 className="mt-8 w-full py-3 bg-black text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#BCE334] hover:text-black transition-all"
               >

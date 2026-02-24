@@ -12,6 +12,7 @@ const MAX_MESSAGE_CHARS = 600; // ~100 words equivalent
 const Feedback = () => {
     const { data: session } = useSession();
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+    const [rateLimitError, setRateLimitError] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -95,6 +96,7 @@ const Feedback = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setRateLimitError(null);
 
         if (!validateForm()) {
             return;
@@ -110,6 +112,12 @@ const Feedback = () => {
                 },
                 body: JSON.stringify(formData),
             });
+
+            if (response.status === 429) {
+                setRateLimitError('You are performing this action too fast. Please wait a moment.');
+                setStatus('idle');
+                return;
+            }
 
             if (response.ok) {
                 setStatus('success');
@@ -270,6 +278,11 @@ const Feedback = () => {
                                     {status === 'submitting' ? 'Processing...' : 'Send to Us'}
                                     <Send size={14} />
                                 </motion.button>
+                                {rateLimitError && (
+                                    <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                                        {rateLimitError}
+                                    </div>
+                                )}
                             </form>
                         )}
                     </div>

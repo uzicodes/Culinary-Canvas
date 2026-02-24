@@ -34,6 +34,7 @@ const BestSelling = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isAdmin, setIsAdmin] = useState(false);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
+    const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingSlot, setEditingSlot] = useState<number | null>(null);
@@ -92,12 +93,17 @@ const BestSelling = () => {
 
     const handleSaveUpdate = async () => {
         if (!isAdmin || editingSlot === null) return;
+        setRateLimitError(null);
         try {
             const res = await fetch('/api/best-sellers', {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ slotIndex: editingSlot, ...tempData })
             });
+            if (res.status === 429) {
+                setRateLimitError('You are performing this action too fast. Please wait a moment.');
+                return;
+            }
             if (res.ok) {
                 const updated = [...products];
                 updated[editingSlot] = { ...updated[editingSlot], ...tempData as Product };
@@ -208,6 +214,11 @@ const BestSelling = () => {
                                     <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
                                     <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
                                 </div>
+                                {rateLimitError && (
+                                    <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
+                                        {rateLimitError}
+                                    </div>
+                                )}
                                 <button onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
                                     Update Best Seller
                                 </button>

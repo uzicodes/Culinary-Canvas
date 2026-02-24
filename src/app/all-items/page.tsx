@@ -259,8 +259,10 @@ function ItemCard({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedItem, setEditedItem] = useState(item);
+  const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
   const handleSave = async () => {
+    setRateLimitError(null);
     try {
       const response = await fetch('/api/items', {
         method: 'PATCH',
@@ -272,6 +274,11 @@ function ItemCard({
           price: editedItem.price
         }),
       });
+
+      if (response.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        return;
+      }
 
       if (response.ok) {
         setIsEditing(false);
@@ -286,10 +293,15 @@ function ItemCard({
 
   const handleDelete = async () => {
     if (!confirm(`Are you sure you want to delete "${item.name}"?`)) return;
+    setRateLimitError(null);
     try {
       const response = await fetch(`/api/items?id=${item._id}`, {
         method: 'DELETE',
       });
+      if (response.status === 429) {
+        setRateLimitError('You are performing this action too fast. Please wait a moment.');
+        return;
+      }
       if (response.ok) {
         setMenuItems((prev) => prev.filter((i) => i._id !== item._id));
         setToastMessage("Item Deleted");
@@ -334,6 +346,11 @@ function ItemCard({
           </div>
         )}
 
+        {rateLimitError && (
+          <div className="mt-2 p-2 bg-red-100 border border-red-400 text-red-700 rounded-lg text-[9px] font-semibold text-center">
+            {rateLimitError}
+          </div>
+        )}
         <div className="flex items-center justify-between pt-2 md:pt-5 mt-auto border-t border-white/10">
           <span className="text-sm md:text-xl font-black text-[#F1F604]">৳ {editedItem.price}</span>
           {isEditing ? (
