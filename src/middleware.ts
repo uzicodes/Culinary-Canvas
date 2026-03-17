@@ -9,9 +9,10 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 });
 
+// Rate limit only applies to mutation requests (POST, PATCH, DELETE, PUT)
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(5, "10 s"), // 5 requests per 10 seconds
+  limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 mutation requests per 10 seconds
   analytics: true,
 });
 
@@ -38,23 +39,28 @@ const authMiddleware = withAuth(
 export default async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Rate-limit API routes
+  // Rate-limit API routes (only mutation requests, NOT GET)
   if (pathname.startsWith("/api")) {
-    const ip = req.headers.get("x-forwarded-for") ?? req.ip ?? "127.0.0.1";
-    const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+    // Allow GET requests through without rate limiting — multiple components
+    // (Header search, all-items page, BestSelling, etc.) need to fetch data
+    // on every page load, so rate-limiting reads causes 429 cascading failures.
+    if (req.method !== "GET") {
+      const ip = req.headers.get("x-forwarded-for") ?? req.ip ?? "127.0.0.1";
+      const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
-    if (!success) {
-      return NextResponse.json(
-        { error: "Too Many Requests" },
-        {
-          status: 429,
-          headers: {
-            "X-RateLimit-Limit": limit.toString(),
-            "X-RateLimit-Remaining": remaining.toString(),
-            "X-RateLimit-Reset": reset.toString(),
-          },
-        }
-      );
+      if (!success) {
+        return NextResponse.json(
+          { error: "Too Many Requests" },
+          {
+            status: 429,
+            headers: {
+              "X-RateLimit-Limit": limit.toString(),
+              "X-RateLimit-Remaining": remaining.toString(),
+              "X-RateLimit-Reset": reset.toString(),
+            },
+          }
+        );
+      }
     }
 
     return NextResponse.next();
