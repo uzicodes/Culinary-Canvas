@@ -22,7 +22,7 @@ const authMiddleware = withAuth(
     const token = req.nextauth.token;
     const isAdminPath = req.nextUrl.pathname.startsWith("/admin");
 
-    // isn't an admin, redirect
+    // Not admin?  redirect
     if (isAdminPath && token?.role !== "admin") {
       return NextResponse.redirect(new URL("/admin-login", req.url));
     }
