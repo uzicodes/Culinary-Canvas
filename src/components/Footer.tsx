@@ -1,8 +1,8 @@
 'use client'
 
-import { 
-  Facebook, Twitter, Instagram, Youtube, Mail, Phone, 
-  MapPin, Clock, ChevronRight, Github, Globe 
+import {
+  Facebook, Twitter, Instagram, Youtube, Mail, Phone,
+  MapPin, Clock, ChevronRight, Github, Globe
 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+
           {/* Company Info */}
           <div className="space-y-3">
             <div className="flex items-center space-x-2">
@@ -39,8 +39,8 @@ const Footer = () => {
             <ul className="grid grid-cols-1 gap-1.5">
               {['Burgers', 'Pizza', 'Fast Foods', 'Traditional', 'Desserts'].map((item) => (
                 <li key={item}>
-                  <Link 
-                    href={`/all-items?category=${item.toLowerCase().replace(' ', '')}`} 
+                  <Link
+                    href={`/all-items?category=${item.toLowerCase().replace(' ', '')}`}
                     className="text-gray-400 hover:text-yellow-400 transition-colors text-xs flex items-center group"
                   >
                     <ChevronRight className="w-3 h-3 mr-1.5 text-yellow-500 opacity-0 group-hover:opacity-100 transition-all" />
@@ -87,7 +87,7 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-4 pt-4">
           <div className="grid grid-cols-1 md:grid-cols-3 items-center text-[10px] text-gray-500 font-medium gap-4">
-            
+
             {/* Copyright */}
             <div className="text-center md:text-left">
               <p>© {new Date().getFullYear()} <span className="text-yellow-400 font-bold">  Culinary Canvas</span></p> <span className="hidden md:inline"> All rights reserved.</span>
@@ -95,18 +95,18 @@ const Footer = () => {
 
             {/* Developer Info */}
             <div className="flex items-center justify-center space-x-3 text-gray-500">
-              <span className="whitespace-nowrap">made with <span className="text-red-500">❤️</span> uzicodes</span>
+              <span className="whitespace-nowrap">DEVELOPER</span>
               <span className="text-gray-700">|</span>
               <div className="flex space-x-3">
-                 <Link href="https://github.com/uzicodes" target="_blank" className="hover:text-yellow-400 transition-colors">
+                <Link href="https://github.com/uzicodes" target="_blank" className="hover:text-yellow-400 transition-colors">
                   <Github className="w-3.5 h-3.5" />
-                 </Link>
-                 <Link href="https://utshochowdhury.me" target="_blank" className="hover:text-yellow-400 transition-colors">
+                </Link>
+                <Link href="https://utshochowdhury.me" target="_blank" className="hover:text-yellow-400 transition-colors">
                   <Globe className="w-3.5 h-3.5" />
-                 </Link>
-                 <Link href="mailto:utshozi11@gmail.com" className="hover:text-yellow-400 transition-colors">
+                </Link>
+                <Link href="mailto:utshozi11@gmail.com" className="hover:text-yellow-400 transition-colors">
                   <Mail className="w-3.5 h-3.5" />
-                 </Link>
+                </Link>
               </div>
             </div>
 

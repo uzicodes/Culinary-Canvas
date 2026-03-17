@@ -9,10 +9,10 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN!,
 });
 
-// Rate limit only applies to mutation requests (POST, PATCH, DELETE, PUT)
+// Rate limit only applies to requests (POST, PATCH, DELETE, PUT)
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 mutation requests per 10 seconds
+  limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 requests per 10 seconds
   analytics: true,
 });
 
