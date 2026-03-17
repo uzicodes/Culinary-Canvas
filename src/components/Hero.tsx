@@ -48,7 +48,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
       return
     }
 
-    // Start carousel interval only after loading is complete
+    // Start carousel after loading is complete
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
     }, 1500)
@@ -157,7 +157,6 @@ const Hero = ({ isLoading = false }: HeroProps) => {
           <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden mt-8 lg:mt-0">
             {images.map((imageObj, index) => {
               let position = '';
-              // Only the current index gets the visible class
               if (index === currentImageIndex) position = 'carousel-center';
               else position = 'carousel-hidden';
 

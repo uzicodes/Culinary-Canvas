@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
-// local image paths
 const offersImages = [
 
     '/offers/fast1.png',
@@ -23,7 +22,7 @@ const slideVariants = {
 const SpecialOffers = () => {
     const [index, setIndex] = useState(0);
 
-    // Automatic slide timer set to 3.5 seconds
+    // slide timer 3.5 seconds
     useEffect(() => {
         const timer = setInterval(() => {
             setIndex((prevIndex) => (prevIndex + 1) % offersImages.length);
@@ -56,7 +55,7 @@ const SpecialOffers = () => {
                         </p>
                     </div>
 
-                    {/* Middle: Image Carousel */}
+                    {/* Image Carousel */}
                     <div className="relative w-full max-w-md md:max-w-lg h-48 md:h-64 flex justify-center items-center z-10">
                         <AnimatePresence mode='popLayout'>
                             <motion.div
@@ -94,7 +93,7 @@ const SpecialOffers = () => {
                     </div>
                 </div>
 
-                {/* Decorative Blur Circles */}
+                {/* Blur Circles */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-3xl -mr-20 -mt-20 z-0" />
                 <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl -ml-10 -mb-10 z-0" />
             </motion.div>
