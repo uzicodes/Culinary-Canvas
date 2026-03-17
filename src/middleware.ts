@@ -41,9 +41,6 @@ export default async function middleware(req: NextRequest) {
 
   // Rate-limit API routes (only mutation requests, NOT GET)
   if (pathname.startsWith("/api")) {
-    // Allow GET requests through without rate limiting — multiple components
-    // (Header search, all-items page, BestSelling, etc.) need to fetch data
-    // on every page load, so rate-limiting reads causes 429 cascading failures.
     if (req.method !== "GET") {
       const ip = req.headers.get("x-forwarded-for") ?? req.ip ?? "127.0.0.1";
       const { success, limit, reset, remaining } = await ratelimit.limit(ip);
@@ -74,7 +71,7 @@ export default async function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// tells which paths to protect
+//paths to protect
 export const config = {
   matcher: ["/admin/dashboard", "/admin/add-item", "/api/:path*"],
 };
