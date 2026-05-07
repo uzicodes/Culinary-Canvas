@@ -32,7 +32,11 @@ export default function CartPage() {
   const updateCart = (updatedItems: CartItem[]) => {
     setCartItems(updatedItems);
     localStorage.setItem("cart", JSON.stringify(updatedItems));
-    if (typeof window !== 'undefined') window.dispatchEvent(new Event('storage'));
+    localStorage.setItem("cartTimestamp", Date.now().toString());
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('storage'));
+      window.dispatchEvent(new Event('cartUpdated'));
+    }
   };
 
   const decreaseQuantity = (id: string) => {
@@ -72,6 +76,15 @@ export default function CartPage() {
   useEffect(() => {
     const loadCart = () => {
       try {
+        const savedTime = localStorage.getItem('cartTimestamp');
+        if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('cart');
+          localStorage.removeItem('cartTimestamp');
+          if (typeof window !== 'undefined') {
+            window.dispatchEvent(new Event('storage'));
+            window.dispatchEvent(new Event('cartUpdated'));
+          }
+        }
         const savedCart = localStorage.getItem("cart");
         setCartItems(savedCart ? JSON.parse(savedCart) : []);
       } catch (error) {

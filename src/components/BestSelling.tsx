@@ -86,6 +86,7 @@ const BestSelling = () => {
         if (existing) existing.quantity = (existing.quantity || 1) + 1;
         else cart.push({ ...product, quantity: 1 });
         localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cartTimestamp', Date.now().toString());
         window.dispatchEvent(new Event('cartUpdated'));
         setSuccessMsg(`${product.name} added to cart!`);
         setTimeout(() => setSuccessMsg(null), 1500);

@@ -371,6 +371,7 @@ function ItemCard({
                   if (existing) existing.quantity += 1;
                   else cart.push(cartItem);
                   localStorage.setItem('cart', JSON.stringify(cart));
+                  localStorage.setItem('cartTimestamp', Date.now().toString());
                   window.dispatchEvent(new Event('storage'));
                   setToastMessage("Added to Cart");
                   setShowToast(true);
