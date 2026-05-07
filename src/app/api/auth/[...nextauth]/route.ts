@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
@@ -10,6 +11,10 @@ const MASTER_ADMIN_KEY = process.env.NEXT_PUBLIC_MASTER_ADMIN_KEY || process.env
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -70,7 +75,7 @@ const handler = NextAuth({
       // When user signs in, persist their data to the token
       if (user) {
         token.id = user.id;
-        token.role = (user as any).role;
+        token.role = (user as any).role || "user";
         token.name = user.name;
         token.email = user.email;
       }

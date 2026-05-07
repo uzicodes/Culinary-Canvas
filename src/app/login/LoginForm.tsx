@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { FaGoogle } from 'react-icons/fa';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -133,6 +134,25 @@ const LoginForm = () => {
               Enter Vault <ArrowRight size={18} />
             </>
           )}
+        </motion.button>
+
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-gray-400 text-[10px] font-black uppercase tracking-widest">Or continue with</span>
+          </div>
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="button"
+          onClick={() => signIn('google', { callbackUrl: '/profile' })}
+          className="w-full bg-white border-2 border-gray-100 text-gray-700 py-4 rounded-[1.5rem] font-black uppercase text-xs tracking-[0.2em] shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-3"
+        >
+          <FaGoogle className="text-red-500" size={18} /> Google
         </motion.button>
 
         <p className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-4">

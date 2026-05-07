@@ -7,6 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, Home } from "lucide-react";
+import { FaGoogle } from "react-icons/fa";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -115,6 +116,25 @@ const LoginPage = () => {
             {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</motion.p>}
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2 mt-4 disabled:opacity-50">
               {loading ? "Authenticating..." : "Login"} <ArrowRight size={16} />
+            </motion.button>
+            
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-200"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-[#F7FBE7] text-gray-500 text-[9px] font-black uppercase tracking-widest">Or continue with</span>
+              </div>
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="button"
+              onClick={() => signIn('google', { callbackUrl: callbackUrl })}
+              className="w-full bg-white border border-gray-200 text-gray-800 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-3"
+            >
+              <FaGoogle className="text-red-500" size={16} /> Google
             </motion.button>
           </form>
 
