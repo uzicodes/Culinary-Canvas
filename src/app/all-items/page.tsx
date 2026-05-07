@@ -36,12 +36,28 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
 
   const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
   const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
+  const itemIdToScroll = typeof searchParams?.id === 'string' ? searchParams.id : '';
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("Sync Complete");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [localSearch, setLocalSearch] = useState(searchTerm);
+
+  useEffect(() => {
+    if (!isLoading && itemIdToScroll) {
+      setTimeout(() => {
+        const element = document.getElementById(`item-${itemIdToScroll}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          element.classList.add('ring-4', 'ring-[#BCE334]');
+          setTimeout(() => {
+            element.classList.remove('ring-4', 'ring-[#BCE334]');
+          }, 2000);
+        }
+      }, 500);
+    }
+  }, [isLoading, itemIdToScroll]);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -315,6 +331,7 @@ function ItemCard({
 
   return (
     <motion.div
+      id={`item-${item._id || item.id}`}
       variants={itemVariants}
       className="bg-[#029FBE] rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
     >
