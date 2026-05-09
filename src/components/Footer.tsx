@@ -10,7 +10,7 @@ import Image from 'next/image'
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-3">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {/* Company Info */}
@@ -92,25 +92,20 @@ const Footer = () => {
             </div>
 
             {/* Developer Info */}
-            <div className="flex flex-col items-center justify-center space-y-2">
-              <div className="flex items-center space-x-3 text-gray-500">
-                <span className="whitespace-nowrap">DEVELOPER</span>
-                <span className="text-gray-700">|</span>
-                <div className="flex space-x-3">
-                  <Link href="https://github.com/uzicodes" target="_blank" className="hover:text-yellow-400 transition-colors">
-                    <Github className="w-3.5 h-3.5" />
-                  </Link>
-                  <Link href="https://utshochowdhury.me" target="_blank" className="hover:text-yellow-400 transition-colors">
-                    <Globe className="w-3.5 h-3.5" />
-                  </Link>
-                  <Link href="mailto:utshozi11@gmail.com" className="hover:text-yellow-400 transition-colors">
-                    <Mail className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
+            <div className="flex items-center justify-center space-x-3 text-gray-500">
+              <span className="whitespace-nowrap">DEVELOPER</span>
+              <span className="text-gray-700">|</span>
+              <div className="flex space-x-3">
+                <Link href="https://github.com/uzicodes" target="_blank" className="hover:text-yellow-400 transition-colors">
+                  <Github className="w-3.5 h-3.5" />
+                </Link>
+                <Link href="https://utshochowdhury.me" target="_blank" className="hover:text-yellow-400 transition-colors">
+                  <Globe className="w-3.5 h-3.5" />
+                </Link>
+                <Link href="mailto:utshozi11@gmail.com" className="hover:text-yellow-400 transition-colors">
+                  <Mail className="w-3.5 h-3.5" />
+                </Link>
               </div>
-              <Link href="/admin/login" className="text-[9px] font-bold text-gray-400 hover:text-yellow-400 uppercase tracking-widest border border-gray-800 hover:border-yellow-400 px-3 py-1 rounded-full transition-all">
-                Admin Login
-              </Link>
             </div>
 
             {/* Policy Links */}
