@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, Home } from "lucide-react";
-import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -128,13 +128,13 @@ const LoginPage = () => {
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               type="button"
               onClick={() => signIn('google', { callbackUrl: callbackUrl })}
-              className="w-full bg-white border border-gray-200 text-gray-800 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-3"
+              className="mx-auto w-[52px] h-[52px] bg-white border border-gray-200 text-gray-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex items-center justify-center"
             >
-              <FaGoogle className="text-red-500" size={16} /> Google
+              <FcGoogle size={24} />
             </motion.button>
           </form>
 
