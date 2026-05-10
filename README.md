@@ -1,14 +1,17 @@
-<div style="text-align: center;">
+<div align="center">
   <img src="public/favicon_logo.png" alt="Culinary Canvas Logo" style="width: 80px; height: auto;">
 </div>
 
-<h1 style="color: green; text-align: center; font-size: 3em;">CULINARY CANVAS</h1>
-
+<div align="center">
+  <h1>CULINARY CANVAS</h1>
+</div>
 
 Culinary Canvas is a modern, Full-stack food delivery web application designed to provide a seamless & visually appealing experience for both customers and administrators. Built with a robust stack including Next.js, MongoDB, and Tailwind CSS, this platform offers a complete solution for online food ordering, from menu browsing and secure payments to comprehensive admin management.
 
 
-<h2 style="color: yellow;">Key Features</h2>
+<div align="center">
+  <img src="https://img.shields.io/badge/Key%20Features-blue?style=for-the-badge" alt="Key Features">
+</div>
 
 **For Customers:**
 - **Dynamic Menu:** Browse a rich menu with categories, live search, and detailed item views.
@@ -31,7 +34,9 @@ Culinary Canvas is a modern, Full-stack food delivery web application designed t
 
 
 
-<h2 style="color: yellow;">Tech Stack</h2>
+<div align="center">
+  <img src="https://img.shields.io/badge/Tech%20Stack-blue?style=for-the-badge" alt="Tech Stack">
+</div>
 
 - **Framework:** Next.js (App Router)
 - **Database:** MongoDB (with Mongoose and `@next-auth/mongodb-adapter`)
@@ -45,7 +50,9 @@ Culinary Canvas is a modern, Full-stack food delivery web application designed t
 
 
 
-<h2 style="color: yellow;">Getting Started</h2>
+<div align="center">
+  <img src="https://img.shields.io/badge/Getting%20Started-blue?style=for-the-badge" alt="Getting Started">
+</div>
 
 To get a local copy up and running, follow these simple steps.
 
@@ -84,7 +91,9 @@ To get a local copy up and running, follow these simple steps.
     The application will be available at `http://localhost:3000`.
 
 
-<h2 style="color: yellow;">Environment Variables</h2>
+<div align="center">
+  <img src="https://img.shields.io/badge/Environment%20Variables-blue?style=for-the-badge" alt="Environment Variables">
+</div>
 
 You need to create a `.env.local` file and add the following configuration variables for the application to function correctly.
 
@@ -125,7 +134,9 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 ```
 
 
-<h2 style="color: yellow;">Project Structure</h2>
+<div align="center">
+  <img src="https://img.shields.io/badge/Project%20Structure-blue?style=for-the-badge" alt="Project Structure">
+</div>
 
 The repository is organized using the Next.js App Router structure:
 
