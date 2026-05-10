@@ -1,5 +1,5 @@
 # Culinary Canvas
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/uzicodes/Culinary-Canvas)
+
 
 Culinary Canvas is a modern, full-stack food delivery web application designed to provide a seamless and visually appealing experience for both customers and administrators. Built with a robust stack including Next.js, MongoDB, and Tailwind CSS, this platform offers a complete solution for online food ordering, from menu browsing and secure payments to comprehensive admin management.
 
