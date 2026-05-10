@@ -10,7 +10,7 @@ Culinary Canvas is a modern, Full-stack food delivery web application designed t
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Key%20Features-blue?style=for-the-badge" alt="Key Features" height="34">
+  <img src="https://img.shields.io/badge/Key%20Features-purple?style=for-the-badge" alt="Key Features" height="40">
 </div>
 
 **For Customers:**
@@ -35,7 +35,7 @@ Culinary Canvas is a modern, Full-stack food delivery web application designed t
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Tech%20Stack-blue?style=for-the-badge" alt="Tech Stack" height="34">
+  <img src="https://img.shields.io/badge/Tech%20Stack-purple?style=for-the-badge" alt="Tech Stack" height="40">
 </div>
 
 - **Framework:** Next.js (App Router)
@@ -51,7 +51,7 @@ Culinary Canvas is a modern, Full-stack food delivery web application designed t
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Getting%20Started-blue?style=for-the-badge" alt="Getting Started" height="34">
+  <img src="https://img.shields.io/badge/Getting%20Started-purple?style=for-the-badge" alt="Getting Started" height="40">
 </div>
 
 To get a local copy up and running, follow these simple steps.
@@ -92,7 +92,7 @@ To get a local copy up and running, follow these simple steps.
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Environment%20Variables-blue?style=for-the-badge" alt="Environment Variables" height="34">
+  <img src="https://img.shields.io/badge/Environment%20Variables-purple?style=for-the-badge" alt="Environment Variables" height="40">
 </div>
 
 You need to create a `.env.local` file and add the following configuration variables for the application to function correctly.
@@ -135,7 +135,7 @@ UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
 
 
 <div align="center">
-  <img src="https://img.shields.io/badge/Project%20Structure-blue?style=for-the-badge" alt="Project Structure" height="34">
+  <img src="https://img.shields.io/badge/Project%20Structure-purple?style=for-the-badge" alt="Project Structure" height="40">
 </div>
 
 The repository is organized using the Next.js App Router structure:
