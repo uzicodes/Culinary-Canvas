@@ -9,8 +9,8 @@ import Image from 'next/image'
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-3">
+    <footer className="bg-gray-900 text-white mx-4 sm:mx-6 lg:mx-8 mb-0 rounded-3xl overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {/* Company Info */}
