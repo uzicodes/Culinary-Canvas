@@ -16,6 +16,7 @@ const Header = () => {
   const [showResults, setShowResults] = useState(false);
   const [dbItems, setDbItems] = useState<MenuItem[]>([]); // State for live MongoDB items
   const inputRef = useRef<HTMLInputElement>(null);
+  const mobileInputRef = useRef<HTMLDivElement>(null);
 
   // 1. Fetch live items from your database
   useEffect(() => {
@@ -40,7 +41,10 @@ const Header = () => {
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (inputRef.current && !inputRef.current.contains(e.target as Node)) {
+      const isDesktopInput = inputRef.current?.contains(e.target as Node);
+      const isMobileInput = mobileInputRef.current?.contains(e.target as Node);
+
+      if (!isDesktopInput && !isMobileInput) {
         setShowResults(false);
       }
     }
@@ -245,7 +249,7 @@ const Header = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5 z-40">
-          <div className="relative w-full">
+          <div className="relative w-full" ref={mobileInputRef}>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
