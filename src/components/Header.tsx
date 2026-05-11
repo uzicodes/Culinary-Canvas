@@ -17,6 +17,26 @@ const Header = () => {
   const [dbItems, setDbItems] = useState<MenuItem[]>([]); // State for live MongoDB items
   const inputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLDivElement>(null);
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+      if (session?.user?.email) {
+        try {
+          const res = await fetch(`/api/members?email=${encodeURIComponent(session.user.email)}`);
+          if (res.ok) {
+            const data = await res.json();
+            setProfilePicture(data.profilePicture || null);
+          }
+        } catch (err) {
+          console.error('Failed to fetch profile picture', err);
+        }
+      }
+    };
+    fetchProfilePicture();
+  }, [session?.user?.email]);
+
+  const displayImage = profilePicture;
 
   // 1. Fetch live items from your database
   useEffect(() => {
@@ -226,8 +246,17 @@ const Header = () => {
               )}
             </div>
 
-            <Link href="/profile" className="p-1.5 text-gray-800 hover:scale-110 transition-transform">
-              <User className={`w-4 h-4 ${session ? 'text-black fill-black' : ''}`} />
+            <Link href="/profile" className="flex items-center justify-center w-7 h-7 text-gray-800 hover:scale-110 transition-transform">
+              {displayImage ? (
+                <img 
+                  src={displayImage} 
+                  alt={session?.user?.name || "Profile"} 
+                  className="w-full h-full rounded-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              ) : (
+                <User className={`w-4 h-4 ${session ? 'text-black fill-black' : ''}`} />
+              )}
             </Link>
 
             <Link href="/cart" className="relative p-1.5 text-gray-800 hover:scale-110 transition-transform">
