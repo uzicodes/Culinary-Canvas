@@ -21,32 +21,26 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
 
     useEffect(() => {
         const handleReady = () => setLoading(false);
-        const images = Array.from(document.images);
-        let loadedImages = 0;
-        if (images.length === 0) handleReady();
-        images.forEach(img => {
-            if (img.complete) {
-                loadedImages++;
-                if (loadedImages === images.length) handleReady();
-            } else {
-                img.addEventListener('load', () => {
-                    loadedImages++;
-                    if (loadedImages === images.length) handleReady();
-                });
-                img.addEventListener('error', () => {
-                    loadedImages++;
-                    if (loadedImages === images.length) handleReady();
-                });
-            }
-        });
-
-        if (document.fonts) {
-            document.fonts.ready.then(() => {
-                if (images.length === 0 || loadedImages === images.length) handleReady();
-            });
+        let timeoutId: NodeJS.Timeout;
+        
+        if (document.readyState === 'complete') {
+            // If the document is already loaded, set a smooth transition delay
+            timeoutId = setTimeout(handleReady, 500);
+        } else {
+            // If the document is still loading, wait for the load event
+            window.addEventListener('load', handleReady);
         }
-        const timeout = setTimeout(handleReady, 5000);
-        return () => clearTimeout(timeout);
+        
+        // Strict fallback timeout to prevent indefinite freezing
+        const fallbackTimeoutId = setTimeout(handleReady, 2000);
+        
+        return () => {
+            // Clean up the load event listener
+            window.removeEventListener('load', handleReady);
+            // Clear all timeouts
+            clearTimeout(timeoutId);
+            clearTimeout(fallbackTimeoutId);
+        };
     }, []);
 
     return (
