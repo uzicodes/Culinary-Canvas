@@ -69,7 +69,7 @@ const LoginPage = () => {
         />
         {/* Subtle Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-        <Image src="/gradient.png" alt="" fill className="object-cover blur-2xl opacity-40" priority />
+        <Image src="/gradient.png" alt="" fill className="object-cover blur-2xl opacity-40" priority sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative">

@@ -172,7 +172,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
                     fill
                     className="object-contain w-full h-full drop-shadow-2xl scale-75"
                     priority={index === 0}
-                  />
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                 </div>
               );
             })}

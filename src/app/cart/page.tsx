@@ -150,7 +150,7 @@ export default function CartPage() {
                     className="flex flex-col sm:flex-row items-center gap-4 bg-white/80 backdrop-blur-md p-3 rounded-xl border border-white/60 shadow-lg group transition-all hover:border-[#BCE334]"
                   >
                     <div className="relative w-full sm:w-20 h-20 overflow-hidden rounded-xl flex-shrink-0">
-                      <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
 
                     <div className="flex-1 text-center sm:text-left min-w-0">

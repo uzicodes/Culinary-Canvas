@@ -41,7 +41,7 @@ const AdminLoginPage = () => {
     <div className="relative min-h-screen flex items-center justify-center px-4 bg-[#fafaf9] overflow-hidden">
       <div className="fixed inset-0 -z-10">
         <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 10, repeat: Infinity }} className="absolute -top-10 -left-10 w-96 h-96 bg-[#BCE334] blur-[100px] opacity-30" />
-        <Image src="/gradient.png" alt="" fill className="object-cover blur-3xl opacity-30" />
+        <Image src="/gradient.png" alt="" fill className="object-cover blur-3xl opacity-30" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
       </div>
 
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">

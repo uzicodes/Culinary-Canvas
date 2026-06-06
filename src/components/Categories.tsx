@@ -115,7 +115,7 @@ const Categories = () => {
                                             alt={category.name}
                                             fill
                                             className="object-contain transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500"
-                                        />
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                                     </div>
                                     <h3
                                         className="font-black text-xs lg:text-sm text-slate-900 tracking-widest uppercase leading-tight"

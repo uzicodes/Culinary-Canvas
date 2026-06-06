@@ -96,7 +96,7 @@ const MenuPage = () => {
                         alt={item.name}
                         fill
                         className="object-contain p-2.5 transition-transform duration-500 group-hover:scale-110"
-                      />
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
 
                     <div className="flex-1 px-4 flex items-center justify-between">

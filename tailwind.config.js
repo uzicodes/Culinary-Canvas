@@ -79,7 +79,7 @@ module.exports = {
                 'system-ui',
                 'sans-serif'
             ],
-            nalinak: ['Nalinak', 'sans-serif']
+            nalinak: ['var(--font-nalinak)', 'sans-serif']
         },
         borderRadius: {
             lg: 'var(--radius)',
