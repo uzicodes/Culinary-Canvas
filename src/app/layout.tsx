@@ -1,13 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter, Marcellus } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import NextAuthSessionProvider from './SessionProvider';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
-const marcellus = Marcellus({ weight: '400', subsets: ['latin'], display: 'swap', variable: '--font-marcellus' })
-const nalinak = localFont({ src: '../../public/fonts/Nalinak.otf', display: 'swap', variable: '--font-nalinak' })
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Culinary Canvas',
@@ -37,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${inter.variable} ${marcellus.variable} ${nalinak.variable}`}>
+      <body className={inter.className}>
         <ScrollProgressBar />
         <NextAuthSessionProvider>
           {children}

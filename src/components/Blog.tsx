@@ -65,7 +65,7 @@ const Blog = ({ posts }: { posts: BlogPost[] }) => {
                   alt={post.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                />
                 <div className="absolute top-4 left-4 z-10">
                   <span className="bg-green-600 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
                     {post.category}

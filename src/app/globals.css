@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Marcellus&display=swap');
 
 
 /* Register Button Styles */
@@ -38,7 +38,7 @@
 
 
 .marcellus-regular {
-  font-family: var(--font-marcellus), serif;
+  font-family: "Marcellus", serif;
   font-weight: 400;
   font-style: normal;
 }
@@ -46,6 +46,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'Martina';
+  src: url('/fonts/martinaretro-regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nalinak';
+  src: url('/fonts/Nalinak.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   box-sizing: border-box;
@@ -57,7 +73,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  font-family: var(--font-inter), sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 a {

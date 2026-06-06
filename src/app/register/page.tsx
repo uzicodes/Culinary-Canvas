@@ -64,7 +64,7 @@ const RegisterPage = () => {
         <div className="relative min-h-screen flex items-center justify-center px-4 bg-[#fafaf9] overflow-hidden">
             <div className="fixed inset-0 -z-10 opacity-40">
                 <div className="absolute top-0 left-0 w-64 h-64 bg-[#BCE334] blur-[100px] rounded-full" />
-                <Image src="/gradient.png" alt="" fill className="object-cover blur-xl" priority sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+                <Image src="/gradient.png" alt="" fill className="object-cover blur-xl" priority />
             </div>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
