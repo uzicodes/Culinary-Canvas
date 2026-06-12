@@ -53,7 +53,7 @@ export default function SuccessPage() {
     }
 
     // Clear the cart AFTER reading order data - small delay to ensure data is set
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       try {
         window.localStorage.setItem('cart', '[]');
         window.localStorage.removeItem('checkoutData');
@@ -68,6 +68,8 @@ export default function SuccessPage() {
         console.error('Failed to clear cart:', e);
       }
     }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleDownloadInvoice = async () => {

@@ -35,11 +35,3 @@ export async function POST(req: Request) {
         );
     }
 }
-
-// Handle GET requests (for direct URL access)
-export async function GET(req: Request) {
-    return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?payment=cancelled`,
-        303
-    );
-}

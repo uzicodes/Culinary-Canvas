@@ -33,6 +33,15 @@ interface HeroProps {
 
 const Hero = ({ isLoading = false }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [prevIsLoading, setPrevIsLoading] = useState(isLoading)
+
+  if (isLoading !== prevIsLoading) {
+    setPrevIsLoading(isLoading);
+    if (isLoading) {
+      setCurrentImageIndex(0);
+    }
+  }
+
   const images = [
     { src: '/1.png' }, { src: '/2.png' }, { src: '/3.png' },
     { src: '/4.png' }, { src: '/5.png' }, { src: '/6.png' },
@@ -44,7 +53,6 @@ const Hero = ({ isLoading = false }: HeroProps) => {
 
   useEffect(() => {
     if (isLoading) {
-      setCurrentImageIndex(0) // Always reset to first image
       return
     }
 

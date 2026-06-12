@@ -45,18 +45,24 @@ export default function AllProductsPage({ searchParams }: { searchParams: { [key
   const [localSearch, setLocalSearch] = useState(searchTerm);
 
   useEffect(() => {
+    let timer1: NodeJS.Timeout;
+    let timer2: NodeJS.Timeout;
     if (!isLoading && itemIdToScroll) {
-      setTimeout(() => {
+      timer1 = setTimeout(() => {
         const element = document.getElementById(`item-${itemIdToScroll}`);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
           element.classList.add('ring-4', 'ring-[#BCE334]');
-          setTimeout(() => {
+          timer2 = setTimeout(() => {
             element.classList.remove('ring-4', 'ring-[#BCE334]');
           }, 2000);
         }
       }, 500);
     }
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
   }, [isLoading, itemIdToScroll]);
 
   useEffect(() => {
