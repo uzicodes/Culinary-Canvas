@@ -68,15 +68,15 @@ export default function Loading() {
       </div>
 
       {/* Global keyframes using style tag */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style>
+        {`
           @keyframes loadingSlide {
             0% { transform: translateX(-100%); }
             50% { transform: translateX(250%); }
             100% { transform: translateX(-100%); }
           }
-        `
-      }} />
+        `}
+      </style>
     </div>
   );
 }
