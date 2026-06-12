@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Search, Pencil, Check, X, Trash2 } from 'lucide-react';
 import Header from '@/components/Header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Footer from '@/components/Footer';
 import { motion, Variants } from 'framer-motion';
 import { useSession } from 'next-auth/react';
@@ -29,14 +29,15 @@ const itemVariants: Variants = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
-export default function AllProductsPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+export default function AllProductsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const resolvedParams = use(searchParams);
   const { data: session } = useSession();
   const router = useRouter();
   const isAdmin = (session?.user as any)?.role === 'admin';
 
-  const activeCategory = typeof searchParams?.category === 'string' ? searchParams.category : 'all';
-  const searchTerm = typeof searchParams?.search === 'string' ? searchParams.search : '';
-  const itemIdToScroll = typeof searchParams?.id === 'string' ? searchParams.id : '';
+  const activeCategory = typeof resolvedParams?.category === 'string' ? resolvedParams.category : 'all';
+  const searchTerm = typeof resolvedParams?.search === 'string' ? resolvedParams.search : '';
+  const itemIdToScroll = typeof resolvedParams?.id === 'string' ? resolvedParams.id : '';
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("Sync Complete");
