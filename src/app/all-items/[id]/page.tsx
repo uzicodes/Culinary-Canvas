@@ -2,8 +2,9 @@ import { notFound } from 'next/navigation';
 import menuItems from '@/data/menuItems';
 import Image from 'next/image';
 
-export default function ItemDetailPage({ params }: { params: { id: string } }) {
-  const item = menuItems.find((item) => String(item.id) === params.id);
+export default async function ItemDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const item = menuItems.find((item) => String(item.id) === id);
   if (!item) return notFound();
 
   return (

@@ -1,7 +1,7 @@
 import { withAuth } from "next-auth/middleware";
 import { NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
+import { Redis } from "@upstash/redis/cloudflare";
 
 // ── Upstash Rate Limiter ──
 const redis = new Redis({
@@ -42,7 +42,7 @@ export default async function middleware(req: NextRequest) {
   // Rate-limit API routes (only mutation requests, NOT GET)
   if (pathname.startsWith("/api")) {
     if (req.method !== "GET") {
-      const ip = req.headers.get("x-forwarded-for") ?? req.ip ?? "127.0.0.1";
+      const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
       const { success, limit, reset, remaining } = await ratelimit.limit(ip);
 
       if (!success) {
