@@ -248,10 +248,13 @@ const Header = () => {
 
             <Link href="/profile" className="flex items-center justify-center w-7 h-7 text-gray-800 hover:scale-110 transition-transform">
               {displayImage ? (
-                <img 
+                <Image 
                   src={displayImage} 
                   alt={session?.user?.name || "Profile"} 
+                  width={28}
+                  height={28}
                   className="w-full h-full rounded-full object-cover"
+                  unoptimized
                   referrerPolicy="no-referrer"
                 />
               ) : (
