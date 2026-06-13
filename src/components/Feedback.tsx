@@ -175,7 +175,7 @@ const Feedback = () => {
                                 </div>
                                 <h3 className="text-2xl font-black text-slate-900 uppercase">Message Received!</h3>
                                 <p className="text-slate-500 font-bold">Thank you for helping us grow.</p>
-                                <button
+                                <button type="button"
                                     onClick={() => setStatus('idle')}
                                     className="text-[#029FBE] font-black uppercase text-xs tracking-widest hover:underline"
                                 >

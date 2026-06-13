@@ -108,7 +108,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
                     </div>
 
                     {/* CSS Animations */}
-                    <style jsx>{`
+                    <style>{`
                         @keyframes spin {
                             from { transform: rotate(0deg); }
                             to { transform: rotate(360deg); }

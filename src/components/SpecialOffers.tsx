@@ -59,7 +59,7 @@ const SpecialOffers = () => {
                     <div className="relative w-full max-w-md md:max-w-lg h-48 md:h-64 flex justify-center items-center z-10">
                         <AnimatePresence mode='popLayout'>
                             <motion.div
-                                key={index}
+                                key={offersImages[index]}
                                 variants={slideVariants}
                                 initial="enter"
                                 animate="center"

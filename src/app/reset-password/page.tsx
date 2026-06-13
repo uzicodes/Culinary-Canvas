@@ -106,7 +106,7 @@ function ResetPasswordForm() {
         </div>
       )}
 
-      <button
+      <button type="button"
         disabled={status === "loading" || !token}
         className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 transition-transform active:scale-95"
       >

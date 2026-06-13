@@ -44,7 +44,7 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem("checkoutData", JSON.stringify(formData));
+    localStorage.setItem("checkoutData:v1", JSON.stringify(formData));
     router.push("/payment");
   };
 

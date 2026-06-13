@@ -21,7 +21,7 @@ const Newsletter = () => {
 
             {/* App Store Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white px-6 py-3 rounded-xl transition-colors">
+              <button type="button" className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white px-6 py-3 rounded-xl transition-colors">
                 <Apple className="w-6 h-6" />
                 <div className="text-left">
                   <div className="text-xs">Download on the</div>
@@ -29,7 +29,7 @@ const Newsletter = () => {
                 </div>
               </button>
 
-              <button className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white px-6 py-3 rounded-xl transition-colors">
+              <button type="button" className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white px-6 py-3 rounded-xl transition-colors">
                 <PlaySquare className="w-6 h-6" />
                 <div className="text-left">
                   <div className="text-xs">Get it on</div>

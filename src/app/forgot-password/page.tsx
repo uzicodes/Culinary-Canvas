@@ -74,7 +74,7 @@ export default function ForgotPasswordPage() {
               </div>
             )}
 
-            <button
+            <button type="button"
               disabled={status === "loading"}
               className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 transition-transform active:scale-95"
             >
@@ -108,7 +108,7 @@ export default function ForgotPasswordPage() {
                 Check your inbox! We&apos;ve sent a secure link to <br />
                 <span className="text-black font-black underline decoration-[#BCE334]">{email}</span>
               </p>
-              <button
+              <button type="button"
                 onClick={() => setStatus("idle")}
                 className="mt-8 w-full py-3 bg-black text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-[#BCE334] hover:text-black transition-all"
               >

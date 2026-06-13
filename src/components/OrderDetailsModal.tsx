@@ -76,7 +76,7 @@ const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="bg-black p-6 text-center relative">
-          <button onClick={onClose} className="absolute right-6 top-6 text-gray-400 hover:text-[#BCE334] transition-colors">
+          <button type="button" onClick={onClose} className="absolute right-6 top-6 text-gray-400 hover:text-[#BCE334] transition-colors">
             <X size={24} />
           </button>
           <div className="w-16 h-16 bg-[#BCE334]/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
@@ -124,7 +124,7 @@ const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
                 const itemTotal = itemPrice * itemQuantity;
 
                 return (
-                  <div key={idx} className="flex justify-between items-center bg-[#F7FBE7]/50 p-4 rounded-2xl border border-green-50/50">
+                  <div key={isStringItem ? item + idx : (item._id || item.name || idx)} className="flex justify-between items-center bg-[#F7FBE7]/50 p-4 rounded-2xl border border-green-50/50">
                     <div className="flex items-center gap-4">
                       <div className="w-8 h-8 bg-black text-[#BCE334] rounded-xl flex items-center justify-center text-xs font-black">{itemQuantity}x</div>
                       <p className="text-sm font-bold text-gray-900">{itemName}</p>
@@ -144,7 +144,7 @@ const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
             </div>
           </div>
         </div>
-        <button onClick={onClose} className="w-full py-5 bg-gray-50 hover:bg-gray-100 font-black uppercase text-[10px] tracking-widest text-gray-500 transition-colors border-t border-gray-100">
+        <button type="button" onClick={onClose} className="w-full py-5 bg-gray-50 hover:bg-gray-100 font-black uppercase text-[10px] tracking-widest text-gray-500 transition-colors border-t border-gray-100">
           Close Receipt
         </button>
       </motion.div>

@@ -204,7 +204,7 @@ export default function AdminDashboard() {
                   Back to Profile
               </Link>
               
-              <button 
+              <button type="button" 
                 onClick={() => signOut({ callbackUrl: '/' })} 
                 className="flex items-center gap-2 text-gray-400 hover:text-red-500 transition-colors text-[9px] font-black uppercase tracking-widest"
               >
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
                     </a>
                   </div>
                 </div>
-                <button
+                <button type="button"
                   onClick={() => setSelectedFeedback(null)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >

@@ -128,7 +128,7 @@ const MenuPage = () => {
         <div className="mt-16 text-center bg-gray-900 rounded-3xl p-10 text-white">
           <h2 className="text-2xl font-black uppercase mb-4">Hungry for more?</h2>
           <Link href="/all-items">
-            <button className="bg-[#BCE334] text-black px-10 py-3 rounded-full font-bold uppercase text-sm hover:scale-105 transition-transform">
+            <button type="button" className="bg-[#BCE334] text-black px-10 py-3 rounded-full font-bold uppercase text-sm hover:scale-105 transition-transform">
               Explore Full Gallery
             </button>
           </Link>

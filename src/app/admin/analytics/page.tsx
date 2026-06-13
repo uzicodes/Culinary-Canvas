@@ -96,7 +96,7 @@ export default function AnalyticsPage() {
             </div>
           </div>
           {selectedDate && (
-            <button onClick={() => { setSelectedDate(null); fetchAnalytics(); }} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
+            <button type="button" onClick={() => { setSelectedDate(null); fetchAnalytics(); }} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
           )}
         </div>
 
@@ -122,7 +122,7 @@ export default function AnalyticsPage() {
                   {daysInMonth.map((day) => {
                     const isFuture = day > currentDay;
                     return (
-                      <button key={day} disabled={isFuture} onClick={() => { setSelectedDate(day); setShowCalendar(false); }} className={`w-10 h-10 flex items-center justify-center rounded-xl font-black text-[10px] transition-all ${selectedDate === day ? 'bg-black text-[#BCE334]' : isFuture ? 'opacity-20 cursor-not-allowed' : 'bg-gray-50 text-gray-500 hover:bg-[#BCE334] hover:text-black'}`}>
+                      <button type="button" key={day} disabled={isFuture} onClick={() => { setSelectedDate(day); setShowCalendar(false); }} className={`w-10 h-10 flex items-center justify-center rounded-xl font-black text-[10px] transition-all ${selectedDate === day ? 'bg-black text-[#BCE334]' : isFuture ? 'opacity-20 cursor-not-allowed' : 'bg-gray-50 text-gray-500 hover:bg-[#BCE334] hover:text-black'}`}>
                         {isFuture ? <Lock size={10} /> : day}
                       </button>
                     );
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
                       <span className={`text-[8px] font-black uppercase px-4 py-1.5 rounded-full border ${order.paymentType === 'cod' ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-green-50 text-green-600 border-green-100'}`}>{order.paymentType || "Paid"}</span>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <button onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
+                      <button type="button" onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
                         <Eye size={16} />
                       </button>
                     </td>
@@ -185,7 +185,7 @@ export default function AnalyticsPage() {
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-gray-400">Items Ordered ({order.itemsOrdered?.length || 0})</h4>
                                 <div className="flex flex-wrap gap-2">
                                   {order.itemsOrdered?.map((item: any, idx: number) => (
-                                    <div key={idx} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                                    <div key={typeof item === 'string' ? item + idx : (item._id || item.name || idx)} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-2xl shadow-sm">
                                       <ShoppingBag size={12} className="text-[#BCE334]" />
                                       <span className="text-xs font-black uppercase tracking-tighter text-slate-800">{typeof item === 'string' ? item : item.name}</span>
                                     </div>

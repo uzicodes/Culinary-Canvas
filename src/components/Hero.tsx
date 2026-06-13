@@ -129,7 +129,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
               {features.map((f, i) => (
                 <motion.div
-                  key={i}
+                  key={f.desc as string}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.15 }}
@@ -186,7 +186,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
             })}
           </div>
 
-          <style jsx>{`
+          <style>{`
             /* Only the active image is visible and centered */
             .carousel-center { 
               opacity: 1; 

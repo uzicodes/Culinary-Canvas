@@ -340,8 +340,8 @@ function ItemCard({
     >
       {isAdmin && !isEditing && (
         <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10 flex gap-1 md:gap-2 opacity-0 group-hover:opacity-100 transition-all">
-          <button onClick={() => setIsEditing(true)} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
-          <button onClick={handleDelete} className="p-1.5 md:p-2.5 bg-red-500 rounded-lg md:rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={10} className="md:w-3 md:h-3" /></button>
+          <button type="button" onClick={() => setIsEditing(true)} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
+          <button type="button" onClick={handleDelete} className="p-1.5 md:p-2.5 bg-red-500 rounded-lg md:rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={10} className="md:w-3 md:h-3" /></button>
         </div>
       )}
 
@@ -375,23 +375,23 @@ function ItemCard({
           <span className="text-sm md:text-xl font-black text-[#F1F604]">৳ {editedItem.price}</span>
           {isEditing ? (
             <div className="flex gap-2">
-              <button onClick={handleSave} className="bg-[#BCE334] p-2.5 rounded-xl text-black shadow-lg hover:scale-105 transition-transform"><Check size={14} /></button>
-              <button onClick={() => { setIsEditing(false); setEditedItem(item); }} className="bg-red-500 p-2.5 rounded-xl text-white shadow-lg hover:scale-105 transition-transform"><X size={14} /></button>
+              <button type="button" onClick={handleSave} className="bg-[#BCE334] p-2.5 rounded-xl text-black shadow-lg hover:scale-105 transition-transform"><Check size={14} /></button>
+              <button type="button" onClick={() => { setIsEditing(false); setEditedItem(item); }} className="bg-red-500 p-2.5 rounded-xl text-white shadow-lg hover:scale-105 transition-transform"><X size={14} /></button>
             </div>
           ) : (
-            <button
+            <button type="button"
               className="bg-[#F1F604] hover:bg-black hover:text-[#BCE334] text-black px-2 py-1.5 md:px-5 md:py-2.5 rounded-lg md:rounded-[1.2rem] text-[8px] md:text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95"
               onClick={() => {
                 if (isAdmin) return;
                 const cartItem = { ...editedItem, _id: String(item._id || item.id), quantity: 1 };
                 if (typeof window !== 'undefined') {
-                  const saved = localStorage.getItem('cart');
+                  const saved = localStorage.getItem('cart:v1');
                   const cart = saved ? JSON.parse(saved) : [];
                   const existing = cart.find((i: any) => i._id === cartItem._id);
                   if (existing) existing.quantity += 1;
                   else cart.push(cartItem);
-                  localStorage.setItem('cart', JSON.stringify(cart));
-                  localStorage.setItem('cartTimestamp', Date.now().toString());
+                  localStorage.setItem('cart:v1', JSON.stringify(cart));
+                  localStorage.setItem('cartTimestamp:v1', Date.now().toString());
                   window.dispatchEvent(new Event('storage'));
                   setToastMessage("Added to Cart");
                   setShowToast(true);

@@ -36,7 +36,7 @@ interface CartItem {
 export default function PaymentPage() {
     const [cartItems] = useState<CartItem[]>(() => {
         if (typeof window === 'undefined') return [];
-        const saved = localStorage.getItem('cart');
+        const saved = localStorage.getItem('cart:v1');
         return saved ? JSON.parse(saved) : [];
     });
     const [deliveryMethod, setDeliveryMethod] = useState('');
@@ -46,7 +46,7 @@ export default function PaymentPage() {
     const [mobileNumber, setMobileNumber] = useState(() => {
         if (typeof window === 'undefined') return '+880';
         try {
-            const checkoutData = localStorage.getItem('checkoutData');
+            const checkoutData = localStorage.getItem('checkoutData:v1');
             if (checkoutData) return JSON.parse(checkoutData).phone || '+880';
         } catch { /* ignore */ }
         return '+880';
@@ -55,7 +55,7 @@ export default function PaymentPage() {
     const [customerName, setCustomerName] = useState(() => {
         if (typeof window === 'undefined') return '';
         try {
-            const checkoutData = localStorage.getItem('checkoutData');
+            const checkoutData = localStorage.getItem('checkoutData:v1');
             if (checkoutData) return JSON.parse(checkoutData).name || '';
         } catch { /* ignore */ }
         return '';
@@ -63,7 +63,7 @@ export default function PaymentPage() {
     const [customerEmail, setCustomerEmail] = useState(() => {
         if (typeof window === 'undefined') return '';
         try {
-            const checkoutData = localStorage.getItem('checkoutData');
+            const checkoutData = localStorage.getItem('checkoutData:v1');
             if (checkoutData) return JSON.parse(checkoutData).email || '';
         } catch { /* ignore */ }
         return '';
@@ -71,7 +71,7 @@ export default function PaymentPage() {
     const [customerAddress, setCustomerAddress] = useState(() => {
         if (typeof window === 'undefined') return '';
         try {
-            const checkoutData = localStorage.getItem('checkoutData');
+            const checkoutData = localStorage.getItem('checkoutData:v1');
             if (checkoutData) return JSON.parse(checkoutData).address || '';
         } catch { /* ignore */ }
         return '';
@@ -145,7 +145,7 @@ export default function PaymentPage() {
             };
 
             // Store in both localStorage and sessionStorage for success page
-            localStorage.setItem('orderData', JSON.stringify(confirmedOrderData));
+            localStorage.setItem('orderData:v1', JSON.stringify(confirmedOrderData));
             sessionStorage.setItem('lastOrderResponse', JSON.stringify(serverOrder));
 
             // Step 2: Check if online payment is required

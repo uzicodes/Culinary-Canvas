@@ -78,13 +78,13 @@ const Header = () => {
   const [cartCount, setCartCount] = useState(() => {
     if (typeof window === 'undefined') return 0;
     try {
-      const savedTime = localStorage.getItem('cartTimestamp');
+      const savedTime = localStorage.getItem('cartTimestamp:v1');
       if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
-        localStorage.removeItem('cart');
-        localStorage.removeItem('cartTimestamp');
+        localStorage.removeItem('cart:v1');
+        localStorage.removeItem('cartTimestamp:v1');
         return 0;
       }
-      const saved = localStorage.getItem('cart');
+      const saved = localStorage.getItem('cart:v1');
       const cart = saved ? JSON.parse(saved) : [];
       return cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0);
     } catch {
@@ -118,15 +118,15 @@ const Header = () => {
 
   useEffect(() => {
     const updateCartCount = () => {
-      const savedTime = localStorage.getItem('cartTimestamp');
+      const savedTime = localStorage.getItem('cartTimestamp:v1');
       if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
-        localStorage.removeItem('cart');
-        localStorage.removeItem('cartTimestamp');
+        localStorage.removeItem('cart:v1');
+        localStorage.removeItem('cartTimestamp:v1');
         window.dispatchEvent(new Event('storage'));
         window.dispatchEvent(new Event('cartUpdated'));
       }
 
-      const saved = localStorage.getItem('cart');
+      const saved = localStorage.getItem('cart:v1');
       const cart = saved ? JSON.parse(saved) : [];
       setCartCount(cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0));
     };
@@ -197,8 +197,7 @@ const Header = () => {
           <div className="flex items-center space-x-1.5 sm:space-x-3">
             <div className="relative hidden sm:block w-28 lg:w-40 group" ref={inputRef}>
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
+                action={() => {
                   if (searchQuery) window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
                 }}
               >
@@ -283,7 +282,7 @@ const Header = () => {
               )}
             </Link>
 
-            <button className="md:hidden p-1.5 text-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <button type="button" className="md:hidden p-1.5 text-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
@@ -295,8 +294,7 @@ const Header = () => {
         <div className="absolute top-20 left-4 right-4 bg-white rounded-3xl shadow-2xl p-6 pointer-events-auto md:hidden flex flex-col gap-4 border border-gray-100 ring-1 ring-black/5 z-40">
           <div className="relative w-full" ref={mobileInputRef}>
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
+              action={() => {
                 if (searchQuery) {
                   window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
                   setIsMobileMenuOpen(false);
@@ -366,7 +364,7 @@ const Header = () => {
                 </Link>
 
                 <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
-                  <button
+                  <button type="button"
                     onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
                     className="w-full flex items-center justify-between p-3 hover:bg-gray-50 font-bold text-gray-800"
                   >

@@ -73,14 +73,14 @@ const About = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
               {/* Navigation Arrows - Always visible on mobile, hover on desktop */}
-              <button
+              <button type="button"
                 onClick={goToPrevious}
                 className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:bg-white active:scale-95 sm:hover:scale-110"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-800" />
               </button>
-              <button
+              <button type="button"
                 onClick={goToNext}
                 className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 hover:bg-white active:scale-95 sm:hover:scale-110"
                 aria-label="Next image"
@@ -90,9 +90,9 @@ const About = () => {
 
               {/* Dots Indicator */}
               <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2">
-                {aboutImages.map((_, index) => (
-                  <button
-                    key={index}
+                {aboutImages.map((src, index) => (
+                  <button type="button"
+                    key={src}
                     onClick={() => goToSlide(index)}
                     className={`transition-all duration-300 rounded-full ${index === currentIndex
                       ? 'w-6 sm:w-8 h-2 bg-white'

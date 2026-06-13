@@ -71,7 +71,7 @@ const AdminLoginPage = () => {
 
             {error && <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</p>}
 
-            <button disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
+            <button type="button" disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
               {loading ? 'Verifying...' : 'Authenticate'}
             </button>
           </form>

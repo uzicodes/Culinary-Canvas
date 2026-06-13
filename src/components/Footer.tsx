@@ -7,7 +7,14 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { useState, useEffect } from 'react'
+
 const Footer = () => {
+  const [year, setYear] = useState('');
+
+  useEffect(() => {
+    setYear(new Date().getFullYear().toString());
+  }, []);
   return (
     <footer className="bg-gray-900 text-white mx-4 sm:mx-6 lg:mx-8 mb-0 rounded-3xl overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
@@ -26,7 +33,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, index) => (
-                <button key={index} className="w-8 h-8 bg-gray-800 hover:text-yellow-400 hover:scale-110 rounded-full flex items-center justify-center transition-all shadow-md">
+                <button type="button" key={Icon.displayName || Icon.name || `social-${index}`} className="w-8 h-8 bg-gray-800 hover:text-yellow-400 hover:scale-110 rounded-full flex items-center justify-center transition-all shadow-md">
                   <Icon className="w-3.5 h-3.5" />
                 </button>
               ))}
@@ -88,7 +95,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="text-center md:text-left">
-              <p>© {new Date().getFullYear()} <span className="text-yellow-400 font-bold">  Culinary Canvas</span></p> <span className="hidden md:inline"> All rights reserved.</span>
+              <p>© {year} <span className="text-yellow-400 font-bold">  Culinary Canvas</span></p> <span className="hidden md:inline"> All rights reserved.</span>
             </div>
 
             {/* Developer Info */}

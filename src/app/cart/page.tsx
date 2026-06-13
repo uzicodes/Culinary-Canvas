@@ -24,13 +24,13 @@ export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     if (typeof window === 'undefined') return [];
     try {
-      const savedTime = localStorage.getItem('cartTimestamp');
+      const savedTime = localStorage.getItem('cartTimestamp:v1');
       if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
-        localStorage.removeItem('cart');
-        localStorage.removeItem('cartTimestamp');
+        localStorage.removeItem('cart:v1');
+        localStorage.removeItem('cartTimestamp:v1');
         return [];
       }
-      const savedCart = localStorage.getItem('cart');
+      const savedCart = localStorage.getItem('cart:v1');
       return savedCart ? JSON.parse(savedCart) : [];
     } catch {
       return [];
@@ -45,8 +45,8 @@ export default function CartPage() {
 
   const updateCart = (updatedItems: CartItem[]) => {
     setCartItems(updatedItems);
-    localStorage.setItem("cart", JSON.stringify(updatedItems));
-    localStorage.setItem("cartTimestamp", Date.now().toString());
+    localStorage.setItem("cart:v1", JSON.stringify(updatedItems));
+    localStorage.setItem("cartTimestamp:v1", Date.now().toString());
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new Event('storage'));
       window.dispatchEvent(new Event('cartUpdated'));
@@ -90,12 +90,12 @@ export default function CartPage() {
   useEffect(() => {
     const loadCart = () => {
       try {
-        const savedTime = localStorage.getItem('cartTimestamp');
+        const savedTime = localStorage.getItem('cartTimestamp:v1');
         if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
-          localStorage.removeItem('cart');
-          localStorage.removeItem('cartTimestamp');
+          localStorage.removeItem('cart:v1');
+          localStorage.removeItem('cartTimestamp:v1');
         }
-        const savedCart = localStorage.getItem("cart");
+        const savedCart = localStorage.getItem("cart:v1");
         setCartItems(savedCart ? JSON.parse(savedCart) : []);
       } catch {
         setCartItems([]);
@@ -171,9 +171,9 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-xl flex-shrink-0">
-                      <button onClick={() => decreaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#ef5959] transition-colors"><FaMinus size={8} /></button>
+                      <button type="button" onClick={() => decreaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#ef5959] transition-colors"><FaMinus size={8} /></button>
                       <span className="w-6 text-center font-black text-xs">{item.quantity}</span>
-                      <button onClick={() => increaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={8} /></button>
+                      <button type="button" onClick={() => increaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={8} /></button>
                     </div>
 
                     <div className="hidden sm:block text-right min-w-[80px] flex-shrink-0">
@@ -181,14 +181,14 @@ export default function CartPage() {
                       <span className="text-[8px] font-bold text-gray-400 uppercase tracking-tighter">per unit</span>
                     </div>
 
-                    <button onClick={() => removeFromCart(item._id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0">
+                    <button type="button" onClick={() => removeFromCart(item._id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0">
                       <FaTrashAlt size={14} />
                     </button>
                   </motion.div>
                 ))}
               </AnimatePresence>
 
-              <button
+              <button type="button"
                 onClick={clearCart}
                 className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ml-4 transition-colors bg-red-100 border border-red-200 rounded-2xl px-4 py-2 text-red-500 hover:bg-red-200 hover:text-red-700 shadow-sm"
               >

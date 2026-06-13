@@ -81,12 +81,12 @@ const BestSelling = () => {
     }, [session, status, checkAdminPrivilege]);
 
     const handleAddToCart = (product: Product) => {
-        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const cart = JSON.parse(localStorage.getItem('cart:v1') || '[]');
         const existing = cart.find((i: any) => i.id === product.id);
         if (existing) existing.quantity = (existing.quantity || 1) + 1;
         else cart.push({ ...product, quantity: 1 });
-        localStorage.setItem('cart', JSON.stringify(cart));
-        localStorage.setItem('cartTimestamp', Date.now().toString());
+        localStorage.setItem('cart:v1', JSON.stringify(cart));
+        localStorage.setItem('cartTimestamp:v1', Date.now().toString());
         window.dispatchEvent(new Event('cartUpdated'));
         setSuccessMsg(`${product.name} added to cart!`);
         setTimeout(() => setSuccessMsg(null), 1500);
@@ -158,7 +158,7 @@ const BestSelling = () => {
 
                 <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {products.map((product, index) => (
-                        <motion.div key={index} variants={cardVariants} whileHover={{ y: -8 }} className="bg-[#68EFF7] rounded-[3rem] shadow-sm p-6 group text-center relative border border-slate-100">
+                        <motion.div key={product.id || index} variants={cardVariants} whileHover={{ y: -8 }} className="bg-[#68EFF7] rounded-[3rem] shadow-sm p-6 group text-center relative border border-slate-100">
                             <div className="relative mb-6">
                                 <div className="relative w-full h-52 rounded-[2.5rem] overflow-hidden bg-slate-50">
                                     <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
@@ -169,11 +169,11 @@ const BestSelling = () => {
 
                                 <div className="absolute -bottom-4 right-6">
                                     {isAdmin ? (
-                                        <button onClick={() => { setEditingSlot(index); setTempData(product); setIsEditModalOpen(true); }} className="bg-black text-[#BCE334] p-5 rounded-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all border border-[#BCE334]/20 z-50">
+                                        <button type="button" onClick={() => { setEditingSlot(index); setTempData(product); setIsEditModalOpen(true); }} className="bg-black text-[#BCE334] p-5 rounded-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all border border-[#BCE334]/20 z-50">
                                             <Edit3 className="w-6 h-6" />
                                         </button>
                                     ) : (
-                                        <button onClick={() => handleAddToCart(product)} className="bg-black text-[#BCE334] p-5 rounded-3xl opacity-0 group-hover:opacity-100 transition-all shadow-2xl hover:bg-slate-900 flex items-center justify-center">
+                                        <button type="button" onClick={() => handleAddToCart(product)} className="bg-black text-[#BCE334] p-5 rounded-3xl opacity-0 group-hover:opacity-100 transition-all shadow-2xl hover:bg-slate-900 flex items-center justify-center">
                                             <ShoppingCart className="w-6 h-6" />
                                         </button>
                                     )}
@@ -220,7 +220,7 @@ const BestSelling = () => {
                                         {rateLimitError}
                                     </div>
                                 )}
-                                <button onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
+                                <button type="button" onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
                                     Update Best Seller
                                 </button>
                             </div>

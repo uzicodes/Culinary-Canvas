@@ -184,7 +184,7 @@ export default function AddItemPage() {
               </div>
             )}
 
-            <button
+            <button type="button"
               disabled={loading}
               className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors disabled:opacity-50"
             >
