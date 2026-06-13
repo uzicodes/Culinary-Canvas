@@ -81,10 +81,6 @@ export default function AllProductsPage({ searchParams }: { searchParams: Promis
     fetchItems();
   }, []);
 
-  useEffect(() => {
-    setLocalSearch(searchTerm);
-  }, [searchTerm]);
-
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();

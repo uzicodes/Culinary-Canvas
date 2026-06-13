@@ -1,13 +1,16 @@
 "use client";
 
+import { useEffect, useMemo } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+
+const ALLOWED_PATHS = ["/", "/all-items"];
 
 export default function ScrollProgressBar() {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(false);
-  const [isReady, setIsReady] = useState(false);
+
+  // Derive visibility directly from pathname — no state needed
+  const isVisible = useMemo(() => ALLOWED_PATHS.includes(pathname), [pathname]);
 
   // Track scroll progress of the entire document
   const { scrollYProgress } = useScroll();
@@ -19,27 +22,14 @@ export default function ScrollProgressBar() {
     restDelta: 0.001,
   });
 
-  // Show only on homepage and all-items page
-  useEffect(() => {
-    const allowedPaths = ["/", "/all-items"];
-    if (allowedPaths.includes(pathname)) {
-      setIsVisible(true);
-      const timer = setTimeout(() => setIsReady(true), 100);
-      return () => clearTimeout(timer);
-    } else {
-      setIsVisible(false);
-      setIsReady(false);
-    }
-  }, [pathname]);
-
-  // Reset scroll to top when navigating
+  // Reset scroll to top when navigating to an allowed path
   useEffect(() => {
     if (isVisible) {
       window.scrollTo(0, 0);
     }
   }, [pathname, isVisible]);
 
-  if (!isVisible || !isReady) return null;
+  if (!isVisible) return null;
 
   return (
     <motion.div

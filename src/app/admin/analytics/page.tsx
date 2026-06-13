@@ -42,8 +42,9 @@ export default function AnalyticsPage() {
     }
   };
 
-  useEffect(() => { fetchAnalytics(); }, []);
-  useEffect(() => { if (selectedDate) fetchAnalytics(selectedDate); }, [selectedDate]);
+  useEffect(() => {
+    fetchAnalytics(selectedDate ?? undefined);
+  }, [selectedDate]);
 
   const toggleOrderDetails = (id: string) => {
     setExpandedOrderId(expandedOrderId === id ? null : id);

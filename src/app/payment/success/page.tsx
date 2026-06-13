@@ -18,10 +18,9 @@ import {
 import Header from "@/components/Header";
 
 export default function SuccessPage() {
-  const [order, setOrder] = useState<any>(null);
+  const [order] = useState<any>(() => {
+    if (typeof window === 'undefined') return null;
 
-  useEffect(() => {
-    // Get order data FIRST before clearing
     const backendOrder = sessionStorage.getItem("lastOrderResponse");
     const savedOrder = window.localStorage.getItem("orderData");
 
@@ -33,26 +32,26 @@ export default function SuccessPage() {
       orderData = JSON.parse(savedOrder);
     }
 
-    // Map SSLCommerz response fields to expected fields
-    if (orderData) {
-      const mappedOrder = {
-        ...orderData,
-        // Ensure total is mapped from various possible sources
-        total: orderData.total || orderData.totalCost || orderData.total_amount || orderData.amount || 0,
-        subtotal: orderData.subtotal || orderData.base_amount || 0,
-        order_id: orderData.order_id || orderData.orderId || orderData.tran_id || '',
-        orderId: orderData.orderId || orderData.order_id || orderData.tran_id || '',
-        name: orderData.name || orderData.customerName || orderData.cus_name || '',
-        email: orderData.email || orderData.customerEmail || orderData.cus_email || '',
-        address: orderData.address || orderData.customerAddress || orderData.cus_add1 || '',
-        phone: orderData.phone || orderData.customerPhone || orderData.cus_phone || '',
-        orderItems: orderData.orderItems || orderData.itemsOrdered || [],
-        itemsOrdered: orderData.itemsOrdered || orderData.orderItems || [],
-      };
-      setOrder(mappedOrder);
-    }
+    if (!orderData) return null;
 
-    // Clear the cart AFTER reading order data - small delay to ensure data is set
+    // Map SSLCommerz response fields to expected fields
+    return {
+      ...orderData,
+      total: orderData.total || orderData.totalCost || orderData.total_amount || orderData.amount || 0,
+      subtotal: orderData.subtotal || orderData.base_amount || 0,
+      order_id: orderData.order_id || orderData.orderId || orderData.tran_id || '',
+      orderId: orderData.orderId || orderData.order_id || orderData.tran_id || '',
+      name: orderData.name || orderData.customerName || orderData.cus_name || '',
+      email: orderData.email || orderData.customerEmail || orderData.cus_email || '',
+      address: orderData.address || orderData.customerAddress || orderData.cus_add1 || '',
+      phone: orderData.phone || orderData.customerPhone || orderData.cus_phone || '',
+      orderItems: orderData.orderItems || orderData.itemsOrdered || [],
+      itemsOrdered: orderData.itemsOrdered || orderData.orderItems || [],
+    };
+  });
+
+  // Clear the cart after order data has been read
+  useEffect(() => {
     const timer = setTimeout(() => {
       try {
         window.localStorage.setItem('cart', '[]');
@@ -62,8 +61,6 @@ export default function SuccessPage() {
         // Force update cart count in header
         window.dispatchEvent(new Event('storage'));
         window.dispatchEvent(new Event('cartUpdated'));
-
-        console.log('Cart cleared successfully');
       } catch (e) {
         console.error('Failed to clear cart:', e);
       }

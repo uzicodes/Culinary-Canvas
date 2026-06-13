@@ -34,37 +34,54 @@ interface CartItem {
 }
 
 export default function PaymentPage() {
-    const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [cartItems] = useState<CartItem[]>(() => {
+        if (typeof window === 'undefined') return [];
+        const saved = localStorage.getItem('cart');
+        return saved ? JSON.parse(saved) : [];
+    });
     const [deliveryMethod, setDeliveryMethod] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('');
     const [tip, setTip] = useState<number>(0);
     const [customTip, setCustomTip] = useState<string>('');
-    const [mobileNumber, setMobileNumber] = useState('+880');
+    const [mobileNumber, setMobileNumber] = useState(() => {
+        if (typeof window === 'undefined') return '+880';
+        try {
+            const checkoutData = localStorage.getItem('checkoutData');
+            if (checkoutData) return JSON.parse(checkoutData).phone || '+880';
+        } catch { /* ignore */ }
+        return '+880';
+    });
     const [cardNumber, setCardNumber] = useState('');
-    const [customerName, setCustomerName] = useState('');
-    const [customerEmail, setCustomerEmail] = useState('');
-    const [customerAddress, setCustomerAddress] = useState('');
+    const [customerName, setCustomerName] = useState(() => {
+        if (typeof window === 'undefined') return '';
+        try {
+            const checkoutData = localStorage.getItem('checkoutData');
+            if (checkoutData) return JSON.parse(checkoutData).name || '';
+        } catch { /* ignore */ }
+        return '';
+    });
+    const [customerEmail, setCustomerEmail] = useState(() => {
+        if (typeof window === 'undefined') return '';
+        try {
+            const checkoutData = localStorage.getItem('checkoutData');
+            if (checkoutData) return JSON.parse(checkoutData).email || '';
+        } catch { /* ignore */ }
+        return '';
+    });
+    const [customerAddress, setCustomerAddress] = useState(() => {
+        if (typeof window === 'undefined') return '';
+        try {
+            const checkoutData = localStorage.getItem('checkoutData');
+            if (checkoutData) return JSON.parse(checkoutData).address || '';
+        } catch { /* ignore */ }
+        return '';
+    });
     const [couponCode, setCouponCode] = useState('');
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
     const [rateLimitError, setRateLimitError] = useState<string | null>(null);
     const [sslczReady, setSslczReady] = useState(false);
     const router = useRouter();
-
-    useEffect(() => {
-        const saved = localStorage.getItem('cart');
-        const parsed: CartItem[] = saved ? JSON.parse(saved) : [];
-        setCartItems(parsed);
-
-        const checkoutData = localStorage.getItem('checkoutData');
-        if (checkoutData) {
-            const parsedData = JSON.parse(checkoutData);
-            setCustomerName(parsedData.name);
-            setCustomerEmail(parsedData.email);
-            setMobileNumber(parsedData.phone);
-            setCustomerAddress(parsedData.address);
-        }
-    }, []);
 
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const deliveryFee = deliveryMethod === 'Priority' ? 60 : 45;

@@ -21,8 +21,22 @@ interface CartItem {
 }
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      const savedTime = localStorage.getItem('cartTimestamp');
+      if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('cart');
+        localStorage.removeItem('cartTimestamp');
+        return [];
+      }
+      const savedCart = localStorage.getItem('cart');
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [isLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
   const pathname = usePathname();
@@ -80,20 +94,13 @@ export default function CartPage() {
         if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
           localStorage.removeItem('cart');
           localStorage.removeItem('cartTimestamp');
-          if (typeof window !== 'undefined') {
-            window.dispatchEvent(new Event('storage'));
-            window.dispatchEvent(new Event('cartUpdated'));
-          }
         }
         const savedCart = localStorage.getItem("cart");
         setCartItems(savedCart ? JSON.parse(savedCart) : []);
-      } catch (error) {
+      } catch {
         setCartItems([]);
-      } finally {
-        setIsLoading(false);
       }
     };
-    loadCart();
     window.addEventListener('storage', loadCart);
     return () => window.removeEventListener('storage', loadCart);
   }, []);

@@ -65,6 +65,7 @@ export async function POST(req: Request) {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: formData.toString(),
+            cache: 'no-store',
         });
 
         const apiResponse = await response.json();

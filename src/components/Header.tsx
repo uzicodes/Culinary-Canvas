@@ -75,7 +75,22 @@ const Header = () => {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false)
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(() => {
+    if (typeof window === 'undefined') return 0;
+    try {
+      const savedTime = localStorage.getItem('cartTimestamp');
+      if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('cart');
+        localStorage.removeItem('cartTimestamp');
+        return 0;
+      }
+      const saved = localStorage.getItem('cart');
+      const cart = saved ? JSON.parse(saved) : [];
+      return cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0);
+    } catch {
+      return 0;
+    }
+  });
 
   const categories = [
     { name: 'Burgers', href: '/all-items?category=Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
@@ -102,28 +117,25 @@ const Header = () => {
     : [];
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const updateCartCount = () => {
-        const savedTime = localStorage.getItem('cartTimestamp');
-        if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
-          localStorage.removeItem('cart');
-          localStorage.removeItem('cartTimestamp');
-          window.dispatchEvent(new Event('storage'));
-          window.dispatchEvent(new Event('cartUpdated'));
-        }
+    const updateCartCount = () => {
+      const savedTime = localStorage.getItem('cartTimestamp');
+      if (savedTime && (Date.now() - parseInt(savedTime, 10)) > 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('cart');
+        localStorage.removeItem('cartTimestamp');
+        window.dispatchEvent(new Event('storage'));
+        window.dispatchEvent(new Event('cartUpdated'));
+      }
 
-        const saved = localStorage.getItem('cart');
-        const cart = saved ? JSON.parse(saved) : [];
-        setCartCount(cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0));
-      };
-      updateCartCount();
-      window.addEventListener('storage', updateCartCount);
-      window.addEventListener('cartUpdated', updateCartCount);
-      return () => {
-        window.removeEventListener('storage', updateCartCount);
-        window.removeEventListener('cartUpdated', updateCartCount);
-      };
-    }
+      const saved = localStorage.getItem('cart');
+      const cart = saved ? JSON.parse(saved) : [];
+      setCartCount(cart.reduce((sum: number, item: any) => sum + (item.quantity || 1), 0));
+    };
+    window.addEventListener('storage', updateCartCount);
+    window.addEventListener('cartUpdated', updateCartCount);
+    return () => {
+      window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('cartUpdated', updateCartCount);
+    };
   }, []);
 
   return (

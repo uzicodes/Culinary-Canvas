@@ -24,7 +24,7 @@ export async function POST(req: Request) {
             format: 'json'
         });
 
-        const response = await fetch(`${validationUrl}?${params.toString()}`);
+        const response = await fetch(`${validationUrl}?${params.toString()}`, { cache: 'no-store' });
         const validationResponse = await response.json();
         
         if (validationResponse.status === 'VALID' || validationResponse.status === 'VALIDATED') {
