@@ -171,7 +171,7 @@ const Header = () => {
             </Link>
 
             <div className="relative flex items-center h-full">
-              <button
+              <button aria-label="Button"
                 type="button"
                 className="text-[10px] lg:text-[11px] font-bold text-gray-800 hover:text-black uppercase tracking-widest focus:outline-none whitespace-nowrap leading-none flex items-center"
                 onClick={() => setIsCategoriesOpen((prev) => !prev)}
@@ -201,7 +201,7 @@ const Header = () => {
                   if (searchQuery) window.location.href = `/all-items?search=${encodeURIComponent(searchQuery)}`;
                 }}
               >
-                <input
+                <input id={`field-${0}`}
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
@@ -282,7 +282,7 @@ const Header = () => {
               )}
             </Link>
 
-            <button type="button" className="md:hidden p-1.5 text-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            <button aria-label="Button" type="button" className="md:hidden p-1.5 text-gray-800" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
@@ -301,7 +301,7 @@ const Header = () => {
                 }
               }}
             >
-              <input
+              <input id={`field-${0}`}
                 type="text"
                 placeholder="Search food..."
                 value={searchQuery}
@@ -364,7 +364,7 @@ const Header = () => {
                 </Link>
 
                 <div className="rounded-xl overflow-hidden bg-white border border-gray-100">
-                  <button type="button"
+                  <button aria-label="Button" type="button"
                     onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
                     className="w-full flex items-center justify-between p-3 hover:bg-gray-50 font-bold text-gray-800"
                   >

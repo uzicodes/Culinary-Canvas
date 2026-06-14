@@ -237,7 +237,7 @@ export default function ProfilePictureUpload({
       </div>
 
       {/* Hidden File Input */}
-      <input
+      <input id={`field-${0}`}
         ref={fileInputRef}
         type="file"
         accept="image/jpeg,image/png,image/webp,image/gif"

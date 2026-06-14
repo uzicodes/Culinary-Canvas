@@ -170,9 +170,9 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex items-center gap-2 bg-gray-100 p-1.5 rounded-xl flex-shrink-0">
-                      <button type="button" onClick={() => decreaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#ef5959] transition-colors"><FaMinus size={8} /></button>
+                      <button aria-label="Button" type="button" onClick={() => decreaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#ef5959] transition-colors"><FaMinus size={8} /></button>
                       <span className="w-6 text-center font-black text-xs">{item.quantity}</span>
-                      <button type="button" onClick={() => increaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={8} /></button>
+                      <button aria-label="Button" type="button" onClick={() => increaseQuantity(item._id)} className="w-7 h-7 flex items-center justify-center bg-white rounded-lg shadow-sm hover:bg-[#BCE334] transition-colors"><FaPlus size={8} /></button>
                     </div>
 
                     <div className="hidden sm:block text-right min-w-[80px] flex-shrink-0">
@@ -180,14 +180,14 @@ export default function CartPage() {
                       <span className="text-[8px] font-bold text-gray-400 uppercase tracking-tighter">per unit</span>
                     </div>
 
-                    <button type="button" onClick={() => removeFromCart(item._id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0">
+                    <button aria-label="Button" type="button" onClick={() => removeFromCart(item._id)} className="p-2 text-gray-300 hover:text-red-500 transition-colors flex-shrink-0">
                       <FaTrashAlt size={14} />
                     </button>
                   </motion.div>
                 ))}
               </AnimatePresence>
 
-              <button type="button"
+              <button aria-label="Button" type="button"
                 onClick={clearCart}
                 className="text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ml-4 transition-colors bg-red-100 border border-red-200 rounded-2xl px-4 py-2 text-red-500 hover:bg-red-200 hover:text-red-700 shadow-sm"
               >

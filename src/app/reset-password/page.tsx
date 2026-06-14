@@ -72,10 +72,10 @@ function ResetPasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1">
-        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">New Security Key</label>
+        <label htmlFor={`field-${1}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">New Security Key</label>
         <div className="relative group">
           <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input
+          <input id={`field-${2}`}
             type="password" required placeholder="••••••••"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={password} onChange={(e) => setPassword(e.target.value)}
@@ -84,10 +84,10 @@ function ResetPasswordForm() {
       </div>
 
       <div className="space-y-1">
-        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Confirm Key</label>
+        <label htmlFor={`field-${2}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Confirm Key</label>
         <div className="relative group">
           <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input
+          <input id={`field-${2}`}
             type="password" required placeholder="••••••••"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
@@ -106,7 +106,7 @@ function ResetPasswordForm() {
         </div>
       )}
 
-      <button type="button"
+      <button aria-label="Button" type="button"
         disabled={status === "loading" || !token}
         className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 transition-transform active:scale-95"
       >

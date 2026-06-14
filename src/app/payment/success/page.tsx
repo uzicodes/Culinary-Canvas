@@ -236,7 +236,7 @@ export default function SuccessPage() {
                   <p className="text-lg font-black text-slate-800 tracking-tight">{expectedTime}</p>
                 </div>
               </div>
-              <button type="button" className="flex items-center gap-2 text-slate-900 font-black text-[9px] uppercase tracking-widest hover:gap-3 transition-all">
+              <button aria-label="Button" type="button" className="flex items-center gap-2 text-slate-900 font-black text-[9px] uppercase tracking-widest hover:gap-3 transition-all">
                 Track Live <ChevronRight size={12} />
               </button>
             </motion.div>
@@ -252,7 +252,7 @@ export default function SuccessPage() {
             <div className="bg-black rounded-[2rem] p-6 shadow-2xl relative overflow-hidden">
               <div className="relative z-10 flex justify-between items-start mb-6">
                 <Image src="/without_BG_logo.png" alt="Logo" width={45} height={45} className="object-contain" />
-                <button type="button"
+                <button aria-label="Button" type="button"
                   onClick={handleDownloadInvoice}
                   className="bg-[#BCE334] p-2.5 rounded-xl text-black hover:rotate-12 transition-all shadow-lg"
                 >

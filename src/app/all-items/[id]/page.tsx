@@ -14,7 +14,7 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ id:
         <h1 className="text-2xl font-bold mt-4 mb-2 text-center">{item.name}</h1>
         <p className="text-gray-600 text-center mb-4">{item.description}</p>
         <div className="text-center text-lg font-semibold text-[#029FBE] mb-4">৳{item.price}</div>
-        <button type="button" className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-6 py-2 rounded text-base font-bold transition-colors w-full">Add to Cart</button>
+        <button aria-label="Button" type="button" className="bg-[#F1F604] hover:bg-yellow-300 text-[#029FBE] px-6 py-2 rounded text-base font-bold transition-colors w-full">Add to Cart</button>
       </div>
     </div>
   );

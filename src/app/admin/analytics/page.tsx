@@ -96,14 +96,14 @@ export default function AnalyticsPage() {
             </div>
           </div>
           {selectedDate && (
-            <button type="button" onClick={() => { setSelectedDate(null); fetchAnalytics(); }} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
+            <button aria-label="Button" type="button" onClick={() => { setSelectedDate(null); fetchAnalytics(); }} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
           )}
         </div>
 
         {/* Financial Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {DISPLAY_STATS.map((stat, i) => (
-            <div key={i} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
+            <div key={i} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} tabIndex={stat.isInteractive ? 0 : undefined} role={stat.isInteractive ? "button" : undefined} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
               <div className="flex justify-between items-start mb-6">
                 <div className={`p-4 rounded-2xl ${stat.isInteractive ? 'bg-[#BCE334] text-black' : 'bg-gray-50 text-slate-900'}`}><stat.icon size={22} /></div>
                 <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${stat.isInteractive ? 'bg-black text-[#BCE334]' : 'bg-green-50 text-green-600'}`}>{stat.trend}</span>
@@ -122,7 +122,7 @@ export default function AnalyticsPage() {
                   {daysInMonth.map((day) => {
                     const isFuture = day > currentDay;
                     return (
-                      <button type="button" key={day} disabled={isFuture} onClick={() => { setSelectedDate(day); setShowCalendar(false); }} className={`w-10 h-10 flex items-center justify-center rounded-xl font-black text-[10px] transition-all ${selectedDate === day ? 'bg-black text-[#BCE334]' : isFuture ? 'opacity-20 cursor-not-allowed' : 'bg-gray-50 text-gray-500 hover:bg-[#BCE334] hover:text-black'}`}>
+                      <button aria-label="Button" type="button" key={day} disabled={isFuture} onClick={() => { setSelectedDate(day); setShowCalendar(false); }} className={`w-10 h-10 flex items-center justify-center rounded-xl font-black text-[10px] transition-all ${selectedDate === day ? 'bg-black text-[#BCE334]' : isFuture ? 'opacity-20 cursor-not-allowed' : 'bg-gray-50 text-gray-500 hover:bg-[#BCE334] hover:text-black'}`}>
                         {isFuture ? <Lock size={10} /> : day}
                       </button>
                     );
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
                       <span className={`text-[8px] font-black uppercase px-4 py-1.5 rounded-full border ${order.paymentType === 'cod' ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-green-50 text-green-600 border-green-100'}`}>{order.paymentType || "Paid"}</span>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <button type="button" onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
+                      <button aria-label="Button" type="button" onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
                         <Eye size={16} />
                       </button>
                     </td>

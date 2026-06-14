@@ -91,6 +91,10 @@ export default function AddItemPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             <div
               onClick={handleUpload}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleUpload(); } }}
+              tabIndex={0}
+              role="button"
+              aria-label="Upload Image"
               className={`border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all
                 ${imageUrl ? 'border-[#BCE334] bg-[#BCE334]/5' : 'border-gray-200 hover:border-sky-600'}`}
             >
@@ -110,7 +114,7 @@ export default function AddItemPage() {
             {/* Dish Name */}
             <div className="relative group">
               <Utensils className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
-              <input
+              <input id={`field-${0}`}
                 required
                 placeholder="Dish Name"
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all shadow-sm"
@@ -123,7 +127,7 @@ export default function AddItemPage() {
               {/* Price Field */}
               <div className="relative flex-1 group">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-black text-gray-400 group-focus-within:text-sky-600">৳</span>
-                <input
+                <input id={`field-${0}`}
                   type="number"
                   required
                   placeholder="Price"
@@ -184,7 +188,7 @@ export default function AddItemPage() {
               </div>
             )}
 
-            <button type="button"
+            <button aria-label="Button" type="button"
               disabled={loading}
               className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors disabled:opacity-50"
             >

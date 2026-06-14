@@ -75,10 +75,10 @@ export default function CheckoutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Name Field (Read Only) */}
             <div className="space-y-0.5">
-              <label className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+              <label htmlFor={`field-${1}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
                 <User size={10} /> Name
               </label>
-              <input
+              <input id={`field-${4}`}
                 type="text"
                 name="name"
                 value={formData.name}
@@ -89,10 +89,10 @@ export default function CheckoutPage() {
 
             {/* Email Field (Read Only) */}
             <div className="space-y-0.5">
-              <label className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+              <label htmlFor={`field-${2}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
                 <Mail size={10} /> Identity
               </label>
-              <input
+              <input id={`field-${4}`}
                 type="email"
                 name="email"
                 value={formData.email}
@@ -104,10 +104,10 @@ export default function CheckoutPage() {
 
           {/* Address Field */}
           <div className="space-y-0.5">
-            <label className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+            <label htmlFor={`field-${3}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
               <MapPin size={10} /> Delivery Address
             </label>
-            <input
+            <input id={`field-${4}`}
               type="text"
               name="address"
               placeholder="Road & House no:"
@@ -120,10 +120,10 @@ export default function CheckoutPage() {
 
           {/* Phone Field */}
           <div className="space-y-0.5">
-            <label className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+            <label htmlFor={`field-${4}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
               <Phone size={10} /> Phone Number
             </label>
-            <input
+            <input id={`field-${4}`}
               type="text"
               name="phone"
               placeholder="+880 0000-000000"

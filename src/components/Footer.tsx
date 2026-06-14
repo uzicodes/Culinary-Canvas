@@ -33,7 +33,7 @@ const Footer = () => {
             </p>
             <div className="flex space-x-3">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, index) => (
-                <button type="button" key={Icon.displayName || Icon.name || `social-${index}`} className="w-8 h-8 bg-gray-800 hover:text-yellow-400 hover:scale-110 rounded-full flex items-center justify-center transition-all shadow-md">
+                <button aria-label="Button" type="button" key={Icon.displayName || Icon.name || `social-${index}`} className="w-8 h-8 bg-gray-800 hover:text-yellow-400 hover:scale-110 rounded-full flex items-center justify-center transition-all shadow-md">
                   <Icon className="w-3.5 h-3.5" />
                 </button>
               ))}

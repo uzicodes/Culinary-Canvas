@@ -169,11 +169,11 @@ const BestSelling = () => {
 
                                 <div className="absolute -bottom-4 right-6">
                                     {isAdmin ? (
-                                        <button type="button" onClick={() => { setEditingSlot(index); setTempData(product); setIsEditModalOpen(true); }} className="bg-black text-[#BCE334] p-5 rounded-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all border border-[#BCE334]/20 z-50">
+                                        <button aria-label="Button" type="button" onClick={() => { setEditingSlot(index); setTempData(product); setIsEditModalOpen(true); }} className="bg-black text-[#BCE334] p-5 rounded-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all border border-[#BCE334]/20 z-50">
                                             <Edit3 className="w-6 h-6" />
                                         </button>
                                     ) : (
-                                        <button type="button" onClick={() => handleAddToCart(product)} className="bg-black text-[#BCE334] p-5 rounded-3xl opacity-0 group-hover:opacity-100 transition-all shadow-2xl hover:bg-slate-900 flex items-center justify-center">
+                                        <button aria-label="Button" type="button" onClick={() => handleAddToCart(product)} className="bg-black text-[#BCE334] p-5 rounded-3xl opacity-0 group-hover:opacity-100 transition-all shadow-2xl hover:bg-slate-900 flex items-center justify-center">
                                             <ShoppingCart className="w-6 h-6" />
                                         </button>
                                     )}
@@ -212,15 +212,15 @@ const BestSelling = () => {
                                     {allInventory.map(item => <option key={item.id || (item as any)._id} value={item.id || (item as any)._id}>{item.name}</option>)}
                                 </select>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
-                                    <input type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
+                                    <input id={`field-${0}`} type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
+                                    <input id={`field-${0}`} type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
                                 </div>
                                 {rateLimitError && (
                                     <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">
                                         {rateLimitError}
                                     </div>
                                 )}
-                                <button type="button" onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
+                                <button aria-label="Save" type="button" onClick={handleSaveUpdate} className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] shadow-xl hover:bg-slate-900 transition-all">
                                     Update Best Seller
                                 </button>
                             </div>

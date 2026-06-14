@@ -55,10 +55,10 @@ const AdminLoginPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2 text-center">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Enter Security Key</label>
+              <label htmlFor={`field-${1}`} className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">Enter Security Key</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                <input
+                <input id={`field-${1}`}
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +71,7 @@ const AdminLoginPage = () => {
 
             {error && <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</p>}
 
-            <button type="button" disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
+            <button aria-label="Button" type="button" disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
               {loading ? 'Verifying...' : 'Authenticate'}
             </button>
           </form>

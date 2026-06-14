@@ -293,14 +293,14 @@ export default function PaymentPage() {
                                     <Ticket size={12} className="text-black" /> Apply Promo
                                 </h2>
                                 <div className="flex gap-2">
-                                    <input
+                                    <input id={`field-${0}`}
                                         type="text"
                                         value={couponCode}
                                         onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                                         placeholder="CODE"
                                         className="flex-1 bg-black/5 border-none rounded-xl p-3 text-xs font-bold outline-none min-w-0"
                                     />
-                                    <button
+                                    <button aria-label="Button"
                                         type="button"
                                         onClick={() => {
                                             if (couponCode === 'CC10' || couponCode === 'BITE10') {
@@ -347,7 +347,7 @@ export default function PaymentPage() {
                                         customText = 'text-black';
                                     }
                                     return (
-                                        <button
+                                        <button aria-label="Button"
                                             key={method}
                                             type="button"
                                             onClick={() => setPaymentMethod(fullMethod)}
@@ -368,7 +368,7 @@ export default function PaymentPage() {
                                     <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="pt-2">
                                         <div className="relative">
                                             {paymentMethod.includes('Card') ? <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} /> : <Smartphone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />}
-                                            <input
+                                            <input id={`field-${0}`}
                                                 type="text"
                                                 value={paymentMethod.includes('Card') ? cardNumber : mobileNumber}
                                                 onChange={(e) => paymentMethod.includes('Card') ? setCardNumber(formatCardInput(e.target.value)) : setMobileNumber(e.target.value)}
@@ -389,7 +389,7 @@ export default function PaymentPage() {
                             <div className="flex items-center gap-2">
                                 <div className="flex gap-1.5">
                                     {[10, 20, 30].map((amt) => (
-                                        <button
+                                        <button aria-label="Button"
                                             key={amt}
                                             type="button"
                                             onClick={() => { setTip(amt); setCustomTip(''); }}
@@ -401,7 +401,7 @@ export default function PaymentPage() {
                                 </div>
                                 <div className="flex-1 relative">
                                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[10px] font-bold text-gray-400">৳</span>
-                                    <input
+                                    <input id={`field-${0}`}
                                         type="number"
                                         value={customTip}
                                         onChange={(e) => setCustomTip(e.target.value)}

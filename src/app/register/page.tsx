@@ -102,7 +102,7 @@ const RegisterPage = () => {
                             ].map((field) => (
                                 <div key={field.label} className="relative group">
                                     <field.icon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
-                                    <input
+                                    <input id={`field-${0}`}
                                         type={field.type} required value={field.val} placeholder={field.ph}
                                         onChange={(e) => field.set(e.target.value)}
                                         className="w-full pl-11 pr-4 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all"
@@ -113,18 +113,18 @@ const RegisterPage = () => {
                             <div className="flex gap-2">
                                 <div className="relative flex-1 group">
                                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 group-focus-within:text-black" />
-                                    <input
+                                    <input id={`field-${0}`}
                                         type={showPassword ? "text" : "password"} required value={password} placeholder="Pass"
                                         onChange={(e) => setPassword(e.target.value)}
                                         className="w-full pl-10 pr-10 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all"
                                     />
-                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <button aria-label="Button" type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                                         {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
                                     </button>
                                 </div>
                                 <div className="relative flex-1 group">
                                     <CheckCircle2 className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400 group-focus-within:text-black" />
-                                    <input
+                                    <input id={`field-${0}`}
                                         type="password" required value={confirmPassword} placeholder="Confirm"
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         className="w-full pl-10 pr-4 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all"

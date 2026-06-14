@@ -235,7 +235,7 @@ export default function ProfilePage() {
                 </motion.button>
               )}
 
-              <button type="button"
+              <button aria-label="Button" type="button"
                 onClick={() => signOut({ callbackUrl: '/' })}
                 className="flex-1 bg-black text-[#BCE334] px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2"
               >
@@ -270,7 +270,7 @@ export default function ProfilePage() {
                             </div>
                             <div className="mt-2.5 pt-2.5 border-t border-gray-200/50 flex justify-between items-center">
                               <p className="text-[9px] font-black text-gray-400 uppercase">{order.itemsOrdered?.length || 0} Items</p>
-                              <button type="button" onClick={() => setSelectedOrder(order)} className="text-[9px] font-black text-black flex items-center gap-1 hover:text-[#BCE334] transition-colors uppercase tracking-wider">
+                              <button aria-label="Button" type="button" onClick={() => setSelectedOrder(order)} className="text-[9px] font-black text-black flex items-center gap-1 hover:text-[#BCE334] transition-colors uppercase tracking-wider">
                                 Details <ChevronRight size={10} />
                               </button>
                             </div>

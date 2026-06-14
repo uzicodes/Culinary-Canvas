@@ -97,18 +97,18 @@ const LoginPage = () => {
 
           <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="group space-y-1">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Email Address</label>
+              <label htmlFor={`field-${1}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
-                <input type="email" required className="w-full pl-11 pr-4 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="you@email.com" value={email} onChange={e => setEmail(e.target.value)} />
+                <input id={`field-${2}`} type="email" required className="w-full pl-11 pr-4 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="you@email.com" value={email} onChange={e => setEmail(e.target.value)} />
               </div>
             </div>
             <div className="group space-y-1">
-              <label className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Password</label>
+              <label htmlFor={`field-${2}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2 group-focus-within:text-black transition-colors">Password</label>
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-black transition-colors" />
-                <input type={showPassword ? "text" : "password"} required className="w-full pl-11 pr-12 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors">
+                <input id={`field-${2}`} type={showPassword ? "text" : "password"} required className="w-full pl-11 pr-12 py-3 bg-white/80 border-2 border-transparent rounded-2xl focus:border-[#BCE334] focus:bg-white outline-none text-sm font-bold shadow-sm transition-all text-black" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} />
+                <button aria-label="Button" type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors">
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>

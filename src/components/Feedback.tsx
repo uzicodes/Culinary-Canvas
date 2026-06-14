@@ -175,7 +175,7 @@ const Feedback = () => {
                                 </div>
                                 <h3 className="text-2xl font-black text-slate-900 uppercase">Message Received!</h3>
                                 <p className="text-slate-500 font-bold">Thank you for helping us grow.</p>
-                                <button type="button"
+                                <button aria-label="Button" type="button"
                                     onClick={() => setStatus('idle')}
                                     className="text-[#029FBE] font-black uppercase text-xs tracking-widest hover:underline"
                                 >
@@ -195,7 +195,7 @@ const Feedback = () => {
                                 )}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                     <div className="relative">
-                                        <input
+                                        <input id={`field-${0}`}
                                             required
                                             type="text"
                                             name="name"
@@ -218,7 +218,7 @@ const Feedback = () => {
                                         </span>
                                     </div>
                                     <div className="relative">
-                                        <input
+                                        <input id={`field-${0}`}
                                             required
                                             type="email"
                                             name="email"
