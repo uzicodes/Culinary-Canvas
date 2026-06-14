@@ -91,7 +91,7 @@ const About = () => {
               {/* Dots Indicator */}
               <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2">
                 {aboutImages.map((src, index) => (
-                  <button aria-label="Button" type="button"
+                  <button type="button"
                     key={src}
                     onClick={() => goToSlide(index)}
                     className={`transition-all duration-300 rounded-full ${index === currentIndex

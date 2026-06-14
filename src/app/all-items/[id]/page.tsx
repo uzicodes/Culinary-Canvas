@@ -19,3 +19,8 @@ export default async function ItemDetailPage({ params }: { params: Promise<{ id:
     </div>
   );
 }
+
+export const metadata = {
+  title: 'Culinary Canvas',
+  description: 'Culinary Canvas page for Culinary Canvas',
+};

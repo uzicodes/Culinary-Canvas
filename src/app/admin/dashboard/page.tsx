@@ -18,6 +18,25 @@ interface Feedback {
   isRead: boolean;
 }
 
+const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
+const getTypeColor = (type: string) => {
+  switch (type) {
+    case 'Compliment': return 'bg-green-100 text-green-700';
+    case 'Complaint about Order': return 'bg-red-100 text-red-700';
+    case 'Advice/Suggestion': return 'bg-blue-100 text-blue-700';
+    default: return 'bg-gray-100 text-gray-700';
+  }
+};
+
 export default function AdminDashboard() {
   const [view, setView] = useState<'menu' | 'feedbacks'>('menu');
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([]);

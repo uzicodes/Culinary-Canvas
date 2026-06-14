@@ -9,6 +9,15 @@ const MAX_NAME_LENGTH = 50;
 const MAX_MESSAGE_WORDS = 100;
 const MAX_MESSAGE_CHARS = 600; // ~100 words equivalent
 
+const validateEmail = (email: string): boolean => {
+    const atCount = (email.match(/@/g) || []).length;
+    return atCount === 1 && email.includes('@');
+};
+
+const countWords = (text: string): number => {
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+};
+
 const Feedback = () => {
     const { data: session } = useSession();
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');

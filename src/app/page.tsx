@@ -13,3 +13,7 @@ export default async function Home() {
     </main>
   );
 }
+export const metadata = {
+  title: 'Culinary Canvas',
+  description: 'Culinary Canvas page for Culinary Canvas',
+};

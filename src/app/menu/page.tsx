@@ -18,6 +18,8 @@ interface MenuItem {
   description?: string;
 }
 
+const formatTitle = (title: string) => title.replace('-', ' ').toUpperCase();
+
 const MenuPage = () => {
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
@@ -45,7 +47,7 @@ const MenuPage = () => {
     return acc;
   }, {} as Record<string, MenuItem[]>);
 
-  const formatTitle = (title: string) => title.replace('-', ' ').toUpperCase();
+
 
   return (
     <div className="min-h-screen bg-white pt-28">

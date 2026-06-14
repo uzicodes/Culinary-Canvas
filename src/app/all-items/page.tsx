@@ -29,6 +29,19 @@ const itemVariants: Variants = {
   visible: { y: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
+const categoryOrder = [
+  'Burgers', 'Pizza', 'Fast-Food', 'Set Menus', 'Appetizers',
+  'Chinese', 'Italian', 'Japanese', 'Traditional', 'Sea-Food',
+  'Pakistani', 'Coffee', 'Desserts', 'Drinks & Beverages'
+];
+
+const filterCategories = [
+  { id: 'all', label: 'All Items' },
+  ...categoryOrder.map(cat => ({ id: cat, label: cat }))
+];
+
+const normalizeStr = (str: string) => (str || "").toLowerCase().replace(/[\s-]/g, '');
+
 export default function AllProductsPage({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const resolvedParams = use(searchParams);
   const { data: session } = useSession();
@@ -110,9 +123,9 @@ export default function AllProductsPage({ searchParams }: { searchParams: Promis
 
   const processedItems = menuItems
     .filter(item => {
-      const normalize = (str: string) => (str || "").toLowerCase().replace(/[\s-]/g, '');
-      const itemCat = normalize(item.category);
-      const activeCat = normalize(activeCategory);
+      
+      const itemCat = normalizeStr(item.category);
+      const activeCat = normalizeStr(activeCategory);
       const matchesCategory = activeCategory === 'all' || itemCat === activeCat || itemCat.includes(activeCat) || activeCat.includes(itemCat);
 
       const matchesSearch =
@@ -123,8 +136,8 @@ export default function AllProductsPage({ searchParams }: { searchParams: Promis
     })
     .sort((a, b) => {
       const normalize = (str: string) => (str || "").toLowerCase().replace(/[\s-]/g, '').substring(0, 4);
-      const indexA = categoryOrder.findIndex(cat => normalize(a.category).includes(normalize(cat)));
-      const indexB = categoryOrder.findIndex(cat => normalize(b.category).includes(normalize(cat)));
+      const indexA = categoryOrder.findIndex(cat => normalizeStr(a.category).includes(normalizeStr(cat)));
+      const indexB = categoryOrder.findIndex(cat => normalizeStr(b.category).includes(normalizeStr(cat)));
       const priorityA = indexA === -1 ? 99 : indexA;
       const priorityB = indexB === -1 ? 99 : indexB;
       if (priorityA === priorityB) return a.price - b.price;

@@ -31,6 +31,12 @@ interface HeroProps {
   isLoading?: boolean;
 }
 
+const HERO_IMAGES = [
+  { src: '/1.png' }, { src: '/2.png' }, { src: '/3.png' },
+  { src: '/4.png' }, { src: '/5.png' }, { src: '/6.png' },
+  { src: '/8.png' }, { src: '/10.png' }
+];
+
 const Hero = ({ isLoading = false }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [prevIsLoading, setPrevIsLoading] = useState(isLoading)
@@ -42,12 +48,6 @@ const Hero = ({ isLoading = false }: HeroProps) => {
     }
   }
 
-  const images = [
-    { src: '/1.png' }, { src: '/2.png' }, { src: '/3.png' },
-    { src: '/4.png' }, { src: '/5.png' }, { src: '/6.png' },
-    { src: '/8.png' }, { src: '/10.png' }
-  ]
-
   const dishes = useCountUp(50, 1200, '+')
   const customers = useCountUp(10000, 1200)
 
@@ -58,10 +58,10 @@ const Hero = ({ isLoading = false }: HeroProps) => {
 
     // Start carousel after loading is complete
     const interval = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % HERO_IMAGES.length)
     }, 1500)
     return () => clearInterval(interval)
-  }, [isLoading, images.length])
+  }, [isLoading])
 
   const features = [
     {
@@ -163,7 +163,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
 
           {/*  Carousel Images */}
           <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden mt-8 lg:mt-0">
-            {images.map((imageObj, index) => {
+            {HERO_IMAGES.map((imageObj, index) => {
               let position = '';
               if (index === currentImageIndex) position = 'carousel-center';
               else position = 'carousel-hidden';
@@ -192,7 +192,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
               transform: translateX(0) scale(1); 
               visibility: visible;
             }
-            /* All other images are hidden and ready to slide in */
+            /* All other HERO_IMAGES are hidden and ready to slide in */
             .carousel-hidden { 
               opacity: 0; 
               transform: translateX(50%) scale(0.8); 

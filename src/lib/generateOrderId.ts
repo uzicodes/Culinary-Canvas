@@ -16,12 +16,3 @@ export function generateOrderId(): string {
   return `CC-${year}-${entropy}`;
 }
 
-/**
- * Order ID Validation
- * @param orderId 
- * @returns {boolean} T/F
- */
-export function isValidOrderId(orderId: string): boolean {
-  const pattern = /^CC-\d{4}-[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{5}$/;
-  return pattern.test(orderId);
-}

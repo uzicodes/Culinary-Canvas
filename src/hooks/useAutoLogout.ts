@@ -35,16 +35,16 @@ export const useAutoLogout = () => {
       logout();
     }, INACTIVITY_TIMEOUT);
   }, [logout]);
+  const resetTimerRef = useRef(resetTimer);
+  useEffect(() => {
+    resetTimerRef.current = resetTimer;
+  }, [resetTimer]);
+
   useEffect(() => {
     // Only set up inactivity timer if user is logged in
     if (status !== 'authenticated' || !session) {
       return;
     }
-
-    const resetTimerRef = useRef(resetTimer);
-    useEffect(() => {
-      resetTimerRef.current = resetTimer;
-    }, [resetTimer]);
 
     const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
 
@@ -66,7 +66,7 @@ export const useAutoLogout = () => {
         document.removeEventListener(event, handler);
       });
     };
-  }, [session, status, resetTimer]);
+  }, [session, status]);
 
   return { logout };
 };
