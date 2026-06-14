@@ -39,14 +39,12 @@ const HERO_IMAGES = [
 
 const Hero = ({ isLoading = false }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [prevIsLoading, setPrevIsLoading] = useState(isLoading)
 
-  if (isLoading !== prevIsLoading) {
-    setPrevIsLoading(isLoading);
+  useEffect(() => {
     if (isLoading) {
       setCurrentImageIndex(0);
     }
-  }
+  }, [isLoading]);
 
   const dishes = useCountUp(50, 1200, '+')
   const customers = useCountUp(10000, 1200)

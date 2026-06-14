@@ -64,8 +64,10 @@ const BestSelling = () => {
                     fetch('/api/best-sellers'),
                     fetch('/api/items')
                 ]);
-                const bData = await bestRes.json();
-                const iData = await itemsRes.json();
+                const [bData, iData] = await Promise.all([
+                    bestRes.json(),
+                    itemsRes.json()
+                ]);
                 setProducts(Array.isArray(bData) ? bData : []);
                 setAllInventory(Array.isArray(iData) ? iData : []);
             } catch (err) {

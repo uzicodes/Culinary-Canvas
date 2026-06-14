@@ -52,6 +52,7 @@ export default function AnalyticsPage() {
 
   const DISPLAY_STATS = [
     { 
+      id: 'daily-revenue',
       label: selectedDate ? `Revenue: ${currentMonthName.slice(0,3)} ${selectedDate}` : "Today's Revenue", 
       value: `৳${(selectedDate ? (stats?.specificDayRevenue || 0) : (stats?.todayRevenue || 0)).toLocaleString()}`, 
       trend: selectedDate ? "Filtered" : "Live", 
@@ -60,6 +61,7 @@ export default function AnalyticsPage() {
       isInteractive: true 
     },
     { 
+      id: 'monthly-revenue',
       label: `${currentMonthName} Total`, 
       value: `৳${(stats?.monthlyRevenue || 0).toLocaleString()}`, 
       trend: `Current Month`, 
@@ -67,6 +69,7 @@ export default function AnalyticsPage() {
       color: "bg-white" 
     },
     { 
+      id: 'total-customers',
       label: "Total Customers", 
       value: (stats?.totalCustomers || 0).toString(), 
       trend: "Verified", 
@@ -74,6 +77,7 @@ export default function AnalyticsPage() {
       color: "bg-white" 
     },
     { 
+      id: 'avg-order',
       label: "Avg. Order Value", 
       value: stats?.totalCustomers > 0 ? `৳${Math.round((stats?.monthlyRevenue || 0) / (stats?.recentOrders?.length || 1))}` : "৳0", 
       trend: "Live", 
@@ -102,8 +106,8 @@ export default function AnalyticsPage() {
 
         {/* Financial Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {DISPLAY_STATS.map((stat, i) => (
-            <div key={i} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} tabIndex={stat.isInteractive ? 0 : undefined} role={stat.isInteractive ? "button" : undefined} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
+          {DISPLAY_STATS.map((stat) => (
+            <div key={stat.id} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} tabIndex={stat.isInteractive ? 0 : undefined} role={stat.isInteractive ? "button" : undefined} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
               <div className="flex justify-between items-start mb-6">
                 <div className={`p-4 rounded-2xl ${stat.isInteractive ? 'bg-[#BCE334] text-black' : 'bg-gray-50 text-slate-900'}`}><stat.icon size={22} /></div>
                 <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${stat.isInteractive ? 'bg-black text-[#BCE334]' : 'bg-green-50 text-green-600'}`}>{stat.trend}</span>

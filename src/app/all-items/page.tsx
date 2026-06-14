@@ -293,6 +293,13 @@ function ItemCard({
   const [editedItem, setEditedItem] = useState(item);
   const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
+  // Sync editedItem when the item prop changes (avoids stale derived state)
+  useEffect(() => {
+    if (!isEditing) {
+      setEditedItem(item);
+    }
+  }, [item, isEditing]);
+
   const handleSave = async () => {
     setRateLimitError(null);
     try {

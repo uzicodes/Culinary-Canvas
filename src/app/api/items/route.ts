@@ -18,8 +18,10 @@ export async function GET() {
 }
 
 export async function PATCH(request: Request) {
-  const { id, ...updates } = await request.json();
-  const client = await clientPromise;
+  const [{ id, ...updates }, client] = await Promise.all([
+    request.json(),
+    clientPromise
+  ]);
   const db = client.db("culinary-canvas");
 
   await db.collection("items").updateOne(

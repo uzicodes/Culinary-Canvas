@@ -57,10 +57,11 @@ export const useAutoLogout = () => {
     // Initialize timer
     handler();
 
-    // Cleanup
+    // Cleanup - capture current ref value for safe teardown
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      const currentTimeout = timeoutRef.current;
+      if (currentTimeout) {
+        clearTimeout(currentTimeout);
       }
       events.forEach(event => {
         document.removeEventListener(event, handler);
