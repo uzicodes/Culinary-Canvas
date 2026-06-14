@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { m as motion } from "framer-motion"
 // FIXED: Changed ReceiptText to Receipt
 import { X, Clock, CreditCard, ShoppingBag, Receipt } from 'lucide-react'
 

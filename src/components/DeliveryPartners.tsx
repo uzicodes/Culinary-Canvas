@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import { motion, Variants } from 'framer-motion';
+import { m as motion, Variants } from "framer-motion";
 
 const deliveryPartners = [
   { name: 'HungryNaki', logo: '/delivery/hungrynaki.svg' },
@@ -73,8 +73,7 @@ const DeliveryPartners = () => (
               className="w-full max-w-[180px] md:w-48 h-24 md:h-28 relative cursor-pointer bg-white/20 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] border border-white/40 shadow-xl flex items-center justify-center p-4 md:p-6 transition-all duration-300"
             >
               <div className="relative w-full h-full">
-                <Image
-                  src={partner.logo}
+                <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={partner.logo}
                   alt={partner.name}
                   fill
                   className="object-contain transition-transform duration-500 group-hover:scale-110"

@@ -7,7 +7,7 @@ export default function Loading() {
       <div className="absolute inset-0 opacity-30">
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#BCE334] rounded-full blur-[150px] animate-pulse"
-          style={{ animationDuration: '3s' }}
+          style={{ animationDuration: '0.8s' }}
         />
       </div>
 
@@ -20,7 +20,7 @@ export default function Loading() {
             className="absolute inset-0 rounded-full animate-spin"
             style={{
               background: 'conic-gradient(from 0deg, transparent, #BCE334, transparent)',
-              animationDuration: '2s',
+              animationDuration: '0.6s',
               animationTimingFunction: 'linear'
             }}
           />
@@ -28,7 +28,7 @@ export default function Loading() {
           {/* Inner circle with logo - slightly smaller to create border effect */}
           <div className="absolute inset-[3px] rounded-full bg-[#0a0a0a] flex items-center justify-center">
             <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#BCE334]/10 to-transparent flex items-center justify-center border border-[#BCE334]/20">
-              <div className="relative w-14 h-14 animate-pulse" style={{ animationDuration: '2s' }}>
+              <div className="relative w-14 h-14 animate-pulse" style={{ animationDuration: '0.6s' }}>
                 <Image
                   src="/without_BG_logo.png"
                   alt="Loading..."
@@ -61,7 +61,7 @@ export default function Loading() {
             className="h-full bg-gradient-to-r from-[#BCE334] to-[#9acd32] rounded-full"
             style={{
               width: '30%',
-              animation: 'loadingSlide 2s ease-in-out infinite'
+              animation: 'loadingSlide 0.8s ease-in-out infinite'
             }}
           />
         </div>

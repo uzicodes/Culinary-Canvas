@@ -5,7 +5,7 @@ import { Search, Pencil, Check, X, Trash2 } from 'lucide-react';
 import Header from '@/components/Header';
 import { useState, useEffect, use } from 'react';
 import Footer from '@/components/Footer';
-import { motion, Variants } from 'framer-motion';
+import { m as motion, Variants } from "framer-motion";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 

@@ -8,7 +8,6 @@ export const useAutoLogout = () => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const lastActivityRef = useRef<number>(Date.now());
 
   const logout = useCallback(async () => {
     // Clear user session data
@@ -42,15 +41,21 @@ export const useAutoLogout = () => {
       return;
     }
 
+    const resetTimerRef = useRef(resetTimer);
+    useEffect(() => {
+      resetTimerRef.current = resetTimer;
+    }, [resetTimer]);
+
     const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
 
     // Add event listeners
+    const handler = () => resetTimerRef.current();
     events.forEach(event => {
-      document.addEventListener(event, resetTimer);
+      document.addEventListener(event, handler);
     });
 
     // Initialize timer
-    resetTimer();
+    handler();
 
     // Cleanup
     return () => {
@@ -58,7 +63,7 @@ export const useAutoLogout = () => {
         clearTimeout(timeoutRef.current);
       }
       events.forEach(event => {
-        document.removeEventListener(event, resetTimer);
+        document.removeEventListener(event, handler);
       });
     };
   }, [session, status, resetTimer]);

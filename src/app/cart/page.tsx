@@ -9,7 +9,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-icons/fa";
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 
 interface CartItem {
   _id: string;
@@ -39,7 +39,6 @@ export default function CartPage() {
   const [isLoading] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-  const pathname = usePathname();
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -81,7 +80,7 @@ export default function CartPage() {
   const handleCheckout = () => {
     if (!session) {
       toast.info("Identification required for checkout");
-      setTimeout(() => router.push(`/login?callbackUrl=${encodeURIComponent(pathname)}`), 1500);
+      setTimeout(() => router.push(`/login?callbackUrl=${encodeURIComponent(window.location.pathname)}`), 1500);
       return;
     }
     router.push("/checkout");
@@ -157,7 +156,7 @@ export default function CartPage() {
                     className="flex flex-col sm:flex-row items-center gap-4 bg-white/80 backdrop-blur-md p-3 rounded-xl border border-white/60 shadow-lg group transition-all hover:border-[#BCE334]"
                   >
                     <div className="relative w-full sm:w-20 h-20 overflow-hidden rounded-xl flex-shrink-0">
-                      <Image src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.image} alt={item.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                     </div>
 
                     <div className="flex-1 text-center sm:text-left min-w-0">

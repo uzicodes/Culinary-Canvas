@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { m as motion, AnimatePresence } from "framer-motion"
 import { UserCircle, Lock, ArrowRight, ShieldCheck, ShoppingBag, Clock, CreditCard, ChevronRight, User, LayoutDashboard } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'

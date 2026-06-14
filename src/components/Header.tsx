@@ -184,7 +184,7 @@ const Header = () => {
                   <div>
                     {categories.map((category) => (
                       <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
-                        <div className="w-5 h-5 relative mr-3"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                        <div className="w-5 h-5 relative mr-3"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                         <span>{category.name}</span>
                       </Link>
                     ))}
@@ -225,7 +225,7 @@ const Header = () => {
                           className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20"
                           onClick={() => setShowResults(false)}
                         >
-                          <div className="w-8 h-8 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                          <div className="w-8 h-8 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                           <div className="text-[10px] font-bold text-gray-900 truncate">{category.name}</div>
                         </Link>
                       ))}
@@ -243,7 +243,7 @@ const Header = () => {
                           className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20"
                           onClick={() => setShowResults(false)}
                         >
-                          <div className="w-8 h-8 relative shrink-0"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
+                          <div className="w-8 h-8 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
                           <div className="text-[10px] font-bold text-gray-900 truncate">{item.name}</div>
                         </Link>
                       ))}
@@ -324,7 +324,7 @@ const Header = () => {
                         className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20"
                         onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}
                       >
-                        <div className="w-8 h-8 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                        <div className="w-8 h-8 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                         <div className="text-[10px] font-bold text-gray-900 truncate">{category.name}</div>
                       </Link>
                     ))}
@@ -342,7 +342,7 @@ const Header = () => {
                         className="flex items-center gap-3 px-3 py-2 hover:bg-[#BCE334]/20"
                         onClick={() => { setShowResults(false); setIsMobileMenuOpen(false); }}
                       >
-                        <div className="w-8 h-8 relative shrink-0"><Image src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
+                        <div className="w-8 h-8 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.image} alt={item.name} fill className="object-cover rounded-md" /></div>
                         <div className="text-[10px] font-bold text-gray-900 truncate">{item.name}</div>
                       </Link>
                     ))}
@@ -376,7 +376,7 @@ const Header = () => {
                     <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
                       {categories.map((category) => (
                         <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
-                          <div className="w-5 h-5 relative shrink-0"><Image src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
+                          <div className="w-5 h-5 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                           <span className="truncate">{category.name}</span>
                         </Link>
                       ))}

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m as motion } from "framer-motion"
 import { ArrowRight, Utensils, Loader2 } from 'lucide-react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -91,8 +91,7 @@ const MenuPage = () => {
                     className="group relative flex items-center h-20 bg-[#F1F8E9] rounded-xl overflow-hidden border border-green-100 hover:border-[#BCE334] hover:bg-white transition-all shadow-sm hover:shadow-md cursor-pointer"
                   >
                     <div className="w-20 h-full relative bg-[#E8F5E9] group-hover:bg-[#BCE334]/10 transition-colors shrink-0">
-                      <Image
-                        src={item.image}
+                      <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={item.image}
                         alt={item.name}
                         fill
                         className="object-contain p-2.5 transition-transform duration-500 group-hover:scale-110"

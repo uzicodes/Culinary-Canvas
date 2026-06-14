@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { motion } from 'framer-motion';
+import { m as motion } from "framer-motion";
 import { Send, MessageSquare, Lock, ChevronDown } from 'lucide-react';
 
 const MAX_NAME_LENGTH = 50;

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from "framer-motion";
 import Image from 'next/image';
 import Script from 'next/script';
 import {
@@ -52,30 +52,6 @@ export default function PaymentPage() {
         return '+880';
     });
     const [cardNumber, setCardNumber] = useState('');
-    const [customerName, setCustomerName] = useState(() => {
-        if (typeof window === 'undefined') return '';
-        try {
-            const checkoutData = localStorage.getItem('checkoutData:v1');
-            if (checkoutData) return JSON.parse(checkoutData).name || '';
-        } catch { /* ignore */ }
-        return '';
-    });
-    const [customerEmail, setCustomerEmail] = useState(() => {
-        if (typeof window === 'undefined') return '';
-        try {
-            const checkoutData = localStorage.getItem('checkoutData:v1');
-            if (checkoutData) return JSON.parse(checkoutData).email || '';
-        } catch { /* ignore */ }
-        return '';
-    });
-    const [customerAddress, setCustomerAddress] = useState(() => {
-        if (typeof window === 'undefined') return '';
-        try {
-            const checkoutData = localStorage.getItem('checkoutData:v1');
-            if (checkoutData) return JSON.parse(checkoutData).address || '';
-        } catch { /* ignore */ }
-        return '';
-    });
     const [couponCode, setCouponCode] = useState('');
     const [couponDiscount, setCouponDiscount] = useState(0);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -99,6 +75,19 @@ export default function PaymentPage() {
         const isOnlinePayment = paymentMethod === 'Bkash' || paymentMethod === 'Nagad' || paymentMethod === 'Card/Debit Card';
 
         setIsProcessing(true);
+
+        let customerName = '';
+        let customerEmail = '';
+        let customerAddress = '';
+        try {
+            const checkoutData = localStorage.getItem('checkoutData:v1');
+            if (checkoutData) {
+                const parsed = JSON.parse(checkoutData);
+                customerName = parsed.name || '';
+                customerEmail = parsed.email || '';
+                customerAddress = parsed.address || '';
+            }
+        } catch { /* ignore */ }
 
         let finalCouponDiscount = couponDiscount;
         if (couponCode === 'CC10' || couponCode === 'BITE10') {

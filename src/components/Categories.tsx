@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, Variants } from 'framer-motion'
+import { m as motion, Variants } from "framer-motion"
 
 interface Category {
     id: number;
@@ -110,8 +110,7 @@ const Categories = () => {
                                 >
 
                                     <div className="relative w-16 h-16 mb-4">
-                                        <Image
-                                            src={category.image}
+                                        <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image}
                                             alt={category.name}
                                             fill
                                             className="object-contain transform group-hover:rotate-12 group-hover:scale-110 transition-all duration-500"

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { ArrowRight, UtensilsCrossed, Truck, MapPin, Smartphone } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { m as motion } from "framer-motion"
 
 const useCountUp = (end: number, duration: number, suffix = '') => {
   const [count, setCount] = useState(0)
@@ -174,8 +174,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
                   className={`absolute inset-0 transition-all duration-700 ease-in-out ${position}`}
                   style={{ zIndex: index === currentImageIndex ? 10 : 0 }}
                 >
-                  <Image
-                    src={imageObj.src}
+                  <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={imageObj.src}
                     alt="Fresh healthy food"
                     fill
                     className="object-contain w-full h-full drop-shadow-2xl scale-75"

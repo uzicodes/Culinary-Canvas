@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Link from "next/link";
 import {
   CheckCircle2,
@@ -170,9 +170,9 @@ export default function SuccessPage() {
             >
               <div className="flex justify-center mb-4">
                 <motion.div
-                  initial={{ scale: 0 }}
+                  initial={{ scale: 0.95 }}
                   animate={{ scale: 1 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                  transition={{ ease: "easeOut", duration: 0.5 }}
                   className="bg-white rounded-full p-3 shadow-sm"
                 >
                   <CheckCircle2 className="w-10 h-10 text-[#6fcf97]" />

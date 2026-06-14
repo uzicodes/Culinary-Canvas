@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { CheckCircle, Truck, Shield, Users, ChevronLeft, ChevronRight, Leaf, Award } from 'lucide-react'
 import Image from 'next/image'
 
@@ -15,29 +15,29 @@ const aboutImages = [
 
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const isAutoPlayingRef = useRef(true);
 
   // Auto-play carousel
   useEffect(() => {
-    if (!isAutoPlaying) return
     const interval = setInterval(() => {
+      if (!isAutoPlayingRef.current) return;
       setCurrentIndex((prev) => (prev + 1) % aboutImages.length)
     }, 3500)
     return () => clearInterval(interval)
-  }, [isAutoPlaying])
+  }, [])
 
   const goToPrevious = () => {
-    setIsAutoPlaying(false)
+    isAutoPlayingRef.current = false;
     setCurrentIndex((prev) => (prev - 1 + aboutImages.length) % aboutImages.length)
   }
 
   const goToNext = () => {
-    setIsAutoPlaying(false)
+    isAutoPlayingRef.current = false;
     setCurrentIndex((prev) => (prev + 1) % aboutImages.length)
   }
 
   const goToSlide = (index: number) => {
-    setIsAutoPlaying(false)
+    isAutoPlayingRef.current = false;
     setCurrentIndex(index)
   }
 

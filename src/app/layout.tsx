@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import NextAuthSessionProvider from './SessionProvider';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
+import MotionProvider from '@/components/MotionProvider';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,11 +34,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ScrollProgressBar />
         <NextAuthSessionProvider>
-          {children}
+          <MotionProvider>
+            {children}
+          </MotionProvider>
         </NextAuthSessionProvider>
       </body>
     </html>

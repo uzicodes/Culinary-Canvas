@@ -2,7 +2,7 @@
 
 import { Calendar, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
-import { motion, Variants } from 'framer-motion'
+import { m as motion, Variants } from "framer-motion"
 import { BlogPost } from '@/types/blog'
 export type { BlogPost } from '@/types/blog'
 
@@ -60,8 +60,7 @@ const Blog = ({ posts }: { posts: BlogPost[] }) => {
               className="bg-[#E3DCB1] rounded-2xl shadow-sm overflow-hidden group border border-black/5"
             >
               <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={post.image}
+                <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={post.image}
                   alt={post.title}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"

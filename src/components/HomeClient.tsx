@@ -50,7 +50,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
                 <div className="fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#0a0a0a]">
                     {/* Gradient background animation */}
                     <div className="absolute inset-0 opacity-30">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#BCE334] rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '3s' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#BCE334] rounded-full blur-[150px] animate-pulse" style={{ animationDuration: '0.8s' }} />
                     </div>
 
                     {/* Main loader container */}
@@ -60,15 +60,14 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
                             {/* Rotating border */}
                             <div className="absolute inset-0 rounded-full"
                                 style={{
-                                    background: 'conic-gradient(from 0deg, transparent, #BCE334, transparent)',
-                                    animation: 'spin 2s linear infinite'
+                                    animation: 'spin 0.6s linear infinite'
                                 }}
                             />
 
                             {/* Inner circle with logo - slightly smaller to create border effect */}
                             <div className="absolute inset-[3px] rounded-full bg-[#0a0a0a] flex items-center justify-center">
                                 <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#BCE334]/10 to-transparent flex items-center justify-center border border-[#BCE334]/20">
-                                    <div className="relative w-14 h-14 animate-pulse" style={{ animationDuration: '2s' }}>
+                                    <div className="relative w-14 h-14 animate-pulse" style={{ animationDuration: '0.6s' }}>
                                         <Image
                                             src="/without_BG_logo.png"
                                             alt="Loading..."
@@ -86,7 +85,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
                         <div className="mt-8 text-center">
                             <h1 className="text-[#BCE334] font-black text-2xl tracking-[0.3em] uppercase"
                                 style={{
-                                    animation: 'fadeInUp 1s ease-out',
+                                    animation: 'fadeInUp 0.4s ease-out',
                                     textShadow: '0 0 30px rgba(188, 227, 52, 0.3)'
                                 }}>
                                 Culinary Canvas
@@ -100,7 +99,7 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
                         <div className="mt-8 w-48 h-1 bg-white/10 rounded-full overflow-hidden">
                             <div className="h-full bg-gradient-to-r from-[#BCE334] to-[#9acd32] rounded-full"
                                 style={{
-                                    animation: 'loading 2s ease-in-out infinite',
+                                    animation: 'loading 0.8s ease-in-out infinite',
                                     width: '30%'
                                 }}
                             />

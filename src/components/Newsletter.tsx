@@ -42,8 +42,7 @@ const Newsletter = () => {
           {/* Right Content - Phone Mockup */}
           <div className="relative">
             <div className="relative w-80 h-96 mx-auto">
-              <Image
-                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+              <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
                 alt="Mobile app screenshot"
                 fill
                 className="object-contain"

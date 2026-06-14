@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ShoppingCart, Star, Edit3, X, Save, Loader2, PackageSearch, Eye } from 'lucide-react'
 import Image from 'next/image'
-import { motion, AnimatePresence, Variants } from 'framer-motion'
+import { m as motion, AnimatePresence, Variants } from "framer-motion"
 import { useSession } from 'next-auth/react'
 
 interface Product {
@@ -161,7 +161,7 @@ const BestSelling = () => {
                         <motion.div key={product.id || index} variants={cardVariants} whileHover={{ y: -8 }} className="bg-[#68EFF7] rounded-[3rem] shadow-sm p-6 group text-center relative border border-slate-100">
                             <div className="relative mb-6">
                                 <div className="relative w-full h-52 rounded-[2.5rem] overflow-hidden bg-slate-50">
-                                    <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                                    <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
                                 </div>
                                 <span className="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
                                     {product.badge || 'HOT'}
@@ -228,7 +228,7 @@ const BestSelling = () => {
                                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300 mb-6 flex items-center gap-2"><Eye size={12} /> Live Preview</p>
                                 <div className="bg-slate-50 w-full rounded-[2.5rem] p-6 text-center border border-slate-100 shadow-inner">
                                     <div className="relative w-full h-40 rounded-3xl overflow-hidden mb-4 bg-white">
-                                        {tempData.image && <Image src={tempData.image} alt="Preview" fill className="object-cover" />}
+                                        {tempData.image && <Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={tempData.image} alt="Preview" fill className="object-cover" />}
                                     </div>
                                     <h4 className="font-black uppercase text-slate-900 tracking-tight mb-2">{tempData.name || '---'}</h4>
                                 </div>

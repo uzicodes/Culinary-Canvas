@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { motion } from 'framer-motion';
+import { m as motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { User, Mail, MapPin, Phone, ShieldCheck, ArrowRight } from 'lucide-react';

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import { PlusCircle, Utensils, LayoutDashboard, LogOut, TrendingUp, ArrowRight, MessageSquare, X, Mail, Clock, ChevronRight, Inbox } from "lucide-react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";

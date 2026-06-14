@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { Lock, CheckCircle2, ArrowRight, Home, Loader2, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
@@ -60,7 +60,7 @@ function ResetPasswordForm() {
   if (status === "success") {
     return (
       <div className="text-center space-y-4 py-10">
-        <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto animate-bounce" />
+        <CheckCircle2 className="w-16 h-16 text-[#BCE334] mx-auto" />
         <h2 className="text-2xl font-black uppercase tracking-tighter text-gray-900">Key Updated</h2>
         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest leading-relaxed">
           Your new password has been set !. <br /> Redirecting to login...

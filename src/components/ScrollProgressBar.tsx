@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { m as motion, useScroll, useSpring } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 const ALLOWED_PATHS = ["/", "/all-items"];

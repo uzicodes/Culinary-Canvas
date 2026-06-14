@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from "framer-motion";
 import { Camera, Upload, X, Check, Loader2, AlertCircle } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 
