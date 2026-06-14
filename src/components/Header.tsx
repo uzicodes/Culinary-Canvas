@@ -43,6 +43,9 @@ const Header = () => {
     const fetchLiveItems = async () => {
       try {
         const res = await fetch('/api/items');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
         setDbItems(Array.isArray(data) ? data : []);
       } catch (err) {

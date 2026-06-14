@@ -64,6 +64,9 @@ const BestSelling = () => {
                     fetch('/api/best-sellers'),
                     fetch('/api/items')
                 ]);
+                if (!bestRes.ok || !itemsRes.ok) {
+                    throw new Error('Failed to fetch best sellers or items');
+                }
                 const [bData, iData] = await Promise.all([
                     bestRes.json(),
                     itemsRes.json()
