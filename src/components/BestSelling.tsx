@@ -125,10 +125,34 @@ const BestSelling = () => {
     };
 
     if (isLoading || status === "loading") return (
-        <div className="py-24 flex flex-col items-center justify-center gap-4">
-            <Loader2 className="w-12 h-12 text-[#BCE334] animate-spin" />
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Loading Section...</p>
-        </div>
+        <section className="py-20 overflow-hidden relative">
+            <div className="container mx-auto px-4">
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl lg:text-5xl font-black text-slate-900 mb-4 flex items-center justify-center gap-3 uppercase tracking-tighter">
+                        <span className="text-green-600">Best</span> <span className="text-red-600">Sellers</span>
+                        <Star className="text-yellow-400 w-8 h-8 fill-yellow-400" />
+                    </h2>
+                    <div className="h-1.5 bg-black/20 mx-auto rounded-full w-[100px]" />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {[...Array(4)].map((_, i) => (
+                        <div key={i} className="bg-[#68EFF7]/50 rounded-[3rem] shadow-sm p-6 text-center border border-slate-100 opacity-70">
+                            <div className="relative mb-6">
+                                <div className="w-full h-52 rounded-[2.5rem] bg-black/10 animate-pulse"></div>
+                            </div>
+                            <div className="space-y-4 flex flex-col items-center">
+                                <div className="h-6 bg-black/10 animate-pulse rounded w-3/4"></div>
+                                <div className="h-4 bg-black/10 animate-pulse rounded w-24"></div>
+                                <div className="flex items-center justify-center gap-4 pt-2 w-full">
+                                    <div className="h-8 bg-black/10 animate-pulse rounded w-16"></div>
+                                    <div className="h-4 bg-black/10 animate-pulse rounded w-12"></div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
     );
 
     return (

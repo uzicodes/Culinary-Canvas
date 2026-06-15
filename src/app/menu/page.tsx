@@ -64,10 +64,27 @@ const MenuPage = () => {
         </div>
 
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-24">
-            <Loader2 className="animate-spin text-[#BCE334] w-12 h-12 mb-4" />
-            <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">Loading Culinary Experience...</p>
-          </div>
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px bg-gray-200 flex-1" />
+              <div className="w-32 h-6 bg-gray-200 animate-pulse rounded-full" />
+              <div className="h-px bg-gray-200 flex-1" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-x-8 lg:gap-y-4">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="flex items-center h-20 bg-[#F1F8E9]/50 rounded-xl overflow-hidden border border-green-100 opacity-70">
+                  <div className="w-20 h-full bg-gray-200 animate-pulse shrink-0" />
+                  <div className="flex-1 px-4 flex items-center justify-between">
+                    <div className="space-y-2 w-1/2">
+                      <div className="h-3 bg-gray-200 animate-pulse rounded w-full" />
+                      <div className="h-4 bg-gray-200 animate-pulse rounded w-1/2" />
+                    </div>
+                    <div className="w-7 h-7 rounded-full bg-gray-200 animate-pulse" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         ) : (
           Object.keys(groupedMenu).map((category: string) => (
             <section key={category} className="mb-16">

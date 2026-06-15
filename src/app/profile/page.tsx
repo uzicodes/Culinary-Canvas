@@ -253,7 +253,24 @@ export default function ProfilePage() {
                     </h3>
 
                     {isLoadingOrders ? (
-                      <div className="py-10 text-center text-gray-400 font-bold uppercase text-xs tracking-widest animate-pulse">Fetching...</div>
+                      <div className="grid gap-2.5 max-h-[500px] overflow-hidden pr-2">
+                        {[...Array(3)].map((_, i) => (
+                          <div key={i} className="bg-[#F1F8E9]/50 p-3.5 rounded-xl border border-green-100 opacity-70">
+                            <div className="flex justify-between items-center mb-2">
+                              <div className="h-5 w-24 bg-gray-200 animate-pulse rounded-full" />
+                              <div className="h-5 w-16 bg-gray-200 animate-pulse rounded" />
+                            </div>
+                            <div className="flex justify-between items-center mb-2.5">
+                              <div className="h-3 w-20 bg-gray-200 animate-pulse rounded" />
+                              <div className="h-3 w-20 bg-gray-200 animate-pulse rounded" />
+                            </div>
+                            <div className="mt-2.5 pt-2.5 border-t border-gray-200/50 flex justify-between items-center">
+                              <div className="h-3 w-12 bg-gray-200 animate-pulse rounded" />
+                              <div className="h-3 w-16 bg-gray-200 animate-pulse rounded" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     ) : orders.length > 0 ? (
                       <div className="grid gap-2.5 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                         {orders.map((order: any) => (
