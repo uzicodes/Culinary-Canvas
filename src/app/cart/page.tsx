@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight } from "react-icons/fa";
+import { FaTrashAlt, FaPlus, FaMinus, FaShoppingBag, FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import Header from "@/components/Header";
 import { useSession } from "next-auth/react";
 import { m as motion, AnimatePresence } from "framer-motion";
@@ -197,8 +197,11 @@ export default function CartPage() {
 
             {/* Sidebar Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-black text-white p-8 rounded-[2.5rem] shadow-2xl sticky top-40 border border-white/10">
-                <h2 className="text-xl font-black uppercase tracking-tighter mb-6">Order Summary</h2>
+              <div className="bg-black text-white p-8 rounded-[2.5rem] shadow-2xl sticky top-40 border border-white/10 relative">
+                <button aria-label="Go back" type="button" onClick={() => router.back()} className="absolute top-8 left-6 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white">
+                  <FaArrowLeft size={14} />
+                </button>
+                <h2 className="text-xl font-black uppercase tracking-tighter mb-6 pl-8">Order Summary</h2>
 
                 <div className="space-y-4 mb-8 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                   {cartItems.map((item) => (

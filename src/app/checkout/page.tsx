@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { m as motion } from "framer-motion";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { User, Mail, MapPin, Phone, ShieldCheck, ArrowRight } from 'lucide-react';
+import { User, Mail, MapPin, Phone, ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 
 export default function CheckoutPage() {
@@ -58,11 +58,14 @@ export default function CheckoutPage() {
       </div>
 
       <motion.div
-        className="z-10 w-full max-w-lg bg-white/80 backdrop-blur-2xl shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] rounded-[2rem] border border-white p-6 md:p-8 space-y-5"
+        className="relative z-10 w-full max-w-lg bg-white/80 backdrop-blur-2xl shadow-[0_32px_64px_-15px_rgba(0,0,0,0.1)] rounded-[2rem] border border-white p-6 md:p-8 space-y-5"
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
+        <button aria-label="Go back" type="button" onClick={() => router.back()} className="absolute top-6 left-6 p-2.5 bg-black/5 hover:bg-black/10 rounded-full transition-colors text-black">
+          <ArrowLeft size={18} />
+        </button>
         <div className="text-center space-y-1">
           <div className="inline-flex items-center justify-center p-2 bg-black rounded-xl mb-1">
             <ShieldCheck className="text-[#BCE334] w-5 h-5" />
