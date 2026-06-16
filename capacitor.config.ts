@@ -7,6 +7,12 @@ const config: CapacitorConfig = {
   server: {
     url: 'https://the-culinary-canvas.vercel.app',
     cleartext: true
+  },
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: false,
+      backgroundColor: '#F7FBE7',
+    }
   }
 };
 

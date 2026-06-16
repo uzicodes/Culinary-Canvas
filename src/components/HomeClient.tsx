@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 
 import Header from '@/components/Header'
@@ -20,7 +21,14 @@ export default function HomeClient({ blogPosts }: { blogPosts: BlogPost[] }) {
 
 
     useEffect(() => {
-        const handleReady = () => setLoading(false);
+        const handleReady = async () => {
+            setLoading(false);
+            try {
+                await SplashScreen.hide();
+            } catch (error) {
+                // Ignore error if not running natively
+            }
+        };
         let timeoutId: NodeJS.Timeout;
         
         if (document.readyState === 'complete') {
