@@ -89,13 +89,11 @@ export default function AddItemPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div
+            <button
+              type="button"
               onClick={handleUpload}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleUpload(); } }}
-              tabIndex={0}
-              role="button"
               aria-label="Upload Image"
-              className={`border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all
+              className={`w-full border-2 border-dashed rounded-[2rem] p-8 cursor-pointer flex flex-col items-center gap-2 transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-500
                 ${imageUrl ? 'border-[#BCE334] bg-[#BCE334]/5' : 'border-gray-200 hover:border-sky-600'}`}
             >
               {imageUrl ? (
@@ -109,7 +107,7 @@ export default function AddItemPage() {
                   </span>
                 </>
               )}
-            </div>
+            </button>
 
             {/* Dish Name */}
             <div className="relative group">
@@ -188,7 +186,7 @@ export default function AddItemPage() {
               </div>
             )}
 
-            <button aria-label="Button" type="button"
+            <button type="submit"
               disabled={loading}
               className="w-full bg-black text-[#BCE334] py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl flex items-center justify-center gap-2 hover:bg-zinc-900 transition-colors disabled:opacity-50"
             >
