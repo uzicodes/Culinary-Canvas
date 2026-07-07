@@ -10,6 +10,23 @@ import { useAutoLogout } from '@/hooks/useAutoLogout'
 import { useSession } from 'next-auth/react'
 import { useDataFetch } from '@/hooks/useDataFetch'
 
+const CATEGORIES = [
+  { name: 'Burgers', href: '/all-items?category=Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
+  { name: 'Pizza', href: '/all-items?category=Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
+  { name: 'Fast-Food', href: '/all-items?category=Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
+  { name: 'Set Menus', href: '/all-items?category=Set%20Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
+  { name: 'Appetizers', href: '/all-items?category=Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
+  { name: 'Chinese', href: '/all-items?category=Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
+  { name: 'Italian', href: '/all-items?category=Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
+  { name: 'Japanese', href: '/all-items?category=Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png' },
+  { name: 'Traditional', href: '/all-items?category=Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
+  { name: 'Sea-Food', href: '/all-items?category=Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png' },
+  { name: 'Pakistani', href: '/all-items?category=Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
+  { name: 'Coffee', href: '/all-items?category=Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
+  { name: 'Desserts', href: '/all-items?category=Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
+  { name: 'Drinks & Beverages', href: '/all-items?category=Drinks%20%26%20Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
+];
+
 const Header = () => {
   useAutoLogout();
   const { data: session } = useSession();
@@ -67,26 +84,9 @@ const Header = () => {
     }
   });
 
-  const categories = [
-    { name: 'Burgers', href: '/all-items?category=Burgers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928414/hluwiapjhw5zxmajot0s.png' },
-    { name: 'Pizza', href: '/all-items?category=Pizza', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931606/jlo1datdnea4q2e2znzf.png' },
-    { name: 'Fast-Food', href: '/all-items?category=Fast-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930687/m4xqqwl0laegdbrdia5x.png' },
-    { name: 'Set Menus', href: '/all-items?category=Set%20Menus', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931824/entv9bx7pbaf5w585uq8.png' },
-    { name: 'Appetizers', href: '/all-items?category=Appetizers', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768928874/aeczkqrrzihrjhypcimy.png' },
-    { name: 'Chinese', href: '/all-items?category=Chinese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929387/hwz3wnob7an2owpfsmji.png' },
-    { name: 'Italian', href: '/all-items?category=Italian', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930944/zb7hv5nzgmm2jgynnjnb.png' },
-    { name: 'Japanese', href: '/all-items?category=Japanese', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769263611/culinary-canvas/items/spzco8tvg4e7dbsippj7.png' },
-    { name: 'Traditional', href: '/all-items?category=Traditional', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768932168/ui6fxgadb6qiokz4pd4s.png' },
-    { name: 'Sea-Food', href: '/all-items?category=Sea-Food', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1769258267/culinary-canvas/items/up4eyut0dnuqo7tuaztu.png' },
-    { name: 'Pakistani', href: '/all-items?category=Pakistani', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768931301/w4swf1srbxfriq36jmr5.png' },
-    { name: 'Coffee', href: '/all-items?category=Coffee', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929560/gr11cmbnyis9am6wza75.png' },
-    { name: 'Desserts', href: '/all-items?category=Desserts', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768929707/e1mb19v21fygi4g0q7ri.png' },
-    { name: 'Drinks & Beverages', href: '/all-items?category=Drinks%20%26%20Beverages', image: 'https://res.cloudinary.com/dihvgsjh5/image/upload/v1768930469/gd9vgbakrt0mmuv5ao4s.png' },
-  ];
-
   // 3. Filter categories based on search query
   const filteredCategories = searchQuery
-    ? categories.filter((category) =>
+    ? CATEGORIES.filter((category) =>
       category.name.toLowerCase().includes(searchQuery.toLowerCase())
     )
     : [];
@@ -157,7 +157,7 @@ const Header = () => {
               {isCategoriesOpen && (
                 <div className="absolute top-full mt-4 left-1/2 -translate-x-1/2 w-64 rounded-2xl shadow-2xl bg-white ring-1 ring-black/5 overflow-hidden py-2 z-50 pointer-events-auto">
                   <div>
-                    {categories.map((category) => (
+                    {CATEGORIES.map((category) => (
                       <Link key={category.name} href={category.href} className="flex items-center px-4 py-2 text-[10px] font-bold text-gray-700 hover:bg-[#BCE334]/10" onClick={() => setIsCategoriesOpen(false)}>
                         <div className="w-5 h-5 relative mr-3"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                         <span>{category.name}</span>
@@ -349,7 +349,7 @@ const Header = () => {
 
                   {isMobileCategoriesOpen && (
                     <div className="bg-gray-50/50 p-2 grid grid-cols-2 gap-2">
-                      {categories.map((category) => (
+                      {CATEGORIES.map((category) => (
                         <Link key={category.name} href={category.href} className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-[10px] font-bold text-gray-700 hover:bg-white hover:shadow-sm transition-all" onClick={() => setIsMobileMenuOpen(false)}>
                           <div className="w-5 h-5 relative shrink-0"><Image sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" src={category.image} alt={category.name} fill className="object-cover rounded-full" /></div>
                           <span className="truncate">{category.name}</span>

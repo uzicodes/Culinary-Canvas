@@ -37,6 +37,24 @@ const HERO_IMAGES = [
   { src: '/8.png' }, { src: '/10.png' }
 ];
 
+const FEATURES = [
+  {
+    icon: <Truck className="w-6 h-6 text-brown-200" />,
+    title: <span className="text-blue-500">Super Fast Delivery</span>,
+    desc: "Faster than your cravings can blink. Hot and fresh."
+  },
+  {
+    icon: <MapPin className="w-6 h-6 text-brown-200" />,
+    title: <span className="text-blue-500">Live Tracking</span>,
+    desc: "Follow your food's journey from our kitchen to your doorsteps."
+  },
+  {
+    icon: <Smartphone className="w-6 h-6 text-brown-200" />,
+    title: <span className="text-blue-500">Easy Ordering</span>,
+    desc: "Find and order your top favorites in just a few taps."
+  }
+];
+
 const Hero = ({ isLoading = false }: HeroProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [prevIsLoading, setPrevIsLoading] = useState(isLoading);
@@ -63,23 +81,6 @@ const Hero = ({ isLoading = false }: HeroProps) => {
     return () => clearInterval(interval)
   }, [isLoading])
 
-  const features = [
-    {
-      icon: <Truck className="w-6 h-6 text-brown-200" />,
-      title: <span className="text-blue-500">Super Fast Delivery</span>,
-      desc: "Faster than your cravings can blink. Hot and fresh."
-    },
-    {
-      icon: <MapPin className="w-6 h-6 text-brown-200" />,
-      title: <span className="text-blue-500">Live Tracking</span>,
-      desc: "Follow your food's journey from our kitchen to your doorsteps."
-    },
-    {
-      icon: <Smartphone className="w-6 h-6 text-brown-200" />,
-      title: <span className="text-blue-500">Easy Ordering</span>,
-      desc: "Find and order your top favorites in just a few taps."
-    }
-  ]
 
   return (
     <section className="relative min-h-[700px] flex items-center overflow-hidden pt-32 pb-16">
@@ -127,7 +128,7 @@ const Hero = ({ isLoading = false }: HeroProps) => {
             </div>
 
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-3 gap-5">
-              {features.map((f, i) => (
+              {FEATURES.map((f, i) => (
                 <motion.div
                   key={f.desc as string}
                   initial={{ opacity: 0, y: 20 }}
