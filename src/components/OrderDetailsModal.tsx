@@ -34,7 +34,7 @@ interface ModalProps {
 const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
-  // Fetch menu items to look up prices for old orders
+  // Fetch menu items once on mount to look up prices for old orders
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
@@ -45,10 +45,8 @@ const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
         console.error('Failed to fetch menu items', err);
       }
     };
-    if (order) {
-      fetchMenuItems();
-    }
-  }, [order]);
+    fetchMenuItems();
+  }, []);
 
   // Helper function to find item price by name
   const getItemPrice = (itemName: string): number => {

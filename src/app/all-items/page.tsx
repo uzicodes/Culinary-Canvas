@@ -308,14 +308,16 @@ function ItemCard({
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedItem, setEditedItem] = useState(item);
+  const [prevItem, setPrevItem] = useState(item);
   const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
-  // Sync editedItem when the item prop changes (avoids stale derived state)
-  useEffect(() => {
+  // Sync editedItem when the item prop changes during rendering (avoids useEffect cascade)
+  if (item !== prevItem) {
+    setPrevItem(item);
     if (!isEditing) {
       setEditedItem(item);
     }
-  }, [item, isEditing]);
+  }
 
   const handleSave = async () => {
     setRateLimitError(null);
@@ -377,7 +379,7 @@ function ItemCard({
     >
       {isAdmin && !isEditing && (
         <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10 flex gap-1 md:gap-2 opacity-0 group-hover:opacity-100 transition-all">
-          <button aria-label="Button" type="button" onClick={() => setIsEditing(true)} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
+          <button aria-label="Button" type="button" onClick={() => { setEditedItem(item); setIsEditing(true); }} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
           <button aria-label="Delete" type="button" onClick={handleDelete} className="p-1.5 md:p-2.5 bg-red-500 rounded-lg md:rounded-xl shadow-xl hover:scale-110 text-white"><Trash2 size={10} className="md:w-3 md:h-3" /></button>
         </div>
       )}

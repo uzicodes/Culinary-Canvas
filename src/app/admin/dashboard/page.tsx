@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { PlusCircle, Utensils, LayoutDashboard, LogOut, TrendingUp, ArrowRight, MessageSquare, X, Mail, Clock, ChevronRight, Inbox } from "lucide-react";
 import Link from "next/link";
@@ -58,28 +58,11 @@ export default function AdminDashboard() {
     }
   };
 
-  useEffect(() => {
-    if (view === 'feedbacks') {
+  const handleToggleView = () => {
+    const nextView = view === 'feedbacks' ? 'menu' : 'feedbacks';
+    setView(nextView);
+    if (nextView === 'feedbacks') {
       fetchFeedbacks();
-    }
-  }, [view]);
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-  };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'Compliment': return 'bg-green-100 text-green-700';
-      case 'Complaint about Order': return 'bg-red-100 text-red-700';
-      case 'Advice/Suggestion': return 'bg-blue-100 text-blue-700';
-      default: return 'bg-gray-100 text-gray-700';
     }
   };
 
@@ -128,7 +111,7 @@ export default function AdminDashboard() {
 
               <motion.div 
                 whileHover={{ scale: 1.02 }} 
-                onClick={() => setView(view === 'feedbacks' ? 'menu' : 'feedbacks')}
+                onClick={handleToggleView}
                 className={`p-4 bg-black rounded-[1.5rem] flex flex-col items-center gap-2 cursor-pointer group shadow-md h-full ${view === 'feedbacks' ? 'ring-2 ring-[#029FBE]' : ''}`}
               >
                 <div className="relative">
