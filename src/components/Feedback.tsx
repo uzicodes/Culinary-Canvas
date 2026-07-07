@@ -45,15 +45,6 @@ const Feedback = () => {
         }
     }, [session]);
 
-    const validateEmail = (email: string): boolean => {
-        const atCount = (email.match(/@/g) || []).length;
-        return atCount === 1 && email.includes('@');
-    };
-
-    const countWords = (text: string): number => {
-        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-    };
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
