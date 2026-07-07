@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { m as motion } from "framer-motion"
 // FIXED: Changed ReceiptText to Receipt
 import { X, Clock, CreditCard, ShoppingBag, Receipt } from 'lucide-react'
+import { useDataFetch } from '@/hooks/useDataFetch'
 
 interface OrderItem {
   name: string;
@@ -32,21 +33,8 @@ interface ModalProps {
 }
 
 const OrderDetailsModal = ({ order, onClose }: ModalProps) => {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-
-  // Fetch menu items once on mount to look up prices for old orders
-  useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        const res = await fetch('/api/items');
-        const data = await res.json();
-        setMenuItems(data);
-      } catch (err) {
-        console.error('Failed to fetch menu items', err);
-      }
-    };
-    fetchMenuItems();
-  }, []);
+  const { data: fetchedItems } = useDataFetch('/api/items');
+  const menuItems: MenuItem[] = Array.isArray(fetchedItems) ? fetchedItems : [];
 
   // Helper function to find item price by name
   const getItemPrice = (itemName: string): number => {

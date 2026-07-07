@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { ShoppingCart, Star, Edit3, X, Save, Loader2, PackageSearch, Eye } from 'lucide-react'
 import Image from 'next/image'
 import { m as motion, AnimatePresence, Variants } from "framer-motion"
 import { useSession } from 'next-auth/react'
+import { useDataFetch } from '@/hooks/useDataFetch'
 
 interface Product {
     id: string | number;
@@ -29,10 +30,16 @@ const cardVariants: Variants = {
 
 const BestSelling = () => {
     const { data: session, status } = useSession();
+    const isAdmin = status === "authenticated" && (session?.user as any)?.role?.toLowerCase() === 'admin';
+
+    // Use client data-fetching layer with caching, deduplication, and race-condition prevention
+    const { data: bestSellersData, isLoading: bestLoading } = useDataFetch('/api/best-sellers');
+    const { data: itemsData, isLoading: itemsLoading } = useDataFetch('/api/items');
+
     const [products, setProducts] = useState<Product[]>([]);
     const [allInventory, setAllInventory] = useState<Product[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [prevBest, setPrevBest] = useState<any>(null);
+    const [prevItems, setPrevItems] = useState<any>(null);
     const [successMsg, setSuccessMsg] = useState<string | null>(null);
     const [rateLimitError, setRateLimitError] = useState<string | null>(null);
 
@@ -40,50 +47,17 @@ const BestSelling = () => {
     const [editingSlot, setEditingSlot] = useState<number | null>(null);
     const [tempData, setTempData] = useState<Partial<Product>>({});
 
-    // STRICT ROLE CHECK
-    const checkAdminPrivilege = useCallback(() => {
-        if (status === "authenticated" && session?.user) {
-            const user = session.user as any;
-            // "admin" role check from your database
-            const isRoleAdmin = user?.role?.toLowerCase() === 'admin';
+    // Sync fetched data to local state during rendering (avoids useEffect cascade & double-render)
+    if (bestSellersData !== prevBest) {
+        setPrevBest(bestSellersData);
+        if (Array.isArray(bestSellersData)) setProducts(bestSellersData);
+    }
+    if (itemsData !== prevItems) {
+        setPrevItems(itemsData);
+        if (Array.isArray(itemsData)) setAllInventory(itemsData);
+    }
 
-            if (isRoleAdmin) {
-                setIsAdmin(true);
-                return;
-            }
-        }
-        setIsAdmin(false);
-    }, [session, status]);
-
-    useEffect(() => {
-        const loadInitialData = async () => {
-            checkAdminPrivilege();
-
-            try {
-                const [bestRes, itemsRes] = await Promise.all([
-                    fetch('/api/best-sellers'),
-                    fetch('/api/items')
-                ]);
-                if (!bestRes.ok || !itemsRes.ok) {
-                    throw new Error('Failed to fetch best sellers or items');
-                }
-                const [bData, iData] = await Promise.all([
-                    bestRes.json(),
-                    itemsRes.json()
-                ]);
-                setProducts(Array.isArray(bData) ? bData : []);
-                setAllInventory(Array.isArray(iData) ? iData : []);
-            } catch (err) {
-                console.error("Fetch error:", err);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        if (status !== "loading") {
-            loadInitialData();
-        }
-    }, [session, status, checkAdminPrivilege]);
+    const isLoading = bestLoading || itemsLoading || status === "loading";
 
     const handleAddToCart = (product: Product) => {
         const cart = JSON.parse(localStorage.getItem('cart:v1') || '[]');

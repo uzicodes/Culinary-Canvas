@@ -8,52 +8,24 @@ import Image from 'next/image'
 import { MenuItem } from '@/data/menuItems'
 import { useAutoLogout } from '@/hooks/useAutoLogout'
 import { useSession } from 'next-auth/react'
+import { useDataFetch } from '@/hooks/useDataFetch'
 
 const Header = () => {
   useAutoLogout();
   const { data: session } = useSession();
   const [searchQuery, setSearchQuery] = useState('');
   const [showResults, setShowResults] = useState(false);
-  const [dbItems, setDbItems] = useState<MenuItem[]>([]); // State for live MongoDB items
   const inputRef = useRef<HTMLInputElement>(null);
   const mobileInputRef = useRef<HTMLDivElement>(null);
-  const [profilePicture, setProfilePicture] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProfilePicture = async () => {
-      if (session?.user?.email) {
-        try {
-          const res = await fetch(`/api/members?email=${encodeURIComponent(session.user.email)}`);
-          if (res.ok) {
-            const data = await res.json();
-            setProfilePicture(data.profilePicture || null);
-          }
-        } catch (err) {
-          console.error('Failed to fetch profile picture', err);
-        }
-      }
-    };
-    fetchProfilePicture();
-  }, [session?.user?.email]);
+  // 1. Fetch member profile picture using data-fetching layer
+  const memberUrl = session?.user?.email ? `/api/members?email=${encodeURIComponent(session.user.email)}` : null;
+  const { data: memberData } = useDataFetch(memberUrl);
+  const displayImage = memberData?.profilePicture || null;
 
-  const displayImage = profilePicture;
-
-  // 1. Fetch live items from your database
-  useEffect(() => {
-    const fetchLiveItems = async () => {
-      try {
-        const res = await fetch('/api/items');
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        setDbItems(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Header search fetch failed:", err);
-      }
-    };
-    fetchLiveItems();
-  }, []);
+  // 2. Fetch live items from your database using data-fetching layer
+  const { data: fetchedItems } = useDataFetch('/api/items');
+  const dbItems: MenuItem[] = Array.isArray(fetchedItems) ? fetchedItems : [];
 
   // 2. Filter using live dbItems instead of static file
   const filteredItems = searchQuery
