@@ -8,7 +8,7 @@ import { findUserByEmail, validPassword } from "@/app/api/auth/utils/userAuth";
 // Read the master admin key from environment (server-side)
 const MASTER_ADMIN_KEY = process.env.NEXT_PUBLIC_MASTER_ADMIN_KEY || process.env.MASTER_ADMIN_KEY;
 
-const handler = NextAuth({
+export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -71,7 +71,7 @@ const handler = NextAuth({
     maxAge: 30 * 60, 
   },
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
       // When user signs in, persist their data to the token
       if (user) {
         token.id = user.id;
@@ -81,7 +81,7 @@ const handler = NextAuth({
       }
       return token;
     },
-    async session({ session, token }) {
+    async session({ session, token }: any) {
       // Pass token data to the session for client-side access
       if (token && session.user) {
         (session.user as any).id = token.id;
@@ -95,6 +95,8 @@ const handler = NextAuth({
   pages: {
     signIn: '/login',
   },
-});
+};
+
+const handler = NextAuth(authOptions as any);
 
 export { handler as GET, handler as POST };
