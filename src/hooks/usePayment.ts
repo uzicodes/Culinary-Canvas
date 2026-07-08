@@ -160,7 +160,7 @@ export function usePayment() {
             };
 
             localStorage.setItem('orderData:v1', JSON.stringify(confirmedOrderData));
-            sessionStorage.setItem('lastOrderResponse', JSON.stringify(serverOrder));
+            sessionStorage.setItem('lastOrderResponse:v1', JSON.stringify(serverOrder));
 
             if (isOnlinePayment) {
                 const paymentInitResponse = await fetch('/api/payment/init', {

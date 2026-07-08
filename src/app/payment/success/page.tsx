@@ -21,7 +21,7 @@ export default function SuccessPage() {
   const [order] = useState<any>(() => {
     if (typeof window === 'undefined') return null;
 
-    const backendOrder = sessionStorage.getItem("lastOrderResponse");
+    const backendOrder = sessionStorage.getItem("lastOrderResponse:v1") || sessionStorage.getItem("lastOrderResponse");
     const savedOrder = window.localStorage.getItem("orderData:v1");
 
     let orderData = null;
@@ -57,6 +57,8 @@ export default function SuccessPage() {
         window.localStorage.setItem('cart:v1', '[]');
         window.localStorage.removeItem('checkoutData:v1');
         window.localStorage.removeItem('cart:v1');
+        sessionStorage.removeItem('lastOrderResponse:v1');
+        sessionStorage.removeItem('lastOrderResponse');
 
         // Force update cart count in header
         window.dispatchEvent(new Event('storage'));
