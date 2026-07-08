@@ -22,7 +22,7 @@ async function getMenuItems(): Promise<MenuItem[]> {
     ]);
     const db = client.db("culinary-canvas");
     const items = await db.collection("items").find({}).toArray();
-    return JSON.parse(JSON.stringify(items));
+    return structuredClone(items.map((item: any) => ({ ...item, _id: item._id ? item._id.toString() : undefined })));
   } catch (error) {
     console.error("Error fetching menu on server:", error);
     return [];
