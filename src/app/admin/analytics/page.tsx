@@ -164,7 +164,7 @@ export default function AnalyticsPage() {
                       <span className={`text-[8px] font-black uppercase px-4 py-1.5 rounded-full border ${order.paymentType === 'cod' ? 'bg-orange-50 text-orange-600 border-orange-100' : 'bg-green-50 text-green-600 border-green-100'}`}>{order.paymentType || "Paid"}</span>
                     </td>
                     <td className="px-8 py-6 text-right">
-                      <button aria-label="Button" type="button" onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
+                      <button aria-label="View order details" type="button" onClick={() => toggleOrderDetails(order._id)} className={`p-2.5 rounded-xl transition-all ${expandedOrderId === order._id ? 'bg-black text-[#BCE334]' : 'bg-gray-50 text-gray-400 hover:text-black'}`}>
                         <Eye size={16} />
                       </button>
                     </td>

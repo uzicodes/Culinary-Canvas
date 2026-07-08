@@ -140,6 +140,7 @@ export default function AllItemsClientView({
             {/* INPUT FIELD */}
             <input id={`field-${0}`}
               type="text"
+              aria-label="Search items"
               placeholder="Search"
               value={localSearch}
               onChange={(e) => {
@@ -151,7 +152,7 @@ export default function AllItemsClientView({
 
             {/* CLEAR BUTTON */}
             {localSearch && (
-              <button aria-label="Button"
+              <button aria-label="Clear search"
                 type="button"
                 onClick={clearSearch}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-black transition-colors z-10"
@@ -370,11 +371,11 @@ function ItemCard({
       <div className="p-3 md:p-6 flex flex-col flex-1 justify-between bg-gradient-to-b from-[#029FBE] to-[#028da8]">
         {isEditing ? (
           <div className="space-y-2.5">
-            <input id={`field-${0}`} className="w-full text-[10px] font-black uppercase p-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.name} onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })} />
-            <textarea className="w-full text-[10px] p-3 rounded-2xl bg-white/90 text-black h-20 resize-none border-none leading-relaxed" value={editedItem.description} onChange={(e) => setEditedItem({ ...editedItem, description: e.target.value })} />
+            <input id={`field-${0}`} aria-label="Edit Item Name" className="w-full text-[10px] font-black uppercase p-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.name} onChange={(e) => setEditedItem({ ...editedItem, name: e.target.value })} />
+            <textarea aria-label="Edit Item Description" className="w-full text-[10px] p-3 rounded-2xl bg-white/90 text-black h-20 resize-none border-none leading-relaxed" value={editedItem.description} onChange={(e) => setEditedItem({ ...editedItem, description: e.target.value })} />
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-black text-black">৳</span>
-              <input id={`field-${0}`} type="number" className="w-full text-[10px] font-black pl-7 pr-3 py-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.price} onChange={(e) => setEditedItem({ ...editedItem, price: Number(e.target.value) })} />
+              <input id={`field-${0}`} aria-label="Edit Item Price" type="number" className="w-full text-[10px] font-black pl-7 pr-3 py-3 rounded-2xl bg-white/90 text-black border-none" value={editedItem.price} onChange={(e) => setEditedItem({ ...editedItem, price: Number(e.target.value) })} />
             </div>
           </div>
         ) : (

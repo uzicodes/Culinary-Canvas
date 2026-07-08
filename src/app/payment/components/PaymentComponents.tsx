@@ -37,6 +37,7 @@ export function PromoSection({
             <div className="flex gap-2">
                 <input id={`field-promo`}
                     type="text"
+                    aria-label="Promo Code"
                     value={couponCode}
                     onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
                     placeholder="CODE"

@@ -179,6 +179,7 @@ const Header = () => {
                 <input id={`field-${0}`}
                   type="text"
                   placeholder="Search..."
+                  aria-label="Search items"
                   value={searchQuery}
                   onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
                   className="w-full pl-7 pr-3 py-1 rounded-full border-none bg-black/5 focus:bg-white/40 focus:ring-1 focus:ring-black/20 text-[10px] transition-all placeholder:text-gray-600"
@@ -279,6 +280,7 @@ const Header = () => {
               <input id={`field-${0}`}
                 type="text"
                 placeholder="Search food..."
+                aria-label="Search food"
                 value={searchQuery}
                 onChange={e => { setSearchQuery(e.target.value); setShowResults(true); }}
                 className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-[#BCE334] text-sm font-medium transition-all placeholder:text-gray-400"

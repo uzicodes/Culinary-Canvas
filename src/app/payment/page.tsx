@@ -49,7 +49,7 @@ export default function PaymentPage() {
                             </h2>
                             <div className="flex gap-2">
                                 {[20, 30, 50].map(amount => (
-                                    <button aria-label="Button" key={amount} type="button" onClick={() => dispatch({ type: 'SET_TIP', payload: state.tip === amount ? 0 : amount })} className={`flex-1 py-2.5 rounded-xl text-[10px] font-black transition-all ${state.tip === amount ? 'bg-black text-[#BCE334]' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
+                                    <button aria-label={`Add tip amount ৳${amount}`} key={amount} type="button" onClick={() => dispatch({ type: 'SET_TIP', payload: state.tip === amount ? 0 : amount })} className={`flex-1 py-2.5 rounded-xl text-[10px] font-black transition-all ${state.tip === amount ? 'bg-black text-[#BCE334]' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
                                         ৳{amount}
                                     </button>
                                 ))}
@@ -60,7 +60,7 @@ export default function PaymentPage() {
                             <h2 className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-gray-400">
                                 <Smartphone size={12} className="text-black" /> Mobile Number
                             </h2>
-                            <input id="field-mobile" type="text" value={state.mobileNumber} onChange={(e) => dispatch({ type: 'SET_MOBILE', payload: e.target.value })} required className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 text-xs font-bold outline-none" />
+                            <input id="field-mobile" aria-label="Mobile Number" type="text" value={state.mobileNumber} onChange={(e) => dispatch({ type: 'SET_MOBILE', payload: e.target.value })} required className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] rounded-xl p-3 text-xs font-bold outline-none" />
                         </section>
                     </div>
 

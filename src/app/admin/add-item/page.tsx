@@ -114,6 +114,7 @@ export default function AddItemPage() {
               <Utensils className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
               <input id={`field-${0}`}
                 required
+                aria-label="Dish Name"
                 placeholder="Dish Name"
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all shadow-sm"
                 value={formData.name}
@@ -128,6 +129,7 @@ export default function AddItemPage() {
                 <input id={`field-${0}`}
                   type="number"
                   required
+                  aria-label="Price"
                   placeholder="Price"
                   className="w-full pl-11 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all shadow-sm"
                   value={formData.price}
@@ -139,6 +141,7 @@ export default function AddItemPage() {
               <div className="relative flex-1 group">
                 <Tag className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
                 <select
+                  aria-label="Category"
                   className="w-full pl-11 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] appearance-none cursor-pointer shadow-sm"
                   value={formData.category}
                   onChange={e => setFormData({ ...formData, category: e.target.value })}
@@ -165,6 +168,7 @@ export default function AddItemPage() {
             <div className="relative group">
               <AlignLeft className="absolute left-4 top-5 w-4 h-4 text-gray-400 group-focus-within:text-sky-600" />
               <textarea
+                aria-label="Dish Description"
                 placeholder="Write a delicious description for this item..."
                 className="w-full pl-12 pr-4 py-4 bg-white border border-gray-100 rounded-2xl outline-none font-bold text-sm focus:ring-2 focus:ring-[#BCE334] transition-all min-h-[120px] resize-none shadow-sm"
                 value={formData.description}

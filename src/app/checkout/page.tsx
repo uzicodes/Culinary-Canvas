@@ -78,12 +78,13 @@ export default function CheckoutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* Name Field (Read Only) */}
             <div className="space-y-0.5">
-              <label htmlFor={`field-${1}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+              <label htmlFor="checkout-name" className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
                 <User size={10} /> Name
               </label>
-              <input id={`field-${4}`}
+              <input id="checkout-name"
                 type="text"
                 name="name"
+                aria-label="Your Name"
                 value={formData.name}
                 readOnly
                 className="w-full bg-gray-100 border-2 border-transparent rounded-xl py-2.5 px-3 text-sm font-bold text-gray-400 cursor-not-allowed outline-none"
@@ -92,12 +93,13 @@ export default function CheckoutPage() {
 
             {/* Email Field (Read Only) */}
             <div className="space-y-0.5">
-              <label htmlFor={`field-${2}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+              <label htmlFor="checkout-email" className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
                 <Mail size={10} /> Identity
               </label>
-              <input id={`field-${4}`}
+              <input id="checkout-email"
                 type="email"
                 name="email"
+                aria-label="Your Email"
                 value={formData.email}
                 readOnly
                 className="w-full bg-gray-100 border-2 border-transparent rounded-xl py-2.5 px-3 text-sm font-bold text-gray-400 cursor-not-allowed outline-none"
@@ -107,12 +109,13 @@ export default function CheckoutPage() {
 
           {/* Address Field */}
           <div className="space-y-0.5">
-            <label htmlFor={`field-${3}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+            <label htmlFor="checkout-address" className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
               <MapPin size={10} /> Delivery Address
             </label>
-            <input id={`field-${4}`}
+            <input id="checkout-address"
               type="text"
               name="address"
+              aria-label="Delivery Address"
               placeholder="Road & House no:"
               value={formData.address}
               onChange={handleChange}
@@ -123,12 +126,13 @@ export default function CheckoutPage() {
 
           {/* Phone Field */}
           <div className="space-y-0.5">
-            <label htmlFor={`field-${4}`} className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
+            <label htmlFor="checkout-phone" className="flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-500 ml-1">
               <Phone size={10} /> Phone Number
             </label>
-            <input id={`field-${4}`}
+            <input id="checkout-phone"
               type="text"
               name="phone"
+              aria-label="Phone Number"
               placeholder="+880 0000-000000"
               value={formData.phone}
               onChange={handlePhoneChange}

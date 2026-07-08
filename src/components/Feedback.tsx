@@ -199,6 +199,7 @@ const Feedback = () => {
                                             required
                                             type="text"
                                             name="name"
+                                            aria-label="Your Name"
                                             value={formData.name}
                                             onChange={handleChange}
                                             placeholder="Name"
@@ -222,6 +223,7 @@ const Feedback = () => {
                                             required
                                             type="email"
                                             name="email"
+                                            aria-label="Your Email"
                                             value={formData.email}
                                             onChange={handleChange}
                                             placeholder="Email"
@@ -240,6 +242,7 @@ const Feedback = () => {
                                 <div className="relative">
                                     <select
                                         name="type"
+                                        aria-label="Feedback Type"
                                         value={formData.type}
                                         onChange={handleChange}
                                         className="w-full bg-white/60 border border-slate-200 rounded-none px-4 py-3 pr-10 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#BCE334] transition-all appearance-none cursor-pointer"
@@ -255,6 +258,7 @@ const Feedback = () => {
                                     <textarea
                                         required
                                         name="message"
+                                        aria-label="Your Message"
                                         value={formData.message}
                                         onChange={handleChange}
                                         rows={3}

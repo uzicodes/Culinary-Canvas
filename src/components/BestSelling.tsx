@@ -207,7 +207,7 @@ const BestSelling = () => {
                         <motion.div initial={{ scale: 0.9, opacity: 0, y: 30 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.9, opacity: 0, y: 30 }} className="bg-white w-full max-w-2xl rounded-[3.5rem] p-10 relative z-10 shadow-2xl border-4 border-black grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div className="space-y-6 text-black font-bold">
                                 <h2 className="text-2xl font-black uppercase tracking-tighter">Edit Slot #{editingSlot! + 1}</h2>
-                                <select className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black appearance-none cursor-pointer" onChange={(e) => {
+                                <select aria-label="Select menu item" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black appearance-none cursor-pointer" onChange={(e) => {
                                     const item = allInventory.find(i => i.id === e.target.value || (i as any)._id === e.target.value);
                                     if (item) setTempData({ ...tempData, name: item.name, image: item.image, id: item.id || (item as any)._id });
                                 }} value={tempData.id}>
@@ -215,8 +215,8 @@ const BestSelling = () => {
                                     {allInventory.map(item => <option key={item.id || (item as any)._id} value={item.id || (item as any)._id}>{item.name}</option>)}
                                 </select>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input id={`field-${0}`} type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
-                                    <input id={`field-${0}`} type="number" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
+                                    <input id={`field-${0}`} type="number" aria-label="New Price" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="New Price" value={tempData.price} onChange={(e) => setTempData({ ...tempData, price: e.target.value })} />
+                                    <input id={`field-${0}`} type="number" aria-label="Old Price" className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 outline-none focus:border-black" placeholder="Old Price" value={tempData.originalPrice} onChange={(e) => setTempData({ ...tempData, originalPrice: e.target.value })} />
                                 </div>
                                 {rateLimitError && (
                                     <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm font-semibold text-center">

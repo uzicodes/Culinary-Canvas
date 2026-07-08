@@ -76,15 +76,16 @@ const LoginForm = () => {
       <ToastContainer />
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
-          <label htmlFor={`field-${1}`} className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-2">
+          <label htmlFor="login-email" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 block px-2">
             Access Identity
           </label>
           <div className="relative group">
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#BCE334] transition-colors">
               <Mail size={18} />
             </div>
-            <input id={`field-${2}`}
+            <input id="login-email"
               type="text"
+              aria-label="Access Identity"
               placeholder="email@example.com (leave empty for admin)"
               className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] text-gray-900 px-12 py-4 rounded-2xl outline-none font-bold text-sm transition-all placeholder:text-gray-300"
               value={email}
@@ -95,7 +96,7 @@ const LoginForm = () => {
 
         <div className="space-y-2">
           <div className="flex justify-between items-center px-2">
-            <label htmlFor={`field-${2}`} className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
+            <label htmlFor="login-password" className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">
               Security Key
             </label>
             <Link
@@ -109,9 +110,10 @@ const LoginForm = () => {
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#BCE334] transition-colors">
               <Lock size={18} />
             </div>
-            <input id={`field-${2}`}
+            <input id="login-password"
               type="password"
               required
+              aria-label="Security Key"
               placeholder="••••••••"
               className="w-full bg-black/5 border-2 border-transparent focus:border-[#BCE334] text-gray-900 px-12 py-4 rounded-2xl outline-none font-bold text-sm transition-all placeholder:text-gray-300"
               value={password}

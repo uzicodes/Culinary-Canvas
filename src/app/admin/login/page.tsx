@@ -60,6 +60,7 @@ const AdminLoginPage = () => {
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input id={`field-${1}`}
                   type="password"
+                  aria-label="Security Key"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -71,7 +72,7 @@ const AdminLoginPage = () => {
 
             {error && <p className="text-red-500 text-[10px] font-black text-center uppercase tracking-widest">{error}</p>}
 
-            <button aria-label="Button" type="button" disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
+            <button aria-label="Authenticate" type="submit" disabled={loading} className="w-full bg-black text-[#BCE334] py-4 rounded-2xl font-black uppercase text-xs tracking-widest shadow-lg">
               {loading ? 'Verifying...' : 'Authenticate'}
             </button>
           </form>

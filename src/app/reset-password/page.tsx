@@ -72,11 +72,12 @@ function ResetPasswordForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="space-y-1">
-        <label htmlFor={`field-${1}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">New Security Key</label>
+        <label htmlFor="reset-new-password" className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">New Security Key</label>
         <div className="relative group">
           <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input id={`field-${2}`}
+          <input id="reset-new-password"
             type="password" required placeholder="••••••••"
+            aria-label="New Security Key"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={password} onChange={(e) => setPassword(e.target.value)}
           />
@@ -84,11 +85,12 @@ function ResetPasswordForm() {
       </div>
 
       <div className="space-y-1">
-        <label htmlFor={`field-${2}`} className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Confirm Key</label>
+        <label htmlFor="reset-confirm-password" className="block text-[10px] font-black uppercase tracking-widest text-gray-500 ml-2">Confirm Key</label>
         <div className="relative group">
           <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 group-focus-within:text-[#BCE334]" />
-          <input id={`field-${2}`}
+          <input id="reset-confirm-password"
             type="password" required placeholder="••••••••"
+            aria-label="Confirm Key"
             className="w-full pl-11 pr-4 py-4 bg-white border-2 border-transparent rounded-2xl focus:border-[#BCE334] outline-none text-sm font-bold shadow-sm transition-all"
             value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
           />
