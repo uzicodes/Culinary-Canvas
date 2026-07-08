@@ -11,7 +11,7 @@ export async function getDailyBlogs(): Promise<BlogPost[]> {
     try {
         const res = await fetch(
             `https://api.spoonacular.com/recipes/random?number=3&apiKey=${apiKey}`,
-            { next: { revalidate: 86400 } } // 24-hour cache
+            { next: { revalidate: 86400 }, signal: AbortSignal.timeout(5000) } // 24-hour cache + 5s timeout
         );
 
         if (!res.ok) throw new Error('Failed to fetch');

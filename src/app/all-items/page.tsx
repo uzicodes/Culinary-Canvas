@@ -11,15 +11,17 @@ interface MenuItem {
   image: string;
 }
 
+import clientPromise from '@/lib/mongodb';
+
 async function getAllMenuItems(): Promise<MenuItem[]> {
   try {
-    const baseUrl = process.env.NEXTAUTH_URL || process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const response = await fetch(`${baseUrl}/api/items`, {
-      cache: 'no-store', // Ensure fresh items when admins edit or delete items
-    });
-    if (!response.ok) return [];
-    const data = await response.json();
-    return Array.isArray(data) ? data : [];
+    const client = await Promise.race([
+      clientPromise,
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("MongoDB timeout")), 4000))
+    ]);
+    const db = client.db("culinary-canvas");
+    const items = await db.collection("items").find({}).toArray();
+    return JSON.parse(JSON.stringify(items));
   } catch (error) {
     console.error("Failed to fetch menu items on server:", error);
     return [];
