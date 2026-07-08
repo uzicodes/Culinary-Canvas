@@ -1,12 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CATEGORIES } from './headerCategories'
 
 export function DesktopNav() {
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent | TouchEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsCategoriesOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="hidden md:flex items-center space-x-5 h-full">
@@ -17,7 +32,7 @@ export function DesktopNav() {
         All Items
       </Link>
 
-      <div className="relative flex items-center h-full">
+      <div className="relative flex items-center h-full" ref={dropdownRef}>
         <button
           aria-label="Categories"
           type="button"
