@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { Search, Pencil, Check, X, Trash2 } from 'lucide-react';
 import Header from '@/components/Header';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect, use, useTransition } from 'react';
 import Footer from '@/components/Footer';
 import { m as motion, Variants } from "framer-motion";
 import { useSession } from 'next-auth/react';
@@ -46,7 +46,7 @@ export default function AllItemsClientView({
   initialMenuItems, 
   searchParams 
 }: { 
-  initialMenuItems: MenuItem[], 
+  initialMenuItems: MenuItem[];
   searchParams: Promise<{ [key: string]: string | string[] | undefined }> 
 }) {
   const resolvedParams = use(searchParams);
@@ -61,13 +61,13 @@ export default function AllItemsClientView({
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("Sync Complete");
   const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [localSearch, setLocalSearch] = useState(searchTerm);
 
   useEffect(() => {
     let timer1: NodeJS.Timeout;
     let timer2: NodeJS.Timeout;
-    if (!isLoading && itemIdToScroll) {
+    if (!isPending && itemIdToScroll) {
       timer1 = setTimeout(() => {
         const element = document.getElementById(`item-${itemIdToScroll}`);
         if (element) {
@@ -83,7 +83,7 @@ export default function AllItemsClientView({
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [isLoading, itemIdToScroll]);
+  }, [isPending, itemIdToScroll]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -212,7 +212,7 @@ export default function AllItemsClientView({
       </div>
 
       <main className="max-w-7xl mx-auto px-4 py-10">
-        {isLoading ? (
+        {isPending ? (
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-6">
             {Array.from({ length: 12 }).map((_, i) => (
               <div key={i} className="bg-[#029FBE] rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg overflow-hidden flex flex-col h-[280px] md:h-[350px] border border-white/5 opacity-70">

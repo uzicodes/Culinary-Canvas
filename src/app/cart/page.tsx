@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
@@ -36,7 +36,7 @@ export default function CartPage() {
       return [];
     }
   });
-  const [isLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -104,7 +104,7 @@ export default function CartPage() {
     return () => window.removeEventListener('storage', loadCart);
   }, []);
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="min-h-screen bg-[#F7FBE7] flex items-center justify-center">
         <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1 }} className="w-12 h-12 border-4 border-black border-t-[#BCE334] rounded-full" />
