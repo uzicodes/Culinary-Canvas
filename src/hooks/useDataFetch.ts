@@ -48,6 +48,10 @@ export function useDataFetch<T = any>(url: string | null, options: UseDataFetchO
         let promise = inFlightRequests.get(url);
         if (!promise) {
           promise = fetch(url, { signal: controller.signal }).then(async (res) => {
+            if (res.status === 404) {
+              cache.set(url, null);
+              return null;
+            }
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             const json = await res.json();
             cache.set(url, json);

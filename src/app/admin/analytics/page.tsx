@@ -4,11 +4,21 @@ import React, { useState, useEffect } from "react";
 import { m as motion, AnimatePresence } from "framer-motion";
 import { 
   DollarSign, Users, BarChart3, Calendar as CalendarIcon, 
-  X, ArrowLeft, Eye, Lock, Download, Loader2, 
-  ShoppingBag, MapPin, Mail, Clock
+  X, ArrowLeft, Eye, Lock, Loader2, 
+  ShoppingBag, MapPin, Mail, Clock, Phone, UserCircle, ChevronRight
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
+
+interface MemberData {
+  _id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  profilePicture?: string | null;
+  createdAt?: string;
+}
 
 export default function AnalyticsPage() {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -16,13 +26,18 @@ export default function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
   
+  // Members panel state
+  const [showMembers, setShowMembers] = useState(false);
+  const [members, setMembers] = useState<MemberData[]>([]);
+  const [isLoadingMembers, setIsLoadingMembers] = useState(false);
+
   const [stats, setStats] = useState<any>({
     monthlyRevenue: 0, todayRevenue: 0, totalCustomers: 0, 
     specificDayRevenue: 0, recentOrders: [] 
   });
 
   const today = new Date();
-  const currentDay = today.getDate(); // Today's date
+  const currentDay = today.getDate();
   const currentMonthName = today.toLocaleString('default', { month: 'long' });
   const currentYear = today.getFullYear();
   const daysInMonthCount = new Date(currentYear, today.getMonth() + 1, 0).getDate();
@@ -42,12 +57,42 @@ export default function AnalyticsPage() {
     }
   };
 
+  const fetchMembers = async () => {
+    setIsLoadingMembers(true);
+    try {
+      const res = await fetch('/api/admin/analytics?members=true');
+      const json = await res.json();
+      if (json.members) {
+        setMembers(json.members);
+      }
+    } catch (error) {
+      console.error("Failed to fetch members:", error);
+    } finally {
+      setIsLoadingMembers(false);
+    }
+  };
+
+  const handleToggleMembers = () => {
+    if (!showMembers && members.length === 0) {
+      fetchMembers();
+    }
+    setShowMembers(!showMembers);
+  };
+
   useEffect(() => {
     fetchAnalytics(selectedDate ?? undefined);
   }, [selectedDate]);
 
   const toggleOrderDetails = (id: string) => {
     setExpandedOrderId(expandedOrderId === id ? null : id);
+  };
+
+  const handleClearFilter = () => {
+    setSelectedDate(null);
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
   };
 
   const DISPLAY_STATS = [
@@ -74,7 +119,8 @@ export default function AnalyticsPage() {
       value: (stats?.totalCustomers || 0).toString(), 
       trend: "Verified", 
       icon: Users, 
-      color: "bg-white" 
+      color: "bg-white",
+      isCustomerCard: true
     },
     { 
       id: 'avg-order',
@@ -100,24 +146,144 @@ export default function AnalyticsPage() {
             </div>
           </div>
           {selectedDate && (
-            <button aria-label="Button" type="button" onClick={() => { setSelectedDate(null); fetchAnalytics(); }} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
+            <button aria-label="Clear date filter" type="button" onClick={handleClearFilter} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
           )}
         </div>
 
         {/* Financial Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {DISPLAY_STATS.map((stat) => (
-            <div key={stat.id} onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} tabIndex={stat.isInteractive ? 0 : undefined} role={stat.isInteractive ? "button" : undefined} className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}>
+          {DISPLAY_STATS.map((stat: any) => (
+            <div 
+              key={stat.id} 
+              onClick={() => stat.isInteractive && setShowCalendar(!showCalendar)} 
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} 
+              tabIndex={stat.isInteractive ? 0 : undefined} 
+              role={stat.isInteractive ? "button" : undefined} 
+              className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}
+            >
               <div className="flex justify-between items-start mb-6">
                 <div className={`p-4 rounded-2xl ${stat.isInteractive ? 'bg-[#BCE334] text-black' : 'bg-gray-50 text-slate-900'}`}><stat.icon size={22} /></div>
                 <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${stat.isInteractive ? 'bg-black text-[#BCE334]' : 'bg-green-50 text-green-600'}`}>{stat.trend}</span>
               </div>
               <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{stat.label}</p>
               <h3 className="text-2xl font-black text-slate-900 tracking-tighter mt-1">{stat.value}</h3>
+              
+              {/* View All Members button on the Customers card */}
+              {stat.isCustomerCard && (
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={(e) => { e.stopPropagation(); handleToggleMembers(); }}
+                  className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-[#BCE334] rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-lg hover:shadow-xl transition-all"
+                >
+                  <Users size={12} />
+                  {showMembers ? 'Hide Members' : 'View All Members'}
+                  <ChevronRight size={10} className={`transition-transform ${showMembers ? 'rotate-90' : ''}`} />
+                </motion.button>
+              )}
             </div>
           ))}
         </div>
 
+        {/* Members Panel */}
+        <AnimatePresence>
+          {showMembers && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden mb-8"
+            >
+              <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm p-8 relative">
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="p-3 bg-[#BCE334] rounded-2xl">
+                      <Users size={18} className="text-black" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black uppercase tracking-tighter">All Members</h3>
+                      <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{members.length} registered users</p>
+                    </div>
+                  </div>
+                  <button
+                    aria-label="Close members panel"
+                    type="button"
+                    onClick={() => setShowMembers(false)}
+                    className="p-2.5 bg-gray-50 rounded-xl hover:bg-black hover:text-[#BCE334] transition-all"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+
+                {isLoadingMembers ? (
+                  <div className="flex items-center justify-center py-16">
+                    <Loader2 className="animate-spin text-[#BCE334] w-8 h-8" />
+                  </div>
+                ) : members.length === 0 ? (
+                  <div className="text-center py-16">
+                    <p className="text-xs font-black text-gray-400 uppercase">No members found</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+                    {members.map((member) => (
+                      <motion.div
+                        key={member._id}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-[#fafaf9] p-5 rounded-2xl border border-gray-100 hover:border-[#BCE334]/30 transition-all group"
+                      >
+                        <div className="flex items-start gap-4">
+                          {/* Avatar */}
+                          <div className="w-12 h-12 rounded-xl overflow-hidden bg-black shadow-lg flex-shrink-0">
+                            {member.profilePicture ? (
+                              <Image
+                                src={member.profilePicture}
+                                alt={member.name}
+                                width={48}
+                                height={48}
+                                className="w-full h-full object-cover"
+                                unoptimized
+                              />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-black to-gray-800">
+                                <span className="text-sm font-black text-[#BCE334]">{getInitials(member.name)}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-black text-slate-900 truncate">{member.name}</h4>
+                            <div className="flex items-center gap-1.5 mt-1">
+                              <Mail size={10} className="text-[#BCE334] flex-shrink-0" />
+                              <p className="text-[10px] font-bold text-gray-500 truncate">{member.email}</p>
+                            </div>
+                            {member.phone && (
+                              <div className="flex items-center gap-1.5 mt-1">
+                                <Phone size={10} className="text-[#BCE334] flex-shrink-0" />
+                                <p className="text-[10px] font-bold text-gray-500">{member.phone}</p>
+                              </div>
+                            )}
+                            {member.createdAt && (
+                              <div className="flex items-center gap-1.5 mt-2">
+                                <Clock size={10} className="text-gray-300 flex-shrink-0" />
+                                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider">
+                                  Joined {new Date(member.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Calendar Picker */}
         <AnimatePresence>
           {showCalendar && (
             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex justify-center mb-10">
@@ -137,8 +303,25 @@ export default function AnalyticsPage() {
           )}
         </AnimatePresence>
 
-        {/* Order History Table with Styled Green Header Row */}
+        {/* Order History Table */}
         <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden relative min-h-[400px]">
+          {/* Table header with filter status */}
+          {selectedDate && (
+            <div className="bg-black px-8 py-4 flex items-center justify-between">
+              <p className="text-[10px] font-black text-[#BCE334] uppercase tracking-widest">
+                Showing orders for {currentMonthName} {selectedDate}, {currentYear}
+              </p>
+              <button
+                aria-label="Clear date filter"
+                type="button"
+                onClick={handleClearFilter}
+                className="text-[9px] font-black text-gray-400 uppercase tracking-widest hover:text-[#BCE334] transition-colors flex items-center gap-1.5"
+              >
+                <X size={10} /> Clear Filter
+              </button>
+            </div>
+          )}
+
           {isLoading && <div className="absolute inset-0 bg-white/40 backdrop-blur-sm z-10 flex items-center justify-center"><Loader2 className="animate-spin text-[#BCE334] w-10 h-10" /></div>}
           <table className="w-full text-left">
             <thead>
@@ -151,6 +334,15 @@ export default function AnalyticsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
+              {stats.recentOrders?.length === 0 && !isLoading && (
+                <tr>
+                  <td colSpan={5} className="px-8 py-16 text-center">
+                    <p className="text-xs font-black text-gray-400 uppercase tracking-wider">
+                      {selectedDate ? `No orders found for ${currentMonthName} ${selectedDate}` : 'No orders yet'}
+                    </p>
+                  </td>
+                </tr>
+              )}
               {stats.recentOrders?.map((order: any) => (
                 <React.Fragment key={order._id}>
                   <tr className={`hover:bg-gray-50 transition-colors ${expandedOrderId === order._id ? 'bg-gray-50/50' : ''}`}>
@@ -208,6 +400,11 @@ export default function AnalyticsPage() {
           </table>
         </div>
       </main>
+
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #BCE334; border-radius: 10px; }
+      `}</style>
     </div>
   );
 }

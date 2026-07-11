@@ -66,7 +66,7 @@ export async function GET(req: Request) {
     );
 
     if (!member) {
-      return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
+      return new Response(JSON.stringify({ profilePicture: null, notFound: true }), { status: 200 });
     }
 
     return new Response(JSON.stringify(member), { status: 200 });

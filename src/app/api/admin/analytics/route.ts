@@ -5,19 +5,22 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const dayParam = searchParams.get("day");
+    const fetchMembers = searchParams.get("members");
     
     const client = await clientPromise;
     const db = client.db("culinary-canvas");
 
-    // Fetch User Count from 'members' collection
-    const totalMembersCount = await db.collection("members").countDocuments();
+    // ── Fetch all members (admin only, on demand) ───────────────
+    if (fetchMembers === "true") {
+      const members = await db.collection("members")
+        .find({}, { projection: { password: 0, resetToken: 0, resetTokenExpiry: 0 } })
+        .sort({ createdAt: -1 })
+        .toArray();
+      return NextResponse.json({ members });
+    }
 
-    // Fetch recent orders 
-    const recentOrders = await db.collection("orders")
-      .find({})
-      .sort({ orderTime: -1 })
-      .limit(10)
-      .toArray();
+    // ── User Count ──────────────────────────────────────────────
+    const totalMembersCount = await db.collection("members").countDocuments();
 
     const now = new Date();
     const year = now.getFullYear();
@@ -36,14 +39,33 @@ export async function GET(request: Request) {
       return stats[0] || { total: 0 };
     };
 
-    // Monthly & Daily Revenue calculations
+    // ── Monthly & Daily Revenue ─────────────────────────────────
     const monthlyStats = await getRevenueForRange(new Date(year, month, 1), new Date(year, month + 1, 1));
     const todayStats = await getRevenueForRange(new Date(year, month, now.getDate()), new Date(year, month, now.getDate() + 1));
 
     let specificDayRevenue = 0;
+
+    // ── Orders query: filtered by day OR all recent ─────────────
+    let recentOrders;
     if (dayParam) {
       const day = parseInt(dayParam);
-      specificDayRevenue = (await getRevenueForRange(new Date(year, month, day), new Date(year, month, day + 1))).total;
+      const dayStart = new Date(year, month, day);
+      const dayEnd = new Date(year, month, day + 1);
+
+      specificDayRevenue = (await getRevenueForRange(dayStart, dayEnd)).total;
+
+      // Return only orders from the selected day
+      recentOrders = await db.collection("orders")
+        .find({ orderTime: { $gte: dayStart, $lt: dayEnd } })
+        .sort({ orderTime: -1 })
+        .toArray();
+    } else {
+      // No date filter — show 10 most recent orders
+      recentOrders = await db.collection("orders")
+        .find({})
+        .sort({ orderTime: -1 })
+        .limit(10)
+        .toArray();
     }
 
     return NextResponse.json({
