@@ -267,16 +267,6 @@ export default function AdminDashboard() {
                   {selectedFeedback.message}
                 </p>
               </div>
-
-              <div className="mt-4 flex justify-end">
-                <a
-                  href={`mailto:${selectedFeedback.email}?subject=Re: Your Feedback - Culinary Canvas`}
-                  className="bg-[#029FBE] text-white px-6 py-2 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-[#028DAA] transition-colors flex items-center gap-2"
-                >
-                  <Mail size={12} />
-                  Reply via Email
-                </a>
-              </div>
             </motion.div>
           </motion.div>
         )}

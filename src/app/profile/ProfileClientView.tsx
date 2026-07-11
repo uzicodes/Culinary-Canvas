@@ -217,32 +217,35 @@ export default function ProfileClientView({
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
               {isAdmin ? (
-                <Link href="/admin/dashboard" className="flex-1">
+                <Link href="/admin/dashboard" className="w-full">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
-                    className="w-full bg-[#BCE334] text-black px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
+                    className="w-full h-full min-h-[54px] bg-[#BCE334] text-black px-4 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2 whitespace-nowrap"
                   >
-                    <LayoutDashboard size={14} /> Admin Dashboard
+                    <LayoutDashboard size={15} /> Admin Dashboard
                   </motion.button>
                 </Link>
               ) : (
                 <motion.button
                   onClick={toggleOrders}
                   whileHover={{ scale: 1.02 }}
-                  className="flex-1 bg-[#BCE334] text-black px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2"
+                  className="w-full h-full min-h-[54px] bg-[#BCE334] text-black px-4 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest shadow-lg shadow-[#BCE334]/20 flex items-center justify-center gap-2 whitespace-nowrap"
                 >
-                  <ShoppingBag size={14} /> {showOrders ? "Hide Orders" : "My Orders"}
+                  <ShoppingBag size={15} /> {showOrders ? "Hide Orders" : "My Orders"}
                 </motion.button>
               )}
 
-              <button aria-label="Button" type="button"
+              <motion.button
+                aria-label="Logout"
+                type="button"
+                whileHover={{ scale: 1.02 }}
                 onClick={() => signOut({ callbackUrl: '/' })}
-                className="flex-1 bg-black text-[#BCE334] px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-[0.2em] shadow-lg flex items-center justify-center gap-2"
+                className="w-full h-full min-h-[54px] bg-black text-[#BCE334] hover:text-red-500 transition-colors duration-300 px-4 py-4 rounded-2xl font-bold uppercase text-xs tracking-widest shadow-lg flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 Logout
-              </button>
+              </motion.button>
             </div>
 
             {!isAdmin && (
