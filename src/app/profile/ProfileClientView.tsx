@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { m as motion, AnimatePresence } from "framer-motion";
 import { UserCircle, Lock, ArrowRight, ShieldCheck, ShoppingBag, Clock, CreditCard, ChevronRight, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
@@ -25,6 +25,7 @@ export default function ProfileClientView({
 }: ProfileClientViewProps) {
   const [showOrders, setShowOrders] = useState(false);
   const [orders, setOrders] = useState<any[]>([]);
+  const [hasFetchedOrders, setHasFetchedOrders] = useState(false);
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [profilePicture, setProfilePicture] = useState<string | null>(initialPicture);
@@ -33,24 +34,56 @@ export default function ProfileClientView({
 
   const isAdmin = (session?.user as any)?.role === 'admin';
 
+  useEffect(() => {
+    if (initialOrderCount !== null) {
+      setTotalOrderCount(initialOrderCount);
+    }
+  }, [initialOrderCount]);
+
+  useEffect(() => {
+    if (session?.user?.email && !isAdmin && !hasFetchedOrders) {
+      setHasFetchedOrders(true);
+      fetch('/api/orders/my-orders')
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data)) {
+            const sortedData = data.sort((a: any, b: any) => {
+              const dateA = new Date(a.orderTime || 0).getTime();
+              const dateB = new Date(b.orderTime || 0).getTime();
+              return dateB - dateA;
+            });
+            setOrders(sortedData);
+            setTotalOrderCount(sortedData.length);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch orders on mount:", err);
+          setHasFetchedOrders(false);
+        });
+    }
+  }, [session?.user?.email, isAdmin, hasFetchedOrders]);
+
   const handleProfilePictureUpdate = (newImageUrl: string, updatedAt: string) => {
     setProfilePicture(newImageUrl);
     setPictureUpdatedAt(updatedAt);
   };
 
   const toggleOrders = async () => {
-    if (!showOrders && orders.length === 0) {
+    if (!showOrders && !hasFetchedOrders) {
       setIsLoadingOrders(true);
       try {
         const res = await fetch('/api/orders/my-orders');
         const data = await res.json();
-        const sortedData = data.sort((a: any, b: any) => {
-          const dateA = new Date(a.orderTime || 0).getTime();
-          const dateB = new Date(b.orderTime || 0).getTime();
-          return dateB - dateA;
-        });
-        setOrders(sortedData);
-        setTotalOrderCount(sortedData.length);
+        if (Array.isArray(data)) {
+          const sortedData = data.sort((a: any, b: any) => {
+            const dateA = new Date(a.orderTime || 0).getTime();
+            const dateB = new Date(b.orderTime || 0).getTime();
+            return dateB - dateA;
+          });
+          setOrders(sortedData);
+          setTotalOrderCount(sortedData.length);
+        }
+        setHasFetchedOrders(true);
       } catch (err) {
         console.error("Failed to load orders", err);
       } finally {

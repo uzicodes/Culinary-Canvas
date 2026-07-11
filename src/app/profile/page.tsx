@@ -16,7 +16,7 @@ async function getProfileData(email: string, isAdmin: boolean) {
     const db = client.db("culinary-canvas");
     const [member, ordersCount] = await Promise.all([
       db.collection("members").findOne({ email }),
-      !isAdmin ? db.collection("orders").countDocuments({ userEmail: email }) : Promise.resolve(0)
+      !isAdmin ? db.collection("orders").countDocuments({ $or: [{ email: email }, { userEmail: email }] }) : Promise.resolve(0)
     ]);
     return {
       profilePicture: member?.profilePicture || null,
