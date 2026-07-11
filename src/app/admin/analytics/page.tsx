@@ -117,10 +117,8 @@ export default function AnalyticsPage() {
       id: 'total-customers',
       label: "Total Customers", 
       value: (stats?.totalCustomers || 0).toString(), 
-      trend: "Verified", 
       icon: Users, 
-      color: "bg-white",
-      isCustomerCard: true
+      color: "bg-white"
     },
     { 
       id: 'avg-order',
@@ -145,13 +143,10 @@ export default function AnalyticsPage() {
               {isLoading && <Loader2 className="animate-spin text-[#BCE334] w-5 h-5" />}
             </div>
           </div>
-          {selectedDate && (
-            <button aria-label="Clear date filter" type="button" onClick={handleClearFilter} className="px-6 py-3 bg-black text-[#BCE334] rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 hover:scale-105 transition-all"><X size={14} /> Clear</button>
-          )}
         </div>
 
-        {/* Financial Stat Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {/* Compact Financial Stat Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
           {DISPLAY_STATS.map((stat: any) => (
             <div 
               key={stat.id} 
@@ -159,28 +154,41 @@ export default function AnalyticsPage() {
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stat.isInteractive && setShowCalendar(!showCalendar); } }} 
               tabIndex={stat.isInteractive ? 0 : undefined} 
               role={stat.isInteractive ? "button" : undefined} 
-              className={`${stat.color} p-6 rounded-[2.5rem] border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}
+              className={`${stat.color} px-5 py-4 rounded-2xl border ${stat.isInteractive ? 'border-[#BCE334] cursor-pointer' : 'border-gray-100'} shadow-sm relative transition-all group`}
             >
-              <div className="flex justify-between items-start mb-6">
-                <div className={`p-4 rounded-2xl ${stat.isInteractive ? 'bg-[#BCE334] text-black' : 'bg-gray-50 text-slate-900'}`}><stat.icon size={22} /></div>
-                <span className={`text-[10px] font-black px-2 py-1 rounded-lg ${stat.isInteractive ? 'bg-black text-[#BCE334]' : 'bg-green-50 text-green-600'}`}>{stat.trend}</span>
+              <div className="flex justify-between items-center mb-3">
+                <div className={`p-2.5 rounded-xl ${stat.isInteractive ? 'bg-[#BCE334] text-black' : 'bg-gray-50 text-slate-900'}`}><stat.icon size={16} /></div>
+                
+                {/* Total Customers card: compact members toggle in place of badge */}
+                {stat.id === 'total-customers' ? (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); handleToggleMembers(); }}
+                    className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black text-[#BCE334] text-[9px] font-black uppercase tracking-wider hover:bg-gray-800 transition-colors"
+                  >
+                    <Users size={10} />
+                    {showMembers ? 'Hide' : 'View All'}
+                    <ChevronRight size={8} className={`transition-transform ${showMembers ? 'rotate-90' : ''}`} />
+                  </button>
+                ) : stat.trend ? (
+                  <div className="flex flex-col items-end gap-1">
+                    <span className={`text-[9px] font-black px-2 py-0.5 rounded-md ${stat.isInteractive ? 'bg-black text-[#BCE334]' : 'bg-green-50 text-green-600'}`}>{stat.trend}</span>
+                    {/* Small red clear filter button under Filtered badge */}
+                    {stat.id === 'daily-revenue' && selectedDate && (
+                      <button
+                        type="button"
+                        aria-label="Clear filter"
+                        onClick={(e) => { e.stopPropagation(); handleClearFilter(); }}
+                        className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-red-500 text-white text-[8px] font-black uppercase tracking-wider hover:bg-red-600 transition-colors"
+                      >
+                        <X size={8} /> Clear
+                      </button>
+                    )}
+                  </div>
+                ) : null}
               </div>
-              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{stat.label}</p>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tighter mt-1">{stat.value}</h3>
-              
-              {/* View All Members button on the Customers card */}
-              {stat.isCustomerCard && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => { e.stopPropagation(); handleToggleMembers(); }}
-                  className="mt-4 w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-black text-[#BCE334] rounded-2xl text-[9px] font-black uppercase tracking-widest shadow-lg hover:shadow-xl transition-all"
-                >
-                  <Users size={12} />
-                  {showMembers ? 'Hide Members' : 'View All Members'}
-                  <ChevronRight size={10} className={`transition-transform ${showMembers ? 'rotate-90' : ''}`} />
-                </motion.button>
-              )}
+              <p className="text-[9px] font-black text-gray-400 uppercase tracking-widest">{stat.label}</p>
+              <h3 className="text-xl font-black text-slate-900 tracking-tighter mt-0.5">{stat.value}</h3>
             </div>
           ))}
         </div>
