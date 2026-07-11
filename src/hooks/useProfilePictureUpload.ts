@@ -11,12 +11,12 @@ interface UploadState {
 }
 
 type UploadAction =
-  | { type: 'SET_UPLOADING', payload: boolean }
-  | { type: 'SET_PREVIEW_URL', payload: string | null }
-  | { type: 'SET_SELECTED_FILE', payload: File | null }
-  | { type: 'SET_ERROR', payload: string | null }
-  | { type: 'SET_RATE_LIMIT_ERROR', payload: string | null }
-  | { type: 'SET_PROGRESS', payload: UploadState['uploadProgress'] }
+  | { type: 'SET_UPLOADING'; payload: boolean }
+  | { type: 'SET_PREVIEW_URL'; payload: string | null }
+  | { type: 'SET_SELECTED_FILE'; payload: File | null }
+  | { type: 'SET_ERROR'; payload: string | null }
+  | { type: 'SET_RATE_LIMIT_ERROR'; payload: string | null }
+  | { type: 'SET_PROGRESS'; payload: UploadState['uploadProgress'] }
   | { type: 'RESET' };
 
 function uploadReducer(state: UploadState, action: UploadAction): UploadState {
@@ -47,10 +47,15 @@ const COMPRESSION_OPTIONS = {
   fileType: 'image/jpeg' as const,
 };
 
-const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-
-export function useProfilePictureUpload(userEmail: string, onUploadSuccess: (url: string) => void) {
+/**
+ * Hook for uploading profile pictures via the server-side API route.
+ * Uses signed Cloudinary uploads with Fixed Public ID Overwriting Strategy —
+ * each user always overwrites the same Cloudinary asset, preventing orphaned images.
+ */
+export function useProfilePictureUpload(
+  userEmail: string,
+  onUploadSuccess: (imageUrl: string, updatedAt: string) => void
+) {
   const [state, dispatch] = useReducer(uploadReducer, {
     isUploading: false,
     previewUrl: null,
@@ -105,57 +110,44 @@ export function useProfilePictureUpload(userEmail: string, onUploadSuccess: (url
   const handleUpload = async () => {
     if (!state.selectedFile || !userEmail) return;
 
-    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
-      dispatch({ type: 'SET_ERROR', payload: 'Cloudinary configuration missing.' });
-      return;
-    }
-
     dispatch({ type: 'SET_UPLOADING', payload: true });
     dispatch({ type: 'SET_ERROR', payload: null });
     dispatch({ type: 'SET_RATE_LIMIT_ERROR', payload: null });
 
     try {
+      // ── Upload via server-side API (signed upload + DB update in one call) ──
       dispatch({ type: 'SET_PROGRESS', payload: 'uploading' });
 
       const formData = new FormData();
       formData.append('file', state.selectedFile);
-      formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      formData.append('folder', 'culinary-canvas/user_dp');
-      formData.append('public_id', "user_" + userEmail.replace(/[^a-zA-Z0-9]/g, '_') + "_" + Date.now());
 
-      const cloudinaryResponse = await fetch(
-        "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CLOUD_NAME + "/image/upload",
-        { method: 'POST', body: formData }
-      );
-
-      const cloudinaryResult = await cloudinaryResponse.json();
-
-      if (!cloudinaryResponse.ok) {
-        throw new Error(cloudinaryResult.error?.message || 'Upload to Cloudinary failed');
-      }
-
-      const imageUrl = cloudinaryResult.secure_url;
-
-      dispatch({ type: 'SET_PROGRESS', payload: 'saving' });
-      const updateResponse = await fetch('/api/members', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: userEmail, profilePicture: imageUrl }),
+      const response = await fetch('/api/upload/profile-picture', {
+        method: 'POST',
+        body: formData,
       });
 
-      if (updateResponse.status === 429) {
+      if (response.status === 401) {
+        dispatch({ type: 'SET_ERROR', payload: 'Session expired. Please log in again.' });
+        dispatch({ type: 'SET_UPLOADING', payload: false });
+        dispatch({ type: 'SET_PROGRESS', payload: 'idle' });
+        return;
+      }
+
+      if (response.status === 429) {
         dispatch({ type: 'SET_RATE_LIMIT_ERROR', payload: 'You are performing this action too fast.' });
         dispatch({ type: 'SET_UPLOADING', payload: false });
         dispatch({ type: 'SET_PROGRESS', payload: 'idle' });
         return;
       }
 
-      const updateResult = await updateResponse.json();
-      if (!updateResponse.ok) {
-        throw new Error(updateResult.error || 'Failed to update profile');
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed');
       }
 
-      onUploadSuccess(imageUrl);
+      // The API route handles both Cloudinary upload and DB update atomically
+      onUploadSuccess(result.url, result.profilePictureUpdatedAt);
       dispatch({ type: 'RESET' });
     } catch (err: any) {
       dispatch({ type: 'SET_ERROR', payload: err.message || 'Upload failed. Please try again.' });

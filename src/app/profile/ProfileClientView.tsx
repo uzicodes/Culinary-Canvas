@@ -13,12 +13,14 @@ import ProfilePictureUpload from '@/components/ProfilePictureUpload';
 interface ProfileClientViewProps {
   session: any | null;
   initialPicture: string | null;
+  initialPictureUpdatedAt: string | null;
   initialOrderCount: number | null;
 }
 
 export default function ProfileClientView({ 
   session, 
   initialPicture, 
+  initialPictureUpdatedAt,
   initialOrderCount 
 }: ProfileClientViewProps) {
   const [showOrders, setShowOrders] = useState(false);
@@ -26,12 +28,14 @@ export default function ProfileClientView({
   const [isLoadingOrders, setIsLoadingOrders] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<any>(null);
   const [profilePicture, setProfilePicture] = useState<string | null>(initialPicture);
+  const [pictureUpdatedAt, setPictureUpdatedAt] = useState<string | null>(initialPictureUpdatedAt);
   const [totalOrderCount, setTotalOrderCount] = useState<number | null>(initialOrderCount);
 
   const isAdmin = (session?.user as any)?.role === 'admin';
 
-  const handleProfilePictureUpdate = (newImageUrl: string) => {
+  const handleProfilePictureUpdate = (newImageUrl: string, updatedAt: string) => {
     setProfilePicture(newImageUrl);
+    setPictureUpdatedAt(updatedAt);
   };
 
   const toggleOrders = async () => {
@@ -143,6 +147,7 @@ export default function ProfileClientView({
                   currentImage={profilePicture}
                   userEmail={session?.user?.email || ''}
                   userName={session?.user?.name || 'User'}
+                  pictureUpdatedAt={pictureUpdatedAt}
                   onUploadSuccess={handleProfilePictureUpdate}
                 />
               )}

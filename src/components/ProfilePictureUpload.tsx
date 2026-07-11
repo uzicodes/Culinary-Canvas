@@ -9,17 +9,33 @@ interface ProfilePictureUploadProps {
   currentImage?: string | null;
   userEmail: string;
   userName: string;
-  onUploadSuccess: (imageUrl: string) => void;
+  /** Timestamp (ISO string or epoch ms) used as a cache-buster query param */
+  pictureUpdatedAt?: string | null;
+  onUploadSuccess: (imageUrl: string, updatedAt: string) => void;
 }
 
 const getInitials = (name: string) => {
   return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
 };
 
-export default function ProfilePictureUpload({ currentImage, userEmail, userName, onUploadSuccess }: ProfilePictureUploadProps) {
+/**
+ * Appends a `?v=<timestamp>` cache-buster to a Cloudinary URL so browsers
+ * fetch the newly overwritten image instead of showing the stale cached version.
+ */
+function getCacheBustedUrl(url: string, updatedAt?: string | null): string {
+  if (!url || !updatedAt) return url;
+  const timestamp = new Date(updatedAt).getTime();
+  // Avoid appending if invalid date
+  if (isNaN(timestamp)) return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}v=${timestamp}`;
+}
+
+export default function ProfilePictureUpload({ currentImage, userEmail, userName, pictureUpdatedAt, onUploadSuccess }: ProfilePictureUploadProps) {
   const { state, fileInputRef, handleFileSelect, handleUpload, handleCancel } = useProfilePictureUpload(userEmail, onUploadSuccess);
   
-  const displayImage = state.previewUrl || currentImage;
+  // Use preview (local blob) during selection, otherwise show the current image with cache-buster
+  const displayImage = state.previewUrl || getCacheBustedUrl(currentImage || '', pictureUpdatedAt);
 
   return (
     <div className="flex flex-col items-center">
