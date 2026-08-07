@@ -4,6 +4,7 @@ import './globals.css';
 import NextAuthSessionProvider from './SessionProvider';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
 import MotionProvider from '@/components/MotionProvider';
+import SmoothScrolling from '@/components/SmoothScrolling';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -39,7 +40,9 @@ export default function RootLayout({
         <ScrollProgressBar />
         <NextAuthSessionProvider>
           <MotionProvider>
-            {children}
+            <SmoothScrolling>
+              {children}
+            </SmoothScrolling>
           </MotionProvider>
         </NextAuthSessionProvider>
       </body>
