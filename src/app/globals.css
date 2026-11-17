@@ -5,6 +5,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.item-card-highlighted {
+  animation: item-card-highlight 2.5s ease-in-out;
+}
+
+@keyframes item-card-highlight {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
 /* Register Button Styles */
 
 .register-button {

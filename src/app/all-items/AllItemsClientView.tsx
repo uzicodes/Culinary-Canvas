@@ -63,25 +63,24 @@ export default function AllItemsClientView({
   const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
   const [isPending, startTransition] = useTransition();
   const [localSearch, setLocalSearch] = useState(searchTerm);
+  const [highlightedItemId, setHighlightedItemId] = useState<string | null>(null);
 
   useEffect(() => {
-    let timer1: NodeJS.Timeout;
-    let timer2: NodeJS.Timeout;
+    let scrollTimer: NodeJS.Timeout;
+    let highlightTimer: NodeJS.Timeout;
     if (!isPending && itemIdToScroll) {
-      timer1 = setTimeout(() => {
+      scrollTimer = setTimeout(() => {
         const element = document.getElementById(`item-${itemIdToScroll}`);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          element.classList.add('ring-4', 'ring-[#BCE334]');
-          timer2 = setTimeout(() => {
-            element.classList.remove('ring-4', 'ring-[#BCE334]');
-          }, 2000);
+          setHighlightedItemId(itemIdToScroll);
+          highlightTimer = setTimeout(() => setHighlightedItemId(null), 3000);
         }
       }, 500);
     }
     return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
+      clearTimeout(scrollTimer);
+      clearTimeout(highlightTimer);
     };
   }, [isPending, itemIdToScroll]);
 
@@ -246,6 +245,7 @@ export default function AllItemsClientView({
                 <ItemCard
                   key={item._id || item.id}
                   item={item}
+                  isHighlighted={highlightedItemId === String(item._id || item.id)}
                   isAdmin={isAdmin}
                   setShowToast={setShowToast}
                   setToastMessage={setToastMessage}
@@ -275,12 +275,14 @@ export default function AllItemsClientView({
 
 function ItemCard({
   item,
+  isHighlighted,
   isAdmin,
   setShowToast,
   setToastMessage,
   setMenuItems
 }: {
   item: MenuItem,
+  isHighlighted: boolean,
   isAdmin: boolean,
   setShowToast: (v: boolean) => void,
   setToastMessage: (v: string) => void,
@@ -355,8 +357,16 @@ function ItemCard({
     <motion.div
       id={`item-${item._id || item.id}`}
       variants={itemVariants}
-      className="bg-[#029FBE] rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5"
+      className={`bg-[#029FBE] rounded-[1.5rem] md:rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all overflow-hidden flex flex-col h-full relative group border border-white/5 ${isHighlighted
+        ? 'item-card-highlighted z-20 ring-4 ring-red-500 ring-offset-4 ring-offset-green-100 scale-[1.08] shadow-[0_0_35px_10px_rgba(241,246,4,0.55)]'
+        : ''
+        }`}
     >
+      {isHighlighted && (
+        <div className="absolute top-2 left-2 md:top-4 md:left-4 z-10 rounded-full bg-[#F1F604] px-2.5 py-1 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-black shadow-lg">
+          Selected item
+        </div>
+      )}
       {isAdmin && !isEditing && (
         <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10 flex gap-1 md:gap-2 opacity-0 group-hover:opacity-100 transition-all">
           <button aria-label="Button" type="button" onClick={() => { setEditedItem(item); setIsEditing(true); }} className="p-1.5 md:p-2.5 bg-white/95 rounded-lg md:rounded-xl shadow-xl hover:scale-110"><Pencil size={10} className="md:w-3 md:h-3 text-black" /></button>
